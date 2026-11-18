@@ -192,7 +192,7 @@ test('MySQL: migration 0061, publish and invitations, the review API, results, f
     const v2Draft = await ingest(roundPackageFiles({ css: 'body { color: red; }' }));
     await assert.rejects(publishRoundForUser(deps, { input: { packageId: v2Draft.id, reviewers: [{ actorId: ids.reviewer, actorType: 'user' }] }, projectId, user: member }), (error) => error.statusCode === 409 && error.details.code === 'round_open');
 
-    // U1 reads: link lifetime counts the open round; My open items lists it for the reviewer.
+    // Reads: link lifetime counts the open round; My open items lists it for the reviewer.
     const involvement = await requirementsRepository.listStakeholderInvolvement({ projectId, stakeholderId: stakeholder.id, tenantId });
     assert.deepEqual(involvement.rounds.map((entry) => [entry.roundId, entry.status]), [[round.id, 'open']]);
     const mine = await getMyItemsForUser(deps, { projectId, user: reviewer });
@@ -202,7 +202,7 @@ test('MySQL: migration 0061, publish and invitations, the review API, results, f
     const portal = await loadReviewContext(deps, await portalReviewActor(deps, { token }), round.id);
     const team = await loadReviewContext(deps, await teamReviewActor(deps, { projectId, user: reviewer }), round.id);
 
-    // The review origin's access recheck reads the same rows (AC-06).
+    // The review origin's access recheck reads the same rows.
     const mayView = createGrantAccessCheck(deps, { cacheMs: 0 });
     const roundPackage = await packagesRepository.getPackageById(round.package.id);
     const stakeholderGrant = { linkId: portal.actor.linkId, tokenId: portal.actor.tokenId, viewerRef: `stakeholder:${stakeholder.id}` };

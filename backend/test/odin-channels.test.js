@@ -26,10 +26,9 @@ import { createInMemorySessionsRepository } from '../src/modules/sessions/sessio
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 import { agentAppDeps, listen, scriptedOpenAi } from './helpers/agent-test-utils.js';
 
-// Odin in channels (docs/engagements/plan.md, Odin in channels; AC-23, AC-24, AC-25): a post that
-// tags @odin gets one answer in its thread. A scripted model drives the real assistant turn, whose
-// tools call the app's REST routes over loopback as the member who asked; guests' turns are
-// started through the service with a stakeholder principal, since guest sign-in is workstream 6.
+// Odin in channels: a post that tags @odin gets one answer in its thread. A scripted model drives
+// the real assistant turn, whose tools call the app's REST routes over loopback as the member who
+// asked; guests' turns are started through the service with a stakeholder principal.
 
 const TENANT_ID = 'tenant-acme';
 const PROJECT = 'project-odin';
@@ -131,7 +130,7 @@ async function fixture(t, { steps = [], decide = null, decisionsAvailable = true
       await new Promise((resolve) => setTimeout(resolve, 15));
     }
   }
-  // A guest in a channel (workstream 6 invites them; here the record is written directly).
+  // A guest in a channel (the record is written directly).
   function addGuest(channelId, guest = GUEST) {
     projectRepository.state.channelGuests.push({ channelId, email: guest.email, invitedAt: new Date().toISOString(), invitedBy: USERS.lead.id, name: guest.name, removedAt: null, stakeholderId: guest.stakeholderId, tenantId: TENANT_ID });
   }
@@ -390,7 +389,7 @@ test('the guest\'s API answers only the guest\'s reads, whatever tool asks', asy
   assert.deepEqual(listed.result.channels.map((entry) => entry.name), ['General']);
 });
 
-test('@odin does the work as the person who tagged it, in a delivery project and an engagement alike (E-17)', async (t) => {
+test('@odin does the work as the person who tagged it, in a delivery project and an engagement alike', async (t) => {
   const workspaceModulesRepository = createInMemoryWorkspaceModulesRepository();
   const harness = await fixture(t, { decide: (name) => ({ change: 0.95 })[name] ?? null, deps: { workspaceModulesRepository }, steps: [
     // The project's lead moves a card.

@@ -1,4 +1,4 @@
-// External ticket intake (D-011, D-021): helpers shared by the reporter's public page
+// External ticket intake: helpers shared by the reporter's public page
 // (/report/:token) and the project's Intake links tab.
 
 export const DEFAULT_ATTACHMENT_LIMITS = Object.freeze({

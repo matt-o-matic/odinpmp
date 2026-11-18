@@ -4,7 +4,7 @@ import { commentPlainText, mentionsToPlainText } from '../mentions/mention-token
 import { emptySummaryOutput, resolveProposedAnswerStatus } from './summary-output.js';
 
 // Topic scope for the Odin summary: how a topic's thread becomes sources, and how stored
-// summaries are presented to the team and to the stakeholder portal.
+// summaries are presented to the team and to the client portal.
 //
 // Source numbering (the same rule as numberComments in
 // frontend/src/lib/requirements/requirements-sources.js): every comment in the topic's
@@ -183,7 +183,7 @@ export function buildTopicSummaryInput({ admins = [], clarification, decisions =
   };
 }
 
-/** Which stakeholder links can see a topic: every link when unassigned (Q-13a), else assigned stakeholders. */
+/** Which stakeholder links can see a topic: every link when unassigned, else assigned stakeholders. */
 export function topicPortalAudience(clarification) {
   if (!clarification || clarification.status === 'dismissed') return { stakeholderIds: [] };
   const assignments = clarification.assignments ?? [];

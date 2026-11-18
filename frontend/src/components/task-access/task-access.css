@@ -1,5 +1,5 @@
 /* Task access pages (/access/:token): the hub, the board and list, and the task dialogs.
-   Built on the requirements portal's shell (rq-portal, rq-panel, rq-chip, rq-seg, rq-dialog)
+   Built on the client portal's shell (rq-portal, rq-panel, rq-chip, rq-seg, rq-dialog)
    and Odin's tokens, so light and dark follow the app. Status chips always carry an icon and
    the status text, and "overdue" is spelled out, so color is never the only signal. */
 

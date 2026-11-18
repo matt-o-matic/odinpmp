@@ -2,7 +2,7 @@ import { HttpError } from '../errors/http-error.js';
 import { recordAuditPolicyDecision } from '../audit/audit-context.js';
 import { getTenantMembership } from './project-capabilities.js';
 
-// Decision rights (Q-04): recording decisions, accepting preferences, closing rounds,
+// Decision rights: recording decisions, accepting preferences, closing rounds,
 // approving plans, and managing stakeholder links belong to project admins and managers
 // plus tenant admins and managers. Every other caller sees the same 404 as a missing
 // project, so the routes do not reveal what exists.

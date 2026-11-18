@@ -1,8 +1,8 @@
-// The channel screens' API for a direct message (docs/odin-chat/plan.md, Odin Chat): the
-// conversation, its posts and the file viewer (components/channels, FilePreviewDialog) call the
-// app's API client by method name, as the guest view's API does (lib/guests/guest-api.js). This
-// offers the same names with the same arguments, mapped to /api/chat/conversations: the project
-// and channel ids those methods take are both the conversation's.
+// The channel screens' API for a direct message: the conversation, its posts and the file
+// viewer (components/channels, FilePreviewDialog) call the app's API client by method name, as
+// the guest view's API does (lib/guests/guest-api.js). This offers the same names with the same
+// arguments, mapped to /api/chat/conversations: the project and channel ids those methods take
+// are both the conversation's.
 import { ApiError } from '../api/client.js';
 
 function unsupported() {

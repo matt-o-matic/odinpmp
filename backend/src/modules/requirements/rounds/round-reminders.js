@@ -2,7 +2,7 @@ import { buildOperationLogContext, logBackendError } from '../../../lib/logging/
 import { isProjectSoftDeleted } from '../../projects/project-deletion.service.js';
 import { sendRoundEmail } from './round-invitations.js';
 
-// Review reminders (journey 4). A round published with `reminder: { daysBefore }` emails
+// Review reminders. A round published with `reminder: { daysBefore }` emails
 // every reviewer who has not submitted once the reminder window opens and before the round
 // is due. Each reviewer is reminded at most once per round.
 //

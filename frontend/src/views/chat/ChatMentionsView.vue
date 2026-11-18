@@ -7,8 +7,8 @@ import { channelErrorMessage, postTimeLabel } from '../../lib/channels/channels.
 import { placeLabel, placeRoute } from '../../lib/chat/chat.js';
 import { useChatShell } from '../../lib/chat/chat-shell.js';
 
-// Mentions (docs/odin-chat/plan.md, Odin Chat; AC-N08): every post and reply that tags the
-// person, newest first, in the channels and conversations they are in. Each opens its thread.
+// Mentions: every post and reply that tags the person, newest first, in the channels and
+// conversations they are in. Each opens its thread.
 const shell = useChatShell();
 const token = computed(() => authSession.state.token);
 const mentions = ref([]);

@@ -1,4 +1,4 @@
-// Polls on posts (docs/engagements/plan.md, Polls): the kinds, what a new poll and an answer must
+// Polls on posts: the kinds, what a new poll and an answer must
 // look like, and how votes add up. No storage and no rights here (polls.service.js).
 //
 // Kinds and how they tally:

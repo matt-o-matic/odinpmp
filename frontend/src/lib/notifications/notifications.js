@@ -2,11 +2,11 @@ import { reactive } from 'vue';
 
 import { createLiveUpdates } from '../live/live-updates.js';
 
-// The bell's state (docs/odin-chat/plan.md, Delivery): the person's notifications, the unread
-// count in the tab title, live updates from GET /api/me/events, the focus heartbeat that keeps
-// push away while a tab is focused, and device push through the service worker. One store per
-// tab, shared by every bell (Odin proper's top bar now, Odin Chat's header later): start() and
-// stop() count their callers.
+// The bell's state: the person's notifications, the unread count in the tab title, live
+// updates from GET /api/me/events, the focus heartbeat that keeps push away while a tab is
+// focused, and device push through the service worker. One store per tab, shared by every bell
+// (Odin proper's top bar now, Odin Chat's header later): start() and stop() count their
+// callers.
 
 export const NOTIFICATION_CREATED_EVENT = 'notification.created';
 export const NOTIFICATION_READ_EVENT = 'notification.read';

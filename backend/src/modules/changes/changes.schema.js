@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { projectItemPatchSchema } from '../projects/projects.schema.js';
 
-// odin_apply_item_changes: a batch of checked changes (docs/mcp-change-feed/plan.md). The route
+// odin_apply_item_changes: a batch of checked changes. The route
 // and the MCP tool validate with the same schema.
 export const MAX_APPLY_CHANGES = 25;
 

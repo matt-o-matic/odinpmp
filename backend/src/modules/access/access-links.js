@@ -1,6 +1,6 @@
 import { generateAccessToken, hashAccessToken, INVOLVEMENT_GRACE_DAYS } from '../requirements/requirements-access-links.js';
 
-// Access links (docs/task-access/plan.md). One link per workspace and email address opens what
+// Access links. One link per workspace and email address opens what
 // that address has been given there: tasks on projects where its resource without a login has
 // task access, and requirements on projects where it belongs to a stakeholder whose requirements
 // link is valid. The link holds no permissions; every request works them out again.

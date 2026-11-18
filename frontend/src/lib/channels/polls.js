@@ -1,4 +1,4 @@
-// Polls on posts (docs/engagements/plan.md, Polls): what the composer offers and sends, and how a
+// Polls on posts: what the composer offers and sends, and how a
 // post's poll reads. The server checks every poll and vote again (backend polls.js).
 
 export const POLL_KINDS = Object.freeze([

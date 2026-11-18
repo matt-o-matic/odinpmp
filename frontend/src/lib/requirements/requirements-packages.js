@@ -240,7 +240,7 @@ export function feedbackDimensionLabels(manifest, track) {
 }
 
 /**
- * The validation checklist for an accepted package (design-v1 team-upload): what passed,
+ * The validation checklist for an accepted package: what passed,
  * then each stored warning. An accepted package passed every error check.
  */
 export function packageChecklist(detail) {

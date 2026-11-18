@@ -15,7 +15,7 @@ async function openRequirements(page, scenario) {
   return { api, consoleErrors, requirements };
 }
 
-test.describe('Requirements workspace: My open items (AC-19)', () => {
+test.describe('Requirements workspace: My open items', () => {
   test('a manager sees exactly their four items in the right groups, each with its track', async ({ page }) => {
     const { api, consoleErrors } = await openRequirements(page, myItemsScenario());
 

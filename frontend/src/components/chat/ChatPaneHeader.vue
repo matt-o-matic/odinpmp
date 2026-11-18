@@ -1,6 +1,6 @@
 <script setup>
 // The top of a screen in Odin Chat: its title, an optional line of context, and on a phone the way
-// back to the sidebar (docs/odin-chat/plan.md, Odin Chat: phones).
+// back to the sidebar.
 defineProps({
   backTo: { default: () => ({ name: 'chat-home' }), type: [Object, String] },
   // Shown above the title, linking to `contextTo` when given.

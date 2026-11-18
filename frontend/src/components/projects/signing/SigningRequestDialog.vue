@@ -6,7 +6,7 @@ import { fileSizeLabel } from '../../../lib/projects/project-files.js';
 import { DEFAULT_SIGNING_STATEMENTS, signingErrorMessage } from '../../../lib/projects/project-signing.js';
 import RequirementsDialog from '../../requirements/RequirementsDialog.vue';
 
-// Asking stakeholders to sign (docs/document-signing): an acceptance of documents, or a sign-off
+// Asking stakeholders to sign: an acceptance of documents, or a sign-off
 // of the project or a milestone. One form, one submit. Odin freezes the chosen file versions,
 // shares them with stakeholders, and emails each signer a link.
 const props = defineProps({

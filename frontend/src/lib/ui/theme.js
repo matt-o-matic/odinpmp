@@ -3,7 +3,7 @@ import { inject, ref, watch } from 'vue';
 export const DARK_MODE_KEY = 'odinpmp.theme.dark';
 
 // App.vue provides its controller under this key so screens outside the app's navbar (the
-// stakeholder portal) can show the same toggle.
+// client portal) can show the same toggle.
 export const DARK_MODE_CONTEXT = Symbol('odinpmp.darkMode');
 
 /** The app's { darkMode, toggleDarkMode }, or null when nothing provides it. */

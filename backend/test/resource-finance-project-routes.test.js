@@ -224,7 +224,7 @@ test('changing, ending, leveling and removing an allocation stays on its project
   assert.deepEqual(team.body.people.map((person) => person.resource.name), ['Bea Backup']);
 });
 
-test('a time list names only epics, stories and tasks: an id stored for anything else is left out (D-027)', async () => {
+test('a time list names only epics, stories and tasks: an id stored for anything else is left out', async () => {
   const { post, send } = await fixture();
   const contractor = await post('/resources', { name: 'Casey Contractor' });
   // The generic route takes any work item id, such as a ticket's.

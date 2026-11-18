@@ -1,4 +1,4 @@
-// The pursuit board, settings and insights of the engagements fixture (docs/engagements/plan.md).
+// The pursuit board, settings and insights of the engagements fixture.
 // Install after installEngagementsApi: Playwright tries the latest route first, and this one
 // passes on everything it does not own.
 const API_ORIGIN = 'http://localhost:3001';

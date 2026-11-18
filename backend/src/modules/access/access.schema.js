@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Bodies the public access link routes take. Each is strict: a field outside the list is a 400,
-// whatever the client sends (docs/task-access/plan.md, AC7).
+// whatever the client sends.
 
 const expectedVersion = z.number().int().positive();
 const remainingHours = z.number().finite().min(0).max(100000).nullable();

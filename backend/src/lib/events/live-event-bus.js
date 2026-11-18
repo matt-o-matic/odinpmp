@@ -8,11 +8,11 @@ export const LIVE_EVENT_CHANNELS = {
   assistantSessions(tenantId, userId) {
     return `assistant-sessions:${tenantId}:${userId}`;
   },
-  // A direct message conversation's stream: its members only (docs/odin-chat/plan.md).
+  // A direct message conversation's stream: its members only.
   directConversation(conversationId) {
     return `direct-conversation:${conversationId}`;
   },
-  // A channel guest's streams, by access link (docs/engagements/plan.md, Live updates).
+  // A channel guest's streams, by access link.
   guest(accessLinkId) {
     return `guest:${accessLinkId}`;
   },

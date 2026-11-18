@@ -3,7 +3,7 @@ import { ensureLinkTokenActive } from '../requirements-portal.service.js';
 import { parseActorRef } from '../requirements-topics.js';
 
 // Package grants are checked when they are issued, and again by the review origin while
-// they are used (AC-06). Without the second check, revoking a stakeholder's link, removing a
+// they are used. Without the second check, revoking a stakeholder's link, removing a
 // reviewer from a round, or removing a member from the project would leave package files
 // reachable through an earlier grant until it expired. The answer is cached briefly per
 // viewer and package, because a prototype loads many files at once; a change takes effect

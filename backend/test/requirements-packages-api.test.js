@@ -47,7 +47,7 @@ function putUpload(app, url, bytes) {
   return request(app).put(pathname).set('Content-Type', 'application/zip').send(bytes);
 }
 
-test('AC-03 a member uploads a valid package: it becomes draft version 1 with screens, hashes, and its uploader', { timeout: 120_000 }, async () => {
+test('a member uploads a valid package: it becomes draft version 1 with screens, hashes, and its uploader', { timeout: 120_000 }, async () => {
   const harness = await createPackagesTestApp();
   await harness.seedExampleContext();
   const events = [];
@@ -102,7 +102,7 @@ test('AC-03 a member uploads a valid package: it becomes draft version 1 with sc
   assert.deepEqual(others.body.groups.drafts, []);
 });
 
-test('AC-04 rejected uploads report per-file reasons and store nothing', async () => {
+test('rejected uploads report per-file reasons and store nothing', async () => {
   const harness = await createPackagesTestApp();
   const files = standardFiles();
   const missingSrcManifest = manifestWith({ sections: [{ id: 'screens', items: [imageScreen('home'), imageScreen('confirm'), prototypeScreen('booking')], type: 'screens' }] });
@@ -127,7 +127,7 @@ test('AC-04 rejected uploads report per-file reasons and store nothing', async (
   assert.equal(harness.requirementsRepository.state.packages.length, 0);
 });
 
-test('AC-04 an oversize upload is a zip_limit rejection, as is an entry that inflates past its header', async () => {
+test('an oversize upload is a zip_limit rejection, as is an entry that inflates past its header', async () => {
   const harness = await createPackagesTestApp({ reviewPackageMaxBytes: 64 * 1024 });
   const oversize = await harness.as('member').upload(await buildZip({ ...standardFiles(), 'assets/noise.txt': randomBytes(100 * 1024) }));
   assert.equal(oversize.status, 422, JSON.stringify(oversize.body));
@@ -238,7 +238,7 @@ test('withdraw: drafts only, never a published package or one a round uses; file
   assert.deepEqual(mine.body.groups.drafts.map((item) => item.id), [inRound.id], 'withdrawn and published packages leave "your drafts"');
 });
 
-test('AC-15 permissions: viewers read but get 404 on every write, before the body is read; outsiders get 404 everywhere', async () => {
+test('permissions: viewers read but get 404 on every write, before the body is read; outsiders get 404 everywhere', async () => {
   const harness = await createPackagesTestApp();
   const pkg = await uploadOk(harness, standardFiles());
   const urlResponse = await harness.as('member').post('/upload-urls', { track: 'experience' });
@@ -388,7 +388,7 @@ test('grants: members get review-origin URLs for every screen; stakeholders get 
   assert.equal(noOrigin.body.details.code, 'review_origin_not_configured');
 });
 
-test('AC-05 the app origin never serves package files or the bridge', async () => {
+test('the app origin never serves package files or the bridge', async () => {
   const harness = await createPackagesTestApp();
   const pkg = await uploadOk(harness, standardFiles());
   const grant = (await harness.as('member').get(`/${pkg.id}/grant`)).body;

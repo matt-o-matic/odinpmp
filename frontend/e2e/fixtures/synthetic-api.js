@@ -226,7 +226,7 @@ export async function installSyntheticApi(page, { admin = false, agentGoals: ext
         ? { canManage: true, modules: [{ ...consulting, impact: { openEngagements: 0 }, updatedAt: null, updatedBy: null, version: 0 }] }
         : { canManage: false, modules: [consulting] });
     }
-    // The top bar's Chat badge (docs/odin-chat/plan.md); e2e/fixtures/chat-api.js has the rest.
+    // The top bar's Chat badge; e2e/fixtures/chat-api.js has the rest.
     if (method === 'GET' && path === '/api/chat/unread') return json(route, { channels: 0, directMessages: 0, mentions: 0, ok: true, unread: 0 });
     if (method === 'GET' && path === '/api/projects') return json(route, { projects: [syntheticProject] });
     if (method === 'GET' && path === `/api/projects/${syntheticProject.id}`) return json(route, { project: syntheticProject });
@@ -697,7 +697,7 @@ export async function installSyntheticApi(page, { admin = false, agentGoals: ext
       return route.fulfill({ body: '', contentType: 'text/event-stream', status: 200 });
     }
 
-    // The top bar's bell (docs/odin-chat/plan.md): no notifications and no push unless a spec
+    // The top bar's bell: no notifications and no push unless a spec
     // installs fixtures/notifications-api.js.
     if (method === 'GET' && path === '/api/me/notifications') return json(route, { notifications: [], ok: true, unreadCount: 0 });
     if (method === 'GET' && path === '/api/me/push') return json(route, { available: false, ok: true, publicKey: '' });
@@ -743,8 +743,8 @@ export async function openPhoneMenu(page) {
 }
 
 /**
- * Opens one of the top bar's menus (Work, Plan or Insights; docs/odin-chat/plan.md, layout A),
- * opening the phone menu first when the bar is collapsed. Returns the menu's list.
+ * Opens one of the top bar's menus (Work, Plan or Insights), opening the phone menu first
+ * when the bar is collapsed. Returns the menu's list.
  */
 export async function openTopMenu(page, name) {
   const toggle = page.getByRole('button', { exact: true, name });

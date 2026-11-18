@@ -29,7 +29,7 @@ const countsScope = computed(() => {
   const managed = viewer.value.managedProjectCount ?? 0;
   return `your ${managed} ${managed === 1 ? 'project' : 'projects'}`;
 });
-const sprintTitle = computed(() => ({ 'my-work': 'Your sprint', team: 'Active sprints', workspace: 'Sprints behind' })[props.lens]);
+const sprintTitle = computed(() => ({ 'my-work': 'Your sprint', team: 'Active sprints', workspace: 'Sprints at risk' })[props.lens]);
 const sprintRows = computed(() => rail.value.sprints ?? []);
 const changes = computed(() => rail.value.changeTrends);
 const spark = computed(() => sparklinePaths(changes.value?.series ?? []));
@@ -80,7 +80,7 @@ function sprintBarLabel(row) {
           <span class="home-small home-muted">{{ row.projectName }}</span>
           <span class="ms-auto home-badge" :class="row.status === 'behind' ? 'home-badge--warn' : 'home-badge--ok'">
             <i class="bi" :class="row.status === 'behind' ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill'" aria-hidden="true"></i>
-            {{ row.status === 'behind' ? 'Behind' : 'On track' }}
+            {{ row.status === 'behind' ? 'At risk' : 'On track' }}
           </span>
         </div>
         <div class="home-bar" role="img" :aria-label="sprintBarLabel(row)">
@@ -93,7 +93,7 @@ function sprintBarLabel(row) {
         </div>
       </div>
       <p v-if="!sprintRows.length" class="home-panel__body home-muted">
-        {{ lens === 'workspace' ? 'No sprint is behind.' : 'Not enough activity yet. Sprint progress shows once a sprint with your work starts.' }}
+        {{ lens === 'workspace' ? 'No sprint is at risk.' : 'Not enough activity yet. Sprint progress shows once a sprint with your work starts.' }}
       </p>
     </section>
 

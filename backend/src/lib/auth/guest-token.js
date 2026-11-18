@@ -1,9 +1,9 @@
 import { createHash, randomBytes } from 'node:crypto';
 
-// Guest session tokens (docs/engagements/plan.md, Guests; qna.md Q-03). A guest is a principal of
-// its own: their token travels as members' tokens do (an HttpOnly cookie, or a bearer token), but
-// it is an opaque random value with its own prefix, never a member JWT. Member routes refuse it
-// by the prefix (lib/http/auth-middleware.js); only /api/guest accepts it.
+// Guest session tokens. A guest is a principal of its own: their token travels as members' tokens
+// do (an HttpOnly cookie, or a bearer token), but it is an opaque random value with its own
+// prefix, never a member JWT. Member routes refuse it by the prefix
+// (lib/http/auth-middleware.js); only /api/guest accepts it.
 
 export const GUEST_TOKEN_PREFIX = 'odin_guest_';
 

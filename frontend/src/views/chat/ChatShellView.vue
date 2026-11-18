@@ -13,10 +13,10 @@ import { CHAT_SHELL_KEY, linkChatInstall } from '../../lib/chat/chat-shell.js';
 import { chatUnread } from '../../lib/chat/chat-unread.js';
 import { createWorkspaceLiveUpdates, deferWhileHidden } from '../../lib/live/live-updates.js';
 
-// Odin Chat (docs/odin-chat/plan.md, Odin Chat; layout B): its own front door at /app/chat, with
-// a slim header, the sidebar and the open conversation, and no Odin top bar. The screens inside it
-// (child routes) read the sidebar's data from here. Channel and direct message changes anywhere in
-// the workspace refetch the sidebar, which carries only what this person may see.
+// Odin Chat: its own front door at /app/chat, with a slim header, the sidebar and the open
+// conversation, and no Odin top bar. The screens inside it (child routes) read the sidebar's data
+// from here. Channel and direct message changes anywhere in the workspace refetch the sidebar,
+// which carries only what this person may see.
 const route = useRoute();
 const router = useRouter();
 const token = computed(() => authSession.state.token);

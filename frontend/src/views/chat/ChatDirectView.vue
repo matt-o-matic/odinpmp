@@ -12,10 +12,10 @@ import { createDirectMessageApi } from '../../lib/chat/direct-message-api.js';
 import { createLiveUpdates, deferWhileHidden } from '../../lib/live/live-updates.js';
 import { provideProjectRefresh } from '../../lib/live/live-refresh.js';
 
-// A direct message in Odin Chat (docs/odin-chat/plan.md; qna.md Q-02): the channel conversation,
-// its posts, replies, tags and attachments, calling the conversation's routes through
-// direct-message-api.js. An attached file opens in its post (PostAttachments.vue). Other members' posts arrive
-// on the conversation's own live stream.
+// A direct message in Odin Chat: the channel conversation, its posts, replies, tags and
+// attachments, calling the conversation's routes through direct-message-api.js. An attached file
+// opens in its post (PostAttachments.vue). Other members' posts arrive on the conversation's own
+// live stream.
 const route = useRoute();
 const shell = useChatShell();
 const token = computed(() => authSession.state.token);

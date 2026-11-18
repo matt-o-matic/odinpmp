@@ -1,7 +1,7 @@
 import { guestChannelPath } from '../channels/channel-links.js';
 
 // What notifications need to know about guests (principal type 'stakeholder'), behind one small
-// interface so the guests workstream (engagements WS6) can supply its own:
+// interface so the guests module can supply its own:
 //
 // - principalFor({ projectId, stakeholderId, tenantId }), optional: the principal a channel
 //   stakeholder's notifications are kept under. Without it, the stakeholder's own.

@@ -1,4 +1,4 @@
-// 0098_guest_sessions (docs/engagements/plan.md, Data; qna.md Q-03): how channel guests sign in.
+// 0098_guest_sessions: how channel guests sign in.
 //
 // - access_sign_in_codes: the one code a guest's access link (access_links, one per workspace
 //   and email) has outstanding. A new code replaces the old one. The code is stored only as a

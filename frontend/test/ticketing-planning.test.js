@@ -26,7 +26,7 @@ function projectWithTickets(tickets) {
   };
 }
 
-test('AC4.2 selecting a parentless ticket resolves to a ticket selection', () => {
+test('selecting a parentless ticket resolves to a ticket selection', () => {
   const project = projectWithTickets([{ id: 'ticket-1', issueType: 'ticket', name: 'Defect', parentId: null }]);
 
   const selection = buildPlanningSelection(project, { id: 'ticket-1', issueType: 'ticket' });
@@ -34,7 +34,7 @@ test('AC4.2 selecting a parentless ticket resolves to a ticket selection', () =>
   assert.deepEqual(selection, { parentId: null, ticketId: 'ticket-1', type: 'ticket' });
 });
 
-test('AC4.2 selecting a parented ticket carries its parent reference', () => {
+test('selecting a parented ticket carries its parent reference', () => {
   const project = projectWithTickets([{ id: 'ticket-2', issueType: 'ticket', name: 'Defect', parentId: 'story-1' }]);
 
   const selection = buildPlanningSelection(project, { id: 'ticket-2', issueType: 'ticket' });
@@ -48,7 +48,7 @@ test('a ticket that is not in the project falls back to the project selection', 
   assert.deepEqual(buildPlanningSelection(project, { id: 'ghost', issueType: 'ticket' }), { type: 'project' });
 });
 
-test('AC4.5 epic, story, and task selection is unchanged', () => {
+test('epic, story, and task selection is unchanged', () => {
   const project = projectWithTickets([{ id: 'ticket-1', issueType: 'ticket', name: 'Defect', parentId: null }]);
 
   assert.deepEqual(
@@ -61,7 +61,7 @@ test('AC4.5 epic, story, and task selection is unchanged', () => {
   );
 });
 
-test('AC4.3 a parentless ticket lands in the no-epic lane when swimlaning by epic', () => {
+test('a parentless ticket lands in the no-epic lane when swimlaning by epic', () => {
   const cards = [
     { epicId: 'epic-1', epicName: 'Epic One', id: 'task-1', issueType: 'task', status: 'new' },
     { epicId: null, id: 'ticket-1', issueType: 'ticket', status: 'new' },
@@ -75,7 +75,7 @@ test('AC4.3 a parentless ticket lands in the no-epic lane when swimlaning by epi
   assert.deepEqual(noEpicLane.columns[0].cards.map((card) => card.id), ['ticket-1']);
 });
 
-test('AC4.3 an off-sprint ticket lands in the backlog lane when swimlaning by sprint', () => {
+test('an off-sprint ticket lands in the backlog lane when swimlaning by sprint', () => {
   const cards = [
     { id: 'task-1', issueType: 'task', sprintId: 'sprint-1', sprintName: 'Sprint 1', status: 'new' },
     { id: 'ticket-1', issueType: 'ticket', sprintId: null, status: 'new' },
@@ -120,7 +120,7 @@ test('buildTicketQuery omits empty filters and joins arrays as CSV', () => {
   );
 });
 
-test('AC4.1 a project whose only items are tickets still produces lanes', () => {
+test('a project whose only items are tickets still produces lanes', () => {
   const cards = [{ id: 'ticket-1', issueType: 'ticket', status: 'new' }];
 
   const lanes = buildKanbanLanes(cards, COLUMNS, 'none');

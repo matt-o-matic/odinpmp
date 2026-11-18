@@ -1,7 +1,7 @@
-// 0099_billing (docs/invoice-gen-connection/plan.md, "Data"): the invoice-gen link on a project,
-// the invoice summaries invoice-gen sends, the claims that lock time entries to an invoice, and
-// the SOW milestone each story bills to. Additive only, so the release before it keeps working
-// while it runs. Applied migrations are checksummed: never edit this body, add a new migration.
+// 0099_billing: the invoice-gen link on a project, the invoice summaries invoice-gen sends, the
+// claims that lock time entries to an invoice, and the SOW milestone each story bills to.
+// Additive only, so the release before it keeps working while it runs. Applied migrations are
+// checksummed: never edit this body, add a new migration.
 
 async function columnExists(executor, tableName, columnName) {
   const [rows] = await executor.execute('SELECT COUNT(*) AS n FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?', [tableName, columnName]);

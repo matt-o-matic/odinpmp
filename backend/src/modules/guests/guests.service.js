@@ -1,4 +1,4 @@
-// Channel guests (docs/engagements/plan.md, Guests; qna.md Q-03, E-02, E-03, E-11, E-12).
+// Channel guests.
 //
 // A guest is an outside person invited to one or more channels. Who they are:
 // - per project, a stakeholder record (project_stakeholders), made or reused at the invite;
@@ -35,7 +35,7 @@ import { isModuleEnabled } from '../workspace-modules/workspace-modules.service.
 import { NO_GUEST_TASKS } from './guest-tasks.js';
 
 export { CODE_MAX_ATTEMPTS, CODE_RESEND_MS, CODE_TTL_MS };
-/** A session lasts 30 days after its last use (Q-03). */
+/** A session lasts 30 days after its last use. */
 export const GUEST_SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 export const GUEST_EVENTS = Object.freeze({ changed: 'guest.changed', ended: 'guest.ended' });
 
@@ -58,8 +58,8 @@ function appBase(deps) {
 // --- audit -------------------------------------------------------------------------------------
 
 /**
- * Guest invitations, removals, sign-ins, uploads and downloads go to the audit trail (plan:
- * Guests, Audit). A guest is recorded as `guest:<access link id>`. Never fails the request.
+ * Guest invitations, removals, sign-ins, uploads and downloads go to the audit trail. A guest is
+ * recorded as `guest:<access link id>`. Never fails the request.
  */
 export async function auditGuest(deps, { action, detail = {}, ipAddress = '', projectId = null, result = 'success', tenantId, userId }) {
   if (!deps.auditWriter?.append) return;
@@ -341,7 +341,7 @@ function codeStateError(record, at) {
 }
 
 /**
- * Step two: a correct code starts a session (Q-03) and returns its token, which the route sets
+ * Step two: a correct code starts a session and returns its token, which the route sets
  * as the guest's cookie. Wrong codes count; the fifth locks the code. Unknown addresses get the
  * same answers.
  */
@@ -388,7 +388,7 @@ export async function signInWithCode(deps, { code: rawCode, email: rawEmail, ipA
 
 /**
  * The session behind a token, if it still works: not revoked, not past its expiry, its access
- * link not revoked. Moves the expiry to 30 days from now (Q-03) when `touch` is set.
+ * link not revoked. Moves the expiry to 30 days from now when `touch` is set.
  */
 export async function resolveGuestSession(deps, token, { touch = true } = {}) {
   if (!token) return null;
@@ -412,8 +412,8 @@ export async function signOutGuest(deps, guest) {
 }
 
 /**
- * Ends every session of the email in the workspace once it is a guest of no channel there
- * (plan: Guests, Removal), and tells open streams. Returns whether access ended.
+ * Ends every session of the email in the workspace once it is a guest of no channel there,
+ * and tells open streams. Returns whether access ended.
  */
 async function endAccessIfNoChannels(deps, { email, tenantId }) {
   const link = await deps.accessRepository.findLinkByEmail?.({ email, tenantId });
@@ -588,7 +588,7 @@ export async function cancelGuestUpload(deps, large, guest, uploadId) {
 // --- tasks ---------------------------------------------------------------------------------------
 
 /**
- * The tasks a guest sees on a project they are in (plan: Pursuit board, Q-06), from the task
+ * The tasks a guest sees on a project they are in, from the task
  * source the pursuit board supplies (guest-tasks.js). Without one, none.
  */
 export async function listGuestTasks(deps, guest, projectId) {
@@ -677,7 +677,7 @@ export async function listChannelGuestsForUser(deps, user, projectId, channelId)
 }
 
 /**
- * Invites a guest to a channel by name, email and organization (plan: Guests, Invite): reuses or
+ * Invites a guest to a channel by name, email and organization: reuses or
  * makes their stakeholder record on the project and their access link for the workspace, adds
  * them to the channel and queues the invitation. Inviting someone already in the channel changes
  * nothing and sends nothing. Workspace members are added to the project instead.

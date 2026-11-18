@@ -74,7 +74,7 @@ function logVaultRepositoryFailure({ error, operation, projectId = null, user, e
 }
 
 // What agents (agentView) get of a project's files: none attached to a ticket from outside the
-// team that nobody has validated (D-027), since intake names such files after the ticket and
+// team that nobody has validated, since intake names such files after the ticket and
 // their contents are the reporter's. Nor any on a ticket since deleted, as nothing then shows it
 // was validated. Checked against the project as it is now.
 async function ticketsVisibleToAgents(repository, { projectId, tenantId }) {
@@ -223,7 +223,7 @@ export async function deleteFileForUser(user, fileId, repository, complianceRepo
     ],
     tenantId,
   });
-  // A file someone signed, or is asked to sign, stays (docs/document-signing, E-04).
+  // A file someone signed, or is asked to sign, stays.
   await assertFilesNotUnderSignature(signingRepository, { fileIds: [fileId], tenantId });
   const deleted = await repository.deleteFile({
     fileId,
@@ -243,7 +243,7 @@ export async function deleteFileForUser(user, fileId, repository, complianceRepo
 
 /**
  * Shares a file with the project's stakeholders (external) or keeps it to the team (internal).
- * Files on tickets stay internal, and a file in a signature request stays external (E-04).
+ * Files on tickets stay internal, and a file in a signature request stays external.
  */
 export async function setFileAudienceForUser(user, projectId, fileId, { audience }, repository, { agentView = false, signingRepository = null } = {}) {
   const tenantId = await requireFileCapability(user, projectId, repository, PROJECT_CAPABILITIES.FILE_WRITE);

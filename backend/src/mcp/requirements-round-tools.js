@@ -176,7 +176,7 @@ export function registerRequirementsRoundTools({ api, dryRun, id, tool: register
   tool('odin_preview_round_publish', [
     'Preview publishing a draft review package as a round, with its reviewers, without saving or emailing. Returns the package, problems',
     '(unknown stakeholder or user, a package that is not a draft, a round still open: review is one round at a time per project) and invitationEmails: every reviewer, each of whom Odin emails',
-    'an invitation when the round is published (stakeholders get their Requirements portal link). Pass those refs as confirmInvitationEmails to odin_publish_round.',
+    'an invitation when the round is published (stakeholders get their client portal link). Pass those refs as confirmInvitationEmails to odin_publish_round.',
     'Write permission is not checked here.',
   ].join(' '), z.object(publishShape).strict(), async (args) => {
     const plan = await planPublish(args);
@@ -194,7 +194,7 @@ export function registerRequirementsRoundTools({ api, dryRun, id, tool: register
 
   tool('odin_publish_round', [
     'Publish a draft review package as the project\'s next review round with its reviewers, as Publish does in Odin. Odin emails every reviewer an invitation at once',
-    '(stakeholders get their Requirements portal link), creates topics for package questions without one, and carries open annotations forward.',
+    '(stakeholders get their client portal link), creates topics for package questions without one, and carries open annotations forward.',
     'confirmInvitationEmails must list exactly the reviewer refs from odin_preview_round_publish; otherwise nothing is published. No other round may be open in the project:',
     'closing one records a round decision, which stays in Odin. Needs member access. Not idempotent: after outcomeUnknown, read odin_get_requirements_context before trying again.',
   ].join(' '), z.object({ ...publishShape, confirmInvitationEmails, dryRun }).strict(), async (args) => {

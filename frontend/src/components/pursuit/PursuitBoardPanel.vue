@@ -8,10 +8,9 @@ import { apiClient, authSession } from '../../lib/auth/index.js';
 import { findPursuitTask, PURSUIT_STATUS_OPTIONS, pursuitTasks, withAssigneeNames } from '../../lib/pursuit/pursuit.js';
 import { projectAssignees } from '../../lib/resources/resources.js';
 
-// The pursuit board (docs/engagements/plan.md, "Pursuit board"): an engagement's Board tab, and
-// a converted project's Pursuit tab. Odin's kanban board shows the pursuit tasks; the hidden
-// Pursuit story they sit under is not a card. On a converted project, people who can edit the
-// plan move tasks to it.
+// The pursuit board: an engagement's Board tab, and a converted project's Pursuit tab. Odin's
+// kanban board shows the pursuit tasks; the hidden Pursuit story they sit under is not a
+// card. On a converted project, people who can edit the plan move tasks to it.
 
 const props = defineProps({
   allowMove: { default: false, type: Boolean },
@@ -27,7 +26,7 @@ const loadError = ref('');
 const message = ref('');
 const teamPeople = ref([]);
 // Members and allocated people, then the engagement's guests and stakeholders, whom a pursuit
-// task is often for (`stakeholder:<id>`, docs/engagements/qna.md Q-06).
+// task is often for (`stakeholder:<id>`).
 const people = computed(() => {
   const seen = new Set(teamPeople.value.map((person) => person.id));
   const outside = (pursuit.value?.outsideAssignees ?? [])

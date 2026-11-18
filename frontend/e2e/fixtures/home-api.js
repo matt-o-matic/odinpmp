@@ -139,7 +139,7 @@ export function managerHome(lens = 'team') {
     ok: true,
     rail: rail({
       counts: [
-        { href: null, key: 'active-sprints', label: 'Active sprints', note: '1 behind', severity: 'warn', value: 3 },
+        { href: null, key: 'active-sprints', label: 'Active sprints', note: '1 at risk', severity: 'warn', value: 3 },
         { href: { name: 'workflows' }, key: 'approvals', label: 'Pending approvals', note: '1 past SLA', severity: 'warn', value: 4 },
         { href: null, key: 'critical-risks', label: 'Critical risks', note: 'of 9 open', severity: 'danger', value: 2 },
         { href: { name: 'resources' }, key: 'overallocated', label: 'Overallocated', note: 'people this sprint', severity: 'warn', value: 3 },

@@ -558,7 +558,7 @@ export async function ingestClarificationMailReply({
 
 // Requirements topics are clarifications with a track. On public token paths their status
 // never changes as a side effect of a stakeholder's comment, and the older automatic
-// discussion review (which can set a status) does not run for them (Q-04).
+// discussion review (which can set a status) does not run for them.
 async function isTrackedClarification(resolveClarificationTrack, { clarificationId, projectId, tenantId }, assistantRepository = null) {
   const bridge = assistantRepository?.requirementsBridge ?? null;
   const resolve = resolveClarificationTrack ?? (bridge?.getTopicTrack ? (args) => bridge.getTopicTrack(args) : null);

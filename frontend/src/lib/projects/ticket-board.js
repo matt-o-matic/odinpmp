@@ -1,8 +1,8 @@
-// Ticket board logic (D-020). Shared by the tenant board and the per-project view so both
+// Ticket board logic. Shared by the tenant board and the per-project view so both
 // surfaces group, label, and filter identically.
 //
 // Columns come from the bound workflow definition rather than a hardcoded list, so a
-// project that rebinds `ticket` to a custom workflow still renders (AC3.4, AC8.3).
+// project that rebinds `ticket` to a custom workflow still renders.
 
 export const TICKET_CATEGORIES = ['defect', 'support', 'question', 'change_request'];
 export const TICKET_SEVERITIES = ['S1', 'S2', 'S3', 'S4'];
@@ -29,7 +29,7 @@ const REVIEW_STATE_LABELS = {
   validated: 'Reviewed',
 };
 
-// Fallback lifecycle matching the seeded default (D-022), used before the bound
+// Fallback lifecycle matching the seeded default, used before the bound
 // workflow has loaded so the board never renders an empty frame.
 export const DEFAULT_TICKET_COLUMNS = [
   { key: 'new', label: 'New', statuses: ['new'] },
@@ -160,7 +160,7 @@ export function summarizeTickets(tickets = []) {
 
 /**
  * Converts board filter state into the query the API expects, dropping empties so an
- * untouched filter never becomes a restriction (AC8.2).
+ * untouched filter never becomes a restriction.
  */
 export function buildTicketFilterQuery(filters = {}) {
   const query = {};

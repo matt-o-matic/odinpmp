@@ -10,10 +10,10 @@ import { apiClient, authSession } from '../../lib/auth/index.js';
 import { formatDateTime, formatDay } from '../../lib/insights/insights-format.js';
 import { daysLabel, sowSteps, tasksBurnup, weeklyActivity } from '../../lib/pursuit/pursuit.js';
 
-// An engagement's Insights tab, and the insights on a converted project's Pursuit tab
-// (docs/engagements/plan.md, "Pursuit insights"). No stages: the SOW's state, the tasks,
-// activity in channels and files, the people, and the engagement's age. The cards refresh on
-// live events through `refreshVersion`, as project Insights do.
+// An engagement's Insights tab, and the insights on a converted project's Pursuit tab.
+// No stages: the SOW's state, the tasks, activity in channels and files, the people, and the
+// engagement's age. The cards refresh on live events through `refreshVersion`, as project
+// Insights do.
 
 const props = defineProps({
   projectId: { required: true, type: String },

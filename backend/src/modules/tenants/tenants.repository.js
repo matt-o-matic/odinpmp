@@ -104,7 +104,7 @@ export function createInMemoryTenantsRepository({ authRepository } = {}) {
   function seededTicketConfigList(tenantId, kind) {
     const key = ticketConfigKey(tenantId, kind);
     if (!state.ticketConfigLists.has(key)) {
-      // AC2.1: environments are seeded with defaults; release lists start empty.
+      // Environments are seeded with defaults; release lists start empty.
       state.ticketConfigLists.set(key, kind === 'environments'
         ? DEFAULT_TENANT_ENVIRONMENTS.map((name, index) => ({
             id: `env-${name.toLowerCase()}`,
@@ -419,7 +419,7 @@ export function createMysqlTenantsRepository({ pool }) {
 
         for (const row of existingRows) {
           if (!keptIds.has(row.id)) {
-            // AC2.4: retiring an entry deactivates it so tickets already pointing at it still read.
+            // Retiring an entry deactivates it so tickets already pointing at it still read.
             await connection.execute(`UPDATE ${table} SET status = 'inactive', version = version + 1, updated_at = NOW(3) WHERE id = ? AND tenant_id = ?`, [row.id, tenantId]);
           }
         }

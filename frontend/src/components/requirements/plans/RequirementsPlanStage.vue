@@ -34,11 +34,10 @@ import {
 import { avatarColor, chipToneClass, initials } from '../../../lib/requirements/requirements-topics.js';
 import { plural, trackLabel } from '../../../lib/requirements/requirements-tracks.js';
 
-// Plan & work (journey 9, AC-13; design-v2 team-decide-plan). Left: the decisions the plan
-// builds on. Right: the plan version with its owner, then proposed work and versions. People
-// with project.plan.edit draft, edit, and propose work; only admins and managers approve,
-// and the approver owns the plan (Q-04, Q-14). Editing replaces the read view, so there is
-// one form at a time.
+// Plan & work. Left: the decisions the plan builds on. Right: the plan version with its
+// owner, then proposed work and versions. People with project.plan.edit draft, edit, and
+// propose work; only admins and managers approve, and the approver owns the plan. Editing
+// replaces the read view, so there is one form at a time.
 const props = defineProps({
   track: { required: true, type: String },
 });

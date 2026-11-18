@@ -1,4 +1,4 @@
-// Review rounds for the team (journeys 4, 6, 7, and 8): the rounds list, the publish form,
+// Review rounds for the team: the rounds list, the publish form,
 // the round header, reviewer progress, the verdict grid, direction preferences, summary
 // sources, and proposed preferences. Pure helpers over the shapes the rounds API returns
 // (backend/src/modules/requirements/rounds/rounds.service.js).
@@ -390,7 +390,7 @@ export function annotationTotals(annotationCounts = {}) {
 const REVIEWER_PROJECT_ROLES_EXCLUDED = new Set(['viewer']);
 
 /**
- * People who can review: project members (member and up, Q-05) and project stakeholders.
+ * People who can review: project members (member and up) and project stakeholders.
  * External stakeholders first, then members, each by name. `links` (optional, decision
  * rights only) marks stakeholders whose link was revoked.
  */

@@ -24,8 +24,8 @@ import { useReviewSession } from '../../../lib/requirements/review-session.js';
 // Annotate asks the bridge for a snapshot of what the reviewer sees and opens the editor
 // over it, so marks stay attached to exactly that picture. The first mark asks the frame
 // which element sits under it. When the snapshot fails, the reviewer marks up a blank frame
-// of the declared viewport, saved with a "Snapshot unavailable" note (plan.md, Failure and
-// recovery). The frame stays mounted underneath while annotating, so hints still work.
+// of the declared viewport, saved with a "Snapshot unavailable" note. The frame stays mounted
+// underneath while annotating, so hints still work.
 // While browsing, the marks made on the state the prototype shows sit over it, shifted by
 // how far the page has scrolled since each snapshot; a pin opens its snapshot and thread.
 const props = defineProps({

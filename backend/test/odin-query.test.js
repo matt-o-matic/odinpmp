@@ -132,7 +132,7 @@ test('the schema the model sees names every table and the meaning of the less ob
   assert.deepEqual(referencedTables('select * from Items join TEAM using (x)'), ['items', 'team']);
 });
 
-test('the tickets table leaves out external tickets nobody has validated (D-027)', async () => {
+test('the tickets table leaves out external tickets nobody has validated', async () => {
   const query = createOdinQuery({ api: fakeApi(), projectId: 'project-1' });
   const result = await query.run({ sql: 'SELECT id FROM tickets ORDER BY id' });
   assert.deepEqual(result.rows, [['ticket-not_external'], ['ticket-validated']]);

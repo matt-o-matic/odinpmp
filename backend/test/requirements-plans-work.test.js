@@ -11,7 +11,7 @@ import {
   TENANT_ID,
 } from './helpers/requirements-plans-app.js';
 
-// Propose work (journey 9, AC-13): an approved plan becomes proposed epics and stories,
+// Propose work: an approved plan becomes proposed epics and stories,
 // staged as a proposal card in an assistant chat of the proposer's. No work item exists until a
 // person applies it there; dismissed items stay out.
 
@@ -37,7 +37,7 @@ function storiesOf(epics) {
   return epics.flatMap((epic) => (epic.stories ?? []).map((story) => ({ ...story, epicName: epic.name })));
 }
 
-test('AC-13 propose work needs an approved plan and plan.edit, and places proposals in pending review without creating work items', async () => {
+test('propose work needs an approved plan and plan.edit, and places proposals in pending review without creating work items', async () => {
   const harness = await createPlansTestApp();
   const seeded = await harness.seedDecisions();
   const { plan: draft } = await harness.draft();
@@ -118,7 +118,7 @@ test('AC-13 propose work needs an approved plan and plan.edit, and places propos
   assert.deepEqual(await harness.projectEpics(), []);
 });
 
-test('AC-13 applying the proposal card creates the items with their criteria and decision references', async () => {
+test('applying the proposal card creates the items with their criteria and decision references', async () => {
   const harness = await createPlansTestApp();
   const { decisions, plan, topics } = await approvedPlan(harness);
   const body = await harness.proposeWork(plan);
@@ -158,7 +158,7 @@ test('AC-13 applying the proposal card creates the items with their criteria and
   assert.equal(again.body.details.code, 'plan_work_applied');
 });
 
-test('AC-13 applying one epic and dismissing the rest settles each proposal', async () => {
+test('applying one epic and dismissing the rest settles each proposal', async () => {
   const harness = await createPlansTestApp();
   const { plan } = await approvedPlan(harness);
   const body = await harness.proposeWork(plan, { role: 'projectManager' });

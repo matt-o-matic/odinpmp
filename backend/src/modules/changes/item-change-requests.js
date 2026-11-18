@@ -1,4 +1,4 @@
-// Idempotency keys for odin_apply_item_changes (docs/mcp-change-feed/plan.md). Each change an
+// Idempotency keys for odin_apply_item_changes. Each change an
 // agent sends carries a key. The first request with a key claims it, applies the change and
 // stores the result; a retry with the same key and the same change gets that result back and
 // changes nothing. Keys belong to the person (or connection's user) who sent them and are kept 30

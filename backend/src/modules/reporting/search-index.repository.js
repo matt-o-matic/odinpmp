@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
-// The search index's storage (docs/semantic-search/plan.md). Spread into the reporting
-// repositories after their own methods, so these replace the older whole-index sync for search.
+// The search index's storage. Spread into the reporting repositories after their own methods,
+// so these replace the older whole-index sync for search.
 //
 // - applySearchChanges writes only rows that changed and deletes rows whose source is gone, then
 //   bumps the workspace's index version (search_index_state) when anything changed.

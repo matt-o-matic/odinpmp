@@ -1,11 +1,11 @@
-// 0096_channels (docs/engagements/plan.md, Data): channels on every project, the guests invited
+// 0096_channels: channels on every project, the guests invited
 // to each, the posts in them and the comments on files, the files a post carries, and when each
 // person last read each channel.
 //
 // - project_channels: one General channel per project at most, held by a unique key on a
 //   generated column that is the project id for General and NULL for every other channel.
 //   Channel names are unique within their project.
-// - project_channel_guests: stakeholders invited to a channel (workstream 6 fills it).
+// - project_channel_guests: stakeholders invited to a channel (the guest routes fill it).
 // - discussion_posts: channel posts (target_type 'channel') and file comments (target_type
 //   'file', with the version the comment was made on), one level of replies by parent_id.
 // - discussion_post_files: the library files a post carries.

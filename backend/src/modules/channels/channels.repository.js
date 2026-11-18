@@ -1,14 +1,13 @@
 // Channels, discussion posts (channel posts and file comments), unread markers and library
-// folders (docs/engagements/plan.md, Channels and conversation, Files). These methods are spread
-// into the projects repositories, as the engagement methods are, so channel files share the
-// project's file records and change log.
+// folders. These methods are spread into the projects repositories, as the engagement
+// methods are, so channel files share the project's file records and change log.
 import { randomUUID } from 'node:crypto';
 
 import { HttpError } from '../../lib/errors/http-error.js';
 import { appendMysqlProjectChanges } from '../changes/project-change-log.js';
 
 export const GENERAL_CHANNEL_NAME = 'General';
-/** An editing marker older than this is gone (docs/engagements/plan.md, Library). */
+/** An editing marker older than this is gone. */
 export const EDITING_MARKER_MS = 24 * 60 * 60 * 1000;
 
 const sameName = (left, right) => String(left ?? '').trim().toLowerCase() === String(right ?? '').trim().toLowerCase();

@@ -10,9 +10,8 @@ import { installRequirementsRoundsApi, roundsScenario } from './fixtures/require
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// A round's results and the team's round actions (journeys 6, 7, and 8; AC-10 UI, AC-11,
-// AC-12 team view, AC-15, AC-17): the rounds list, the header, verdicts by reviewer,
-// direction preference, Odin summaries with their sources, questions, closing with each
+// A round's results and the team's round actions: the rounds list, the header, verdicts by
+// reviewer, direction preference, Odin summaries with their sources, questions, closing with each
 // outcome, reminders, reviewer edits, proposed preferences, live updates, and My open items.
 // Synthetic API only.
 const base = `projects/${syntheticProject.id}/requirements`;

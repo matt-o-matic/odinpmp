@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-// Odin proper's top bar, layout A (docs/odin-chat/plan.md; AC-N07): Home, Work, Chat, Plan,
-// Insights, search with Ctrl+K, the bell's slot, AI Workspace and the account menu. Every page the
-// old top bar linked must still be linked from it, by route name or path, and each must exist.
+// Odin proper's top bar: Home, Work, Chat, Plan, Insights, search with Ctrl+K, the bell's slot,
+// AI Workspace and the account menu. Every page the old top bar linked must still be linked from
+// it, by route name or path, and each must exist.
 
 const appSource = readFileSync(new URL('../src/App.vue', import.meta.url), 'utf8');
 const routerSource = readFileSync(new URL('../src/router/index.js', import.meta.url), 'utf8');

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-// The Odin summary's structured output (plan.md, "AI running summary"), the schema every
-// provider's output is checked against, and the citation validator that runs after it.
+// The Odin summary's structured output, the schema every provider's output is checked
+// against, and the citation validator that runs after it.
 
 export const SUMMARY_LIMITS = Object.freeze({
   aligned: 8,

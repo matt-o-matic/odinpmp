@@ -1,6 +1,6 @@
-// Rules the vault and the channel routes share for files in a channel's library
-// (docs/engagements/plan.md, Files): where an upload lands, the folder path shown with a file,
-// and that an archived channel's library is read-only.
+// Rules the vault and the channel routes share for files in a channel's library: where an
+// upload lands, the folder path shown with a file, and that an archived channel's library is
+// read-only.
 import { HttpError } from '../../lib/errors/http-error.js';
 
 export function channelArchivedError() {
@@ -42,7 +42,7 @@ export async function withFolderPaths(repository, files, { projectId, tenantId }
 }
 
 /**
- * Someone else's editing marker on a file asks the uploader to confirm (AC-09). The upload still
+ * Someone else's editing marker on a file asks the uploader to confirm. The upload still
  * checks its base version, so this only adds the question.
  */
 export function assertEditingConfirmed(file, user, confirmed = false) {

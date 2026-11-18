@@ -35,7 +35,7 @@ export const LEGAL_HOLD_RESOURCE_TYPES = [
   { label: 'Connector object', picker: null, value: 'connector_object' },
 ];
 
-// Control themes from docs/compliance-control-matrix.md, offered as suggestions only.
+// Control themes, offered as suggestions only.
 export const CONTROL_KEY_SUGGESTIONS = [
   'logical_access',
   'change_accountability',

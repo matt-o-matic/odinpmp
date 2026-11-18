@@ -1,16 +1,15 @@
 // Channels and their conversations, unread counts, file comments, library folders and the
-// editing marker (docs/engagements/plan.md: Channels and conversation, Files; qna.md E-02 to
-// E-07). Every project has channels, delivery projects and engagements alike.
+// editing marker. Every project has channels, delivery projects and engagements alike.
 //
 // Who may do what:
-// - Everyone in the project (project.read) sees every channel, its posts and its library (E-02).
+// - Everyone in the project (project.read) sees every channel, its posts and its library.
 // - Internal members who collaborate (project.collaborate) add channels, rename them, post,
-//   reply and comment on files. Authors edit and delete their own posts (E-05).
-// - People with decision rights archive and restore channels, and delete anyone's post (E-04).
+//   reply and comment on files. Authors edit and delete their own posts.
+// - People with decision rights archive and restore channels, and delete anyone's post.
 // - Changing the library (folders, the editing marker) needs project.files.write, as files do.
 // - General can be neither renamed nor archived. An archived channel is read-only: its posts,
 //   library, folders and file comments refuse changes until it is restored.
-// - Guests (workstream 6) reach only the channels they are in, through a context the guests
+// - Guests reach only the channels they are in, through a context the guests
 //   module builds (guests.service.js): they post, reply, comment and mark files as editing there,
 //   and edit and delete their own posts. Every function here takes that context (`ctx`), so
 //   members and guests go through the same checks; the *ForUser functions build a member's.
@@ -88,7 +87,7 @@ function inScope(ctx, channelId) {
   return !ctx.channelIds || ctx.channelIds.has(channelId);
 }
 
-// "Let Odin answer when tagged" (E-16): each channel's own setting, on by default. Without Odin
+// "Let Odin answer when tagged": each channel's own setting, on by default. Without Odin
 // wired in, @odin stays text.
 function odinEnabled(deps, channel) {
   return Boolean(deps.odinChannelService) && channel?.odinEnabled !== false;
@@ -145,9 +144,9 @@ export function presentChannel(channel, ctx, unreadCount = 0, notificationLevel 
     id: channel.id,
     isGeneral: Boolean(channel.isGeneral),
     name: channel.name,
-    // "Let Odin answer when tagged": everyone sees it; decision rights switch it (E-16, AC-25).
+    // "Let Odin answer when tagged": everyone sees it; decision rights switch it.
     odinEnabled: channel.odinEnabled !== false,
-    // The caller's level here ({ level, isDefault }), on the channel list (docs/odin-chat/plan.md, Levels).
+    // The caller's level here ({ level, isDefault }), on the channel list.
     ...(notificationLevel ? { notificationLevel } : {}),
     unreadCount,
   };
@@ -206,7 +205,7 @@ export async function updateChannelForUser(deps, user, projectId, channelId, inp
   }
   if (input.description !== undefined) changes.description = input.description.trim();
   if (input.odinEnabled !== undefined && input.odinEnabled !== (channel.odinEnabled !== false)) {
-    // Only decision rights switch Odin (AC-25).
+    // Only decision rights switch Odin.
     requireDecide(ctx);
     requireOdin(deps);
     changes.odinEnabled = input.odinEnabled;
@@ -242,7 +241,7 @@ export async function markChannelReadForUser(deps, user, projectId, channelId) {
 export async function markChannelRead(deps, ctx, channelId) {
   await requireChannel(deps, ctx, channelId);
   const lastReadAt = await deps.projectRepository.markChannelRead({ channelId, principalId: ctx.principal.id, principalType: ctx.principal.type });
-  // Opening a channel, a post or a thread in it reads its notifications (plan.md, Records).
+  // Opening a channel, a post or a thread in it reads its notifications.
   const reader = notificationPrincipal(ctx);
   if (reader) await deps.notifications?.markRead(reader, { channelId });
   return { lastReadAt, ok: true, unreadCount: 0 };
@@ -335,7 +334,7 @@ function notificationPrincipal(ctx) {
 /**
  * Records the notifications a post, reply or comment makes (modules/notifications) and returns
  * the ids of the members it tagged. The author is the member or guest writing (ctx.principal).
- * Email follows from them in the rolled-up digest, never at once (docs/odin-chat/qna.md Q-04),
+ * Email follows from them in the rolled-up digest, never at once,
  * for guests as for members. A failure never undoes the post.
  */
 async function notifyPost(deps, ctx, { channel = null, file = null, isEdit = false, parent = null, people, post, tagged }) {
@@ -408,8 +407,8 @@ export function presentPost(post, ctx, { attachments = new Map(), extras = new M
 }
 
 // Each post's attachments, wherever in the project they are now: a file moved out of the channel's
-// library to the project's files or another channel stays on the post (docs/engagements/plan.md,
-// Folders). A guest sees only those still in their channels' libraries.
+// library to the project's files or another channel stays on the post. A guest sees only those
+// still in their channels' libraries.
 async function attachmentsFor(deps, ctx, { posts }) {
   const links = await deps.projectRepository.listPostFileIds({ postIds: posts.map((post) => post.id) });
   const byPost = new Map();
@@ -502,7 +501,7 @@ export async function createPost(deps, ctx, channelId, input) {
   const fileIds = [...new Set(input.fileIds ?? [])];
   if (fileIds.length > MAX_POST_ATTACHMENTS) throw new HttpError(400, `A message can carry up to ${MAX_POST_ATTACHMENTS} files.`, { details: { code: 'too_many_attachments' } });
   if (fileIds.length) {
-    // Attachments are uploaded into this channel's library first (plan: Channels, Posts).
+    // Attachments are uploaded into this channel's library first.
     const inChannel = new Set((await deps.projectRepository.listFiles({ projectId, targetId: channelId, targetType: 'channel', tenantId: ctx.tenantId, user: ctx.fileActor })).map((file) => file.id));
     const outside = fileIds.filter((fileId) => !inChannel.has(fileId));
     if (outside.length) throw new HttpError(400, 'Attach files from this channel’s library.', { details: { code: 'attachment_not_in_channel', fileIds: outside } });
@@ -660,7 +659,7 @@ async function fileChannel(deps, ctx, file) {
   return file.targetType === 'channel' ? deps.projectRepository.getChannel({ channelId: file.targetId, projectId: ctx.projectId, tenantId: ctx.tenantId }) : null;
 }
 
-/** A file's one discussion (E-07): comments oldest first, each with its replies and the version it was made on. */
+/** A file's one discussion: comments oldest first, each with its replies and the version it was made on. */
 export async function listFileCommentsForUser(deps, user, projectId, fileId) {
   return listFileComments(deps, await channelAccess(deps, user, projectId), fileId);
 }
@@ -785,10 +784,10 @@ export async function deleteFolderForUser(deps, user, projectId, folderId) {
 
 // --- the file tree ----------------------------------------------------------------------------
 //
-// A project's files as one tree (docs/engagements/plan.md, Folders): the project is the top
-// folder and holds the project's own files; each channel is a folder in it, holding its library;
-// people make their own folders inside a channel. Files on epics, stories, tasks, tickets and
-// requirements topics stay with their items and are not in the tree.
+// A project's files as one tree: the project is the top folder and holds the project's own
+// files; each channel is a folder in it, holding its library; people make their own folders
+// inside a channel. Files on epics, stories, tasks, tickets and requirements topics stay with
+// their items and are not in the tree.
 
 const TREE_TARGETS = new Set(['project', 'channel']);
 
@@ -923,7 +922,7 @@ export async function moveFileForUser(deps, user, projectId, fileId, input) {
 
 // --- the editing marker -----------------------------------------------------------------------
 
-/** Marks a file as being edited by the caller (plan: Library, editing marker). */
+/** Marks a file as being edited by the caller. */
 export async function setFileEditingForUser(deps, user, projectId, fileId) {
   return setFileEditing(deps, await channelAccess(deps, user, projectId), fileId);
 }

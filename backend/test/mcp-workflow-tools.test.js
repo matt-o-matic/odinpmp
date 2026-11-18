@@ -163,7 +163,7 @@ test('deciding an approval reads its version when omitted and names the project'
   assert.equal(calls.length, before);
 });
 
-test('an approval on a ticket cannot be decided, even with its version (D-027)', async (t) => {
+test('an approval on a ticket cannot be decided, even with its version', async (t) => {
   const { call, writes } = await session(t, fakeOdin({ approvals: [approval({ itemId: 'ticket-1', itemType: 'ticket', version: 3 })] }));
   for (const args of [{}, { expectedVersion: 3 }]) {
     const { data } = await call('odin_decide_approval', { approvalId: 'approval-1', decision: 'approved', projectId: 'project-1', ...args });

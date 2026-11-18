@@ -101,7 +101,7 @@ test('MySQL: migrations 0057 and 0064, package storage, versions, files, uploads
     assert.notEqual(v2Detail.screens[1].contentHash, detail.screens[1].contentHash);
     assert.equal(await packagesRepository.getPackage({ packageId: v1.id, projectId: randomUUID(), tenantId }), null, 'scoped to the project');
 
-    // The U1 My open items query reads the same rows.
+    // The My open items query reads the same rows.
     const drafts = await requirementsRepository.listPackages({ projectId, status: 'draft', tenantId, uploadedBy: 'user:u-1' });
     assert.equal(drafts.length, 6);
     assert.ok(drafts.some((pkg) => pkg.id === v1.id && pkg.version === 1 && pkg.track === 'experience'));

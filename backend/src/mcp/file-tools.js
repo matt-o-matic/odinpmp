@@ -11,7 +11,7 @@ import { FILE_TEXT_MAX_CHARS } from '../modules/vault/vault.schema.js';
 // had. Text files read back as text, and PDFs and Word documents as their extracted text;
 // spreadsheets, slides and images are listed but not read, and download as bytes. Every call asks for
 // Odin's agent view (agentView=1), which leaves out files on tickets from outside the team that
-// nobody has validated, or whose ticket is gone (D-027): listed, read or deleted, they are not found.
+// nobody has validated, or whose ticket is gone: listed, read or deleted, they are not found.
 
 const DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 const XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';

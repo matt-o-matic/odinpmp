@@ -45,7 +45,7 @@ function itemsOf(project = {}) {
       for (const task of story.tasks ?? []) rows.push({ ...task, itemType: 'task', parentId: story.id });
     }
   }
-  // Labels quote names, and a ticket from outside that nobody has validated stays unnamed (D-027).
+  // Labels quote names, and a ticket from outside that nobody has validated stays unnamed.
   // The assistant can't change one, so nothing here restores its fields.
   for (const ticket of project.tickets ?? []) {
     const shown = isTicketVisibleToAssistant(ticket) ? ticket : { ...ticket, description: '', name: 'external ticket awaiting review' };
@@ -112,8 +112,8 @@ const fileVersionUndo = (file, projectId) => (file.version > 1
   ? { touches: [touchOf('file', file.id, projectId, file)], undo: { expectedVersion: file.version, fileId: file.id, kind: 'restore_file_version', projectId, version: file.version - 1 } }
   : {});
 
-// Folders in channel libraries and where files sit in the tree (docs/engagements/plan.md,
-// Folders). They have no version: undo compares the name and place the turn left them with.
+// Folders in channel libraries and where files sit in the tree. They have no version: undo
+// compares the name and place the turn left them with.
 async function treeFolder(api, projectId, folderId) {
   const tree = await api.request('GET', `${projectPath(projectId)}/file-tree`);
   for (const channel of tree.channels ?? []) {

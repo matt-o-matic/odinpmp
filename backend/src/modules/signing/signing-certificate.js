@@ -1,7 +1,7 @@
-// The completion certificate (docs/document-signing/plan.md, Q-02): a plain PDF built from the
-// stored record each time it is asked for. The record (package, evidence and sealed manifest) is
-// the proof; the certificate is a readable copy of it. Text only, Helvetica, Latin-1: other
-// characters print as "?". No PDF library is needed for this.
+// The completion certificate: a plain PDF built from the stored record each time it is asked
+// for. The record (package, evidence and sealed manifest) is the proof; the certificate is a
+// readable copy of it. Text only, Helvetica, Latin-1: other characters print as "?". No PDF
+// library is needed for this.
 
 const PAGE_WIDTH = 612;
 const PAGE_HEIGHT = 792;

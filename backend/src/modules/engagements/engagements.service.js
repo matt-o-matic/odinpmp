@@ -1,4 +1,4 @@
-// Engagements (docs/engagements/plan.md): create and list them, convert one to a delivery
+// Engagements: create and list them, convert one to a delivery
 // project, mark one lost and reopen it. Every operation needs the Consulting module on.
 import { requireDecisionRights } from '../../lib/auth/decision-rights.js';
 import { HttpError } from '../../lib/errors/http-error.js';
@@ -26,7 +26,7 @@ async function requireConsulting(workspaceModulesRepository, user) {
 }
 
 /**
- * Keeps the engagement's guests as the project's stakeholders when it converts (E-08), inside the
+ * Keeps the engagement's guests as the project's stakeholders when it converts, inside the
  * conversion's transaction (`executor` is null in memory). A guest is invited through a
  * stakeholder record on the project (guests.service.js), so every guest is one already, and their
  * channels, posts and files stay with the same record. This checks that each current guest's
@@ -58,7 +58,7 @@ export async function listEngagementsForUser({ input = {}, projectRepository, us
   const counts = { lost: 0, open: 0, won: 0 };
   for (const engagement of listed) counts[engagement.status] = (counts[engagement.status] ?? 0) + 1;
   const shown = input.status ? listed.filter((engagement) => engagement.status === input.status) : listed;
-  // Posts the person has not read in each engagement's open channels (E-10).
+  // Posts the person has not read in each engagement's open channels.
   const unread = await unreadByProjectForUser({ projectRepository }, user, shown.map((engagement) => engagement.id));
   return {
     counts,
@@ -69,7 +69,7 @@ export async function listEngagementsForUser({ input = {}, projectRepository, us
 export async function createEngagementForUser({ input, projectRepository, user, workspaceModulesRepository }) {
   const tenantId = await requireConsulting(workspaceModulesRepository, user);
   const project = await projectRepository.createEngagement({ input, tenantId, user });
-  // The hidden Pursuit epic and story that the Board tab's tasks go under (E-15).
+  // The hidden Pursuit epic and story that the Board tab's tasks go under.
   await projectRepository.ensurePursuitStory({ projectId: project.id, tenantId });
   return { ok: true, project };
 }
@@ -78,7 +78,7 @@ export async function createEngagementForUser({ input, projectRepository, user, 
  * Converts an engagement to a delivery project, keeping its id and everything on it. A chosen
  * template is applied first, while the project is still an engagement; the conversion then
  * runs in one step. If either fails, only what the template added is undone and the
- * engagement stays open, as it was. Pursuit tasks stay on the Pursuit tab (Q-07); with
+ * engagement stays open, as it was. Pursuit tasks stay on the Pursuit tab; with
  * `moveOpenPursuitTasks`, the open ones move to the plan in the same step.
  */
 export async function convertEngagementForUser({ assistantRepository = null, input = {}, projectId, projectRepository, user, workflowRepository = null, workspaceModulesRepository, beforeCommit = addEngagementGuestsAsStakeholders }) {
@@ -120,7 +120,7 @@ export async function convertEngagementForUser({ assistantRepository = null, inp
   return { movedPursuitTaskIds: moveTaskIds, ok: true, project: { ...project, templateApplied: input.templateId ? { templateId: input.templateId } : null } };
 }
 
-/** Changes an engagement's customer or owner (E-09). The owner must be one of its members. */
+/** Changes an engagement's customer or owner. The owner must be one of its members. */
 export async function updateEngagementForUser({ input, projectId, projectRepository, user, workspaceModulesRepository }) {
   const tenantId = await requireConsulting(workspaceModulesRepository, user);
   await requireDecisionRights({ projectId, repository: projectRepository, tenantId, user });

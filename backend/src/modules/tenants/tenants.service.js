@@ -359,7 +359,7 @@ export async function resetStatusDefinitionsForUser(user, repository) {
   };
 }
 
-// Ticket configuration lists (D-019). AC2.5: contributor-seat users cannot read or write them.
+// Ticket configuration lists. Contributor-seat users cannot read or write them.
 export async function listTicketConfigListForUser(user, kind, repository) {
   requireTenantAdmin(user);
   const tenantId = requireTenantId(user);

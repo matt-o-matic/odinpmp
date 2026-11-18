@@ -102,7 +102,7 @@ test.describe('Requirements topic: discussion and Odin summary', () => {
   });
 });
 
-test.describe('Requirements topic: decisions and permissions (AC-11 UI)', () => {
+test.describe('Requirements topic: decisions and permissions', () => {
   test('a manager records a decision prefilled from the summary; it shows their name and no AI tag', async ({ page }) => {
     const { api, requirements } = await openTopic(page, 'topic-price');
     const decision = page.getByRole('region', { name: 'Record a decision' });
@@ -286,7 +286,7 @@ test.describe('Requirements topic: one Edit dialog for wording and people', () =
   });
 });
 
-test.describe('Requirements topic on a phone (AC-20)', () => {
+test.describe('Requirements topic on a phone', () => {
   test('sticky jump links move focus to Discussion, Summary, and Decision', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== 'chromium-mobile', 'AC-20 uses the Pixel 7 project.');
     const { api } = await openTopic(page, 'topic-price');

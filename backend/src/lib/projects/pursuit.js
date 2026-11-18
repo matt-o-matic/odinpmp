@@ -1,7 +1,7 @@
-// Pursuit work (docs/engagements/plan.md, "Pursuit board"). Every engagement has one Pursuit epic
-// and story that Odin creates and keeps out of sight, because every task needs a parent story. The
-// tasks under them are the engagement's pursuit tasks. Each of these items carries `pursuit: true`
-// (tasks.pursuit in MySQL), so delivery views can leave them out after the engagement converts.
+// Pursuit work. Every engagement has one Pursuit epic and story that Odin creates and keeps out of
+// sight, because every task needs a parent story. The tasks under them are the engagement's
+// pursuit tasks. Each of these items carries `pursuit: true` (tasks.pursuit in MySQL), so delivery
+// views can leave them out after the engagement converts.
 //
 // Project loaders leave pursuit work out unless asked (`includePursuit`), so the plan, boards,
 // reports, Insights and metrics see delivery work only. The pursuit board, the pursuit insights,
@@ -22,7 +22,7 @@ export const BOARD_SCOPES = Object.freeze([BOARD_SCOPE_DELIVERY, BOARD_SCOPE_PUR
 // - auto: the pursuit work too on an engagement, whose only work it is;
 // - include: the pursuit work too on any project, for a converted project's Pursuit board.
 // The agents' item tools read with auto, or include when asked for the Pursuit board. Members
-// see every pursuit task (docs/engagements/qna.md Q-06; pursuit-visibility.js), so a read that
+// see every pursuit task (pursuit-visibility.js), so a read that
 // passes the project's read check may show them all.
 export const PURSUIT_READS = Object.freeze(['none', 'auto', 'include']);
 

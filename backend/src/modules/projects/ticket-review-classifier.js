@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { createAgentDecisions } from '../../lib/agent/agent-decisions.js';
 import { isReadableFile, readableFileText } from '../vault/vault.service.js';
 
-// A cheap extra check before an agent triages a ticket submitted from outside the team (D-027).
+// A cheap extra check before an agent triages a ticket submitted from outside the team.
 // The Decisions API reads the ticket, its comments (the reporter's replies) and the text of the
 // files agents could read, all of which agents see once it is validated, and scores three
 // predicates; agents get the labels and probabilities, never the text. Best-effort: with no

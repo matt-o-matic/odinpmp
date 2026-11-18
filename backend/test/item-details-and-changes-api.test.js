@@ -16,7 +16,7 @@ import { createInMemoryResourceFinanceRepository } from '../src/modules/resource
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { createInMemoryWorkflowRepository } from '../src/modules/workflows/workflows.repository.js';
 
-// odin_get_item_details and odin_apply_item_changes (docs/mcp-change-feed/plan.md): the detail of
+// odin_get_item_details and odin_apply_item_changes: the detail of
 // chosen cards in bounded, resumable pages, and a batch of checked changes that refuses to write
 // over anything newer than what each change was based on.
 

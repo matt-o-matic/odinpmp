@@ -18,7 +18,7 @@ import { createInMemoryResourceFinanceRepository } from '../src/modules/resource
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { createInMemoryWorkflowRepository } from '../src/modules/workflows/workflows.repository.js';
 
-// Task access without a login (docs/task-access/plan.md): a manager gives someone without an
+// Task access without a login: a manager gives someone without an
 // Odin login task access on a project and sends them a link; the link opens a hub, the project's
 // board and list, and lets them change only their own tasks.
 
@@ -171,7 +171,7 @@ async function createAccessFixture() {
 
 const codeOf = (response) => response.body?.details?.code;
 
-test('AC1: a profile without a login takes an email; a member\'s address and one already in use are refused', async () => {
+test('a profile without a login takes an email; a member\'s address and one already in use are refused', async () => {
   const f = await createAccessFixture();
   const setEmail = (email) => f.planning('patch', `/resources/${f.erin.id}`, 'manager', { email, expectedVersion: f.erin.version });
 
@@ -203,7 +203,7 @@ test('AC1: a profile without a login takes an email; a member\'s address and one
   assert.equal(team.body.people.find((person) => person.resource.id === f.casey.id).resource.email, 'casey@vendor.example');
 });
 
-test('AC2: managers turn task access on and off for people without a login and email or copy their link', async () => {
+test('managers turn task access on and off for people without a login and email or copy their link', async () => {
   const f = await createAccessFixture();
   const list = async () => (await f.planning('get', '/projects/project-1/task-access', 'manager')).body.entries;
 
@@ -254,7 +254,7 @@ test('AC2: managers turn task access on and off for people without a login and e
   assert.deepEqual([off.status, off.body.entry.scope], [200, 'off']);
 });
 
-test('AC3 and AC10: the hub lists task and requirements projects; requirements open in the unchanged portal', async () => {
+test('the hub lists task and requirements projects; requirements open in the unchanged portal', async () => {
   const f = await createAccessFixture();
   const requirements = await f.stakeholderLink();
   const token = await f.grant(f.casey);
@@ -304,7 +304,7 @@ test('AC3 and AC10: the hub lists task and requirements projects; requirements o
   assert.equal((await f.guest(token).get()).status, 410);
 });
 
-test('AC4: the board and list show the project\'s columns and the scope\'s work, by name only', async () => {
+test('the board and list show the project\'s columns and the scope\'s work, by name only', async () => {
   const f = await createAccessFixture();
   const token = await f.grant(f.casey);
 
@@ -348,7 +348,7 @@ test('AC4: the board and list show the project\'s columns and the scope\'s work,
   for (const leak of ['@acme.com', '@vendor.example', '"member"', 'data-user-id', 'ticket-1', 'assigneeId":"member']) assert.ok(!text.includes(leak), leak);
 });
 
-test('AC5: on their own task they change status by control or drag, set remaining hours, comment, and log and delete time', async () => {
+test('on their own task they change status by control or drag, set remaining hours, comment, and log and delete time', async () => {
   const f = await createAccessFixture();
   const token = await f.grant(f.casey);
   const link = f.guest(token);
@@ -392,7 +392,7 @@ test('AC5: on their own task they change status by control or drag, set remainin
   assert.equal((await link.del(`/projects/project-1/time/${approved.id}?expectedVersion=1`)).status, 404);
 });
 
-test('AC6: they add a task under an allowed story, assigned to them, in the story\'s sprint and the first column\'s status', async () => {
+test('they add a task under an allowed story, assigned to them, in the story\'s sprint and the first column\'s status', async () => {
   const f = await createAccessFixture();
   const token = await f.grant(f.casey);
   const link = f.guest(token);
@@ -418,7 +418,7 @@ test('AC6: they add a task under an allowed story, assigned to them, in the stor
   assert.deepEqual([done.status, codeOf(done)], [403, 'story_not_available']);
 });
 
-test('AC7: the server refuses edits outside their own work and fields, and projects without a grant, whatever is sent', async () => {
+test('the server refuses edits outside their own work and fields, and projects without a grant, whatever is sent', async () => {
   const f = await createAccessFixture();
   const token = await f.grant(f.casey, { scope: 'all' });
   const link = f.guest(token);
@@ -492,7 +492,7 @@ test('stories and epics assigned to them show as cards and take the same edits a
   assert.deepEqual(after.map((task) => [task.id, task.status]), [['task-casey', 'Completed'], ['task-dana', 'Completed']]);
 });
 
-test('AC8: workflow rules and version checks apply, and history and comments show the resource\'s name', async () => {
+test('workflow rules and version checks apply, and history and comments show the resource\'s name', async () => {
   const f = await createAccessFixture();
   const states = ['Not Started', 'In Progress', 'Completed'].map((key, index) => ({ category: index === 2 ? 'done' : 'active', initial: index === 0, key, label: key, requiredFields: [], slaHours: 0, terminal: index === 2 }));
   const workflow = await f.workflowRepository.createWorkflow({
@@ -542,7 +542,7 @@ test('AC8: workflow rules and version checks apply, and history and comments sho
   unsubscribe();
 });
 
-test('AC9: turning access off removes the project at once, the link lasts 14 days after the last grant, and revoked links stay off', async () => {
+test('turning access off removes the project at once, the link lasts 14 days after the last grant, and revoked links stay off', async () => {
   const f = await createAccessFixture();
   const token = await f.grant(f.casey);
   const link = f.guest(token);
@@ -597,7 +597,7 @@ test('grants need an active profile with no login, an allocation that has not en
   assert.deepEqual(await projectIds(), []);
 });
 
-test('AC11: remaining hours round-trip through the app\'s item editor, and a tree save without them keeps them', async () => {
+test('remaining hours round-trip through the app\'s item editor, and a tree save without them keeps them', async () => {
   const f = await createAccessFixture();
   const set = (version, remainingHours) => f.projects('patch', '/project-1/items/task-member', 'manager', { expectedVersion: version, patch: { remainingHours } });
 

@@ -1,4 +1,4 @@
-// Keeping the search index current (docs/semantic-search/plan.md).
+// Keeping the search index current.
 //
 // - updateSearchFileTexts extracts the text of files that are new or changed, at most `limit` per
 //   run, and caches it (search_file_texts); later runs take the rest.

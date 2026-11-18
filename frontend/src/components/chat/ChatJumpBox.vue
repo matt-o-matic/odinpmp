@@ -5,10 +5,10 @@ import { apiClient, authSession } from '../../lib/auth/index.js';
 import { jumpTargets } from '../../lib/chat/chat.js';
 import { createSearchSuggestions, signedInKey, suggestionIcon, suggestionOption } from '../../lib/search/search-suggestions.js';
 
-// Odin Chat's search and jump box (docs/odin-chat/plan.md, Odin Chat): type to find a channel,
-// a direct message, a person or Odin, and press Enter to open it. After a pause, the best few
-// matches from workspace search follow, by meaning or by words (docs/semantic-search/plan.md),
-// and the last option opens every result. A combobox: arrows move, Enter opens, Escape clears.
+// Odin Chat's search and jump box: type to find a channel, a direct message, a person or Odin,
+// and press Enter to open it. After a pause, the best few matches from workspace search
+// follow, by meaning or by words, and the last option opens every result. A combobox: arrows
+// move, Enter opens, Escape clears.
 const props = defineProps({
   // Opens the list on its own page (the phone's Search tab).
   inline: { default: false, type: Boolean },

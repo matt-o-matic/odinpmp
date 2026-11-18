@@ -75,13 +75,13 @@ function resolveLaneIdentity(card, swimlane) {
         label: card.assigneeName || 'Unassigned',
       };
     case 'epic':
-      // A ticket may hang off no epic at all (D-006); it reuses the existing no-epic lane.
+      // A ticket may hang off no epic at all; it reuses the existing no-epic lane.
       return {
         key: card.epicId || 'no-epic',
         label: card.epicName || 'No epic',
       };
     case 'sprint':
-      // Tickets are off-sprint by default (D-015), so they land in the existing backlog lane.
+      // Tickets are off-sprint by default, so they land in the existing backlog lane.
       return {
         key: card.sprintId || 'backlog',
         label: card.sprintId ? (card.sprintName || 'Sprint') : 'Backlog',
@@ -140,7 +140,7 @@ export function buildPlanningSelection(project, item) {
     return { type: 'project' };
   }
 
-  // Tickets are a flat project-level collection with an optional parent reference (D-006).
+  // Tickets are a flat project-level collection with an optional parent reference.
   // They must resolve to a ticket selection rather than degrading to the project.
   if (item.issueType === 'ticket') {
     const ticket = (project.tickets ?? []).find((entry) => entry.id === item.id);

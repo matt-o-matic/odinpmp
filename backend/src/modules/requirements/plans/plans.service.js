@@ -27,14 +27,14 @@ import {
 import { buildPlanDraftModelInput, buildWorkBreakdownModelInput } from './plan-prompt.js';
 import { planConflict, revisionConflict, staleCitations, staleCitationsConflict } from './plans.repository.js';
 
-// Track plans (journey 9, AC-13). Members with project.plan.edit draft a plan from the
+// Track plans. Members with project.plan.edit draft a plan from the
 // track's active decisions, edit it, and propose work from it; only admins and managers
-// approve it, and the approver owns it (Q-14). Proposed work goes into the proposer's AI
+// approve it, and the approver owns it. Proposed work goes into the proposer's AI
 // Workspace review as pending assistant proposals. Nothing becomes a work item until a
 // person applies it there.
 
 // Published on project:{id} with { track, planId, version, reason }. Plans are team-only,
-// so stakeholder portal channels never get it.
+// so client portal channels never get it.
 export const REQUIREMENTS_PLAN_EVENT = 'requirements.plans.invalidated';
 
 function clock(deps) {
@@ -106,8 +106,8 @@ async function callPlanAi(deps, { fn, logName, modelInput, projectId, tenantId, 
 }
 
 // ---------------------------------------------------------------------------
-// Presentation. No AI-drafted flag, provider, model, or audit record leaves this module
-// (Q-14); the approver is the owner.
+// Presentation. No AI-drafted flag, provider, model, or audit record leaves this module;
+// the approver is the owner.
 // ---------------------------------------------------------------------------
 
 function presentDecisionRefs(ids, catalog) {

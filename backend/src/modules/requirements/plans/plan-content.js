@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 import { HttpError } from '../../../lib/errors/http-error.js';
 
-// Track plans (plan.md journey 9, AC-13): the plan's structure, decision labels, the
-// citation checks every drafted or edited plan passes, the work breakdown checks, and the
-// Markdown the plan and its proposed work items carry.
+// Track plans: the plan's structure, decision labels, the citation checks every drafted
+// or edited plan passes, the work breakdown checks, and the Markdown the plan and its
+// proposed work items carry.
 //
 // A plan cites decisions by id. The model sees decisions by their display label (D-07),
 // the same label the team workspace shows (frontend buildDecisionLog: every decision in the

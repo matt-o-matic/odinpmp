@@ -1,4 +1,4 @@
-// The pursuit board and insights (docs/engagements/plan.md, "Pursuit board", "Pursuit insights").
+// The pursuit board and insights.
 // Pure functions, so they test without a browser.
 
 export const PURSUIT_STATUS_OPTIONS = Object.freeze(['Not Started', 'In Progress', 'At Risk', 'Review', 'Completed']);

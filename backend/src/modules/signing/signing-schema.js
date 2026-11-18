@@ -1,4 +1,4 @@
-// 0094_document_signing (docs/document-signing/plan.md): whether each file is internal or shared
+// 0094_document_signing: whether each file is internal or shared
 // with stakeholders, and signature requests with their frozen documents, signers, sealed
 // signatures and audit trail. Additive only, so the release before it keeps working while it runs.
 // Applied migrations are checksummed: never edit this body, add a new migration instead.

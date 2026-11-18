@@ -15,7 +15,7 @@ import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from
 // serving the example package output/review-packages/fieldwork-round-2.zip. The package is
 // validated and stored by the backend's own ingest code in memory, the grant is a real
 // signed grant, and the app API around it is synthetic. Proves ready, state, goto-state,
-// capture, and hint round-trip through the component (plan.md, Hosting and isolation).
+// capture, and hint round-trip through the component.
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const backendModule = (relative) => import(pathToFileURL(path.join(REPO_ROOT, 'backend', 'src', relative)).href);
@@ -113,7 +113,7 @@ test('the prototype frame round-trips ready, state, goto-state, capture, and hin
   await expect(status).toHaveText('Showing Choose service', { timeout: 30_000 });
   await expect(screens.getByTestId('rq-proto-notice')).toHaveText('This is a mockup. Don\'t type real personal or payment details into it.');
   await screens.locator('.rq-proto').first().screenshot({ path: testInfo.outputPath(`prototype-frame-${testInfo.project.name}.png`) });
-  // The frame chrome and the reviewer notice, light and dark (AC-17). The prototype inside the
+  // The frame chrome and the reviewer notice, light and dark. The prototype inside the
   // frame is the package author's content, not Odin's, so axe skips it.
   for (const theme of ['light', 'dark']) {
     await page.evaluate((dark) => document.documentElement.classList.toggle('dark', dark), theme === 'dark');

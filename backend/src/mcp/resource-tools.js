@@ -196,7 +196,7 @@ export function registerResourceTools({ api, dryRun, id, tool }) {
   }, { write: true, purpose: 'Let someone without a login see and update their work on the project from a link, or stop them.' });
 
   tool('odin_send_task_access_link', [
-    'Email someone without an Odin login their access link, which opens every project where their task access is on, and any requirements portals for their email.',
+    'Email someone without an Odin login their access link, which opens every project where their task access is on, and any client portals for their email.',
     'Turn task access on first with odin_set_task_access. Every call issues another link and sends another email (links sent earlier keep working): never retry blindly.',
     'emailed is false when Odin could not queue the email.',
     'Needs a workspace admin or manager role and plan-edit access to the project.',
@@ -312,7 +312,7 @@ export function registerResourceTools({ api, dryRun, id, tool }) {
     const body = { ...changes, ...(wanted !== undefined ? { workItemId: item?.id ?? null } : {}) };
     const { value } = await call('PATCH', path, { body }, ERRORS.time);
     // The entry names its work item only if it is one of the project's epics, stories or tasks: an id
-    // stored for anything else could be a ticket from outside that nobody has validated (D-027).
+    // stored for anything else could be a ticket from outside that nobody has validated.
     const named = item ?? (value?.workItemId
       ? projectItems((await call('GET', `/api/projects/${encodeURIComponent(args.projectId)}`, {}, ERRORS.timeList)).project).find((entry) => entry.id === value.workItemId) ?? null
       : null);

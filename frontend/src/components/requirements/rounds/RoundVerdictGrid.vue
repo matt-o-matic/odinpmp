@@ -5,10 +5,10 @@ import './rounds.css';
 import RequirementsAvatar from '../RequirementsAvatar.vue';
 import { VERDICT_LEGEND, verdictMeta } from '../../../lib/requirements/requirements-rounds.js';
 
-// Verdicts by reviewer (design-v1 team-results): one row per reviewer, one column per
-// screen. A missing verdict is a hatched "Not reviewed" cell and never counts as agreement.
-// Column headers pick the screen whose Odin summary shows beside the grid; a cell shows that
-// reviewer's verdict notes below the grid.
+// Verdicts by reviewer: one row per reviewer, one column per screen. A missing verdict is a
+// hatched "Not reviewed" cell and never counts as agreement. Column headers pick the screen
+// whose Odin summary shows beside the grid; a cell shows that reviewer's verdict notes below
+// the grid.
 const props = defineProps({
   // [{ key, label }] feedback dimensions, for verdict details.
   dimensions: { default: () => [], type: Array },

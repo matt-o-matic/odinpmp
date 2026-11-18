@@ -1,6 +1,5 @@
 /* Review rounds for the team: the rounds list, the publish form, and a round's results.
-   Vocabulary from docs/requirements-gathering/design-v1/mockups/rq.css (team-upload,
-   team-results) on Odin's tokens. Verdict colors carry text labels too, so color is never
+   On Odin's tokens. Verdict colors carry text labels too, so color is never
    the only signal; Not reviewed is hatched and never counted as agreement. */
 :root {
   --rq-keep: #17734a;

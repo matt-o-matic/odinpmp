@@ -1,7 +1,7 @@
 import { ID, route } from './shared.js';
 
 // Sharing files with stakeholders and signature requests (signing-tools.js). Signing itself
-// happens only in the stakeholder portal, never through a credential.
+// happens only in the client portal, never through a credential.
 
 const only = (body, fields) => Object.keys(body).every((field) => fields.includes(field));
 const REQUEST_FIELDS = ['documents', 'kind', 'message', 'signerStakeholderIds', 'statement', 'subjectId', 'subjectType', 'title'];

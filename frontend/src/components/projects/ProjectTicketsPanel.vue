@@ -1,5 +1,5 @@
 <script setup>
-// Per-project ticket view (D-020, WS9). Reuses the shared board logic so this surface and
+// Per-project ticket view. Reuses the shared board logic so this surface and
 // the tenant board group, label, and filter identically; only the project scope differs.
 import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -139,7 +139,7 @@ async function createTicket() {
   try {
     await apiClient.createProjectItem(
       props.projectId,
-      // Off-sprint by default (D-015): no sprint is set at creation.
+      // Off-sprint by default: no sprint is set at creation.
       {
         item: { ...draft, ...(draftTemplate.priority ? { priority: draftTemplate.priority } : {}), status: 'new' },
         itemType: 'ticket',

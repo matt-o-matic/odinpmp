@@ -8,7 +8,7 @@ import { createPackageGrant, verifyPackageGrant } from '../src/modules/requireme
 import { createReviewOriginApp } from '../src/review-origin/app.js';
 import { createRoundsTestApp, GRANT_SECRET, REVIEW_PUBLIC_URL, roundPackageFiles, ROLE_USERS } from './helpers/requirements-rounds-app.js';
 
-// AC-06 for package files: a grant keeps working only while its viewer still has access.
+// Package files: a grant keeps working only while its viewer still has access.
 // The review origin here is the real app with the real access check over the same
 // repositories the API uses, with no recheck cache so each request sees the current state.
 
@@ -52,7 +52,7 @@ async function openRound() {
   return { casey, caseyToken: tokenFor(casey), harness, jamie, jamieToken: tokenFor(jamie), linkOf, pkg, reviewOrigin, round, screenPath };
 }
 
-test('AC-06 revoking a stakeholder link stops its earlier package grants at once', async () => {
+test('revoking a stakeholder link stops its earlier package grants at once', async () => {
   const { caseyToken, harness, jamie, jamieToken, linkOf, pkg, reviewOrigin, round, screenPath } = await openRound();
   const jamiePath = await screenPath(jamieToken);
   const caseyPath = await screenPath(caseyToken);
@@ -71,7 +71,7 @@ test('AC-06 revoking a stakeholder link stops its earlier package grants at once
   assert.equal((await request(reviewOrigin).get(caseyPath)).status, 200, 'other reviewers are unaffected');
 });
 
-test('AC-06 a stakeholder removed from the round, or whose link expired, stops getting package files', async () => {
+test('a stakeholder removed from the round, or whose link expired, stops getting package files', async () => {
   const { casey, caseyToken, harness, jamieToken, reviewOrigin, round, screenPath } = await openRound();
   const jamiePath = await screenPath(jamieToken);
   const caseyPath = await screenPath(caseyToken);
@@ -89,7 +89,7 @@ test('AC-06 a stakeholder removed from the round, or whose link expired, stops g
   assert.equal((await request(reviewOrigin).get(jamiePath)).status, 404);
 });
 
-test('AC-06 a member grant works only while the member can read the project', async () => {
+test('a member grant works only while the member can read the project', async () => {
   const { harness, pkg, reviewOrigin } = await openRound();
   const team = await harness.as('viewer').get(`/packages/${pkg.id}/grant`);
   assert.equal(team.status, 200, JSON.stringify(team.body));

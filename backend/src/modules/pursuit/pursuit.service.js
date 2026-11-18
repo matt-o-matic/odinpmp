@@ -1,5 +1,4 @@
-// The pursuit board, its settings, moving pursuit tasks to the project, and the pursuit Insights
-// (docs/engagements/plan.md, "Pursuit board" and "Pursuit insights").
+// The pursuit board, its settings, moving pursuit tasks to the project, and the pursuit Insights.
 import { resolveDecisionRights } from '../../lib/auth/decision-rights.js';
 import { PROJECT_CAPABILITIES, requireProjectCapability } from '../../lib/auth/project-capabilities.js';
 import { HttpError } from '../../lib/errors/http-error.js';
@@ -69,7 +68,7 @@ export async function getPursuitForUser({ deps, projectId, user }) {
   };
 }
 
-/** The project's settings, which everyone on the project may read (E-16). */
+/** The project's settings, which everyone on the project may read. */
 export async function getProjectSettingsForUser({ deps, projectId, user }) {
   const { projectRepository } = deps;
   const { tenantId } = await requireCapability({ capability: PROJECT_CAPABILITIES.READ, projectId, projectRepository, user });
@@ -78,7 +77,7 @@ export async function getProjectSettingsForUser({ deps, projectId, user }) {
   return { canManage: await canManageSettings({ projectId, projectRepository, tenantId, user }), ok: true, settings };
 }
 
-/** Changes the settings. Only people with decision rights on the project may (E-16). */
+/** Changes the settings. Only people with decision rights on the project may. */
 export async function saveProjectSettingsForUser({ deps, input, projectId, user }) {
   const { projectRepository } = deps;
   const { tenantId } = await requireCapability({ capability: PROJECT_CAPABILITIES.READ, projectId, projectRepository, user });
@@ -92,7 +91,7 @@ export async function saveProjectSettingsForUser({ deps, input, projectId, user 
 }
 
 /**
- * Moves pursuit tasks under a story on the plan, by people who can edit the plan (Q-07). One
+ * Moves pursuit tasks under a story on the plan, by people who can edit the plan. One
  * task or several, all or none.
  */
 export async function movePursuitTasksForUser({ deps, input, projectId, user }) {
@@ -149,7 +148,7 @@ async function readActivity({ channelActivityReader, projectId, since, tenantId 
 }
 
 /**
- * The engagement's Insights cards (Q-08): SOW, tasks, activity, people and age. For members of
+ * The engagement's Insights cards: SOW, tasks, activity, people and age. For members of
  * the project; guests have no route to it.
  */
 export async function getPursuitInsightsForUser({ deps, projectId, user }) {

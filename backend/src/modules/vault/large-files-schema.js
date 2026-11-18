@@ -1,5 +1,4 @@
-// 0097_large_files (docs/engagements/plan.md, Data): files up to 1 GB, uploaded in parts and
-// scanned after upload.
+// 0097_large_files: files up to 1 GB, uploaded in parts and scanned after upload.
 //
 // - file_size becomes BIGINT on file_vault and file_versions.
 // - Each file and version gets its SHA-256, a scan status (pending, clean, infected, failed) with

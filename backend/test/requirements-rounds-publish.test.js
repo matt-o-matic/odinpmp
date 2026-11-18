@@ -28,7 +28,7 @@ function reviewersFor(people, users = ['member', 'reviewer']) {
   ];
 }
 
-test('AC-06 a member publishes a draft as round 1: package published, four invitations queued, question topics created or resolved', async () => {
+test('a member publishes a draft as round 1: package published, four invitations queued, question topics created or resolved', async () => {
   const { harness, people, pkg, priceTopic } = await setup();
   const events = harness.recordEvents(harness.projectChannel);
   const dueAt = new Date(Date.now() + 5 * DAY_MS).toISOString();
@@ -140,7 +140,7 @@ test('one open round at a time: publishing another returns 409, and closePreviou
   assert.equal(blocked.body.details.openRoundId, first.round.id);
   assert.equal((await harness.packagesRepository.getPackage({ packageId: second.id, projectId: PROJECT_ID, tenantId: TENANT_ID })).status, 'draft', 'nothing changes on 409');
 
-  // A member cannot close the previous round on the way (decision rights, Q-04).
+  // A member cannot close the previous round on the way (decision rights).
   const memberClose = await harness.as('member').post('/rounds', {
     closePrevious: { outcome: 'changes-requested' },
     packageId: second.id,
@@ -247,7 +247,7 @@ test('publish validation: reviewers must be collaborators or project stakeholder
   assert.equal(ok.status, 201, JSON.stringify(ok.body));
 });
 
-test('AC-11 AC-15 permissions: viewers read rounds but get 404 on writes; only decision rights close; stakeholders see only invited rounds', async () => {
+test('permissions: viewers read rounds but get 404 on writes; only decision rights close; stakeholders see only invited rounds', async () => {
   const { harness, people, pkg } = await setup({ stakeholders: 2 });
   const { round } = await harness.publish({ packageId: pkg.id, reviewers: reviewersFor([people[0]], ['reviewer']) });
   const [invited, uninvited] = people;
@@ -357,7 +357,7 @@ test('PATCH changes the due date, note, reminder, and reviewers; removed stakeho
   assert.equal(late.body.details.code, 'round_closed');
 });
 
-test('AC-06 delivery status: a failed send shows on the reviewer, a queue error is recorded, and Resend queues again', async () => {
+test('delivery status: a failed send shows on the reviewer, a queue error is recorded, and Resend queues again', async () => {
   const harness = await createRoundsTestApp();
   const stakeholder = await harness.seedStakeholder();
   const noEmail = await harness.seedStakeholder({ email: '', name: 'No Email' });
@@ -403,7 +403,7 @@ test('AC-06 delivery status: a failed send shows on the reviewer, a queue error 
   assert.deepEqual(revoked.body.reviewer.mail, { queuedAt: null, reason: 'link-revoked', status: 'not-sent' });
 });
 
-test('AC-06 link lifetime counts the open round, ends 14 days after close, and stops at revocation', async () => {
+test('link lifetime counts the open round, ends 14 days after close, and stops at revocation', async () => {
   const harness = await createRoundsTestApp();
   const stakeholder = await harness.seedStakeholder();
   const pkg = await harness.uploadPackage(roundPackageFiles());

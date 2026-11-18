@@ -20,7 +20,7 @@ The right to record requirements decisions, close review rounds, approve require
 
 **Stakeholder**:
 A person outside the team who has a say in a project: answering topics, reviewing rounds, signing documents. A stakeholder is identified by email and has no workspace account.
-_Avoid_: Client (that word means the billing client)
+_Avoid_: Client (for the person; the billing client is a different thing)
 
 **Guest**:
 A stakeholder admitted to one or more channels, signed in with an emailed code.
@@ -59,6 +59,10 @@ A unit of value under an epic. Stories carry points, can be split, and bill to a
 **Task**:
 A unit of work under a story. A task always has a parent story.
 
+**Plan**:
+A project's epics, stories and tasks: how its work is broken down.
+_Avoid_: Work breakdown, backlog (the backlog is only the work not in a sprint)
+
 **Ticket**:
 A work item that reports a defect, a support need, a question or a change request, with a severity from S1 to S4. Tickets stay off the sprint board unless someone adds them.
 _Avoid_: Bug (for tickets in general)
@@ -78,6 +82,9 @@ A link between two work items, for example a ticket to the story it affects.
 
 **Sprint**:
 A time box of committed work, activated and then completed, with capacity planned per person.
+
+**Board**:
+A project's Kanban board: work items as cards in status columns. "Kanban board" is fine too.
 
 ## Governance and workflows
 
@@ -111,7 +118,8 @@ A typed field a workspace adds to work items.
 ## Requirements gathering
 
 **Track**:
-One of a project's two lines of requirements work, `experience` or `architecture`.
+One of a project's two lines of requirements work: Experience, or Functional. In code the Functional track is `architecture`.
+_Avoid_: Architecture track
 
 **Topic**:
 A question a project must settle, discussed by the team and stakeholders until it is resolved or dismissed. In code it is a clarification (`project_clarifications`).
@@ -151,11 +159,15 @@ Moving an unresolved mark onto the next version of its screen.
 An AI summary of a topic, a screen or a round, refreshed as the discussion changes.
 
 **Requirements plan**:
-A plan's objective, scope, non-goals and acceptance criteria, each criterion citing the decisions behind it. Once approved, it proposes work items.
-_Avoid_: Plan (alone)
+A track's objective, scope, non-goals and acceptance criteria, each criterion citing the decisions behind it. Once approved, it proposes work items for the plan.
+_Avoid_: Plan (alone), which means the epics, stories and tasks
+
+**Client portal**:
+The pages a stakeholder opens from their stakeholder link: the topics waiting for them, review rounds, shared documents and signing requests. In code it is the requirements portal (`/requirements/:token`).
+_Avoid_: Stakeholder portal, requirements portal
 
 **Stakeholder link**:
-A private link that lets one stakeholder into a project's requirements work without an account.
+A private link that opens the client portal for one stakeholder, without an account.
 
 **Invitation digest**:
 One email per stakeholder that gathers their new topic assignments, sent once a quiet period passes with no new ones.
@@ -181,8 +193,11 @@ The chat app at `/chat`, which shows channels and direct messages across project
 
 ## Files and signing
 
+**File Vault**:
+Every file in a project, wherever it was added: the project itself, a channel or a work item. The project menu labels it Files, and both names are fine. In code it is the vault.
+
 **Audience**:
-Whether a file is internal (the team only) or external (shared with the project's stakeholders).
+Whether a file is internal (the team only) or external (shared with the project's stakeholders in the client portal).
 
 **File version**:
 One stored upload of a file. Earlier versions stay until someone deletes them.
@@ -192,7 +207,7 @@ A request for stakeholders to sign: an acceptance of documents, or a sign-off of
 _Avoid_: Signature request
 
 **Signer**:
-A stakeholder asked to sign a signing request, who signs with an emailed code.
+A stakeholder asked to sign a signing request, who signs in the client portal with an emailed code.
 
 **Seal**:
 An HMAC over a signature record under a server key. It proves the record hasn't changed.
@@ -250,7 +265,8 @@ A link that lets someone without a login see and update their own tasks (or all 
 ## Insights and integrations
 
 **Health signal**:
-A rule-based reading of a sprint, a person or a project: on track, watch, or behind.
+A rule-based reading of a sprint, a person or a project: on track, watch, or at risk. In code at risk is `behind`, and a sentence may still say that a sprint or a person is behind.
+_Avoid_: Behind (as the label)
 
 **Change feed**:
 A project's ordered log of changes, which agents read from a cursor to stay in step.

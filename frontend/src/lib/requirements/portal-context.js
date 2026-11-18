@@ -1,4 +1,4 @@
-// The stakeholder portal shell shares its data, live updates, and link-problem handling
+// The client portal shell shares its data, live updates, and link-problem handling
 // with the inbox, question, and review pages through provide/inject.
 
 import { inject } from 'vue';

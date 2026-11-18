@@ -1371,7 +1371,7 @@ function buildStakeholderFallbackForInvitation(invitation, clarifications = []) 
 }
 
 // Requirements topics (clarifications with a track) are reachable only through the
-// requirements portal, whose links expire and can be revoked. The older portal's tokens
+// client portal, whose links expire and can be revoked. The older portal's tokens
 // never expire, so it must not show or act on them: they are filtered out here, and an
 // older invitation token issued for a tracked topic resolves to nothing. The bridge is
 // attached by createApp; without it this is a no-op.

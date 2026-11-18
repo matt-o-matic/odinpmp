@@ -105,7 +105,7 @@ test('an intake invitation is project-scoped and returns a token', async () => {
   assert.notEqual(response.body.invitation.intakeToken, response.body.invitation.replyToken);
 });
 
-test('AC6.1 a valid token creates a ticket in exactly the token project', async () => {
+test('a valid token creates a ticket in exactly the token project', async () => {
   const { app, createInvitation } = await createIntakeTestApp();
   const invitation = await createInvitation();
 
@@ -118,7 +118,7 @@ test('AC6.1 a valid token creates a ticket in exactly the token project', async 
   assert.equal(response.body.ticket.severity, 'S1');
 });
 
-test('AC6.1 the request body cannot override the project', async () => {
+test('the request body cannot override the project', async () => {
   const { app, createInvitation, projectsRepository } = await createIntakeTestApp();
   const invitation = await createInvitation();
 
@@ -133,7 +133,7 @@ test('AC6.1 the request body cannot override the project', async () => {
   assert.equal(project.tickets.length, 0);
 });
 
-test('AC6.3 every externally created ticket is pending with a reporter', async () => {
+test('every externally created ticket is pending with a reporter', async () => {
   const { app, createInvitation, projectsRepository } = await createIntakeTestApp();
   const invitation = await createInvitation();
 
@@ -148,7 +148,7 @@ test('AC6.3 every externally created ticket is pending with a reporter', async (
   assert.equal(project.tickets[0].status, 'new');
 });
 
-test('AC6.2 an unknown token is rejected without creating anything', async () => {
+test('an unknown token is rejected without creating anything', async () => {
   const { app, projectsRepository } = await createIntakeTestApp();
 
   const response = await request(app)
@@ -160,7 +160,7 @@ test('AC6.2 an unknown token is rejected without creating anything', async () =>
   assert.equal(project.tickets.length, 0);
 });
 
-test('AC6.2 a revoked token behaves exactly like an unknown one', async () => {
+test('a revoked token behaves exactly like an unknown one', async () => {
   const { app, createInvitation, token } = await createIntakeTestApp();
   const invitation = await createInvitation();
 
@@ -180,7 +180,7 @@ test('AC6.2 a revoked token behaves exactly like an unknown one', async () => {
   assert.deepEqual(submission.body, unknown.body, 'revoked and unknown are indistinguishable');
 });
 
-test('AC6.2 an expired token behaves exactly like an unknown one', async () => {
+test('an expired token behaves exactly like an unknown one', async () => {
   const { app, createInvitation } = await createIntakeTestApp();
   const invitation = await createInvitation({ expiresAt: '2020-01-01T00:00:00.000Z' });
 
@@ -191,7 +191,7 @@ test('AC6.2 an expired token behaves exactly like an unknown one', async () => {
   assert.equal(response.status, 404);
 });
 
-test('AC6.9 the public context discloses no internal identities or project structure', async () => {
+test('the public context discloses no internal identities or project structure', async () => {
   const { app, createInvitation } = await createIntakeTestApp();
   const invitation = await createInvitation();
 
@@ -212,7 +212,7 @@ test('AC6.9 the public context discloses no internal identities or project struc
   assert.equal(serialized.includes('tenant-acme'), false);
 });
 
-test('AC6.9 the submission response returns only the reporter own ticket reference', async () => {
+test('the submission response returns only the reporter own ticket reference', async () => {
   const { app, createInvitation } = await createIntakeTestApp();
   const invitation = await createInvitation();
 
@@ -228,7 +228,7 @@ test('AC6.9 the submission response returns only the reporter own ticket referen
   assert.equal(serialized.includes('project-launch'), false);
 });
 
-test('AC6.6 the reporter receives an acknowledgement referencing their ticket', async () => {
+test('the reporter receives an acknowledgement referencing their ticket', async () => {
   const { app, createInvitation, queued } = await createIntakeTestApp();
   const invitation = await createInvitation();
 
@@ -245,7 +245,7 @@ test('AC6.6 the reporter receives an acknowledgement referencing their ticket', 
   assert.match(queued[0].subject, /Acknowledged defect/);
   assert.match(queued[0].subject, new RegExp(`\\[Ref ${response.body.ticket.reference}\\]`));
   assert.ok(queued[0].body.includes(response.body.ticket.reference));
-  // AC6.6: the link opens the reporter's own page, scrolled to this ticket.
+  // The link opens the reporter's own page, scrolled to this ticket.
   assert.ok(queued[0].body.includes(
     `href="http://localhost:5173/app/report/${invitation.body.invitation.intakeToken}#ticket-${response.body.ticket.reference}"`,
   ));
@@ -313,7 +313,7 @@ test('a submission whose attachments exceed the combined budget is rejected befo
   assert.deepEqual(project.tickets, []);
 });
 
-test('AC6.8 rate limiting is per token and does not affect other tokens', () => {
+test('rate limiting is per token and does not affect other tokens', () => {
   const limiter = createIntakeRateLimiter({ maxSubmissions: 2, windowMs: 60_000 });
 
   assert.equal(limiter.check('token-a'), true);
@@ -322,7 +322,7 @@ test('AC6.8 rate limiting is per token and does not affect other tokens', () => 
   assert.equal(limiter.check('token-b'), true, 'another token is unaffected');
 });
 
-test('AC6.8 the window slides so a token recovers', () => {
+test('the window slides so a token recovers', () => {
   const limiter = createIntakeRateLimiter({ maxSubmissions: 1, windowMs: 1000 });
   const start = 1_000_000;
 

@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import { appendMysqlProjectChanges } from '../changes/project-change-log.js';
 
-// Storage for signature requests (docs/document-signing/plan.md): the request with its frozen
+// Storage for signature requests: the request with its frozen
 // package, the document versions it pins, its signers, their sealed signatures, and its audit
 // trail. Migration 0094 (signing-schema.js) creates the tables.
 //

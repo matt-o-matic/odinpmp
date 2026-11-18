@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { HttpError } from '../../../lib/errors/http-error.js';
 import { insertMysqlDecision, selectMysqlDecision } from '../requirements.repository.js';
 
-// Review rounds and the feedback reviewers give in them. Rows live in the U1 tables from
+// Review rounds and the feedback reviewers give in them. Rows live in the tables from
 // migrations 0054 (review_rounds, review_round_reviewers) and 0055 (review_annotations,
 // review_comments, review_verdicts, review_answers), so the requirements repository's
 // round reads (My open items, the overview, link lifetime) see what this repository writes.

@@ -76,8 +76,8 @@ import {
   updateGuestTask,
 } from './guests.service.js';
 
-// Guest routes (docs/engagements/plan.md, API and Guests), mounted at /api/guest, and the member
-// routes that invite and remove guests, mounted at /api/projects/:projectId.
+// Guest routes, mounted at /api/guest, and the member routes that invite and remove
+// guests, mounted at /api/projects/:projectId.
 //
 // A guest's session travels as a member's does: an HttpOnly cookie (path /api/guest only), or a
 // bearer token. Writes made with the cookie carry X-CSRF-Token, the value of the readable
@@ -390,7 +390,7 @@ export function createGuestRouter(appDeps) {
     return { ...await clearFileEditing(deps, ctx, request.params.fileId), ctx };
   }, editingWrite));
 
-  // --- uploads, in parts, as members' (docs/engagements/plan.md, Upload) ---
+  // --- uploads, in parts, as members' ---
   router.post('/uploads', send(201, (request) => startGuestUpload(deps, large, guest(request), fileUploadStartSchema.parse(request.body ?? {}))));
   router.get('/uploads/:uploadId', send(200, (request) => getGuestUpload(deps, large, guest(request), request.params.uploadId)));
   router.post('/uploads/:uploadId/parts', send(200, (request) => signGuestUploadParts(deps, large, guest(request), request.params.uploadId, fileUploadPartsSchema.parse(request.body ?? {}))));
@@ -409,7 +409,7 @@ export function createGuestRouter(appDeps) {
   router.post('/projects/:projectId/tasks/:taskId/comments', send(201, (request) => addGuestTaskComment(deps, guest(request), request.params.projectId, request.params.taskId, taskCommentSchema.parse(request.body ?? {}))));
   router.get('/projects/:projectId/tasks/:taskId/files', send(200, (request) => listGuestTaskFiles(deps, guest(request), request.params.projectId, request.params.taskId)));
 
-  // --- the guest's live stream (plan: Live updates) ---
+  // --- the guest's live stream ---
   router.get('/events', (request, response) => {
     const current = guest(request);
     let closed = false;

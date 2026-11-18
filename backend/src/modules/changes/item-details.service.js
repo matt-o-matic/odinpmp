@@ -2,7 +2,7 @@ import { PROJECT_CAPABILITIES, requireProjectCapability } from '../../lib/auth/p
 import { HttpError } from '../../lib/errors/http-error.js';
 import { actorNames, commentText, flattenWork, loadProject, placement, presentChange, tenantIdOf, workflowVersions } from './changes.service.js';
 
-// odin_get_item_details (docs/mcp-change-feed/plan.md): what odin_get_project_changes leaves out,
+// odin_get_item_details: what odin_get_project_changes leaves out,
 // for the cards an agent picks: each one's description, comment thread, links, schedule
 // dependencies and recent history, plus the versions odin_apply_item_changes checks. The fields
 // the feed already gives (assignee, sprint, priority, parent, comment counts) are not repeated.
@@ -98,7 +98,7 @@ export async function getItemDetailsForUser(deps, { input, projectId, user }) {
   const historyLimit = input.historyLimit ?? DEFAULT_HISTORY_LIMIT;
 
   const { columns, project } = await loadProject(deps, { projectId, tenantId, user });
-  // Only items the caller can see: tickets nobody has validated stay out (D-027).
+  // Only items the caller can see: tickets nobody has validated stay out.
   const byId = new Map(flattenWork(project).map((entry) => [entry.item.id, entry]));
   const found = itemIds.filter((id) => byId.has(id));
   const missing = itemIds.filter((id) => !byId.has(id));
@@ -137,7 +137,7 @@ export async function getItemDetailsForUser(deps, { input, projectId, user }) {
   const workflowOf = (itemType) => workflows.find((workflow) => workflow.itemType === itemType) ?? null;
   const budget = { used: 0 };
 
-  // Files from a ticket the caller cannot see stay out, as they do from the file tools (D-027).
+  // Files from a ticket the caller cannot see stay out, as they do from the file tools.
   const visibleFiles = files.filter((file) => file.targetType !== 'ticket' || byId.has(file.targetId));
   const filesOn = (itemId) => visibleFiles.flatMap((file) => {
     const linked = file.links?.some((link) => link.targetId === itemId);

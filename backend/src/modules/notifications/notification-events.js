@@ -1,15 +1,15 @@
 import { LIVE_EVENT_CHANNELS } from '../../lib/events/live-event-bus.js';
 
-// Live notification events (docs/odin-chat/plan.md, Delivery: Live). Each person has a channel
-// on the live event bus per workspace (LIVE_EVENT_CHANNELS.person). Events carry only ids; the
-// client fetches the notification, and every fetch checks who is asking.
+// Live notification events. Each person has a channel on the live event bus per workspace
+// (LIVE_EVENT_CHANNELS.person). Events carry only ids; the client fetches the notification,
+// and every fetch checks who is asking.
 //
 // - notification.created { id }: a new notification, or a collapsed one that changed.
 // - notification.read { ids } or { all: true }: notifications read, in this tab or another.
 //
 // openPrincipalEventStream serves one person's stream over server-sent events. Members get it
-// at GET /api/me/events (notifications.routes.js). The guest stream (GET /api/guest/events,
-// engagements workstream 6) calls subscribePrincipalNotifications with the guest's principal
+// at GET /api/me/events (notifications.routes.js). The guest stream (GET /api/guest/events)
+// calls subscribePrincipalNotifications with the guest's principal
 // and writes the same events next to its channel.updated ones.
 
 export const NOTIFICATION_CREATED_EVENT = 'notification.created';

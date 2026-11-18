@@ -17,7 +17,7 @@ const project = {
 };
 const toolbox = () => createAgentToolbox({ api: { request: async (method, path) => (path === '/api/projects/project-1' ? { project } : {}) }, projectId: 'project-1' });
 
-test('a confirmation names tickets, but not one from outside that nobody has validated (D-027)', async () => {
+test('a confirmation names tickets, but not one from outside that nobody has validated', async () => {
   const box = toolbox();
   assert.equal(await box.describeTarget('odin_delete_ticket', { itemId: 'ticket-1', projectId: 'project-1' }), 'ticket "Export fails on Safari"');
   const pending = await box.describeTarget('odin_review_ticket', { itemId: 'ticket-2', projectId: 'project-1' });

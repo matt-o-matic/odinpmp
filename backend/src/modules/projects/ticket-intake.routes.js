@@ -10,7 +10,7 @@ import {
 import { publishProjectChanged } from '../../lib/events/project-live-events.js';
 
 /**
- * Inbound reply webhook (D-021, AC6.7). Mounted outside auth and guarded by the same
+ * Inbound reply webhook. Mounted outside auth and guarded by the same
  * shared secret the clarification inbound path uses. The inbound-mail webhook routes ticket+
  * recipients here, and the older clarification webhook forwards them (forwardTicketMailReply).
  */
@@ -48,7 +48,7 @@ export function forwardTicketMailReply({ inboundMailWebhookSecret, input, liveEv
 }
 
 /**
- * Unauthenticated ticket intake (D-011). Mounted outside the auth middleware; the
+ * Unauthenticated ticket intake. Mounted outside the auth middleware; the
  * project-scoped invite token is the only credential, and it is never echoed back.
  */
 export function createPublicTicketIntakeRouter({

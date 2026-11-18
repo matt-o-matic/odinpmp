@@ -4,7 +4,7 @@ import { portalPersonKey } from '../rounds/round-views.js';
 // Mentions inside Requirements comment bodies (topic discussions and annotation threads).
 //
 // A mention is stored inline as `@[Name](user:<id>)` or `@[Name](stakeholder:<id>)`. The
-// stakeholder portal never sees actor ids, so bodies sent to it carry
+// client portal never sees actor ids, so bodies sent to it carry
 // `@[Name](person:<key>)` instead, with the same opaque key the portal already uses for
 // authors (portalPersonKey), and the portal writes mentions back in that form. Anything
 // that does not resolve to a person the writer may tag is saved as plain `@Name`.

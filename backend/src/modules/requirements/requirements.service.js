@@ -758,7 +758,7 @@ export async function getTopicForUser(deps, { projectId, topicId, user }) {
 }
 
 // ---------------------------------------------------------------------------
-// Odin summary (E-04): refresh on request and run history
+// Odin summary: refresh on request and run history
 // ---------------------------------------------------------------------------
 
 async function loadSummaryActorNames(deps, { clarification, projectId, tenantId }) {
@@ -1146,7 +1146,7 @@ export async function voteTopicCommentForUser(deps, { commentId, input, projectI
 }
 
 // ---------------------------------------------------------------------------
-// Draft questions from the brief (Q-13, Q-13a)
+// Draft questions from the brief
 // ---------------------------------------------------------------------------
 
 export async function draftQuestionsFromBriefForUser(deps, { projectId, track, user }) {

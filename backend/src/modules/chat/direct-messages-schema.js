@@ -1,4 +1,4 @@
-// 0103_direct_messages (docs/odin-chat/plan.md, Data): direct messages between workspace members,
+// 0103_direct_messages: direct messages between workspace members,
 // one to one or in groups of up to 8 people. Their posts are discussion_posts rows with
 // target_type 'dm', and their files are file_vault rows with target_type 'dm'; both name the
 // conversation as their target.

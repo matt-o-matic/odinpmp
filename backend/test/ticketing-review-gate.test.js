@@ -89,7 +89,7 @@ async function createReviewTestApp() {
   return { app, projectsRepository, token };
 }
 
-test('AC7.1/AC7.2 only internal and validated tickets are visible to the assistant', () => {
+test('only internal and validated tickets are visible to the assistant', () => {
   assert.equal(isTicketVisibleToAssistant({ externalReviewState: 'not_external' }), true);
   assert.equal(isTicketVisibleToAssistant({ externalReviewState: 'validated' }), true);
   assert.equal(isTicketVisibleToAssistant({ externalReviewState: 'pending' }), false);
@@ -98,7 +98,7 @@ test('AC7.1/AC7.2 only internal and validated tickets are visible to the assista
   assert.equal(isTicketVisibleToAssistant({}), true);
 });
 
-test('AC7.1/AC7.2 the project filter strips pending and rejected tickets', () => {
+test('the project filter strips pending and rejected tickets', () => {
   const project = {
     epics: [{ id: 'epic-1', name: 'E', stories: [] }],
     id: 'project-launch',
@@ -122,7 +122,7 @@ test('the filter leaves projects without tickets identical', () => {
   assert.equal(filterProjectTicketsForAssistant(allVisible), allVisible, 'no copy when nothing is stripped');
 });
 
-test('AC7.1 the assistant repository wrapper filters every getProjectDetail call', async () => {
+test('the assistant repository wrapper filters every getProjectDetail call', async () => {
   const calls = [];
   const wrapped = wrapProjectRepositoryForAssistant({
     async getProjectDetail(args) {
@@ -147,7 +147,7 @@ test('the wrapper tolerates a repository without getProjectDetail', () => {
   assert.equal(wrapProjectRepositoryForAssistant(null), null);
 });
 
-test('AC7.4 pending tickets stay fully visible to humans on the project surface', async () => {
+test('pending tickets stay fully visible to humans on the project surface', async () => {
   const { app, token } = await createReviewTestApp();
 
   const response = await request(app)
@@ -161,7 +161,7 @@ test('AC7.4 pending tickets stay fully visible to humans on the project surface'
   );
 });
 
-test('AC7.4 a pending ticket can still be assigned and scheduled by a human', async () => {
+test('a pending ticket can still be assigned and scheduled by a human', async () => {
   const { app, projectsRepository, token } = await createReviewTestApp();
 
   const before = await projectsRepository.getProjectDetail({ projectId: 'project-launch', tenantId: 'tenant-acme' });
@@ -177,7 +177,7 @@ test('AC7.4 a pending ticket can still be assigned and scheduled by a human', as
   assert.equal(response.body.item.externalReviewState, 'pending', 'scheduling does not validate the ticket');
 });
 
-test('AC7.6 validating a ticket records the decision and makes it assistant-visible', async () => {
+test('validating a ticket records the decision and makes it assistant-visible', async () => {
   const { app, projectsRepository, token } = await createReviewTestApp();
 
   const before = await projectsRepository.getProjectDetail({ projectId: 'project-launch', tenantId: 'tenant-acme' });
@@ -203,7 +203,7 @@ test('AC7.6 validating a ticket records the decision and makes it assistant-visi
   assert.ok(visible.tickets.some((entry) => entry.id === 'ticket-pending'));
 });
 
-test('AC7.2 a rejected ticket stays permanently invisible to the assistant', async () => {
+test('a rejected ticket stays permanently invisible to the assistant', async () => {
   const { app, projectsRepository, token } = await createReviewTestApp();
 
   const before = await projectsRepository.getProjectDetail({ projectId: 'project-launch', tenantId: 'tenant-acme' });
@@ -225,7 +225,7 @@ test('AC7.2 a rejected ticket stays permanently invisible to the assistant', asy
   assert.ok(humanView.body.project.tickets.some((entry) => entry.id === 'ticket-pending'), 'humans still see it');
 });
 
-test('AC7.5 an internally created ticket cannot be sent through review', async () => {
+test('an internally created ticket cannot be sent through review', async () => {
   const { app, projectsRepository, token } = await createReviewTestApp();
 
   const before = await projectsRepository.getProjectDetail({ projectId: 'project-launch', tenantId: 'tenant-acme' });

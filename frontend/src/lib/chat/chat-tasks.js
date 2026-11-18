@@ -1,4 +1,4 @@
-// The Tasks tab of a channel in Odin Chat (docs/odin-chat/plan.md, Tasks): the project's work as
+// The Tasks tab of a channel in Odin Chat: the project's work as
 // a small board or list. A delivery project shows its stories and tasks, an engagement its
 // pursuit tasks. These helpers read the kanban API's cards and the project tree the item API
 // returns; they never call the server.

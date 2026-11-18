@@ -5,7 +5,7 @@ import { REVIEW_ROUND_INVITATION_TEMPLATE_ID, REVIEW_ROUND_REMINDER_TEMPLATE_ID 
 import { queueReviewRoundEmail } from '../../mail/mail.service.js';
 import { buildRequirementsPortalUrl, generateAccessToken, hashAccessToken } from '../requirements-access-links.js';
 
-// Round invitations and reminders (AC-06). Stakeholders get a fresh requirements portal
+// Round invitations and reminders. Stakeholders get a fresh client portal
 // token in every email, deep-linked to the round; members get the app URL. Each email has
 // its own mail_queue target id, recorded on the reviewer row, so the round can show that
 // email's delivery status and Resend can queue another.

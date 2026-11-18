@@ -58,7 +58,7 @@ export function teamCounts({ approvals, contexts, sprints }) {
   const staffed = sprints.filter((entry) => entry.load.size > 0);
   const overallocated = new Set(staffed.flatMap((entry) => [...entry.load.values()].filter((load) => load.hoursLeft > load.capacityLeft).map((load) => load.userId)));
   return [
-    count('active-sprints', 'Active sprints', sprints.length, behind ? `${behind} behind` : 'none behind', { severity: behind ? 'warn' : null }),
+    count('active-sprints', 'Active sprints', sprints.length, behind ? `${behind} at risk` : 'none at risk', { severity: behind ? 'warn' : null }),
     count('approvals', 'Pending approvals', approvals.length, pastSla ? `${pastSla} past SLA` : 'none past SLA', { href: { name: 'workflows' }, severity: pastSla ? 'warn' : null }),
     count('critical-risks', 'Critical risks', critical, `of ${risks.length} open`, { severity: critical ? 'danger' : null }),
     staffed.length > 0

@@ -1,4 +1,4 @@
-// Engagements are projects with kind = 'engagement' (docs/engagements/plan.md). These methods are
+// Engagements are projects with kind = 'engagement'. These methods are
 // spread into the projects repositories, as the deletion methods are, so they share the project
 // records, memberships and change log.
 import { randomUUID } from 'node:crypto';
@@ -104,7 +104,7 @@ export function createInMemoryEngagementMethods({ authRepository = null, changeL
         updatedAt: now,
       });
       state.projects.push(project);
-      // The creator is the engagement's project admin (E-03).
+      // The creator is the engagement's project admin.
       state.projectMemberships.set(project.id, [{ email: user.email ?? '', id: user.id, name: user.name ?? '', role: 'admin' }]);
       changeLog.append([engagementChange({ action: 'create', actorId: user.id, detail: { customer: project.engagementCustomer, status: 'open' }, projectId: project.id, tenantId })]);
       return structuredClone(project);
@@ -142,7 +142,7 @@ export function createInMemoryEngagementMethods({ authRepository = null, changeL
       changeLog.append([engagementChange({ action: 'convert', actorId: user.id, detail: { status: 'won' }, projectId, tenantId })]);
       return structuredClone(project);
     },
-    // The customer and owner of an open engagement (E-09).
+    // The customer and owner of an open engagement.
     async updateEngagementFields({ customer, ownerId, projectId, tenantId, user }) {
       const project = findProject(projectId, tenantId);
       if (!project || project.kind !== PROJECT_KIND_ENGAGEMENT) throw new HttpError(404, 'Project not found.');
@@ -262,7 +262,7 @@ export function createMysqlEngagementMethods({ getProjectDetail, getProjectStatu
            VALUES (?, ?, ?, ?, ?, NULL, NULL, ?, 'open', ?, ?, NOW(), NOW())`,
           [projectId, tenantId, input.name, input.description ?? '', statusId, PROJECT_KIND_ENGAGEMENT, input.customer, user.id],
         );
-        // The creator is the engagement's project admin (E-03).
+        // The creator is the engagement's project admin.
         await connection.execute(
           "INSERT INTO user_project (id, user_id, project_id, role, created_at, updated_at) VALUES (?, ?, ?, 'admin', NOW(), NOW())",
           [randomUUID(), user.id, projectId],

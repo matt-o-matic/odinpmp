@@ -18,7 +18,7 @@ const token = computed(() => authSession.state.token);
 const resourceMap = computed(() => new Map(workspace.value.resources.map((item) => [item.id, item])));
 const projectMap = computed(() => new Map(workspace.value.projects.map((item) => [item.id, item])));
 // People see only their own time, and change or delete it while it is submitted and its period is open.
-// Time on an invoice stays as billed, for everyone (invoice-gen E-06).
+// Time on an invoice stays as billed, for everyone.
 const canChangeTime = (item) => !item.invoiced && (workspace.value.canManageResources || (item.status === 'submitted' && (!item.periodId || workspace.value.timesheetPeriods.find((period) => period.id === item.periodId)?.status === 'open')));
 const timeActions = computed(() => workspace.value.timeEntries.some(canChangeTime));
 

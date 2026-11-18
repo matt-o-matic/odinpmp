@@ -266,7 +266,7 @@ export function createApp(deps = {}) {
   app.locals.complianceRepository = complianceRepository;
   app.locals.requirementsRepository = requirementsRepository;
   app.locals.accessRepository = accessRepository;
-  // Odin summaries (E-04), written by requirementsAiService.summarize() when it has one.
+  // Odin summaries, written by requirementsAiService.summarize() when it has one.
   const requirementsSummaries = deps.requirementsSummaries ?? createRequirementsSummaryEngine({
     assistantRepository,
     clock: deps.requirementsClock ?? (() => new Date()),
@@ -296,7 +296,7 @@ export function createApp(deps = {}) {
   app.locals.liveEventBus = liveEventBus;
   app.locals.stopLiveEventBus = () => liveEventBus.stop?.();
   app.locals.operationalState = operationalState;
-  // Notifications (docs/odin-chat/plan.md): records, levels, the per-person stream and Web Push.
+  // Notifications: records, levels, the per-person stream and Web Push.
   const notificationsRepository = deps.notificationsRepository ?? createInMemoryNotificationsRepository();
   const pushSender = deps.pushSender ?? createPushSender({
     config: deps.webPush ?? {},
@@ -322,7 +322,7 @@ export function createApp(deps = {}) {
   app.locals.notifications = notifications;
   app.locals.notificationsRepository = notificationsRepository;
   app.locals.pushSender = pushSender;
-  // D-027: agent-facing paths read project detail with gated external tickets stripped.
+  // Agent-facing paths read project detail with gated external tickets stripped.
   const agentProjectRepository = wrapProjectRepositoryForAssistant(deps.projectRepository);
   // The assistant: chats whose tools call Odin's REST API as the signed-in user.
   const agentChatsRepository = deps.agentChatsRepository ?? createInMemoryAgentChatsRepository();
@@ -606,7 +606,7 @@ export function createApp(deps = {}) {
   app.use('/api/me', createMemberNotificationsRouter(resolvedDeps));
   app.use('/api/workspace/modules', createWorkspaceModulesRouter(resolvedDeps));
   app.use('/api/engagements', createEngagementsRouter(resolvedDeps));
-  // Odin Chat (docs/odin-chat/plan.md): the sidebar, Mentions, Threads and direct messages.
+  // Odin Chat: the sidebar, Mentions, Threads and direct messages.
   app.use('/api/chat', createChatRouter({ ...resolvedDeps, liveEventBus }));
   // Writes outside /api/projects/:projectId still refresh the screens that show them, including
   // those an MCP client or the assistant makes (see lib/events/project-live-events.js).
@@ -638,7 +638,7 @@ export function createApp(deps = {}) {
   app.use('/api/files/:fileId', engagementGuard.file);
   app.use('/api/projects/:projectId/requirements/rounds', createRoundsRouter(resolvedDeps));
   app.use('/api/projects/:projectId', createProjectMutationEventsMiddleware({ liveEventBus }));
-  // Channels (docs/engagements/plan.md): their routes, and for the vault's routes a guard that
+  // Channels: their routes, and for the vault's routes a guard that
   // keeps archived channels' libraries read-only and publishes channel.updated for file writes.
   const channelFileEvents = createChannelFileEventsMiddleware({
     liveEventBus,
@@ -668,7 +668,7 @@ export function createApp(deps = {}) {
   app.use('/api/public/clarification-mail', createPublicClarificationMailRouter(resolvedDeps));
   app.use('/api/public/requirements', createPublicRequirementsRouter(resolvedDeps));
   app.use('/api/public/access', createPublicAccessRouter(resolvedDeps));
-  // Channel guests' own routes (docs/engagements/plan.md, Guests). Their session works here only.
+  // Channel guests' own routes. Their session works here only.
   app.use('/api/guest', createGuestRouter({ ...resolvedDeps, liveEventBus }));
   app.use('/api/public/requirements-uploads', createPublicPackageUploadRouter(resolvedDeps));
   app.locals.packagesRepository = resolvedDeps.packagesRepository;

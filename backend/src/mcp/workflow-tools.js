@@ -163,7 +163,7 @@ export function registerWorkflowTools({ api, dryRun, flattenItems, id, page, pag
     // The project in the body lets Odin hold a grant limited to some projects to their approvals.
     const body = { decisionNote: args.note, expectedVersion: args.expectedVersion, projectId: args.projectId, status: args.decision };
     if (args.dryRun) return preview('POST', path, body);
-    // Approvals on tickets stay out of reach, as in odin_list_approvals: an external ticket may await review (D-027).
+    // Approvals on tickets stay out of reach, as in odin_list_approvals: an external ticket may await review.
     const approval = (await readWorkflowState(api, args.projectId)).approvals.find((entry) => entry.id === args.approvalId && entry.projectId === args.projectId);
     if (!approval || !ITEM_TYPES.includes(approval.itemType)) throw new OdinApiError(404, 'approval_not_found', 'No approval with this id on this project. Find it with odin_list_approvals.');
     if (approval.status !== 'pending') throw new OdinApiError(409, 'already_decided', `This approval is already ${approval.status}.`, { details: { status: approval.status } });

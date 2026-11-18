@@ -15,7 +15,7 @@ import { createInMemoryRoundsRepository } from '../../src/modules/requirements/r
 import { createInMemorySessionsRepository } from '../../src/modules/sessions/sessions.repository.js';
 import { buildZip, imageScreen, makePng, PROTOTYPE_HTML, prototypeScreen } from './review-packages.js';
 
-// Harness for the review rounds tests (U4): in-memory repositories shared the way app.js
+// Harness for the review rounds tests: in-memory repositories shared the way app.js
 // shares them, an in-memory mail queue, package storage, a review origin URL for grants, a
 // controllable clock, and an Odin summary stub that cites the first sources it is given.
 

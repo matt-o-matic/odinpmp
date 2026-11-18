@@ -1,5 +1,5 @@
 // The SOW card's source: the project's link to invoice-gen (project_billing_links, migration
-// 0099_billing, docs/invoice-gen-connection/plan.md "Data"). A reader returns
+// 0099_billing). A reader returns
 // `{ status, title, url, executedAt, history: [{ status, at }] }` for a linked SOW, or null when
 // the project has no link, the link has no SOW, or the table is not there yet.
 
@@ -61,8 +61,8 @@ export async function readSowLink({ projectId, reader, tenantId }) {
 
 /**
  * A reader over billing's link to invoice-gen (billing.repository.js `getLink`, in memory or
- * MySQL). The link holds the agreement as invoice-gen last sent it (api-contract.md, PUT
- * billing-link): title, status, url and executedAt. Billing keeps no status history, so the
+ * MySQL). The link holds the agreement as invoice-gen last sent it (PUT billing-link): title,
+ * status, url and executedAt. Billing keeps no status history, so the
  * card shows the current status, and the signing date when there is one.
  */
 export function createBillingSowLinkReader({ billingRepository }) {

@@ -7,7 +7,7 @@ import { useDarkMode } from '../../lib/ui/theme.js';
 import NotificationBell from '../notifications/NotificationBell.vue';
 import ChatJumpBox from './ChatJumpBox.vue';
 
-// Odin Chat's slim header (docs/odin-chat/plan.md, layout B): the Odin Chat mark, search and jump,
+// Odin Chat's slim header: the Odin Chat mark, search and jump,
 // the notifications bell, the way to Odin proper, and the account menu.
 defineProps({
   people: { default: () => [], type: Array },
@@ -41,7 +41,7 @@ const chatIcon = `${import.meta.env.BASE_URL}brand/odin-chat-192.png`;
       <ChatJumpBox ref="jump" :people="people" :sidebar="sidebar" @choose="emit('choose', $event)" @need-people="emit('need-people')" />
     </div>
     <div class="chat-head__side">
-      <!-- The notifications bell (docs/odin-chat/plan.md, layout B), the same one Odin proper has. -->
+      <!-- The notifications bell, the same one Odin proper has. -->
       <div class="chat-head__bell" data-slot="notifications-bell"><NotificationBell /></div>
       <RouterLink class="chat-head__odin" :to="{ name: 'home' }" aria-label="Open Odin" data-testid="chat-open-odin">
         <i class="bi bi-grid-3x3-gap" aria-hidden="true"></i>

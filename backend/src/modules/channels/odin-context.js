@@ -1,5 +1,5 @@
-// What Odin reads before answering a tag in a channel (docs/engagements/plan.md, Odin in
-// channels): the thread, recent posts in the channel, the channel's files and the SOW's state.
+// What Odin reads before answering a tag in a channel: the thread, recent posts in the channel,
+// the channel's files and the SOW's state.
 // Apart from where the reply goes, these notes are the only part of an @odin turn that differs
 // from an AI Workspace turn: they follow the assistant's own turn notes (who, role, project
 // snapshot), for members and guests alike. Guests' posts are screened first; one that isn't

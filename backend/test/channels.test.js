@@ -21,9 +21,8 @@ import { createInMemoryProjectsRepository } from '../src/modules/projects/projec
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 
-// Channels, conversation, unread counts and live events (docs/engagements/plan.md, workstream
-// 3; AC-03, AC-11), and channel libraries, folders, file comments and the editing marker
-// (workstream 4; AC-07, AC-09), through Odin's routes on in-memory repositories.
+// Channels, conversation, unread counts and live events, and channel libraries, folders, file
+// comments and the editing marker, through Odin's routes on in-memory repositories.
 // channels-mysql.integration.test.js runs migration 0096 and the MySQL methods.
 
 const TENANT_ID = 'tenant-acme';
@@ -253,7 +252,7 @@ test('posts: replies one level deep, author edits, delete in place, decision rig
 test('mentions notify members once each and email nobody at once, and an edit notifies only people it adds', async (t) => {
   const { general, mailRepository, ok, send } = await fixture(t);
   const { id: channelId } = await general();
-  // Mention email comes later, in the rolled-up digest, if the mention is still unread (Q-04).
+  // Mention email comes later, in the rolled-up digest, if the mention is still unread.
   const mentionedIn = async (key) => (await ok(key, 'GET', '/api/me/notifications')).notifications.filter((entry) => entry.kind === 'mention');
   const people = (await ok('member', 'GET', `${P}/channels/${channelId}/mentionables`)).people;
   assert.ok(people.some((person) => person.ref === `user:${USERS.other.id}` && person.kind === 'team'));
@@ -263,7 +262,7 @@ test('mentions notify members once each and email nobody at once, and an edit no
   assert.equal(post.body, `${mention('other')} can you check the SOW? @Nobody`, 'a tag for someone outside the project becomes plain text');
   let [tagged] = await mentionedIn('other');
   assert.equal(tagged.title, 'Mo Member mentioned you in #General');
-  // Members open chat items in Odin Chat (docs/odin-chat/plan.md, Notifications).
+  // Members open chat items in Odin Chat.
   assert.equal(tagged.path, `/chat/channels/${PROJECT}/${channelId}?post=${post.id}`);
   assert.equal(mailRepository.state.queue.length, 0, 'no email at once');
 
@@ -279,7 +278,7 @@ test('mentions notify members once each and email nobody at once, and an edit no
   assert.equal((await mentionedIn('other')).length, 2);
   assert.equal(tagged.title, 'Lena Lead mentioned you in #General', 'newest first');
   assert.equal(mailRepository.state.queue.length, 0);
-  // Stakeholder tags keep their form for guests (workstream 6) but need a guest in the channel.
+  // Stakeholder tags keep their form for guests but need a guest in the channel.
   const guestTag = (await ok('member', 'POST', `${P}/channels/${channelId}/posts`, { body: '@[Sam Customer](stakeholder:stk-1) hello' }, 201)).post;
   assert.equal(guestTag.body, '@Sam Customer hello');
   assert.equal((await send('viewer', 'GET', `${P}/channels/${channelId}/mentionables`)).status, 200, 'viewers may read who is here');
@@ -447,7 +446,7 @@ test('the project Files view lists channel files with their channel and folder; 
   assert.deepEqual((await ok('member', 'GET', `${P}/channels/${channelId}/posts`)).posts.at(-1).attachments, []);
 });
 
-test('file comments record the version each was made on, reply one level, and go with their file (AC-07)', async (t) => {
+test('file comments record the version each was made on, reply one level, and go with their file', async (t) => {
   const { general, mailRepository, ok, scanAll, send, upload } = await fixture(t);
   const { id: channelId } = await general();
   const file = (await upload('member', 'v1', { fileName: 'sow.txt', targetId: channelId, targetType: 'channel' })).body.file;
@@ -481,7 +480,7 @@ test('file comments record the version each was made on, reply one level, and go
   assert.equal((await send('member', 'PATCH', `${P}/posts/${first.id}`, { body: 'Gone' })).status, 404, 'a deleted file’s comments go with it');
 });
 
-test('the editing marker shows to others, asks a second uploader to confirm, and clears on the editor’s upload, their clear or after 24 hours (AC-09)', async (t) => {
+test('the editing marker shows to others, asks a second uploader to confirm, and clears on the editor’s upload, their clear or after 24 hours', async (t) => {
   const { general, ok, projectRepository, scanAll, send, upload } = await fixture(t);
   const { id: channelId } = await general();
   const file = (await upload('member', 'v1', { fileName: 'model.xlsx', targetId: channelId, targetType: 'channel' })).body.file;

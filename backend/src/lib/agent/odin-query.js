@@ -39,7 +39,7 @@ function itemRows(projectId, project) {
   return rows;
 }
 
-// Tickets submitted from outside the team that nobody has validated (D-027). A link to one, a
+// Tickets submitted from outside the team that nobody has validated. A link to one, a
 // relation, dependency or milestone, is left out of the tables like the ticket itself.
 async function hiddenTicketIds(get, projectId) {
   const { project } = await get(path(projectId));
@@ -150,7 +150,7 @@ export function createOdinQuery({ api, projectId = null, timeoutMs = QUERY_TIMEO
   let reads = new Map();
 
   // GETs are shared within the turn until something is written. Governance is read in the agent
-  // view, which leaves out links to tickets nobody has validated, deleted ones too (D-027).
+  // view, which leaves out links to tickets nobody has validated, deleted ones too.
   function get(pathname) {
     const query = pathname.endsWith('/governance') ? { agentView: 1 } : undefined;
     if (!reads.has(pathname)) reads.set(pathname, api.request('GET', pathname, query ? { query } : undefined).catch((error) => { reads.delete(pathname); throw error; }));

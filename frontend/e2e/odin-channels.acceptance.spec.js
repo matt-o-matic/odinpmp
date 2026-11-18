@@ -5,10 +5,10 @@ import { settleForAxe } from './fixtures/axe-settle.js';
 import { createChannelsWorld, holdProjectStream, installChannelsApi } from './fixtures/channels-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Odin in channels (docs/engagements/plan.md, Odin in channels; AC-23): the mention picker offers
-// Odin, the thread shows "Odin is replying" until its answer arrives live, and an action Odin
-// waits on shows Confirm and Cancel only to the person who tagged it. The API is the channels
-// fixture with Odin's fields; the server side is covered by backend/test/odin-channels.test.js.
+// Odin in channels: the mention picker offers Odin, the thread shows "Odin is replying" until
+// its answer arrives live, and an action Odin waits on shows Confirm and Cancel only to the
+// person who tagged it. The API is the channels fixture with Odin's fields; the server side is
+// covered by backend/test/odin-channels.test.js.
 
 // Each test signs in and loads the app twice; with parallel workers the dev server takes about
 // 10 seconds a load, which left too little of the default 30 seconds for the steps themselves.
@@ -68,7 +68,7 @@ async function signedIn(page, world, { userId = 'user-synthetic' } = {}) {
   return api;
 }
 
-test('the mention picker offers Odin, the thread shows Odin replying, and its answer arrives as Odin (AC-23)', async ({ page }, testInfo) => {
+test('the mention picker offers Odin, the thread shows Odin replying, and its answer arrives as Odin', async ({ page }, testInfo) => {
   const world = odinWorld();
   const api = await signedIn(page, world);
   const release = await holdProjectStream(page);
@@ -115,7 +115,7 @@ test('the mention picker offers Odin, the thread shows Odin replying, and its an
   api.assertNoUnexpectedRequests();
 });
 
-test('Odin\'s confirm and cancel buttons show only for the person who tagged it, and confirming sends their answer (AC-23)', async ({ page }, testInfo) => {
+test('Odin\'s confirm and cancel buttons show only for the person who tagged it, and confirming sends their answer', async ({ page }, testInfo) => {
   const world = withPendingConfirmation(odinWorld(), 'user-synthetic');
   const api = await signedIn(page, world);
   await page.goto(`${CHANNELS}?channel=channel-general`);
@@ -166,7 +166,7 @@ test('Mermaid and Graphviz blocks in a post draw inline, and an unclosed fence s
   api.assertNoUnexpectedRequests();
 });
 
-test('someone else sees what Odin is waiting on, without the buttons (AC-23)', async ({ page }) => {
+test('someone else sees what Odin is waiting on, without the buttons', async ({ page }) => {
   const world = withPendingConfirmation(odinWorld(), 'user-pat');
   const api = await signedIn(page, world);
   await page.goto(`${CHANNELS}?channel=channel-general`);

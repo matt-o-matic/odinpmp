@@ -11,7 +11,7 @@ import ChannelPost from './ChannelPost.vue';
 // The app's API for members; the guest view provides the guest API (lib/channels/channel-api.js).
 const api = useChannelApi();
 
-// A file's one discussion (E-07): comments oldest first, each showing the version it was made
+// A file's one discussion: comments oldest first, each showing the version it was made
 // on, with replies one level deep and the same tags as channel messages.
 const props = defineProps({
   file: { required: true, type: Object },

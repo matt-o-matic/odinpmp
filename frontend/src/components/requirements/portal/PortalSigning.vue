@@ -17,7 +17,7 @@ import {
 import { usePortal } from '../../../lib/requirements/portal-context.js';
 import { isLinkProblem } from '../../../lib/requirements/portal-view.js';
 
-// One signature request in the client portal (docs/document-signing): what is being signed, who
+// One signature request in the client portal: what is being signed, who
 // has signed, and, for a signer who has not acted yet, the one form that signs it. Signing needs
 // a code Odin emails to the signer's address. Declining is a separate action that asks first.
 const route = useRoute();

@@ -1,4 +1,4 @@
-// invoice-gen billing in Odin (docs/invoice-gen-connection): the Billing tab, story milestone
+// invoice-gen billing in Odin: the Billing tab, story milestone
 // assignment in bulk and on a story, claimed time entries, and the SOW on an engagement.
 // All data is synthetic (fixtures/billing-api.js).
 import AxeBuilder from '@axe-core/playwright';

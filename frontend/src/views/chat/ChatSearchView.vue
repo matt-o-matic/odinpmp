@@ -5,8 +5,7 @@ import ChatJumpBox from '../../components/chat/ChatJumpBox.vue';
 import ChatPaneHeader from '../../components/chat/ChatPaneHeader.vue';
 import { useChatShell } from '../../lib/chat/chat-shell.js';
 
-// Search on a phone (docs/odin-chat/plan.md, Odin Chat: phones): the header's search and jump
-// box, on a screen of its own.
+// Search on a phone: the header's search and jump box, on a screen of its own.
 const shell = useChatShell();
 const box = ref(null);
 

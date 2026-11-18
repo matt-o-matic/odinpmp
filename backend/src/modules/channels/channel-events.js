@@ -1,8 +1,7 @@
-// Live updates for channels (docs/engagements/plan.md, Live updates and notifications). Each
-// write to a channel, post, file, version, folder or comment publishes `channel.updated` on the
-// project stream with the channel id, the area that changed (posts, files or members), the actor
-// and the origin client id. Events carry no message text; screens refetch, and every refetch
-// checks permission.
+// Live updates for channels. Each write to a channel, post, file, version, folder or comment
+// publishes `channel.updated` on the project stream with the channel id, the area that changed
+// (posts, files or members), the actor and the origin client id. Events carry no message text;
+// screens refetch, and every refetch checks permission.
 import { CLIENT_ID_HEADER, publishWorkspaceChanged } from '../../lib/events/project-live-events.js';
 import { LIVE_EVENT_CHANNELS } from '../../lib/events/live-event-bus.js';
 import { channelArchivedError } from './channel-library.js';
@@ -34,10 +33,10 @@ export function publishChannelUpdated(liveEventBus, { actor = null, area, channe
   });
 }
 
-// "Ana is typing…" (docs/engagements/plan.md, Live updates): `channel.typing` on the same project
-// stream, with the channel, the thread (`parentId`, null for the channel's own box), the person
-// and whether they still type. Nothing is stored. Each instance holds no typing state either:
-// browsers resend while keys are pressed, and drop a person a few seconds after their last signal.
+// "Ana is typing…": `channel.typing` on the same project stream, with the channel, the thread
+// (`parentId`, null for the channel's own box), the person and whether they still type. Nothing is
+// stored. Each instance holds no typing state either: browsers resend while keys are pressed, and
+// drop a person a few seconds after their last signal.
 export const CHANNEL_TYPING_EVENT = 'channel.typing';
 // How long another backend process may still relay a typing signal (shared-live-event-bus.js).
 export const TYPING_RELAY_TTL_MS = 6000;

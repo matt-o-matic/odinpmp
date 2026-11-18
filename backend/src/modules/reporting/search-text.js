@@ -1,4 +1,4 @@
-// Text for the search index (docs/semantic-search/plan.md): rich text reduced to plain words, and
+// Text for the search index: rich text reduced to plain words, and
 // long text split into passages that each get their own embedding.
 
 const ENTITIES = { amp: '&', apos: "'", gt: '>', lt: '<', nbsp: ' ', quot: '"' };

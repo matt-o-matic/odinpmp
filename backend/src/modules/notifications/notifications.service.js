@@ -5,8 +5,8 @@ import { createChannelGuestDirectory } from './guest-directory.js';
 import { effectiveNotificationLevel, isNotificationLevel, postRecipients } from './notification-levels.js';
 import { publishNotificationCreated, publishNotificationsRead } from './notification-events.js';
 
-// Notifications (docs/odin-chat/plan.md, Notifications; qna.md E-02 to E-07, Q-03, Q-04): who
-// a post, a reply or an assignment notifies, the records it writes, and how they are shown.
+// Notifications: who a post, a reply or an assignment notifies, the records it writes, and
+// how they are shown.
 //
 // - One notification per person per event, never for the person's own actions. Posts in a
 //   channel at level `all` collapse into one notification per channel until it is read.
@@ -99,8 +99,7 @@ function describeHeading(notification, { withProject }) {
 }
 
 /**
- * The app path a member opens a notification at. Chat items open in Odin Chat
- * (docs/odin-chat/plan.md, Notifications: "Clicking the push opens the item in Odin Chat"):
+ * The app path a member opens a notification at. Chat items open in Odin Chat:
  * a direct message at /chat/dm/:conversationId, a channel post, reply or file comment at
  * /chat/channels/:projectId/:channelId with the post or the file. `post` is the post itself,
  * a reply too: replies show under their thread's first post, so the thread opens with the
@@ -177,7 +176,7 @@ export function createNotificationsService({
     return { created, notification };
   }
 
-  // Each person's level in a channel: their stored one, or the Q-03 default.
+  // Each person's level in a channel: their stored one, or the default.
   async function levelsOf({ channelId, people, project }) {
     const stored = await repository.listChannelLevels({ channelId });
     return people.map((person) => ({

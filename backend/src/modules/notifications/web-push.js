@@ -2,7 +2,7 @@ import webpush from 'web-push';
 
 import { buildOperationLogContext, logBackendError } from '../../lib/logging/backend-logger.js';
 
-// Web Push to people's browsers and phones (docs/odin-chat/plan.md, Delivery: Push; qna.md E-05).
+// Web Push to people's browsers and phones.
 //
 // - Push is on only with all three settings: WEB_PUSH_VAPID_PUBLIC_KEY, WEB_PUSH_VAPID_PRIVATE_KEY
 //   and WEB_PUSH_SUBJECT (a mailto: or https: address the push services can reach us at).

@@ -678,7 +678,7 @@ const currentUserId = computed(() => authSession.state.currentUser?.id ?? '');
 const currentUserRole = computed(() => authSession.state.currentUser?.role ?? 'user');
 const canExportProject = computed(() => currentUserRole.value === 'admin');
 const canDeleteProject = computed(() => projectStore.state.activeProjectPermissions?.canDelete === true);
-// Billing follows finance visibility (invoice-gen E-08) and the Consulting module (E-12).
+// Billing follows finance visibility and the Consulting module.
 const canSeeBilling = computed(() => workspaceModules.state.consulting && projectStore.state.activeProjectPermissions?.canManage === true);
 const canManagePermissions = computed(() => currentUserRole.value === 'admin' || currentUserRole.value === 'manager');
 const editorTarget = computed(() => {
@@ -1638,7 +1638,7 @@ async function savePlanningEditorModal() {
           >
             Billing
           </RouterLink>
-          <!-- A converted engagement keeps its pursuit board and insights (docs/engagements/plan.md). -->
+          <!-- A converted engagement keeps its pursuit board and insights. -->
           <RouterLink
             v-if="project.convertedAt"
             class="project-detail-tabs__item"

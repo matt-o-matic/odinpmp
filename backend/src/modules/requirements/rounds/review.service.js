@@ -40,7 +40,7 @@ import { requireRoundCapability, roundsClock, teamSnapshotPath } from './rounds.
 import { toPortalMentions } from '../mentions/mention-tokens.js';
 import { portalAnnotationPeople, prepareMentions, presentMentionables, recordMentions, recordTopicReplies, teamAnnotationPeople } from '../mentions/mentions.service.js';
 
-// The review API (journey 5, AC-07 to AC-09, AC-18). One service behind two route sets:
+// The review API. One service behind two route sets:
 //   - team members through /api/projects/:projectId/requirements/rounds/:roundId/review,
 //     with project.collaborate. Any collaborator may annotate and comment; directions,
 //     verdicts, answers, and submit need an invitation to the round;
@@ -263,7 +263,7 @@ function publishedByOf(people, round) {
 }
 
 function portalManifest(manifest) {
-  // The generator block is an audit record (Q-14) and never shown to reviewers.
+  // The generator block is an audit record and never shown to reviewers.
   const { basedOnRoundId: _based, generator: _generator, ...rest } = manifest ?? {};
   return rest;
 }

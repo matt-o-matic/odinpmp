@@ -1,6 +1,6 @@
 import { crc32 } from '../packages/package-zip.js';
 
-// Frozen snapshots of prototype states (plan.md, "Prototypes"). The bridge captures the
+// Frozen snapshots of prototype states. The bridge captures the
 // visible frame as a PNG; the reviewer's browser uploads it as a raw image/png body. Odin
 // stores only bytes that are a complete, well-formed PNG, and serves them back only as
 // image/png, so a snapshot can never become a page on the app origin.

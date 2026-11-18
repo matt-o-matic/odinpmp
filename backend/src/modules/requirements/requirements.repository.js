@@ -581,7 +581,7 @@ export function createInMemoryRequirementsRepository({ assistantRepository = nul
     plans: [],
     roundReviewers: [],
     rounds: [],
-    // Who is asked to sign what (docs/document-signing): the signing repository supplies it.
+    // Who is asked to sign what: the signing repository supplies it.
     signingInvolvement: null,
     summaries: [],
     tokens: [],
@@ -797,7 +797,7 @@ export function createInMemoryRequirementsRepository({ assistantRepository = nul
     },
 
     // A token on an existing link that leaves the link as it is, so its lifetime is unchanged.
-    // Access links mint these to open the portal (docs/task-access/plan.md).
+    // Access links mint these to open the portal.
     async mintLinkToken({ createdBy, linkId, now, purpose, tenantId, tokenHash }) {
       const link = state.links.find((item) => item.id === linkId && item.tenantId === tenantId) ?? null;
       if (!link) return null;
@@ -983,7 +983,7 @@ export function createInMemoryRequirementsRepository({ assistantRepository = nul
         .map(({ summary }) => clone(summary));
     },
 
-    // Rounds, packages, and plans (read paths for U1; later units write them) -----
+    // Rounds, packages, and plans (read paths) ------------------------------
 
     async insertRound({ projectId, reviewers = [], round, tenantId }) {
       const now = new Date().toISOString();
@@ -1775,7 +1775,7 @@ export function createMysqlRequirementsRepository({ pool }) {
         `,
         [tenantId, projectId, stakeholderId],
       );
-      // Signature requests the stakeholder is asked to sign (docs/document-signing): over when
+      // Signature requests the stakeholder is asked to sign: over when
       // they sign, decline or are removed, or the request ends.
       const [signingRows] = await pool.execute(
         `

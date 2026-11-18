@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// Request bodies for signature requests (docs/document-signing/plan.md, API).
+// Request bodies for signature requests.
 
 const id = z.string().trim().min(1).max(120);
 const reason = z.preprocess((value) => value ?? '', z.string().trim().max(1000)).optional();

@@ -337,7 +337,7 @@ async function sendPost(poll = null) {
   }
 }
 
-// Polls (docs/engagements/plan.md, Polls): the dialog, and a vote or close shown at once.
+// Polls: the dialog, and a vote or close shown at once.
 const pollComposer = reactive({ error: '', open: false });
 
 function openPollComposer() {

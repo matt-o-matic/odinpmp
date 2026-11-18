@@ -1,6 +1,6 @@
-// The stakeholder portal's display rules: link problems, link validity, the ask for each
+// The client portal's display rules: link problems, link validity, the ask for each
 // open round, and the question cards. Stakeholders see "questions" where the team sees
-// "topics" (Q-9), and the Odin summary carries names only (Q-14a).
+// "topics", and the Odin summary carries names only.
 
 import { requirementsErrorCode } from './requirements-errors.js';
 import { hasSummaryFindings, normalizeSummaryOutput } from './requirements-sources.js';
@@ -99,7 +99,7 @@ export function closedRounds(rounds = []) {
   return list(rounds).filter((round) => round.status === 'closed');
 }
 
-/** Assigned and unassigned open questions, assigned first (Q-13a). */
+/** Assigned and unassigned open questions, assigned first. */
 export function waitingQuestions(topics) {
   const assigned = list(topics?.assigned).filter((topic) => topic.state !== 'decided');
   return [...assigned, ...list(topics?.open)];

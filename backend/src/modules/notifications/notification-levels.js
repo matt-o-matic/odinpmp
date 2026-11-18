@@ -1,11 +1,11 @@
-// Notification levels per channel and person (docs/odin-chat/plan.md, Levels; qna.md E-02, Q-03).
+// Notification levels per channel and person.
 //
 // - all: every post in the channel, collapsed into one notification per channel until read.
 // - mentions: being mentioned, and replies in threads the person started or replied in.
 // - off: nothing from this channel.
 //
 // Without a stored level, the default is `all` for the engagement's owner and the project's
-// admins and managers, and `mentions` for everyone else, guests included (Q-03).
+// admins and managers, and `mentions` for everyone else, guests included.
 
 export const NOTIFICATION_LEVELS = Object.freeze(['all', 'mentions', 'off']);
 export const PRINCIPAL_TYPES = Object.freeze(['user', 'stakeholder']);

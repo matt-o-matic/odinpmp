@@ -27,7 +27,7 @@ function rows(page) {
   return register(page).locator(':scope > li');
 }
 
-test.describe('Requirements register: Draft questions from brief (AC-01 UI)', () => {
+test.describe('Requirements register: Draft questions from brief', () => {
   test('drafted questions land as ordinary open rows citing their brief line, with no AI label', async ({ page }) => {
     const { api, requirements } = await openRegister(page);
     await expect(rows(page)).toHaveCount(5);

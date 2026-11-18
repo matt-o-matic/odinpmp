@@ -3,8 +3,7 @@ import { actorRefOf, loadPeople, personName } from '../rounds/round-views.js';
 import { topicComments } from '../requirements-topics.js';
 import { mentionedActors, portalMentionKey, resolveMentions } from './mention-tokens.js';
 
-// Who can be tagged where, and what saving a comment with tags does. See
-// docs/requirements-mentions.impl.md.
+// Who can be tagged where, and what saving a comment with tags does.
 //
 // - Team, topic: project members and project stakeholders. Tagging a stakeholder who can't
 //   see the topic adds them as a collaborator (the caller does that before saving).

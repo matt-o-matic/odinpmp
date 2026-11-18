@@ -5,9 +5,8 @@ import AssistantWorkspace from '../../components/assistant/AssistantWorkspace.vu
 import ChatPaneHeader from '../../components/chat/ChatPaneHeader.vue';
 import { assistantStore } from '../../lib/assistant/index.js';
 
-// Odin as a direct message (docs/odin-chat/plan.md; qna.md Q-02, option 3): the person's AI
-// Workspace, in the page. The same chats, history, agent and tools as Odin's AI Workspace; a
-// message here is an AI Workspace turn.
+// Odin as a direct message: the person's AI Workspace, in the page. The same chats, history,
+// agent and tools as Odin's AI Workspace; a message here is an AI Workspace turn.
 onMounted(() => {
   assistantStore.show();
   if (!assistantStore.state.chat) assistantStore.startDraft({});

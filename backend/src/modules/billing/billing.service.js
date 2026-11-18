@@ -1,8 +1,8 @@
-// The invoice-gen connection on Odin's side (docs/invoice-gen-connection/plan.md).
-//  - The /api/v1 routes invoice-gen calls with its OAuth application (api-contract.md).
+// The invoice-gen connection on Odin's side.
+//  - The /api/v1 routes invoice-gen calls with its OAuth application.
 //  - The member routes behind the Billing panel, the story field and the MCP tools.
-// Billing data follows finance visibility (E-08): project admins and managers, and workspace
-// admins and managers. The same people change the story-to-milestone mapping (E-05).
+// Billing data follows finance visibility: project admins and managers, and workspace
+// admins and managers. The same people change the story-to-milestone mapping.
 import { HttpError } from '../../lib/errors/http-error.js';
 import { PROJECT_CAPABILITIES, requireProjectCapability } from '../../lib/auth/project-capabilities.js';
 import { resolveDecisionRights } from '../../lib/auth/decision-rights.js';
@@ -44,7 +44,7 @@ function presentInvoice(invoice) {
 
 /**
  * Each work item by id: its type, title and the story it bills under (the item itself for a
- * story, the parent story for a task). A ticket nobody has validated is named only "Ticket" (D-027).
+ * story, the parent story for a task). A ticket nobody has validated is named only "Ticket".
  */
 export function workItemIndex(project) {
   const items = new Map();
@@ -72,7 +72,7 @@ function agreementMilestones(link) {
 }
 
 /**
- * Resolves each entry's story and milestone as they stand now (api-contract.md): the entry's
+ * Resolves each entry's story and milestone as they stand now: the entry's
  * work item when it is a story, the story above a task, otherwise none; the milestone is that
  * story's mapping when the linked SOW still has it.
  */
@@ -112,7 +112,7 @@ const approvedUnclaimed = (entry) => entry.status === 'approved' && entry.billab
 
 /**
  * The project an application call names: inside its allowlist (404 otherwise, as for a missing
- * project), with the Consulting module on (403 module_disabled, E-12).
+ * project), with the Consulting module on (403 module_disabled).
  */
 export async function requireApplicationProject({ application, projectId, projectRepository, workspaceModulesRepository }) {
   if (!application.projectIds.includes(projectId)) throw new HttpError(404, 'Project not found.');
@@ -171,7 +171,7 @@ export async function getBillableTimeForApplication({ billingRepository, input, 
   };
 }
 
-/** All or nothing (api-contract.md). The 409 lists every entry that blocked the claim. */
+/** All or nothing. The 409 lists every entry that blocked the claim. */
 export async function claimEntriesForApplication({ actorId, applicationId, billingRepository, idempotencyKey, input, projectId, tenantId }) {
   const add = [...new Set(input.add)];
   const remove = [...new Set(input.remove)];
@@ -215,7 +215,7 @@ export async function deleteInvoiceForApplication({ actorId, billingRepository, 
 // ---- member routes ----------------------------------------------------------------------------------
 
 /**
- * Finance-visible people only (E-08). Someone who can read the project but not its billing is
+ * Finance-visible people only. Someone who can read the project but not its billing is
  * told so (403 billing_not_allowed); anyone else gets the 404 a missing project gets.
  */
 export async function requireBillingAccess({ projectId, projectRepository, user }) {
@@ -292,7 +292,7 @@ export async function getStoryMilestonesForUser({ billingRepository, projectId, 
   };
 }
 
-/** Sets or clears the milestone of each story named; a story holds at most one (E-05). */
+/** Sets or clears the milestone of each story named; a story holds at most one. */
 export async function setStoryMilestonesForUser({ billingRepository, input, projectId, projectRepository, user }) {
   const { tenantId } = await requireBillingAccess({ projectId, projectRepository, user });
   const [link, project] = await Promise.all([

@@ -4,8 +4,8 @@ import { computed, ref, useId } from 'vue';
 import { apiClient } from '../../lib/auth/index.js';
 import { NOTIFICATION_LEVEL_OPTIONS, levelOption } from '../../lib/notifications/levels.js';
 
-// A channel's notification level for the signed-in person, from the channel header (docs/odin-chat
-// plan.md, Levels): all new posts, mentions only, or off. The choice applies at once.
+// A channel's notification level for the signed-in person, from the channel header: all new
+// posts, mentions only, or off. The choice applies at once.
 const props = defineProps({
   channel: { required: true, type: Object },
   projectId: { required: true, type: String },

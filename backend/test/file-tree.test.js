@@ -25,10 +25,9 @@ import { createInMemoryProjectsRepository } from '../src/modules/projects/projec
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 
-// The project's files as one tree (docs/engagements/plan.md, Folders): the file-tree route,
-// renaming and moving files, and the folder tools the assistant, Odin in channels and MCP clients
-// share, with Undo. Through Odin's routes on in-memory repositories; the MySQL move is in
-// file-tree-mysql.integration.test.js.
+// The project's files as one tree: the file-tree route, renaming and moving files, and the folder
+// tools the assistant, Odin in channels and MCP clients share, with Undo. Through Odin's routes
+// on in-memory repositories; the MySQL move is in file-tree-mysql.integration.test.js.
 
 const TENANT_ID = 'tenant-acme';
 const PROJECT = 'project-1';

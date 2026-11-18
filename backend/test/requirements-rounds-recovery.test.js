@@ -73,7 +73,7 @@ test('two closes at once: one wins, the other is told the round is closed, and t
   assert.equal((await harness.as('member').get(`/rounds/${round.id}`)).body.round.outcome, winner.round.outcome);
 });
 
-test('AC-07 an answer that could not reach its topic is reported, and saving again posts it exactly once', async () => {
+test('an answer that could not reach its topic is reported, and saving again posts it exactly once', async () => {
   const { harness, jamie, priceTopic } = await openRound();
   const topicComments = async () => (await harness.as('member').get(`/topics/${priceTopic.id}`)).body.topic.comments;
 
@@ -107,7 +107,7 @@ test('AC-07 an answer that could not reach its topic is reported, and saving aga
   assert.equal((await second.as('member').get(`/topics/${topic.id}`)).body.topic.comments.length, 1, 'still one comment');
 });
 
-test('AC-07 clearing an answer whose topic comment cannot be removed keeps both, and clearing again removes both', async () => {
+test('clearing an answer whose topic comment cannot be removed keeps both, and clearing again removes both', async () => {
   const { harness, jamie, priceTopic } = await openRound();
   const topicComments = async () => (await harness.as('member').get(`/topics/${priceTopic.id}`)).body.topic.comments;
   assert.equal((await jamie.put('/questions/price-placement/answer', { value: 'range-on-home' })).status, 200);
@@ -156,7 +156,7 @@ test('a reminder that could not be queued is tried again on the next run, and st
   assert.ok((await remindedAt()).every(Boolean));
 });
 
-test('AC-07 clearing after a save that posted but did not link removes that comment, and a later answer is the only one', async () => {
+test('clearing after a save that posted but did not link removes that comment, and a later answer is the only one', async () => {
   const { harness, jamie, priceTopic } = await openRound();
   const topicComments = async () => (await harness.as('member').get(`/topics/${priceTopic.id}`)).body.topic.comments;
 
@@ -175,7 +175,7 @@ test('AC-07 clearing after a save that posted but did not link removes that comm
   assert.match(comments[0].body, /^Only after a time is picked/);
 });
 
-test('AC-07 after a moderator removes an answer\'s replied-to comment, the next comment also survives an interrupted save and is cleared with the answer', async () => {
+test('after a moderator removes an answer\'s replied-to comment, the next comment also survives an interrupted save and is cleared with the answer', async () => {
   const { harness, jamie, priceTopic } = await openRound();
   const flatten = (comments) => comments.flatMap((comment) => [comment, ...flatten(comment.replies ?? [])]);
   const liveAnswers = async () => flatten((await harness.as('member').get(`/topics/${priceTopic.id}`)).body.topic.comments)

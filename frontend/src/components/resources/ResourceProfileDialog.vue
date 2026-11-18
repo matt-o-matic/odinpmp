@@ -285,7 +285,7 @@ function submit() {
     @confirm="confirmRevoke"
   >
     <p class="mb-0">
-      The link sent to {{ resource?.email }} stops working at once, on every project, including requirements pages opened from it.
+      The link sent to {{ resource?.email }} stops working at once, on every project, including client portals opened from it.
       Their task access settings stay as they are.
     </p>
   </RequirementsConfirmDialog>

@@ -3,11 +3,11 @@ import { OdinApiError } from './api-client.js';
 import { decisionLabels } from '../modules/requirements/plans/plan-content.js';
 import { REVIEW_TRACK } from '../modules/requirements/requirements.repository.js';
 
-// Requirements tools (plan.md "MCP tools", Q-07). An agent reads a track's context and a
-// round's feedback, sees what is waiting on them, and uploads package drafts through a
-// single-use URL, optionally replacing an unpublished draft. Topic administration and
-// decisions are in requirements-topic-tools.js, and publishing rounds and changing their
-// reviewers in requirements-round-tools.js.
+// Requirements tools. An agent reads a track's context and a round's feedback, sees what
+// is waiting on them, and uploads package drafts through a single-use URL, optionally
+// replacing an unpublished draft. Topic administration and decisions are in
+// requirements-topic-tools.js, and publishing rounds and changing their reviewers in
+// requirements-round-tools.js.
 
 export const CONTEXT_SCHEMA = 'odin.requirements-context/v1';
 export const UPLOAD_URL_MINUTES = 10;

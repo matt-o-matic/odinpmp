@@ -7,7 +7,7 @@ import { channelErrorMessage } from '../../lib/channels/channels.js';
 import { answerDraft, answerPayload, closingLabel, kindLabel, moveEntry, optionLabels, percent, votesLabel } from '../../lib/channels/polls.js';
 import RequirementsConfirmDialog from '../requirements/RequirementsConfirmDialog.vue';
 
-// A post's poll (docs/engagements/plan.md, Polls): a form to vote in it, then the results. People
+// A post's poll: a form to vote in it, then the results. People
 // change their vote until it closes. Another person's vote arrives with the conversation's live
 // refresh, as a new `poll`. The conversation says which project (or direct message) and token
 // to call with, as it does for attachments.

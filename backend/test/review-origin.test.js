@@ -155,7 +155,7 @@ test('package files are served with exact headers, extension content types, and 
   assertReviewHeaders(head);
 });
 
-test('R4 a grant loads only what its screen may: a prototype its own directory and shared files, an image screen its file', async () => {
+test('a grant loads only what its screen may: a prototype its own directory and shared files, an image screen its file', async () => {
   const { app, grantFor, pkg } = await setup();
   const as = (screenId) => (path) => request(app).get(`/p/${pkg.id}/${grantFor(pkg.id, undefined, screenId)}/${path}`).set('Sec-Fetch-Dest', 'iframe');
   const booking = as('booking');
@@ -268,7 +268,7 @@ test('only package files and the bridge exist: app-like paths, traversal, unknow
   assert.ok(storage.objects.size > 0);
 });
 
-test('AC-06 a grant serves files only while its viewer may still see the package, and nothing is cached past that', async () => {
+test('a grant serves files only while its viewer may still see the package, and nothing is cached past that', async () => {
   const { access, app, pkg, url } = await setup();
   const path = url('prototypes/booking/styles.css');
   const first = await request(app).get(path);
@@ -297,7 +297,7 @@ test('AC-06 a grant serves files only while its viewer may still see the package
   }
 });
 
-test('AC-05 package HTML and SVG are served only to frames, images, and fetches, checked before the grant is read', async () => {
+test('package HTML and SVG are served only to frames, images, and fetches, checked before the grant is read', async () => {
   const { app, url } = await setup();
   const refused = [];
   for (const path of [url('prototypes/booking/index.html'), url('prototypes/booking/'), url('assets/logo.svg'), url('prototypes/booking/index.html', 'not-a-grant')]) {

@@ -17,7 +17,7 @@ export class ApiError extends Error {
   }
 }
 
-// Ticket list filters are CSV query params (D-020). Empty values are omitted so the
+// Ticket list filters are CSV query params. Empty values are omitted so the
 // server's defaults apply rather than an empty filter being sent as a restriction.
 export function buildTicketQuery(filters = {}) {
   const params = new URLSearchParams();
@@ -48,7 +48,7 @@ export function requirementsPath(projectId, suffix = '') {
   return `/api/projects/${pathSegment(projectId)}/requirements${suffix}`;
 }
 
-// U7: the stakeholder portal and the guided review.
+// The client portal and the guided review.
 export function signingPath(projectId, suffix = '') {
   return `/api/projects/${pathSegment(projectId)}/signing-requests${suffix}`;
 }
@@ -493,7 +493,7 @@ export function createApiClient({
       return subscribe('/api/workspace/events', { ...handlers, method: 'GET', token: token || undefined });
     },
   });
-  // The signed-in person's notification stream (docs/odin-chat/plan.md), shared the same way. It
+  // The signed-in person's notification stream, shared the same way. It
   // names this tab, so the server forgets the tab's focus when the stream closes.
   const sharedPersonEvents = createSharedEventStreams({
     document: globalThis.document ?? null,
@@ -918,7 +918,7 @@ export function createApiClient({
       async reopenEngagement(projectId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/reopen`, { body: {}, method: 'POST', token })).data;
       },
-      // A project's billing from invoice-gen, for finance-visible people (docs/invoice-gen-connection).
+      // A project's billing from invoice-gen, for finance-visible people.
       async getProjectBilling(projectId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/billing`, { token })).data;
       },
@@ -928,7 +928,7 @@ export function createApiClient({
       async updateStoryMilestones(projectId, assignments, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/billing/milestones`, { body: { assignments }, method: 'PUT', token })).data;
       },
-      // Pursuit board and insights (docs/engagements/plan.md).
+      // Pursuit board and insights.
       async getPursuit(projectId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/pursuit`, { token })).data;
       },
@@ -1568,7 +1568,7 @@ export function createApiClient({
 
         return result.data;
       },
-      // `scope` names the board: 'delivery' or 'pursuit' (docs/engagements/plan.md). Left out,
+      // `scope` names the board: 'delivery' or 'pursuit'. Left out,
       // an engagement means its pursuit board and a delivery project its own.
       async getProjectKanbanConfig(projectId, token, { scope = '' } = {}) {
         const result = await request(`/api/projects/${projectId}/kanban/config${boardScopeQuery(scope)}`, {
@@ -1727,7 +1727,7 @@ export function createApiClient({
       async setFileAudience(projectId, fileId, audience, token) {
         return (await request(`/api/projects/${projectId}/files/${pathSegment(fileId)}/audience`, { body: { audience }, method: 'PATCH', token })).data;
       },
-      // Large files (docs/engagements/plan.md): uploads in parts, signed downloads, old versions.
+      // Large files: uploads in parts, signed downloads, old versions.
       async startFileUpload(projectId, payload, token) {
         return (await request(`/api/projects/${projectId}/uploads`, { body: payload, method: 'POST', token })).data;
       },
@@ -1761,7 +1761,7 @@ export function createApiClient({
       async getFileStorage(projectId, token) {
         return (await request(`/api/projects/${projectId}/file-storage`, { token })).data;
       },
-      // Channels (docs/engagements/plan.md): conversations, unread markers, library folders,
+      // Channels: conversations, unread markers, library folders,
       // file comments and the editing marker. Every project has them.
       async listChannels(projectId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/channels`, { token })).data;
@@ -1842,7 +1842,7 @@ export function createApiClient({
       async setPostReaction(projectId, postId, payload, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/posts/${pathSegment(postId)}/reactions`, { body: payload, method: 'PUT', token })).data;
       },
-      // Polls on posts (docs/engagements/plan.md, Polls): vote (again, to change it) and close.
+      // Polls on posts: vote (again, to change it) and close.
       async votePoll(projectId, postId, answer, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/posts/${pathSegment(postId)}/poll/vote`, { body: { answer }, method: 'PUT', token })).data;
       },
@@ -1858,7 +1858,7 @@ export function createApiClient({
       async undoOdinChanges(projectId, postId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/posts/${pathSegment(postId)}/odin/undo`, { body: {}, method: 'POST', token })).data;
       },
-      // The project's files as folders (docs/engagements/plan.md, Files): the project at the top,
+      // The project's files as folders: the project at the top,
       // a folder per channel, and the folders people made in each channel.
       async getProjectFileTree(projectId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/file-tree`, { token })).data;
@@ -1895,7 +1895,7 @@ export function createApiClient({
       async clearFileEditing(projectId, fileId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/files/${pathSegment(fileId)}/editing`, { method: 'DELETE', token })).data;
       },
-      // A channel's guests (docs/engagements/plan.md, Guests). Inviting and removing need decision rights.
+      // A channel's guests. Inviting and removing need decision rights.
       async listChannelGuests(projectId, channelId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/channels/${pathSegment(channelId)}/guests`, { token })).data;
       },
@@ -1905,7 +1905,7 @@ export function createApiClient({
       async removeChannelGuest(projectId, channelId, stakeholderId, token) {
         return (await request(`/api/projects/${pathSegment(projectId)}/channels/${pathSegment(channelId)}/guests/${pathSegment(stakeholderId)}`, { method: 'DELETE', token })).data;
       },
-      // Signature requests (docs/document-signing). Writes need decision rights.
+      // Signature requests. Writes need decision rights.
       async listSigningRequests(projectId, { fileId = '', status = '' } = {}, token) {
         const search = new URLSearchParams();
         if (fileId) search.set('fileId', fileId);
@@ -2267,8 +2267,8 @@ export function createApiClient({
       async proposeRequirementsPlanWork(projectId, planId, token) {
         return (await request(requirementsPath(projectId, `/plans/${pathSegment(planId)}/propose-work`), { body: {}, method: 'POST', token })).data;
       },
-      // --- U7: stakeholder portal and guided review --------------------------------------
-      // Stakeholder portal (/api/public/requirements/:token). The link token is the only
+      // --- Client portal and guided review ------------------------------------------
+      // Client portal (/api/public/requirements/:token). The link token is the only
       // credential; nothing here sends a session token.
       async getRequirementsPortal(portalToken) {
         return (await request(requirementsPortalPath(portalToken))).data;
@@ -2297,7 +2297,7 @@ export function createApiClient({
       async voteRequirementsPortalComment(portalToken, topicId, commentId, payload) {
         return (await request(requirementsPortalPath(portalToken, `/topics/${pathSegment(topicId)}/comments/${pathSegment(commentId)}/vote`), { body: payload, method: 'POST' })).data;
       },
-      // Shared documents and signature requests in the portal (docs/document-signing).
+      // Shared documents and signature requests in the portal.
       async getRequirementsPortalDocuments(portalToken) {
         return (await request(requirementsPortalPath(portalToken, '/documents'))).data;
       },
@@ -2394,7 +2394,7 @@ export function createApiClient({
       async submitRequirementsReview(scope, token) {
         return (await request(requirementsReviewPath(scope, '/submit'), { body: {}, method: 'POST', token: reviewToken(scope, token) })).data;
       },
-      // --- end U7 ---------------------------------------------------------------------------
+      // --- end client portal and guided review -----------------------------------------
       async getNextRankingPair(token) {
         const result = await request('/api/ranking/next-pair', {
           token,

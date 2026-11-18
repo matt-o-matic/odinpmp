@@ -1,6 +1,6 @@
-// Workspace search over channels (qna.md E-11; AC-15): channel names and posts (their text,
+// Workspace search over channels: channel names and posts (their text,
 // author, channel and project). Files, in channels or elsewhere, get their rows from
-// search-documents.js, with their text (docs/semantic-search/plan.md). Rows carry their project id, so searchForUser shows each person only the
+// search-documents.js, with their text. Rows carry their project id, so searchForUser shows each person only the
 // channels of projects they can open; an engagement's rows show only while the Consulting
 // module is on. Deleted posts are left out, as are channels of deleted projects.
 import { isEngagementProject } from '../../lib/projects/project-kind.js';

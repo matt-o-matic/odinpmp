@@ -28,10 +28,10 @@ const envSchema = z
     MCP_PUBLIC_URL: z.string().trim().optional(),
     MCP_ALLOWED_ORIGINS: z.string().trim().optional(),
     FRONTEND_APP_URL: z.string().trim().default('http://localhost:5173/app'),
-    // invoice-gen's address, for links from the Billing panel to it (docs/invoice-gen-connection).
+    // invoice-gen's address, for links from the Billing panel to it.
     INVOICE_GEN_BASE_URL: z.string().trim().url().optional(),
-    // Web Push for browser and phone notifications (docs/odin-chat/plan.md, Delivery). Without
-    // all three, push is off. `npm run job:generate-vapid-keys` prints a key pair.
+    // Web Push for browser and phone notifications. Without all three, push is off.
+    // `npm run job:generate-vapid-keys` prints a key pair.
     WEB_PUSH_VAPID_PUBLIC_KEY: z.string().trim().optional(),
     WEB_PUSH_VAPID_PRIVATE_KEY: z.string().trim().optional(),
     WEB_PUSH_SUBJECT: z.string().trim().optional(),
@@ -48,7 +48,7 @@ const envSchema = z
     OPENAI_MODEL: z.string().trim().optional(),
     OPENAI_MEMORY_EMBEDDING_MODEL: z.string().trim().optional(),
     OPENAI_MEMORY_EMBEDDING_DIMENSIONS: z.coerce.number().int().min(64).max(3072).optional(),
-    // Semantic search (docs/semantic-search/plan.md): the model and size of the search index's
+    // Semantic search: the model and size of the search index's
     // embeddings, how often the index is refreshed (0 turns the schedule off; searches still
     // refresh a stale index), and the cosine similarity below which a row is not a match.
     SEARCH_EMBEDDING_MODEL: z.string().trim().optional(),
@@ -87,7 +87,7 @@ const envSchema = z
     // Where browsers reach the bucket for signed upload and download URLs, when not at
     // OBJECT_STORAGE_ENDPOINT (a MinIO container on another host name, say).
     OBJECT_STORAGE_PUBLIC_ENDPOINT: z.string().trim().url().optional(),
-    // The largest file anyone can upload (docs/engagements/qna.md, Q-05): 1 GB.
+    // The largest file anyone can upload: 1 GB.
     FILE_UPLOAD_MAX_BYTES: z.coerce.number().int().positive().max(5 * 1024 * 1024 * 1024).optional(),
     // Signs the short-lived backend URLs that move file bytes with local storage. Defaults to
     // JWT_SECRET.
@@ -116,8 +116,8 @@ const envSchema = z
     CLAMAV_TIMEOUT_MS: z.coerce.number().int().positive().optional(),
     // How long the scan worker waits for ClamAV to answer once a whole file is sent to it.
     CLAMAV_STREAM_TIMEOUT_MS: z.coerce.number().int().positive().optional(),
-    // Office previews (docs/engagements/plan.md, Download and preview): the LibreOffice program,
-    // the largest file converted, and how long one conversion may run.
+    // Office previews: the LibreOffice program, the largest file converted, and how long
+    // one conversion may run.
     PREVIEW_SOFFICE_PATH: z.string().trim().min(1).optional(),
     PREVIEW_MAX_BYTES: z.coerce.number().int().positive().optional(),
     PREVIEW_TIMEOUT_MS: z.coerce.number().int().positive().optional(),
@@ -129,7 +129,7 @@ const envSchema = z
     REVIEW_PORT: z.coerce.number().int().positive().max(65535).optional(),
     REVIEW_GRANT_SECRET: z.string().trim().optional(),
     REVIEW_PACKAGE_MAX_BYTES: z.coerce.number().int().positive().max(200 * 1024 * 1024).optional(),
-    // Seals signature records (docs/document-signing). Without a key, production refuses new
+    // Seals signature records. Without a key, production refuses new
     // signature requests; everything else runs.
     SIGNING_SEAL_KEY: z.string().trim().optional(),
     SIGNING_SEAL_KEY_ID: z.string().trim().max(64).optional(),

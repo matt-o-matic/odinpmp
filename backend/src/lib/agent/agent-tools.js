@@ -452,7 +452,7 @@ export function createAgentToolbox({ allow = null, api, projectId = null, record
         const { project } = await api.request('GET', projectPath);
         const rows = new Map(flattenTree(project).map((item) => [item.id, item]));
         const typeOf = (item) => (item.stories ? 'epic' : item.tasks ? 'story' : 'task');
-        // A ticket nobody has validated is named only by kind: this text also reaches the write check (D-027).
+        // A ticket nobody has validated is named only by kind: this text also reaches the write check.
         const tickets = new Map((project.tickets ?? []).map((ticket) => [ticket.id, isTicketVisibleToAssistant(ticket) ? `ticket "${ticket.name}"` : 'an external ticket awaiting review']));
         const named = (id) => (rows.has(id) ? `${typeOf(rows.get(id))} "${rows.get(id).name}"` : tickets.get(id) ?? null);
         const item = rows.get(itemId);

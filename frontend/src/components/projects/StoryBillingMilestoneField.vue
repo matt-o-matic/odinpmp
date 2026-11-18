@@ -5,7 +5,7 @@ import RequirementsDialog from '../requirements/RequirementsDialog.vue';
 import { apiClient } from '../../lib/auth/index.js';
 import { billingErrorMessage } from '../../lib/projects/project-billing.js';
 
-// The SOW milestone a story bills to (invoice-gen E-05), in the plan editor. It saves on its own
+// The SOW milestone a story bills to, in the plan editor. It saves on its own
 // through its dialog, apart from the editor's Save, because the mapping is billing data. Only
 // project and workspace admins and managers see it; it hides when the project has no SOW.
 

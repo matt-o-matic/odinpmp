@@ -5,8 +5,8 @@ import { defaultRequirementsScenario, installRequirementsApi } from './fixtures/
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// Odin summary freshness and Refresh on the topic page and the register's quick view
-// (AC-02 UI part, plan.md "AI summary fails or times out"). Synthetic API only.
+// Odin summary freshness and Refresh on the topic page and the register's quick view.
+// Synthetic API only.
 const base = `projects/${syntheticProject.id}/requirements`;
 
 function minutesAgo(minutes) {

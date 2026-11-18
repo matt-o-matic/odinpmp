@@ -6,7 +6,7 @@ import { formatShortDate } from '../../lib/requirements/requirements-time.js';
 
 // When the access link no longer opens a page: not found, expired, turned off, too many
 // requests, a failed load, or (on a project page) a project that is no longer shared. Same
-// look as the requirements portal's link screens; there is no "request a new link" here, so
+// look as the client portal's link screens; there is no "request a new link" here, so
 // each screen says to ask the project team.
 const props = defineProps({
   hubLink: { default: null, type: Object },

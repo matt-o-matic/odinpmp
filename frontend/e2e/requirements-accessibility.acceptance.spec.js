@@ -5,7 +5,7 @@ import { defaultRequirementsScenario, emptyRequirementsScenario, installRequirem
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// AC-17: every new Requirements view passes axe with no serious or critical issues.
+// Every new Requirements view passes axe with no serious or critical issues.
 // Synthetic data only: see e2e/fixtures/requirements-api.js.
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 const base = `projects/${syntheticProject.id}/requirements`;
@@ -34,7 +34,7 @@ async function open(page, scenario = defaultRequirementsScenario()) {
   return api;
 }
 
-test.describe('Requirements accessibility (AC-17)', () => {
+test.describe('Requirements accessibility', () => {
   test('every view has no serious or critical axe issues', async ({ page }, testInfo) => {
     // Twelve page loads plus axe runs: allow for a busy dev server under parallel workers.
     test.setTimeout(120_000);

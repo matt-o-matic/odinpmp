@@ -1,6 +1,6 @@
-// What Odin keeps of invoice-gen's records (docs/invoice-gen-connection/plan.md, "Data"): the link
-// on a project, invoice summaries, the claims that lock time entries to an invoice, and the SOW
-// milestone each story bills to. invoice-gen owns all of it but the story mapping (E-01, E-05).
+// What Odin keeps of invoice-gen's records: the link on a project, invoice summaries, the
+// claims that lock time entries to an invoice, and the SOW milestone each story bills to.
+// invoice-gen owns all of it but the story mapping.
 //
 // Every write takes `changeEntries(result)`: the project change log entries for what it did,
 // written in the same transaction as the change (MySQL) or right after it (in memory).
@@ -26,7 +26,7 @@ function otherProjectClaim() {
   return new HttpError(409, 'This invoice already holds time on another project.', { details: { code: 'invoice_on_other_project' } });
 }
 
-// The checks a claim makes on each entry (api-contract.md, "invoice-claims"). `entry` carries the
+// The checks a claim makes on each entry. `entry` carries the
 // claim that holds it, if any, with that claim's invoice and number.
 function claimConflicts({ add, entries, externalInvoiceId, projectId, remove }) {
   const byId = new Map(entries.map((entry) => [entry.id, entry]));

@@ -26,7 +26,7 @@ export function createAssistantRouter({
   projectRepository: rawProjectRepository,
   tokenService,
 }) {
-  // D-027: every assistant-side project read has gated external tickets stripped.
+  // Every assistant-side project read has gated external tickets stripped.
   // This is the single enforcement point; see assistant-ticket-visibility.js.
   const projectRepository = wrapProjectRepositoryForAssistant(rawProjectRepository);
   const router = Router();

@@ -354,7 +354,7 @@ async function reopen() {
         <strong>{{ project?.name }}</strong> becomes a delivery project with the same files and people.
         It then appears in the projects list, boards and reports.
       </p>
-      <!-- invoice-gen step 2 (docs/invoice-gen-connection/plan.md): the linked SOW and its milestones. -->
+      <!-- invoice-gen step 2: the linked SOW and its milestones. -->
       <div v-if="sow" class="engagement-sow" data-testid="convert-sow">
         <p class="mb-1">
           <strong>SOW:</strong>

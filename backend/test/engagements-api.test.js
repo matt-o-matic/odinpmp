@@ -127,7 +127,7 @@ async function createProjectTemplate(api) {
   return response.body.value;
 }
 
-test('the Consulting module is off by default, and only workspace admins can switch it (AC-18)', async () => {
+test('the Consulting module is off by default, and only workspace admins can switch it', async () => {
   const { api } = await fixture();
   const asMember = await api.get('alan', '/api/workspace/modules');
   assert.equal(asMember.status, 200);
@@ -158,7 +158,7 @@ test('the Consulting module is off by default, and only workspace admins can swi
   assert.equal((await api.get('oscar', '/api/workspace/modules')).body.modules[0].enabled, false);
 });
 
-test('a member creates an engagement: they become its project admin, it lists on Engagements, and only its members and workspace moderators see it (AC-01)', async () => {
+test('a member creates an engagement: they become its project admin, it lists on Engagements, and only its members and workspace moderators see it', async () => {
   const { api, createEngagement, projectRepository, switchConsulting } = await fixture();
   await switchConsulting(true);
   assert.equal((await api.post('alan', '/api/engagements', { name: 'No customer' })).status, 400);
@@ -188,7 +188,7 @@ test('a member creates an engagement: they become its project admin, it lists on
   assert.deepEqual(await engagementChanges(projectRepository, engagement.id), [['create', 'open', 'alan']]);
 });
 
-test('engagements stay out of every delivery view (AC-01)', async (t) => {
+test('engagements stay out of every delivery view', async (t) => {
   const { api, createEngagement, metricsRepository, switchConsulting } = await fixture();
   await switchConsulting(true);
   const engagement = await createEngagement('alan', { customer: 'Contoso', name: 'Contoso launch pursuit' });
@@ -261,7 +261,7 @@ test('engagements stay out of every delivery view (AC-01)', async (t) => {
   });
 });
 
-test('converting keeps the id, files and people, applies the template, and moves the project into delivery views (AC-12)', async () => {
+test('converting keeps the id, files and people, applies the template, and moves the project into delivery views', async () => {
   const { api, baseWorkflowRepository, createEngagement, projectRepository, switchConsulting } = await fixture();
   await switchConsulting(true);
   const engagement = await createEngagement();
@@ -305,7 +305,7 @@ test('converting keeps the id, files and people, applies the template, and moves
   assert.deepEqual(await engagementChanges(projectRepository, engagement.id), [['create', 'open', 'alan'], ['convert', 'won', 'alan']]);
 });
 
-test('a template step that fails leaves the engagement open and unchanged, and removes only what the template added (AC-12)', async () => {
+test('a template step that fails leaves the engagement open and unchanged, and removes only what the template added', async () => {
   let failCustomFields = true;
   const { api, baseWorkflowRepository, createEngagement, projectRepository, switchConsulting } = await fixture({
     wrapWorkflowRepository: (repository) => ({
@@ -364,7 +364,7 @@ test('a conversion that fails after the template applied undoes the template and
   assert.equal(snapshot.customFields.filter((field) => field.name === 'Billing type').length, 0);
 });
 
-test('a lost engagement is read-only and listed under Lost; reopening restores it (AC-13)', async () => {
+test('a lost engagement is read-only and listed under Lost; reopening restores it', async () => {
   const { api, createEngagement, projectRepository, switchConsulting } = await fixture();
   await switchConsulting(true);
   const engagement = await createEngagement();
@@ -407,7 +407,7 @@ test('a lost engagement is read-only and listed under Lost; reopening restores i
   assert.deepEqual(await engagementChanges(projectRepository, engagement.id), [['create', 'open', 'alan'], ['close', 'lost', 'alan'], ['reopen', 'open', 'alan']]);
 });
 
-test('with the module off, engagements are hidden and their URLs return 404; delivery projects work as before; switching back shows them unchanged (AC-18)', async () => {
+test('with the module off, engagements are hidden and their URLs return 404; delivery projects work as before; switching back shows them unchanged', async () => {
   const { api, createEngagement, switchConsulting } = await fixture();
   await switchConsulting(true);
   const first = await createEngagement('alan', { customer: 'Northwind', name: 'Northwind' });

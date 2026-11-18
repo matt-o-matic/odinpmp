@@ -1,5 +1,5 @@
-// AC11.1: prove that reopen rate and defect density can be reconstructed from stored
-// history alone. D-016 defers computing these metrics, but the schema must retain enough
+// Prove that reopen rate and defect density can be reconstructed from stored
+// history alone. Computing these metrics is deferred, but the schema must retain enough
 // to compute them retroactively rather than only from the day reporting is built.
 //
 // This test deliberately reads only durable records — item revisions and relations — and
@@ -120,7 +120,7 @@ function reconstructDefectDensity(relations) {
   return density;
 }
 
-test('AC11.1 reopen count is reconstructable from stored item revisions alone', async () => {
+test('reopen count is reconstructable from stored item revisions alone', async () => {
   const { app, token } = await createMetricsTestApp();
 
   const created = await request(app)
@@ -154,7 +154,7 @@ test('AC11.1 reopen count is reconstructable from stored item revisions alone', 
   );
 });
 
-test('AC11.1 every status transition carries an actor and a timestamp', async () => {
+test('every status transition carries an actor and a timestamp', async () => {
   const { app, token } = await createMetricsTestApp();
 
   const created = await request(app)
@@ -179,7 +179,7 @@ test('AC11.1 every status transition carries an actor and a timestamp', async ()
   }
 });
 
-test('AC11.1 defect density per work item is reconstructable from stored relations', async () => {
+test('defect density per work item is reconstructable from stored relations', async () => {
   const { app, token } = await createMetricsTestApp();
   const relations = [];
 
@@ -215,7 +215,7 @@ test('AC11.1 defect density per work item is reconstructable from stored relatio
   assert.equal(density.get('story-2'), 1);
 });
 
-test('AC11.1 review decisions are recoverable from history', async () => {
+test('review decisions are recoverable from history', async () => {
   const { app, projectsRepository, token } = await createMetricsTestApp();
 
   const created = await request(app)
@@ -248,7 +248,7 @@ test('AC11.1 review decisions are recoverable from history', async () => {
   assert.equal(decision.actorUserId, 'user-grace');
 });
 
-test('AC11.1 the reconstruction helpers do not count non-reopen transitions', () => {
+test('the reconstruction helpers do not count non-reopen transitions', () => {
   assert.equal(reconstructReopenCount([]), 0);
   assert.equal(
     reconstructReopenCount([

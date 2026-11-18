@@ -1,5 +1,5 @@
 <script setup>
-// Odin Chat's frame (docs/odin-chat/plan.md, layout B): a slim header, the sidebar, and the open
+// Odin Chat's frame: a slim header, the sidebar, and the open
 // conversation beside it. On a phone the sidebar is the first screen; opening something
 // (`paneOpen`) puts it in the sidebar's place, and the bottom bar stays. Members' Odin Chat and
 // the guest view both use it. A conversation passes `fill`: the pane is then exactly the space

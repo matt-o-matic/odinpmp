@@ -23,10 +23,10 @@ import { createInMemoryProjectsRepository } from '../src/modules/projects/projec
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 
-// Odin Chat (docs/odin-chat/plan.md, workstream 2; AC-N08, AC-N09): the sidebar's channels across
-// projects and engagements, Mentions, Threads, direct messages with their posts, files, unread
-// counts and live stream, and Odin's direct message (the person's AI Workspace chats), through
-// Odin's routes on in-memory repositories. odin-chat-mysql.integration.test.js runs 0103.
+// Odin Chat: the sidebar's channels across projects and engagements, Mentions, Threads, direct
+// messages with their posts, files, unread counts and live stream, and Odin's direct message
+// (the person's AI Workspace chats), through Odin's routes on in-memory repositories.
+// odin-chat-mysql.integration.test.js runs 0103.
 
 const TENANT_ID = 'tenant-acme';
 const OTHER_TENANT_ID = 'tenant-other';
@@ -197,7 +197,7 @@ async function fixture(t) {
   return { app, authRepository, channel, clock, dm, mailRepository, ok, openStream, post, projectRepository, scanAll, send, setConsulting, sidebar, until, upload, C, P, absolute, tokens };
 }
 
-test('the sidebar lists every channel the person is in across projects and engagements, with unread and mention counts (AC-N08)', async (t) => {
+test('the sidebar lists every channel the person is in across projects and engagements, with unread and mention counts', async (t) => {
   const f = await fixture(t);
   const general = await f.channel(DEL);
   const deal = await f.channel(DEL, 'Deal room');
@@ -248,7 +248,7 @@ test('the sidebar lists every channel the person is in across projects and engag
   assert.deepEqual((await f.sidebar('stranger')).groups, []);
 });
 
-test('Mentions lists the posts and replies that tag the person, in channels and direct messages they are in (AC-N08)', async (t) => {
+test('Mentions lists the posts and replies that tag the person, in channels and direct messages they are in', async (t) => {
   const f = await fixture(t);
   const general = await f.channel(DEL);
   const eng = await f.channel(ENG);
@@ -276,7 +276,7 @@ test('Mentions lists the posts and replies that tag the person, in channels and 
   assert.deepEqual((await f.ok('other', 'GET', '/api/chat/mentions')).mentions, []);
 });
 
-test('Threads lists threads the person started or replied in, with replies new since they last read (AC-N08)', async (t) => {
+test('Threads lists threads the person started or replied in, with replies new since they last read', async (t) => {
   const f = await fixture(t);
   const general = await f.channel(DEL);
   const mine = await f.post('member', DEL, general.id, 'Who owns the budget?');
@@ -306,7 +306,7 @@ test('Threads lists threads the person started or replied in, with replies new s
   assert.deepEqual([listed.threads[0].root.id, listed.threads[0].newReplyCount, listed.threads[0].place.type], [opener.id, 1, 'dm']);
 });
 
-test('direct messages: start, post, reply, tag, attach, read, unread and live, for members only (AC-N09)', async (t) => {
+test('direct messages: start, post, reply, tag, attach, read, unread and live, for members only', async (t) => {
   const f = await fixture(t);
   // One to one, and the same people reach the same conversation.
   const started = await f.dm('member', 'lead');
@@ -405,7 +405,7 @@ test('direct messages: start, post, reply, tag, attach, read, unread and live, f
   assert.equal(f.projectRepository.state.discussionPosts.filter((entry) => entry.targetType === 'dm').every((entry) => entry.projectId === id || entry.projectId === group.conversation.id), true);
 });
 
-test('guests cannot start, see or be added to direct messages (AC-N09)', async (t) => {
+test('guests cannot start, see or be added to direct messages', async (t) => {
   const f = await fixture(t);
   const deal = await f.channel(ENG, 'Deal room');
   await f.ok('lead', 'POST', `${f.P(ENG)}/channels/${deal.id}/guests`, GINA, 201);

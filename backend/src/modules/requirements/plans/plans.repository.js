@@ -10,7 +10,7 @@ import { isActiveDecision } from './plan-content.js';
 // the AI Workspace session holding its proposals.
 //
 // The audit record (provider, model, dropped citations) is internal. Nothing that presents
-// a plan returns it (Q-14).
+// a plan returns it.
 //
 // 0062 is registered in src/jobs/bootstrap-schema.lib.js. The migration runner checksums its
 // body: never edit it; add a new migration instead.

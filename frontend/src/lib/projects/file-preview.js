@@ -1,6 +1,6 @@
-// The files panel's viewer (docs/engagements/plan.md, Download and preview). The server decides
-// what a file shows as (GET preview-url); this guesses it only to decide whether to offer Open,
-// by the same rules as backend/src/lib/files/file-preview.js.
+// The files panel's viewer. The server decides what a file shows as (GET preview-url); this
+// guesses it only to decide whether to offer Open, by the same rules as
+// backend/src/lib/files/file-preview.js.
 
 const OFFICE_EXTENSIONS = new Set(['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'rtf']);
 const OFFICE_TYPES = /^application\/(?:msword|rtf|vnd\.ms-excel|vnd\.ms-powerpoint|vnd\.openxmlformats-officedocument\.(?:wordprocessingml\.document|spreadsheetml\.sheet|presentationml\.presentation)|vnd\.oasis\.opendocument\.(?:text|spreadsheet|presentation))$|^text\/rtf$/;

@@ -136,7 +136,7 @@ export function collectKeys(value, keys = new Set()) {
   return keys;
 }
 
-/** Q-14: no AI-drafted flag, provider, model, or audit record anywhere in a response. */
+/** No AI-drafted flag, provider, model, or audit record anywhere in a response. */
 export function assertNoAiAttribution(assert, body) {
   const keys = [...collectKeys(body)];
   const flagged = keys.filter((key) => /^(ai|audit|provider|model|drafted|generated|origin|source$)/i.test(key) || /drafted|aiGenerated|byAi/i.test(key));

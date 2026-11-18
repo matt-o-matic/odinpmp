@@ -34,10 +34,10 @@ import {
   withCommentAuthorNames,
 } from './summary/summary-topics.js';
 
-// Stakeholder portal. A link sees the topics assigned to its stakeholder plus every
-// unassigned topic in the project that is not dismissed (Q-13a), including decided ones,
+// Client portal. A link sees the topics assigned to its stakeholder plus every
+// unassigned topic in the project that is not dismissed, including decided ones,
 // so the stakeholder can read the decision and comment on it. Stakeholders read, comment,
-// and vote; they never change a topic's status or record decisions (Q-04).
+// and vote; they never change a topic's status or record decisions.
 
 const TOUCH_INTERVAL_MS = 60_000;
 
@@ -87,7 +87,7 @@ export async function resolvePortalAccess(deps, { token }) {
   const found = await deps.requirementsRepository.findAccessTokenByHash({ tokenHash: hashAccessToken(token) });
   if (!found) throw linkNotFound();
   const { link, token: tokenRecord } = found;
-  // An engagement's links stop with the Consulting module off (docs/engagements/plan.md, E-13).
+  // An engagement's links stop with the Consulting module off.
   if (await isHiddenByModule(deps, link.projectId)) throw linkNotFound();
   const { linkStatus, now, stakeholder } = await ensureLinkTokenActive(deps, { link, token: tokenRecord });
 
@@ -406,10 +406,10 @@ export async function votePortalCommentForToken(deps, { commentId, input, token,
 }
 
 // ---------------------------------------------------------------------------
-// Request a new link (plan.md, "Failure and recovery")
+// Request a new link
 // ---------------------------------------------------------------------------
 
-/** Users with decision rights on the project (Q-04), who manage stakeholder links. */
+/** Users with decision rights on the project, who manage stakeholder links. */
 async function linkManagers(deps, { projectId, tenantId }) {
   const valid = await deps.projectRepository.getValidUsers({ projectId, tenantId });
   const managers = new Map();

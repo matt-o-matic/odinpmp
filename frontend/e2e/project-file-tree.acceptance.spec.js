@@ -5,9 +5,9 @@ import { settleForAxe } from './fixtures/axe-settle.js';
 import { createFileTreeWorld, installFileTreeApi } from './fixtures/file-tree-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// The project's files as folders (docs/engagements/plan.md, Files): the project is the top
-// folder, each channel a folder in it, and people's own folders inside a channel. Files rename and
-// move between them; a move into a channel with guests asks first.
+// The project's files as folders: the project is the top folder, each channel a folder in it, and
+// people's own folders inside a channel. Files rename and move between them; a move into a channel
+// with guests asks first.
 
 const PROJECT_NAME = syntheticProject.name;
 

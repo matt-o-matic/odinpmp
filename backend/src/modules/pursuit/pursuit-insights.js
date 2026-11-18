@@ -1,6 +1,6 @@
-// The cards of an engagement's Insights tab (docs/engagements/plan.md, "Pursuit insights"). No
-// stages (Q-08): every card reads facts Odin already has. Each card is `{ status, data, message }`
-// as project Insights cards are: `ready`, `empty` (with a message) or `error`.
+// The cards of an engagement's Insights tab. No stages: every card reads facts Odin already
+// has. Each card is `{ status, data, message }` as project Insights cards are: `ready`,
+// `empty` (with a message) or `error`.
 import { isWorkItemDone } from '../metrics/work-completion-metrics.js';
 import { addDays, createHistoryReplay, dateOnly, daysBetween, sampleDates, weekStart } from '../insights/insights-history.js';
 

@@ -5,7 +5,7 @@ import { PORTAL_TOKENS, closeThread, createReviewWorld, drawMark, installPortalA
 import { installSyntheticApi } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// The guided review as an external stakeholder (AC-07, AC-08 UI, AC-17): directions, each
+// The guided review as an external stakeholder: directions, each
 // annotation tool saved with server numbers, a thread reply, a verdict with aspects, a save
 // failure kept locally with Retry, questions of every kind, resume after reload, the submit
 // summary with "Not reviewed" screens, commenting after submit, and a closed round.

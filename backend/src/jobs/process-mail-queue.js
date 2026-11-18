@@ -93,7 +93,7 @@ export async function main() {
   const mailRepository = createMysqlMailRepository({ pool });
   const projectRepository = createMysqlProjectsRepository({ pool });
   const requirementsRepository = createMysqlRequirementsRepository({ pool });
-  // Digest delivery issues requirements portal links, which needs only the repository.
+  // Digest delivery issues client portal links, which needs only the repository.
   attachRequirementsBridge(assistantRepository, createRequirementsAssistantBridge({
     frontendAppUrl: env.frontendAppUrl,
     requirementsRepository,
@@ -152,7 +152,7 @@ export async function main() {
     } catch (error) {
       logger.logError({ error, level: 'warn', message: 'Mention digests could not be processed; queued mail is still sent.' });
     }
-    // The rolled-up chat email (docs/odin-chat/plan.md, Email), under the same rules.
+    // The rolled-up chat email, under the same rules.
     try {
       const chat = await flushDueChatDigests({
         authRepository: createMysqlAuthRepository({ pool }),

@@ -152,7 +152,7 @@ export function createInMemoryResourceFinanceRepository() {
     deleteResourceRate: async ({ expectedVersion, resourceRateId, tenantId }) => remove(collections.resourceRates, resourceRateId, expectedVersion, tenantId),
     // ownSubmitted: a person deleting their own time, which must still be theirs, still submitted, and
     // in an open period (or none) when it goes.
-    // An entry an invoice holds stays (E-06): see lib/errors/time-entry-invoiced.js.
+    // An entry an invoice holds stays: see lib/errors/time-entry-invoiced.js.
     deleteTimeEntry: async ({ expectedVersion, ownSubmitted = null, tenantId, timeEntryId }) => {
       const entry = collections.timeEntries.get(timeEntryId);
       if (ownSubmitted && entry?.tenantId === tenantId && entry.resourceId !== ownSubmitted.resourceId) return false;
@@ -501,7 +501,7 @@ export function createMysqlResourceFinanceRepository({ pool }) {
     deleteResourceRate: ({ expectedVersion, resourceRateId, tenantId }) => remove('resource_rate_history', resourceRateId, expectedVersion, tenantId),
     // ownSubmitted: a person deleting their own time. The entry and its period are read under lock in
     // the delete's transaction, so a period locked meanwhile wins rather than losing its time.
-    // An entry an invoice holds stays (E-06): the delete matches only an unclaimed row, and says why
+    // An entry an invoice holds stays: the delete matches only an unclaimed row, and says why
     // when a claimed one is left.
     async deleteTimeEntry({ expectedVersion, ownSubmitted = null, tenantId, timeEntryId }) {
       if (!ownSubmitted) {
@@ -619,7 +619,7 @@ export function createMysqlResourceFinanceRepository({ pool }) {
       const old = await existing('resource_rate_history', resourceRateId, tenantId, maps.resourceRates); if (!old) return null; const next = { ...old, ...input };
       return update('resource_rate_history', resourceRateId, tenantId, input.expectedVersion, 'resource_id = ?, effective_start = ?, effective_end = ?, cost_rate = ?, bill_rate = ?, currency = ?, status = ?', [next.resourceId, next.effectiveStart, next.effectiveEnd, next.costRate, next.billRate, next.currency, next.status], maps.resourceRates);
     },
-    // An entry an invoice holds stays (E-06): the update matches only an unclaimed row, so a claim
+    // An entry an invoice holds stays: the update matches only an unclaimed row, so a claim
     // made after the read still wins.
     async updateTimeEntry({ input, resourceMerge = false, tenantId, timeEntryId }) {
       const old = await existing('project_time_entries', timeEntryId, tenantId, maps.timeEntries); if (!old) return null; const next = { ...old, ...input };

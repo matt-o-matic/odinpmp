@@ -41,7 +41,7 @@ import {
   presentVerdict,
 } from './round-views.js';
 
-// Rounds for the team (journeys 4, 6, 7, and 8): publish a draft package as the track's
+// Rounds for the team: publish a draft package as the track's
 // next round, invite reviewers, change the due date and reviewers, resend invitations,
 // close with an outcome, read results and alignment, and export feedback for agents.
 // Route middleware checks capabilities first, so viewers get 404 on every write before a
@@ -97,7 +97,7 @@ function notifyPackages(deps, { packageId, projectId, reason, track }) {
 
 /**
  * Checks a reviewer list: no duplicates; users need member access or above on the project
- * (Q-05: they review with project.collaborate); stakeholders must belong to the project.
+ * (they review with project.collaborate); stakeholders must belong to the project.
  */
 async function resolveReviewers(deps, { projectId, reviewers = [], tenantId }) {
   const seen = new Set();
@@ -617,7 +617,7 @@ export async function closeRoundForUser(deps, { input, projectId, roundId, user 
 }
 
 // ---------------------------------------------------------------------------
-// Results and alignment (journey 6)
+// Results and alignment
 // ---------------------------------------------------------------------------
 
 function latestActivity(values) {

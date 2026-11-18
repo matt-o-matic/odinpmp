@@ -1,4 +1,4 @@
-// invoice-gen billing for browser specs (docs/invoice-gen-connection): the synthetic project linked
+// invoice-gen billing for browser specs: the synthetic project linked
 // to a SOW, its invoices and story mapping, and an engagement's linked SOW. Install after
 // installSyntheticApi (and installEngagementsApi): Playwright tries the latest route first.
 // All of it is synthetic data.

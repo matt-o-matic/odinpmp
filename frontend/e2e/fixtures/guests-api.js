@@ -1,9 +1,9 @@
-// A stateful channel guest API for browser specs (docs/engagements/plan.md, Guests). It answers
-// /api/guest/* as backend/src/modules/guests/guests.routes.js does: the sign-in code steps, the
-// guest's one engagement with only #Deal room, posts, uploads in parts, files, versions, comments
-// and the editing marker. #Internal exists but is not the guest's, so it answers 404. Install
-// after installSyntheticApi: Playwright tries the latest route first, and this one passes on what
-// it does not own. All people and text are synthetic.
+// A stateful channel guest API for browser specs. It answers /api/guest/* as
+// backend/src/modules/guests/guests.routes.js does: the sign-in code steps, the guest's one
+// engagement with only #Deal room, posts, uploads in parts, files, versions, comments and the
+// editing marker. #Internal exists but is not the guest's, so it answers 404. Install after
+// installSyntheticApi: Playwright tries the latest route first, and this one passes on what it
+// does not own. All people and text are synthetic.
 const API_ORIGIN = 'http://localhost:3001';
 export const GUEST = Object.freeze({ code: '246810', email: 'gina@northwind.example', fileActorId: 'owner-gina', name: 'Gina Guest', stakeholderId: 'stakeholder-gina' });
 export const WORKSPACE_ID = 'tenant-synthetic';

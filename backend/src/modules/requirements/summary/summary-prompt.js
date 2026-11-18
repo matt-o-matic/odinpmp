@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { detectPromptInjectionSignals, UNTRUSTED_CONTENT_NOTICE } from '../../../lib/ai/assistant-untrusted-content.js';
 import { mapSummaryRefs, resolveProposedAnswerStatus, SUMMARY_LIMITS } from './summary-output.js';
 
-// Prompt and input for the Odin summary (E-04). Listed in docs/ai-prompts-inventory.md;
+// Prompt and input for the Odin summary. Listed in docs/ai-prompts-inventory.md;
 // keep the two in step.
 //
 // Refs the model sees are short labels. Sources keep the label their caller gives them

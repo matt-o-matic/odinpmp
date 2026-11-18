@@ -48,7 +48,7 @@ const props = defineProps({
     type: Number,
   },
   // 'pursuit' shows the pursuit board: the engagement's tasks as a flat list, with no sprints
-  // or stories (docs/engagements/plan.md). Empty is the project's own board.
+  // or stories. Empty is the project's own board.
   scope: {
     default: '',
     type: String,

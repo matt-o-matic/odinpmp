@@ -9,9 +9,9 @@ import { fileErrorMessage } from '../../lib/projects/project-files.js';
 import ChannelLibrary from '../channels/ChannelLibrary.vue';
 import ProjectFilesPanel from './ProjectFilesPanel.vue';
 
-// The project's files as folders (docs/engagements/plan.md, Files). The project is the top
-// folder: in it, one folder per channel and the project's own files. Inside a channel are the
-// folders people made there (ChannelLibrary.vue). The folder shown is kept in the address
+// The project's files as folders. The project is the top folder: in it, one folder per
+// channel and the project's own files. Inside a channel are the folders people made there
+// (ChannelLibrary.vue). The folder shown is kept in the address
 // (?filesChannel=&filesFolder=), so links and Back work.
 const props = defineProps({
   focusFileId: { default: '', type: String },

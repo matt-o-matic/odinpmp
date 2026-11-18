@@ -21,7 +21,7 @@ import { batchHasType, REQUIREMENTS_EVENT_TYPES } from '../../lib/requirements/r
 import { endOfLocalDayIso } from '../../lib/requirements/requirements-time.js';
 import { chipToneClass } from '../../lib/requirements/requirements-topics.js';
 
-// Stakeholder links for the requirements portal (Q-03, Q-11). Admins and managers list,
+// Stakeholder links for the client portal. Admins and managers list,
 // create, extend, and revoke them. A new link's URL is shown once.
 const workspace = useRequirementsWorkspace();
 

@@ -1,8 +1,8 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
-// Package grants (plan.md, "Hosting and isolation"). A grant is the capability in a review
-// origin URL: /p/<packageId>/<grant>/<path>. It names the package, one of its screens, and
-// the viewer, expires, and is signed with HMAC-SHA256 under REVIEW_GRANT_SECRET:
+// Package grants. A grant is the capability in a review origin URL:
+// /p/<packageId>/<grant>/<path>. It names the package, one of its screens, and the viewer,
+// expires, and is signed with HMAC-SHA256 under REVIEW_GRANT_SECRET:
 //
 //   grant = base64url(JSON { p: packageId, s: screenId, v: viewerRef, e: expiresAtSeconds, l?: linkId, t?: tokenId }) "." base64url(hmac)
 //

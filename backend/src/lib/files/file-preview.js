@@ -1,5 +1,4 @@
-// File previews (docs/engagements/plan.md, Download and preview; AC-08). Which preview a file
-// version gets, and where a converted PDF is stored.
+// File previews. Which preview a file version gets, and where a converted PDF is stored.
 //
 // - Word, Excel, PowerPoint and OpenDocument files up to PREVIEW_MAX_BYTES are converted to PDF by
 //   the preview worker (modules/vault/file-preview-worker.js) after their scan passes.

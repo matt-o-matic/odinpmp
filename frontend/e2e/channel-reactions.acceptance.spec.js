@@ -5,9 +5,9 @@ import { settleForAxe } from './fixtures/axe-settle.js';
 import { createChannelsWorld, installChannelsApi } from './fixtures/channels-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Reactions and replies to a reply (docs/engagements/plan.md, Reactions; Replies to a reply): the
-// quick row and the searchable picker, toggling, who reacted, and the quote above a reply that
-// answers another reply. The server side is in backend/test/channels.test.js.
+// Reactions and replies to a reply: the quick row and the searchable picker, toggling, who
+// reacted, and the quote above a reply that answers another reply. The server side is in
+// backend/test/channels.test.js.
 
 test.describe.configure({ timeout: 60_000 });
 

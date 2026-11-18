@@ -3,7 +3,7 @@ import { buildOperationLogContext, logBackendError } from '../../lib/logging/bac
 
 // Requirements invalidations. Team screens listen on project:{id}; every stakeholder link
 // in the project listens on public-requirements:{linkId}, because unassigned topics are
-// visible to all of them (Q-13a). The older clarification portal never shows tracked
+// visible to all of them. The older clarification portal never shows tracked
 // topics, so it gets no requirements events.
 
 export const REQUIREMENTS_EVENTS = Object.freeze({
@@ -56,7 +56,7 @@ export async function publishRequirementsChange({
       context: buildOperationLogContext('requirements.publishPortalEvents', { projectId, reason, tenantId }),
       error,
       level: 'warn',
-      message: 'Requirements portal invalidation failed.',
+      message: 'Client portal invalidation failed.',
     });
   }
 }

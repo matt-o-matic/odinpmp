@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-// A channel is a file target too: its library (docs/engagements/plan.md, Files).
+// A channel is a file target too: its library.
 const targetTypeSchema = z.enum(['project', 'epic', 'story', 'task', 'ticket', 'clarification', 'channel']);
 const folderIdSchema = z.string().trim().min(1).max(36).nullable().optional();
 
@@ -40,7 +40,7 @@ export const fileAudienceSchema = z.object({
 // A new version of a file. Its name and type stay as they are unless given; expectedVersion is the
 // version the uploader saw, so a version someone else added meanwhile is never saved over.
 export const fileVersionUploadSchema = z.object({
-  // Uploading over someone else's editing marker needs this (docs/engagements/plan.md, Library).
+  // Uploading over someone else's editing marker needs this.
   confirmEditing: z.boolean().optional(),
   expectedVersion: z.number().int().min(1),
   fileContentsBase64: z.string().trim().min(1).max(20_000_000),
@@ -69,11 +69,11 @@ export const fileDownloadQuerySchema = z.object({
   version: versionNumber,
 });
 
-// A large upload (docs/engagements/plan.md, Upload). A new file names its target; a new version
-// names its file and the version it was made from. The size limit is the server's
-// (FILE_UPLOAD_MAX_BYTES), checked by the service, not here.
+// A large upload. A new file names its target; a new version names its file and the
+// version it was made from. The size limit is the server's (FILE_UPLOAD_MAX_BYTES),
+// checked by the service, not here.
 export const fileUploadStartSchema = z.object({
-  // Uploading over someone else's editing marker needs this (docs/engagements/plan.md, Library).
+  // Uploading over someone else's editing marker needs this.
   confirmEditing: z.boolean().optional(),
   contentType: z.preprocess((value) => value || 'application/octet-stream', z.string().trim().min(1).max(120)),
   expectedVersion: z.number().int().min(1).optional(),
@@ -110,7 +110,7 @@ export const filePreviewUrlQuerySchema = z.object({
   version: versionNumber,
 });
 
-// agentView=1 narrows a read to what agents may see (D-027). The MCP file tools always send it.
+// agentView=1 narrows a read to what agents may see. The MCP file tools always send it.
 export const agentViewQuerySchema = z.object({
   agentView: z.enum(['0', '1']).optional(),
 });

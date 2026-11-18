@@ -17,7 +17,7 @@ import { createInMemoryProjectsRepository } from '../src/modules/projects/projec
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { createFileScanProcessor } from '../src/modules/vault/file-scan-worker.js';
 
-// AC-04's memory check on local storage: a large upload through the part route, its assembly,
+// The large-file memory check on local storage: a large upload through the part route, its assembly,
 // its scan and hash, and its download all stream, so the process heap does not grow with the
 // file. ODIN_LARGE_FILE_MEMORY_MB sets the size (default 256 MB).
 

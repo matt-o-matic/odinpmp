@@ -26,7 +26,7 @@ const firstPermitted = computed(() => props.proposals.find((proposal) => proposa
 <template>
   <section class="home-panel home-behind" aria-labelledby="home-behind-title">
     <div class="home-panel__head">
-      <span class="home-flag"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>Behind</span>
+      <span class="home-flag"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>At risk</span>
       <h2 id="home-behind-title" class="home-h2">{{ status.headline }}</h2>
       <span class="home-small home-muted ms-auto">{{ scopeLine }}</span>
     </div>

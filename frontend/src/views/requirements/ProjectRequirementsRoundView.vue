@@ -38,11 +38,10 @@ import { chipToneClass } from '../../lib/requirements/requirements-topics.js';
 import { REVIEW_TRACK, plural, reviewLocation as reviewTabLocation } from '../../lib/requirements/requirements-tracks.js';
 import { commentPlainText } from '../../lib/rich-content/comment-markdown.js';
 
-// One round's results and alignment (journeys 6, 7, and 8; design-v1 team-results): the
-// header with progress and actions, verdicts by reviewer, direction preference, the
-// selected screen's Odin summary, proposed preferences, reviewers, the round summary, and
-// the questions. Closing needs decision rights (Q-04); changing reviewers and dates needs
-// member and up (Q-05).
+// One round's results and alignment: the header with progress and actions, verdicts by
+// reviewer, direction preference, the selected screen's Odin summary, proposed
+// preferences, reviewers, the round summary, and the questions. Closing needs decision
+// rights; changing reviewers and dates needs member and up.
 
 const route = useRoute();
 const router = useRouter();

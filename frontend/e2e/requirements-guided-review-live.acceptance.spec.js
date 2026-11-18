@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 import { PORTAL_TOKENS, closeThread, createReviewWorld, drawMark, installPortalApi } from './fixtures/requirements-portal-api.js';
 import { installSyntheticApi } from './fixtures/synthetic-api.js';
 
-// AC-18: two reviewers on the same screen, in two browser contexts. A mark one of them
+// Two reviewers on the same screen, in two browser contexts. A mark one of them
 // saves appears for the other within five seconds, through the portal's event stream, with
 // no reload. Both contexts share one synthetic world (e2e/fixtures/requirements-portal-api.js).
 test('a mark saved by one reviewer appears for another within five seconds', async ({ browser }, testInfo) => {

@@ -3,10 +3,10 @@ import { z } from 'zod';
 import { POLL_KINDS, POLL_OPTIONS_MAX, normalizePollInput } from '../modules/channels/polls.js';
 import { OdinApiError } from './api-client.js';
 
-// Polls in channels (docs/engagements/plan.md, Polls), for the in-app assistant and Odin in
-// channels, like the channel tools: MCP clients get them when the Agents workstream opens
-// channel posting to them. Each call goes through Odin's routes as the person, so making a poll
-// needs the right to post in the channel, and an anonymous poll's results never name anyone.
+// Polls in channels, for the in-app assistant and Odin in channels, like the channel tools: MCP
+// clients get them when the Agents workstream opens channel posting to them. Each call goes
+// through Odin's routes as the person, so making a poll needs the right to post in the channel,
+// and an anonymous poll's results never name anyone.
 
 const channelPath = (projectId, channelId) => `/api/projects/${encodeURIComponent(projectId)}/channels/${encodeURIComponent(channelId)}`;
 const postPath = (projectId, postId) => `/api/projects/${encodeURIComponent(projectId)}/posts/${encodeURIComponent(postId)}`;

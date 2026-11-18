@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { HOME_LENSES } from './home-lenses.js';
 
-// agentView=1 builds Home without the tickets agents may not see (D-027). odin_get_my_work always
+// agentView=1 builds Home without the tickets agents may not see. odin_get_my_work always
 // sends it.
 export const homeQuerySchema = z.object({
   agentView: z.enum(['0', '1']).optional(),

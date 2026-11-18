@@ -1,4 +1,4 @@
-// What Odin Chat reads and writes (docs/odin-chat/plan.md, Odin Chat): channels across a person's
+// What Odin Chat reads and writes: channels across a person's
 // projects, posts that mention them, threads they are in, and direct messages (0103). These
 // methods are spread into the projects repositories, as the channel methods are, so posts and
 // files share the channel tables.

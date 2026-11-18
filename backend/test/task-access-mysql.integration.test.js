@@ -12,7 +12,7 @@ import { createMysqlProjectsRepository } from '../src/modules/projects/projects.
 import { createMysqlRequirementsRepository } from '../src/modules/requirements/requirements.repository.js';
 import { createMysqlResourceFinanceRepository } from '../src/modules/resource-finance/resource-finance.repository.js';
 
-// The MySQL side of task access (docs/task-access/plan.md): migrations 0078-0083, access links and
+// The MySQL side of task access: migrations 0078-0083, access links and
 // task access grants, resource emails, remaining hours, and revisions, comments and requirements
 // tokens made by someone without a login.
 

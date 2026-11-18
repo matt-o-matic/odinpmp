@@ -342,7 +342,7 @@ export function registerClarificationTools({ api, dryRun, id, mutate, page, page
   tool('odin_assign_clarification', [
     'Assign people to a Requirements topic (clarification): set its single owner, the people whose answer is required, and its also-involved people (project members or stakeholder contacts) through Odin\'s Assign people route.',
     'Omitted fields keep their current value. Saving puts each newly assigned stakeholder into their invitation digest for this project: one email, with a fresh',
-    'Requirements portal link, sent once the quiet period (20 minutes by default) passes without another new assignment for them; each new assignment pushes it back.',
+    'client portal link, sent once the quiet period (20 minutes by default) passes without another new assignment for them; each new assignment pushes it back.',
     'confirmInvitationEmails must list exactly the stakeholder ids from odin_preview_clarification_assignment (empty when nobody new is invited); otherwise nothing is saved',
     'and the error details list the recipients. Odin re-checks the recipients as it saves and schedules only confirmed ones, so a change in between returns 409 without saving.',
     'Needs member access. Apart from that check there is no version precondition: concurrent edits that email nobody new are last-writer-wins.',
@@ -470,7 +470,7 @@ export function registerClarificationTools({ api, dryRun, id, mutate, page, page
   }, { write: true, destructive: true });
 
   tool('odin_list_stakeholder_links', [
-    'List the project\'s stakeholder Requirements portal links: stakeholder, status (active, expired or revoked), issue, expiry, extension and last-use times,',
+    'List the client portal links of the project\'s stakeholders: stakeholder, status (active, expired or revoked), issue, expiry, extension and last-use times,',
     'pending "request a new link" times, and token metadata (purpose and times). Link URLs and token values are never returned.',
     'Needs decision rights (a project or workspace admin or manager). Paginated local snapshots; restart on stale_cursor.',
   ].join(' '), z.object({ projectId: id, ...pageShape }).strict(), async (args) => {
@@ -479,7 +479,7 @@ export function registerClarificationTools({ api, dryRun, id, mutate, page, page
   });
 
   tool('odin_preview_stakeholder_invitation', [
-    'Preview sending a stakeholder their Requirements portal link by email, without sending. Returns the recipient, the stakeholder\'s current link,',
+    'Preview sending a stakeholder their client portal link by email, without sending. Returns the recipient, the stakeholder\'s current link,',
     'and what sending would do: create the link, add another token to it (earlier tokens keep working), or reactivate a revoked link.',
     'The link email is separate from the clarification digest: pendingDigest shows clarifications still waiting, which are emailed on their own schedule.',
     'Then call odin_send_stakeholder_invitation with confirmRecipientEmail. Needs decision rights.',
@@ -498,7 +498,7 @@ export function registerClarificationTools({ api, dryRun, id, mutate, page, page
       link: presentLink(link),
       outcome,
       effects: [
-        `Emails ${stakeholder.email} a Requirements portal link for this project, sent in the signed-in user's name.`,
+        `Emails ${stakeholder.email} a client portal link for this project, sent in the signed-in user's name.`,
         { 'create-link': 'Creates the stakeholder\'s portal link.', 'issue-additional-token': 'Adds a token to the existing link; earlier tokens keep working.', 'reactivate-link': 'Reactivates the revoked link; tokens revoked with it stay revoked.' }[outcome],
         'The link and its token are never returned through MCP.',
         pending
@@ -512,7 +512,7 @@ export function registerClarificationTools({ api, dryRun, id, mutate, page, page
   });
 
   tool('odin_send_stakeholder_invitation', [
-    'Email a stakeholder their Requirements portal link now. confirmRecipientEmail must match the stakeholder\'s current email (from odin_preview_stakeholder_invitation);',
+    'Email a stakeholder their client portal link now. confirmRecipientEmail must match the stakeholder\'s current email (from odin_preview_stakeholder_invitation);',
     'otherwise nothing is sent. Every call issues another token and sends another email: never retry blindly, and after outcomeUnknown check',
     'odin_list_stakeholder_links for a new invitation token first. The link and token are never returned. It does not send, cancel or delay a pending clarification digest. Needs decision rights.',
   ].join(' '), z.object({ projectId: id, stakeholderId: id, confirmRecipientEmail: z.string().trim().email().max(255), dryRun }).strict(), async (args) => {
@@ -541,7 +541,7 @@ export function registerClarificationTools({ api, dryRun, id, mutate, page, page
 
   const linkShape = { projectId: id, linkId: id.describe('Link id from odin_list_stakeholder_links.') };
   const linkNotFound = ['link_not_found', 'Link not found in this project, or the user lacks decision rights (a project or workspace admin or manager).'];
-  tool('odin_revoke_stakeholder_link', 'Revoke a stakeholder\'s Requirements portal link and all its tokens so the stakeholder can no longer open the portal. Sending a new invitation later reactivates the link with a new token. Needs decision rights.', z.object({ ...linkShape, dryRun }).strict(), async (args) => {
+  tool('odin_revoke_stakeholder_link', 'Revoke a stakeholder\'s client portal link and all its tokens so the stakeholder can no longer open the portal. Sending a new invitation later reactivates the link with a new token. Needs decision rights.', z.object({ ...linkShape, dryRun }).strict(), async (args) => {
     const path = `${linksPath(args.projectId)}/${encodeURIComponent(args.linkId)}/revoke`;
     if (args.dryRun) return mutate(args, 'POST', path);
     try {
@@ -551,7 +551,7 @@ export function registerClarificationTools({ api, dryRun, id, mutate, page, page
     }
   }, { write: true, destructive: true, confirm: true });
 
-  tool('odin_extend_stakeholder_link', 'Keep a stakeholder\'s Requirements portal link open until a later time (ISO 8601 with offset, in the future and at most 365 days ahead). Revoked links cannot be extended. Sends no email. Needs decision rights.', z.object({ ...linkShape, until: accessLinkExtendSchema.shape.until, dryRun }).strict(), async (args) => {
+  tool('odin_extend_stakeholder_link', 'Keep a stakeholder\'s client portal link open until a later time (ISO 8601 with offset, in the future and at most 365 days ahead). Revoked links cannot be extended. Sends no email. Needs decision rights.', z.object({ ...linkShape, until: accessLinkExtendSchema.shape.until, dryRun }).strict(), async (args) => {
     const path = `${linksPath(args.projectId)}/${encodeURIComponent(args.linkId)}/extend`;
     if (args.dryRun) return mutate(args, 'POST', path, accessLinkExtendSchema, { until: args.until });
     try {

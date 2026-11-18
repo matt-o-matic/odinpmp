@@ -49,7 +49,7 @@ import {
   fileVersionUploadSchema,
 } from './vault.schema.js';
 
-// Agents' reads leave out files on tickets they may not see (D-027): those the tools ask for with
+// Agents' reads leave out files on tickets they may not see: those the tools ask for with
 // agentView=1, and every request on an MCP credential.
 const agentViewOf = (request) => agentViewQuerySchema.parse(request.query).agentView === '1' || request.auth.credentialSource === 'mcp';
 
@@ -295,7 +295,7 @@ export function createVaultRouter(deps) {
     }
   });
 
-  // Large files (docs/engagements/plan.md): uploads in parts, signed downloads, old versions and
+  // Large files: uploads in parts, signed downloads, old versions and
   // storage used. Members only: MCP credentials reach none of these yet.
   const send = (status, run) => async (request, response, next) => {
     try {

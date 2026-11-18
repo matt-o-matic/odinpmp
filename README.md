@@ -4,7 +4,7 @@ OdinPMP is a multi-project workspace for the product app, API, and marketing sit
 
 ## What Odin does
 
-Odin brings project planning, requirements, delivery and bug fixing into one system. The requirements portal and MCP server are part of Odin; Bug Reporter and FaultLine run as separate services connected to Odin's projects, sign-in and mail.
+Odin brings project planning, requirements, delivery and bug fixing into one system. The client portal and MCP server are part of Odin; Bug Reporter and FaultLine run as separate services connected to Odin's projects, sign-in and mail.
 
 - Projects start from a structured Brief, break down into epics, stories and tasks, and run on sprints and a kanban board, with governance registers, schedule analysis, custom workflows and tickets.
 - Requirements gathering takes stakeholders from questions to decisions through private links, review rounds with screenshots and prototypes, on-screen annotation, Odin summaries, and plans whose acceptance criteria cite those decisions.

@@ -1,6 +1,6 @@
 // How fresh a topic's Odin summary is, what a refresh did, and who the summary names.
 // A failed run keeps the previous summary current, so the UI shows "Last updated <time>,
-// refresh failed" (plan.md, Failure and recovery).
+// refresh failed".
 
 import { requirementsErrorCode } from './requirements-errors.js';
 import { avatarColor, initials } from './requirements-topics.js';

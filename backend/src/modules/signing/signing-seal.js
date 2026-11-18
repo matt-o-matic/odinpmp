@@ -1,6 +1,6 @@
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 
-// Hashes and seals for signature records (docs/document-signing/plan.md). A record is written as
+// Hashes and seals for signature records. A record is written as
 // canonical JSON (keys sorted at every level), hashed with SHA-256, and sealed with HMAC-SHA256
 // under a server key. The key's id is stored with each seal, so a record sealed before a key
 // rotation can still be checked with the key it was sealed with.

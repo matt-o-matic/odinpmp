@@ -1,11 +1,11 @@
-// Default ticket lifecycle (D-022).
+// Default ticket lifecycle.
 //
 // No transition carries approvalRequired, requiredFields, or allowedRoles: triage is an
-// ordinary status rather than a gate (D-013) and there is no verification state (D-009).
+// ordinary status rather than a gate and there is no verification state.
 // The `closed -> open` transition is the reopen path, and it is recorded in transition
-// history so reopen rate stays derivable even though no metrics ship in v1 (D-016).
+// history so reopen rate stays derivable even though no metrics ship in v1.
 //
-// These labels are client-facing: D-021 makes status changes visible to external reporters.
+// These labels are client-facing: external reporters see status changes.
 
 export const TICKET_WORKFLOW_NAME = 'Ticket lifecycle';
 
@@ -43,7 +43,7 @@ export const TICKET_WORKFLOW_TRANSITIONS = [
   transition('open', 'rejected'),
   transition('open', 'deferred'),
   transition('deferred', 'open'),
-  // Reopen path (D-009): there is no verification gate, so a closed ticket returns to open.
+  // Reopen path: there is no verification gate, so a closed ticket returns to open.
   transition('closed', 'open'),
 ];
 
@@ -60,9 +60,9 @@ export function buildTicketWorkflowDefinition() {
 
 /**
  * Creates the default ticket workflow for a tenant if it is absent, and binds it to the
- * project's `ticket` item type when no binding exists yet (AC3.1).
+ * project's `ticket` item type when no binding exists yet.
  *
- * A project that has already rebound `ticket` to a custom workflow is left alone (AC3.4).
+ * A project that has already rebound `ticket` to a custom workflow is left alone.
  */
 export async function ensureTicketWorkflowBinding({ projectId, repository, tenantId }) {
   if (!repository || !tenantId || !projectId) {

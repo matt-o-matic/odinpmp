@@ -1,4 +1,4 @@
-// Billing panel, story field and time entry helpers (docs/invoice-gen-connection). Pure functions,
+// Billing panel, story field and time entry helpers. Pure functions,
 // so they test without a browser.
 
 const STATUS_LABELS = { draft: 'Draft', paid: 'Paid', submitted: 'Submitted', void: 'Void' };

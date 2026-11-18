@@ -14,7 +14,7 @@ export function createGovernanceRouter({ authRepository, governanceRepository, i
   // This router also precedes comments. MCP clients reach only the governance routes listed in
   // mcp/access/workspace.js.
   router.use(createAuthMiddleware({ authRepository, tokenService, allowMcp: true }));
-  // Agents get governance without the tickets they may not see (D-027): on agentView=1, and on every
+  // Agents get governance without the tickets they may not see: on agentView=1, and on every
   // MCP credential whether or not it asked. That covers what writes answer with, too.
   const agentViewOf = (request) => governanceAgentViewQuerySchema.parse(request.query).agentView === '1' || request.auth.credentialSource === 'mcp';
   const mutate = (operation, payload, request, domainEvent) => mutateGovernanceForUser({
@@ -41,7 +41,7 @@ export function createGovernanceRouter({ authRepository, governanceRepository, i
       },
     } : null;
     const result = await mutate(operation, payload, request, domainEvent);
-    // Schedule dependencies join the project change log (docs/mcp-change-feed/plan.md).
+    // Schedule dependencies join the project change log.
     if (entityType === 'dependency' && tenantId && projectRepository?.recordProjectChanges) {
       const record = result?.value ?? null;
       try {

@@ -1,6 +1,6 @@
-// Request shapes for the billing routes. The /api/v1 ones follow
-// docs/invoice-gen-connection/api-contract.md, which invoice-gen is built against: extra fields
-// are dropped rather than refused, so invoice-gen can add fields without breaking Odin.
+// Request shapes for the billing routes. The /api/v1 ones follow the contract invoice-gen is
+// built against: extra fields are dropped rather than refused, so invoice-gen can add fields
+// without breaking Odin.
 import { z } from 'zod';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use YYYY-MM-DD.');

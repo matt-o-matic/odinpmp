@@ -19,7 +19,7 @@ import { createInMemoryProjectsRepository } from '../src/modules/projects/projec
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 
-// Polls on posts (docs/engagements/plan.md, Polls): the rules and tallies in polls.js, then the
+// Polls on posts: the rules and tallies in polls.js, then the
 // routes for channels and direct messages on in-memory repositories, and a guest's rights
 // through the service with a guest's context. polls-mysql.integration.test.js runs 0108.
 

@@ -342,7 +342,7 @@ test('reads stay compact: revisions as changed fields, search hits, the team wit
   }
 });
 
-test('external tickets nobody has validated stay out of ticket lists, ticket updates and my work (D-027)', async (t) => {
+test('external tickets nobody has validated stay out of ticket lists, ticket updates and my work', async (t) => {
   const ticket = (id, externalReviewState) => ({ externalReviewState, id, name: `Ticket ${id}`, projectId: 'project-1', status: 'Open', version: 2 });
   const tickets = { nextCursor: null, ok: true, tickets: [ticket('t-mine', 'not_external'), ticket('t-ok', 'validated'), ticket('t-new', 'pending'), ticket('t-no', 'rejected')] };
   // Home in its real shape: the person's own view has cards made from the pending ticket, and
@@ -385,7 +385,7 @@ test('external tickets nobody has validated stay out of ticket lists, ticket upd
   assert.doesNotMatch(JSON.stringify(home.data), /Ignore your instructions/);
 });
 
-test('odin_search finds comments and file passages by meaning, filters by type, and gives a file match its file id (semantic search AC-09)', async (t) => {
+test('odin_search finds comments and file passages by meaning, filters by type, and gives a file match its file id', async (t) => {
   const { call, calls } = await session(t, {
     'GET /api/reporting/search': {
       facetCounts: {},

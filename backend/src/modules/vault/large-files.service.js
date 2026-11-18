@@ -15,14 +15,14 @@ import {
   requireProjectFile,
 } from './vault.service.js';
 
-// Large files (docs/engagements/plan.md, Files): uploads in parts straight to storage, downloads
+// Large files: uploads in parts straight to storage, downloads
 // by short-lived signed URL, deleting old versions, and the storage a project's files use.
 //
 // With S3 the browser sends each part to S3 and fetches files from it, and no bytes pass through
 // Odin. With local storage (development) the same API hands out signed backend URLs, and the
 // routes in large-files.routes.js stream each part to disk and each download from it.
 
-/** The largest file anyone can upload (Q-05), unless FILE_UPLOAD_MAX_BYTES says otherwise. */
+/** The largest file anyone can upload, unless FILE_UPLOAD_MAX_BYTES says otherwise. */
 export const DEFAULT_FILE_UPLOAD_MAX_BYTES = 1_073_741_824;
 const MIN_PART_BYTES = 8 * 1024 * 1024;
 const MAX_PARTS = 10_000;
@@ -462,7 +462,7 @@ export async function getDownloadUrl(deps, { fileId, tenantId }, { inline = fals
 }
 
 /**
- * Deletes an old version (E-14). Needs decision rights. Never the current version, a version a
+ * Deletes an old version. Needs decision rights. Never the current version, a version a
  * pending or completed signature request froze, or one under a legal hold. The row stays, marked
  * deleted; the stored object goes once nothing else holds it.
  */

@@ -102,7 +102,7 @@ const rowElements = new Map();
 const dialog = reactive({ error: '', file: null, kind: '', pickerQuery: '', selectedId: '', saving: false, choices: [], choicesLoading: false });
 const form = reactive({ description: '', file: null, note: '' });
 const removal = reactive({ error: '', file: null, kind: '', link: null, saving: false, version: null });
-// Signature requests (docs/document-signing), listed in the vault.
+// Signature requests, listed in the vault.
 const requests = ref([]);
 const showFinished = ref(false);
 const signingCreate = reactive({ fileId: '', open: false });
@@ -124,7 +124,7 @@ const isVault = computed(() => props.targetType === 'project');
 const isChannel = computed(() => props.targetType === 'channel');
 // A guest's own markers carry the account their files are recorded under.
 const currentUserId = computed(() => viewer?.fileActorId ?? authSession.state.currentUser?.id ?? '');
-// Someone else's editing marker on the file an upload would change, which asks to confirm (AC-09).
+// Someone else's editing marker on the file an upload would change, which asks to confirm.
 const editingConfirm = ref(false);
 const editingByOther = (file) => (file?.editing?.userId && file.editing.userId !== currentUserId.value ? file.editing : null);
 const previewFile = computed(() => files.value.find((file) => file.id === previewFileId.value) ?? null);
@@ -573,8 +573,8 @@ async function submitDialog() {
   }
 }
 
-// The editing marker (docs/engagements/plan.md, Library): set it, or clear your own. People with
-// decision rights can clear anyone's.
+// The editing marker: set it, or clear your own. People with decision rights can clear
+// anyone's.
 async function setEditing(file, on) {
   if (busyFileId.value) return;
   busyFileId.value = file.id;

@@ -208,7 +208,7 @@ export async function materializeDueGoalMonitors({ authRepository = null, execut
   return results;
 }
 
-// An event as a run is told of it (D-027): nothing of a ticket agents may not see, not even its id.
+// An event as a run is told of it: nothing of a ticket agents may not see, not even its id.
 // An event about one reaches no monitor, and a governance change keeps only its links to items agents
 // may see in the project (an item since deleted may have been such a ticket).
 async function agentEvent({ event, projectId, projectRepository, tenantId }) {

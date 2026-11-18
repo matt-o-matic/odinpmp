@@ -1,4 +1,4 @@
-// The api-contract.md routes driven the way invoice-gen drives them. `odin` below copies the
+// The /api/v1 billing routes driven the way invoice-gen drives them. `odin` below copies the
 // request shapes of invoice-gen's src/server/odinClient.ts (feature/odin-connection, a0663f6): the
 // token request, headers, Idempotency-Key formats, bodies, and how it reads replies and errors,
 // and the scenarios follow its fake Odin in src/server/odin-connection.test.ts.

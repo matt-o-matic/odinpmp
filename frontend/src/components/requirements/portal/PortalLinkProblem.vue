@@ -5,9 +5,9 @@ import { apiClient } from '../../../lib/auth/index.js';
 import { classifyPortalError } from '../../../lib/requirements/portal-view.js';
 import { formatShortDate } from '../../../lib/requirements/requirements-time.js';
 
-// When the link no longer opens the portal (plan.md, Failure and recovery): not found,
-// expired (with "Request a new link", which tells the project's admins and managers),
-// turned off (no request: the team chose to), too many requests, or a failed load.
+// When the link no longer opens the portal: not found, expired (with "Request a new
+// link", which tells the project's admins and managers), turned off (no request: the team
+// chose to), too many requests, or a failed load.
 const props = defineProps({
   problem: { required: true, type: Object },
   token: { required: true, type: String },

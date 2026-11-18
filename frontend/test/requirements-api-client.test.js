@@ -19,7 +19,7 @@ async function capture(run) {
   return calls.map((call) => ({ ...call, url: call.url.replace('http://localhost:3001', '') }));
 }
 
-test('requirements API methods follow the U1 routes', async () => {
+test('requirements API methods follow the API routes', async () => {
   const calls = await capture(async (client) => {
     await client.getRequirementsOverview('p1', 'token');
     await client.getRequirementsMyItems('p1', 'token');

@@ -1,4 +1,4 @@
-// Live Odin summary evaluation against the real provider (AC-02 handoff evidence).
+// Live Odin summary evaluation against the real provider.
 //
 //   node backend/evals/requirements-summary/run-live-eval.js
 //

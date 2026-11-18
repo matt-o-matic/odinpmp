@@ -7,7 +7,7 @@ import { installPursuitApi } from './fixtures/pursuit-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, openTopMenu } from './fixtures/synthetic-api.js';
 
 // The pursuit board, the Convert option for pursuit tasks, the board and Odin settings, and the
-// engagement Insights tab (docs/engagements/plan.md; AC-20, AC-21, AC-22).
+// engagement Insights tab.
 
 const API_ORIGIN = 'http://localhost:3001';
 
@@ -44,7 +44,7 @@ async function holdChangeEvent(page, projectId) {
   return () => release();
 }
 
-test('members see the pursuit tasks on the engagement Board, add one for a person without a login, and change one (AC-20)', async ({ page }, testInfo) => {
+test('members see the pursuit tasks on the engagement Board, add one for a person without a login, and change one', async ({ page }, testInfo) => {
   const { pursuit } = await openEngagement(page);
   await page.goto('engagements/eng-northwind/board');
   const sections = page.getByRole('navigation', { name: 'Engagement sections' });
@@ -86,7 +86,7 @@ test('members see the pursuit tasks on the engagement Board, add one for a perso
   await expect(page.getByRole('status').filter({ hasText: 'Task saved.' })).toBeVisible();
 });
 
-test('the Convert dialog leaves pursuit tasks on the Pursuit tab unless asked, and Settings holds the board switch (AC-21)', async ({ page }, testInfo) => {
+test('the Convert dialog leaves pursuit tasks on the Pursuit tab unless asked, and Settings holds the board switch', async ({ page }, testInfo) => {
   const { engagements, pursuit } = await openEngagement(page);
   await page.goto('engagements/eng-northwind/settings');
 
@@ -111,7 +111,7 @@ test('the Convert dialog leaves pursuit tasks on the Pursuit tab unless asked, a
   expect(engagements.calls.at(-1)).toEqual({ body: { moveOpenPursuitTasks: true, templateId: null }, method: 'POST', path: '/api/projects/eng-northwind/convert' });
 });
 
-test('the engagement Insights tab shows the SOW, tasks, activity, people and age, and refreshes when someone else changes the engagement (AC-22)', async ({ page }, testInfo) => {
+test('the engagement Insights tab shows the SOW, tasks, activity, people and age, and refreshes when someone else changes the engagement', async ({ page }, testInfo) => {
   const { pursuit } = await openEngagement(page);
   const release = await holdChangeEvent(page, 'eng-northwind');
   await page.goto('engagements/eng-northwind/insights');
@@ -141,7 +141,7 @@ test('the engagement Insights tab shows the SOW, tasks, activity, people and age
   await expect.poll(() => pursuit.insightsLoads).toBeGreaterThan(loads);
 });
 
-test('without a linked SOW the SOW card says so (AC-22)', async ({ page }) => {
+test('without a linked SOW the SOW card says so', async ({ page }) => {
   await openEngagement(page, { sowLinked: false });
   await page.goto('engagements/eng-northwind/insights');
   await expect(page.getByRole('article', { name: 'SOW' })).toContainText('No SOW is linked to this engagement.');

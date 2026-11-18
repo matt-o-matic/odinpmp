@@ -13,7 +13,7 @@ import { createInMemorySessionsRepository } from '../src/modules/sessions/sessio
 import { buildTicketWorkflowDefinition } from '../src/modules/workflows/ticket-workflow.js';
 import { createInMemoryWorkflowRepository } from '../src/modules/workflows/workflows.repository.js';
 
-// D-027 in the file, Home and revision tools: a ticket submitted from outside the team stays out
+// The file, Home and revision tools: a ticket submitted from outside the team stays out
 // of agents' sight until a person validates it, along with its attachments, the Home cards made
 // from it and its revisions. Tickets come in through the public intake form, people triage and
 // work them through Odin's routes, and the tools run as the in-app assistant runs them, on an

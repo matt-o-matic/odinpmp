@@ -47,7 +47,7 @@ function flattenProject(project) {
       for (const task of story.tasks ?? []) records.push({ item: task, itemId: task.id, itemType: 'task' });
     }
   }
-  // Tickets are a flat project-level collection rather than tree nodes (D-006).
+  // Tickets are a flat project-level collection rather than tree nodes.
   for (const ticket of project.tickets ?? []) records.push({ item: ticket, itemId: ticket.id, itemType: 'ticket' });
   return records;
 }

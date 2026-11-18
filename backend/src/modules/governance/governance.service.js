@@ -16,7 +16,7 @@ async function authorize(user, projectId, projectRepository, capability) {
 }
 
 /**
- * Governance as agents see it (D-027), as if the tickets agents may not see never existed: a
+ * Governance as agents see it, as if the tickets agents may not see never existed: a
  * dependency on one is left out, and a milestone tracking one tracks nothing. A deleted ticket is
  * judged by the review state its last revision recorded, as Insights judges it.
  */

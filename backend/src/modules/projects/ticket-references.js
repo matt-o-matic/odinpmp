@@ -1,9 +1,9 @@
 import { HttpError } from '../../lib/errors/http-error.js';
 
-// AC2.2/AC2.3: a ticket's environment and found-in/fixed-in releases must be entries of this
+// A ticket's environment and found-in/fixed-in releases must be entries of this
 // tenant's lists that are tenant-wide or scoped to the ticket's project, and active. Only fields
 // present on the write are checked, so deactivating an entry never breaks tickets that already
-// reference it (AC2.4). Both projects repositories use this so they refuse the same writes.
+// reference it. Both projects repositories use this so they refuse the same writes.
 const TICKET_REFERENCES = Object.freeze([
   { field: 'environmentId', kind: 'environments', label: 'environment', table: 'tenant_environments' },
   { field: 'foundInReleaseId', kind: 'releases', label: 'found-in release', table: 'tenant_releases' },

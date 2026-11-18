@@ -1,4 +1,4 @@
-// Where a guest's tasks come from (docs/engagements/plan.md, Pursuit board; qna.md Q-06).
+// Where a guest's tasks come from.
 //
 // The pursuit board decides which tasks an outside person sees: the tasks assigned to them, or
 // every pursuit task when the engagement's `guests_see_board` setting is on; they change only

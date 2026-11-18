@@ -4,7 +4,7 @@ import test from 'node:test';
 import { buildAccessLinkUrl, computeAccessLinkStatus } from '../src/modules/access/access-links.js';
 import { createInMemoryAccessRepository } from '../src/modules/access/access.repository.js';
 
-// The access link's lifetime (docs/task-access/plan.md): valid while any grant is active; after
+// The access link's lifetime: valid while any grant is active; after
 // the last one ends, 14 days from the latest of issuing and that end, or until an extension.
 
 const NOW = new Date('2026-10-29T12:00:00.000Z');

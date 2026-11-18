@@ -1,4 +1,4 @@
-// The guest view's shared pieces (docs/engagements/plan.md, Guests): where sign-in sends a guest
+// The guest view's shared pieces: where sign-in sends a guest
 // back to, and readable messages for sign-in errors. Pure functions, so they test without a
 // browser; the tab's guest API is in guest-client.js.
 

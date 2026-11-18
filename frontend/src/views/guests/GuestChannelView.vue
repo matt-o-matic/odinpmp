@@ -11,10 +11,10 @@ import { GUEST_SESSION_MARKER } from '../../lib/guests/guest-api.js';
 import { guestApi } from '../../lib/guests/guest-client.js';
 import { needsSignIn, signInNoticeFor, signInRouteFor } from '../../lib/guests/guest-view.js';
 
-// One of a guest's channels (docs/engagements/plan.md, Guests), in Odin Chat's layout with their
-// channels beside it (docs/odin-chat/plan.md, Landing): the same conversation, library, file
-// comments and viewer members use, calling the guest API (lib/channels/channel-api.js). The tab,
-// folder, file and post are kept in the address, as on the members' Channels tab.
+// One of a guest's channels, in Odin Chat's layout with their
+// channels beside it: the same conversation, library, file comments and viewer members use,
+// calling the guest API (lib/channels/channel-api.js). The tab, folder, file and post are kept
+// in the address, as on the members' Channels tab.
 const route = useRoute();
 const router = useRouter();
 

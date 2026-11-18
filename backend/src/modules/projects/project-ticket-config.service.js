@@ -1,10 +1,10 @@
 import { PROJECT_CAPABILITIES, requireProjectCapability } from '../../lib/auth/project-capabilities.js';
 import { HttpError } from '../../lib/errors/http-error.js';
 
-// The tenant admin list endpoint is admin-only (AC2.5). Ticket pickers need the same lists for
+// The tenant admin list endpoint is admin-only. Ticket pickers need the same lists for
 // any project reader, limited to tenant-wide entries and entries scoped to this project.
 // Inactive entries are included with their status so tickets that already reference them
-// still render a name (AC2.4); pickers offer only the active ones.
+// still render a name; pickers offer only the active ones.
 export function scopeTicketConfigEntries(entries = [], projectId) {
   return entries
     .filter((entry) => !entry.projectId || entry.projectId === projectId)

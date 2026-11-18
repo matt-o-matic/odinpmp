@@ -5,7 +5,7 @@ import { WORK_ITEM_RELATION_TYPES, workItemRelationCreateSchema } from '../modul
 
 // Typed links between epics, stories, tasks and tickets in one project (blocks, caused_by,
 // affects, duplicate_of). A ticket submitted from outside the team stays hidden from agents until
-// someone validates it (D-027), so it is never listed, linked or unlinked here.
+// someone validates it, so it is never listed, linked or unlinked here.
 
 const relationType = z.enum(WORK_ITEM_RELATION_TYPES)
   .describe('Read as "from <type> to": blocks = from must finish before to; caused_by = from was caused by to; affects = from affects to; duplicate_of = from duplicates to.');

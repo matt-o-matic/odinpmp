@@ -9,7 +9,7 @@ import { guestApi } from '../../lib/guests/guest-client.js';
 import { needsSignIn, signInNoticeFor, signInRouteFor } from '../../lib/guests/guest-view.js';
 import GuestHeader from './GuestHeader.vue';
 
-// The guest view in Odin Chat's layout (docs/odin-chat/plan.md, Landing): guests land in the Chat
+// The guest view in Odin Chat's layout: guests land in the Chat
 // layout, with their engagements' channels in the sidebar, and never see Odin proper. The guest
 // header stays; there are no direct messages, Mentions, Threads or Odin for guests. One live
 // stream serves the sidebar and the open channel: each batch is passed on as `live`.

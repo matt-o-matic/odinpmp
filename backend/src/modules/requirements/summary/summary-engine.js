@@ -21,7 +21,7 @@ import {
 import { createSummaryScheduler } from './summary-scheduler.js';
 import { createTopicSummaryLoader } from './summary-topics.js';
 
-// The Odin summary engine (E-04). `summarizeScope` is the generic step: sources in, a
+// The Odin summary engine. `summarizeScope` is the generic step: sources in, a
 // validated run out, nothing stored. The engine around it loads a scope's input, stores
 // every run as a new requirements_summaries row, publishes requirements.summary.updated,
 // and schedules refreshes after human activity. Topics are built in; the rounds unit

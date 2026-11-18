@@ -258,7 +258,7 @@ test.describe('home', () => {
     const rail = page.getByRole('complementary', { name: 'Summary' });
     await expect(rail.getByRole('heading', { name: 'Workspace at a glance' })).toBeVisible();
     await expect(rail.getByRole('link', { name: /Without 2FA\s*7\s*of 41 members/ })).toBeVisible();
-    await expect(rail.getByRole('heading', { name: 'Sprints behind' })).toBeVisible();
+    await expect(rail.getByRole('heading', { name: 'Sprints at risk' })).toBeVisible();
     await page.screenshot({ fullPage: true, path: testInfo.outputPath('admin.png') });
     await expectNoAxeViolations(page, testInfo, 'admin');
     api.assertNoUnexpectedRequests();

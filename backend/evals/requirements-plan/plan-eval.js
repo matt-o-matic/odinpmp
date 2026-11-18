@@ -8,10 +8,10 @@ import { approvePlanForUser, draftPlanForUser, proposeWorkForUser } from '../../
 import { createInMemoryRequirementsRepository } from '../../src/modules/requirements/requirements.repository.js';
 import { createInProcessAgentChats } from '../../test/helpers/in-process-agent.js';
 
-// Track plan evaluation (AC-13 handoff evidence). Seeds the fixture decisions into
-// in-memory repositories, drafts the plan with the given provider, approves it as a
-// manager, proposes work, checks that nothing exists before apply, applies every proposal
-// from the assistant chat it was staged in, and checks the result.
+// Track plan evaluation. Seeds the fixture decisions into in-memory repositories, drafts
+// the plan with the given provider, approves it as a manager, proposes work, checks that
+// nothing exists before apply, applies every proposal from the assistant chat it was
+// staged in, and checks the result.
 
 const FIXTURE_URL = new URL('./fixture-decisions.json', import.meta.url);
 const TENANT_ID = 'tenant-plan-eval';

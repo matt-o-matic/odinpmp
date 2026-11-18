@@ -227,7 +227,7 @@ export const projectItemDeleteSchema = z.object({
   withoutDependents: z.boolean().optional(),
 });
 
-// External review gate (D-027). Gates assistant visibility only, never scheduling. Agents'
+// External review gate. Gates assistant visibility only, never scheduling. Agents'
 // tools send agentCheck, so their validations go through the automated check.
 export const ticketReviewDecisionSchema = z.object({
   agentCheck: z.boolean().optional(),
@@ -246,7 +246,7 @@ export const ticketsAwaitingReviewQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(25).optional().default(10),
 });
 
-// Cross-project ticket query (D-020). Project is a filter, not a container.
+// Cross-project ticket query. Project is a filter, not a container.
 export const ticketListQuerySchema = z.object({
   assigneeIds: z.preprocess(splitCsvOrArray, z.array(z.string().trim().min(1).max(120))).optional().default([]),
   categories: z.preprocess(splitCsvOrArray, z.array(z.enum(TICKET_CATEGORIES))).optional().default([]),
@@ -268,7 +268,7 @@ export const workItemRelationCreateSchema = z.object({
   toItemId: z.string().trim().min(1).max(120),
 });
 
-// External intake (D-011, D-028). The invite token carries the project, so a reporter
+// External intake. The invite token carries the project, so a reporter
 // never selects or needs to know one.
 export const ticketIntakeInvitationCreateSchema = z.object({
   expiresAt: z.string().datetime({ offset: true }).nullable().optional().default(null),
@@ -287,7 +287,7 @@ export const inboundTicketMailSchema = z.object({
   toEmail: z.string().trim().email().max(255),
 });
 
-// Attachment limits on the public surface (AC6.5). Deliberately narrow: evidence for a
+// Attachment limits on the public surface. Deliberately narrow: evidence for a
 // defect report is screenshots, logs, and documents, not arbitrary binaries.
 export const PUBLIC_ATTACHMENT_MAX_BYTES = 10 * 1024 * 1024;
 export const PUBLIC_ATTACHMENT_MAX_COUNT = 5;

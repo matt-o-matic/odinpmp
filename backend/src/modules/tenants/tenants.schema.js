@@ -123,7 +123,7 @@ export const restoreTenantSchema = z.object({
   base64Odin: z.string().trim().min(10).max(50_000_000),
 }).strict();
 
-// Ticket configuration lists (D-019): environments and release identifiers.
+// Ticket configuration lists: environments and release identifiers.
 const ticketConfigEntrySchema = z.object({
   id: z.string().trim().min(1).max(36).optional(),
   name: z.string().trim().min(1).max(160),

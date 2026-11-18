@@ -5,8 +5,8 @@ import { assertFileScanClean } from '../../lib/files/file-scan-status.js';
 import { downloadDisposition, signObjectUrl } from './large-files.service.js';
 import { requireFileCapability, requireFileVisibleToAgents, requireProjectFile } from './vault.service.js';
 
-// What the files panel's viewer shows for one version (docs/engagements/plan.md, Download and
-// preview; AC-08). The same rights as a download, and nothing before the scan passes.
+// What the files panel's viewer shows for one version. The same rights as a download, and
+// nothing before the scan passes.
 //
 // kind is one of:
 // - pdf: a PDF, or an Office file's converted PDF (lib/files/file-preview.js).

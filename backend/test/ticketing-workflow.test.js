@@ -45,7 +45,7 @@ test('the default ticket lifecycle is a valid workflow definition', () => {
   assert.equal(parsed.success, true, JSON.stringify(parsed.error?.issues));
 });
 
-test('AC3.1 creating the binding seeds the workflow and binds it to the ticket item type', async () => {
+test('creating the binding seeds the workflow and binds it to the ticket item type', async () => {
   const { binding, repository, workflow } = await seededRepository();
 
   assert.equal(workflow.name, TICKET_WORKFLOW_NAME);
@@ -58,7 +58,7 @@ test('AC3.1 creating the binding seeds the workflow and binds it to the ticket i
   assert.equal(snapshot.bindings.length, 1);
 });
 
-test('AC3.1 binding a second project reuses the existing workflow definition', async () => {
+test('binding a second project reuses the existing workflow definition', async () => {
   const { repository, workflow } = await seededRepository();
 
   const second = await ensureTicketWorkflowBinding({ projectId: 'project-support', repository, tenantId: TENANT_ID });
@@ -69,7 +69,7 @@ test('AC3.1 binding a second project reuses the existing workflow definition', a
   assert.equal(snapshot.bindings.length, 2);
 });
 
-test('AC3.4 an existing custom binding is preserved rather than overwritten', async () => {
+test('an existing custom binding is preserved rather than overwritten', async () => {
   const repository = createInMemoryWorkflowRepository();
   const custom = await repository.createWorkflow({
     input: {
@@ -91,7 +91,7 @@ test('AC3.4 an existing custom binding is preserved rather than overwritten', as
   assert.equal(snapshot.bindings.filter((binding) => binding.projectId === 'project-launch').length, 1);
 });
 
-test('AC3.2 every lifecycle transition is executable with no role restriction or approval', async () => {
+test('every lifecycle transition is executable with no role restriction or approval', async () => {
   const { repository } = await seededRepository();
   const snapshot = await snapshotFor(repository);
 
@@ -110,7 +110,7 @@ test('AC3.2 every lifecycle transition is executable with no role restriction or
   assert.ok(TICKET_WORKFLOW_TRANSITIONS.every((transition) => transition.requiredFields.length === 0));
 });
 
-test('AC3.3 closed to open is a recordable reopen transition', async () => {
+test('closed to open is a recordable reopen transition', async () => {
   const { repository } = await seededRepository();
   const snapshot = await snapshotFor(repository);
 
@@ -158,7 +158,7 @@ test('new tickets must start in the initial state', async () => {
   );
 });
 
-test('AC3.5 epic, story, and task bindings are unaffected by the ticket workflow', async () => {
+test('epic, story, and task bindings are unaffected by the ticket workflow', async () => {
   const { repository } = await seededRepository();
   const snapshot = await snapshotFor(repository);
 

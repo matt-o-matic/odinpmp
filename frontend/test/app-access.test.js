@@ -62,7 +62,7 @@ test('the router guards ranking, adds the search route and redirects the old set
 });
 
 test('the shell hides Rank Projects from other roles and shows access notices', () => {
-  // In the Plan menu (layout A, docs/odin-chat/plan.md).
+  // In the Plan menu.
   assert.match(appSource, /<li v-if="canRankProjects"><RouterLink class="dropdown-item" :to="\{ name: 'ranking' \}"/);
   assert.match(appSource, /from '\.\/lib\/auth\/access\.js'/);
   assert.doesNotMatch(appSource, /currentUser\.value\?\.role === 'admin'/);

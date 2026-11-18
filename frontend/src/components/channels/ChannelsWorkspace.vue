@@ -13,13 +13,12 @@ import ChannelGuestsDialog from './ChannelGuestsDialog.vue';
 import ChannelLibrary from './ChannelLibrary.vue';
 import ChannelNotificationLevel from './ChannelNotificationLevel.vue';
 
-// The Channels tab of a project or an engagement (docs/engagements/plan.md, Channels and
-// conversation). The channel list with unread counts sits beside the open channel; on a phone
-// the list and the channel take turns. The open channel, its tab (Conversation or Files), and
-// the folder and file open in its library are kept in the address, so links and Back work.
-// Changes others make arrive as channel.updated events and refetch only what they touched.
-// Odin Chat shows one channel at a time with its own sidebar: given `channelId`, this shows that
-// channel alone, without the list (docs/odin-chat/plan.md, Odin Chat).
+// The Channels tab of a project or an engagement. The channel list with unread counts sits beside
+// the open channel; on a phone the list and the channel take turns. The open channel, its tab
+// (Conversation or Files), and the folder and file open in its library are kept in the address,
+// so links and Back work. Changes others make arrive as channel.updated events and refetch only
+// what they touched. Odin Chat shows one channel at a time with its own sidebar: given
+// `channelId`, this shows that channel alone, without the list.
 const props = defineProps({
   channelId: { default: '', type: String },
   projectId: { required: true, type: String },
@@ -38,7 +37,7 @@ const token = computed(() => authSession.state.token);
 const channels = ref([]);
 const permissions = ref({});
 // Whether Odin can answer in this project at all. Each channel's own "Let Odin answer when
-// tagged" (E-16) is in Channel settings: everyone sees it; decision rights switch it.
+// tagged" is in Channel settings: everyone sees it; decision rights switch it.
 const odin = ref({ available: false });
 const loaded = ref(false);
 const loadError = ref('');

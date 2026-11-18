@@ -27,7 +27,7 @@ async function main() {
       }),
       message: 'Expired sessions cleaned.',
     });
-    // The project change log keeps 90 days (docs/mcp-change-feed/plan.md).
+    // The project change log keeps 90 days.
     const purged = await purgeMysqlProjectChanges(pool, { days: CHANGE_LOG_RETENTION_DAYS });
     logBackendEvent({
       context: buildJobLogContext(JOB_NAME, { deletedCount: purged }),
@@ -45,7 +45,7 @@ async function main() {
       context: buildJobLogContext(JOB_NAME, { deletedCount: oauth }),
       message: 'Expired OAuth tokens purged.',
     });
-    // Notifications keep 90 days (docs/odin-chat/plan.md, Records).
+    // Notifications keep 90 days.
     const notifications = await purgeOldNotifications(createMysqlNotificationsRepository({ pool }), { days: NOTIFICATION_RETENTION_DAYS });
     logBackendEvent({
       context: buildJobLogContext(JOB_NAME, { deletedCount: notifications }),

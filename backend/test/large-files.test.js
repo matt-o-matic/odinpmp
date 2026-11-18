@@ -28,10 +28,10 @@ import {
 } from '../src/modules/vault/large-files.service.js';
 import { createMemoryLargeFileStorage, EICAR, freePort, startFakeClamd } from './helpers/large-file-fixtures.js';
 
-// Large files (docs/engagements/plan.md, Files; AC-04, AC-05, AC-06): uploads in parts, the size
-// limit, resuming, version conflicts, scanning, signed downloads and deleting old versions,
-// through Odin's routes on in-memory repositories. large-files-memory.test.js measures memory;
-// large-files-s3.integration.test.js runs the multipart calls against MinIO.
+// Large files: uploads in parts, the size limit, resuming, version conflicts, scanning, signed
+// downloads and deleting old versions, through Odin's routes on in-memory repositories.
+// large-files-memory.test.js measures memory; large-files-s3.integration.test.js runs the
+// multipart calls against MinIO.
 
 const TENANT_ID = 'tenant-acme';
 const PROJECT = 'project-1';

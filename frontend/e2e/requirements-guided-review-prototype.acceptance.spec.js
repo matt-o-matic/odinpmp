@@ -12,7 +12,7 @@ import { PORTAL_TOKENS, closeThread, createReviewWorld, drawMark, installCapture
 import { installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// Prototype screens in the guided review (AC-09 UI). Browse to a second state, switch to
+// Prototype screens in the guided review. Browse to a second state, switch to
 // Annotate, pin an element: the snapshot uploads as a PNG and the mark records the state
 // key, the snapshot, and the element hint from the real bridge. The real review origin
 // (backend/src/review-origin/app.js) serves the example package with a signed grant, as in

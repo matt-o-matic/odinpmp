@@ -6,9 +6,9 @@ import { channelErrorMessage, postTimeLabel } from '../../lib/channels/channels.
 import RequirementsConfirmDialog from '../requirements/RequirementsConfirmDialog.vue';
 import RequirementsDialog from '../requirements/RequirementsDialog.vue';
 
-// A channel's guests, for members (docs/engagements/plan.md, Guests; E-03): who is in the
-// channel from outside, when each last used Odin, and, for people with decision rights,
-// inviting by name, email and organization, adding a guest of another channel, and removing.
+// A channel's guests, for members: who is in the channel from outside, when each last used
+// Odin, and, for people with decision rights, inviting by name, email and organization,
+// adding a guest of another channel, and removing.
 const props = defineProps({
   channel: { default: null, type: Object },
   open: { default: false, type: Boolean },

@@ -6,9 +6,9 @@ import { renderEmailFromTemplate } from '../mail/mail.service.js';
 import { FILE_INFECTED_TEMPLATE_ID } from '../mail/mail.templates.js';
 import { abortExpiredUploads } from './large-files.service.js';
 
-// The scan worker (docs/engagements/plan.md, Upload, step 5). It reads each stored object waiting
-// for a scan, streams it to ClamAV and hashes it (SHA-256, and MD5 for the file's signature) in
-// the same pass, and records the result on every row that holds the object:
+// The scan worker. It reads each stored object waiting for a scan, streams it to ClamAV and
+// hashes it (SHA-256, and MD5 for the file's signature) in the same pass, and records the
+// result on every row that holds the object:
 //
 // - clean: the file can be downloaded.
 // - infected: the object is purged from storage, the uploader is emailed, and the row stays,

@@ -1,5 +1,5 @@
-// Reactions and replies to a reply (docs/engagements/plan.md, Reactions; Replies to a reply). Used
-// by channel posts, file comments and direct messages alike.
+// Reactions and replies to a reply. Used by channel posts, file comments and direct
+// messages alike.
 import { HttpError } from '../../lib/errors/http-error.js';
 
 /** One person's distinct emoji on one post, and a post's distinct emoji, at most. */

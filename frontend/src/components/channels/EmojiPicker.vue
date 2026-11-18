@@ -3,10 +3,10 @@ import { computed, nextTick, onBeforeUnmount, ref, useId, watch } from 'vue';
 
 import { EMOJI_GROUPS, QUICK_REACTIONS, loadEmojiCatalog, searchEmoji } from '../../lib/channels/reactions.js';
 
-// The emoji picker: the quick row, a search, and every emoji by group. Reactions use it
-// (docs/engagements/plan.md, Reactions), and so does the editor's emoji button, which inserts one. It sits on the page, not in the conversation, so the scrolling list never cuts
-// it off; on a phone it is a sheet along the bottom. The emoji list downloads the first time a
-// picker opens.
+// The emoji picker: the quick row, a search, and every emoji by group. Reactions use it, and so
+// does the editor's emoji button, which inserts one. It sits on the page, not in the
+// conversation, so the scrolling list never cuts it off; on a phone it is a sheet along the
+// bottom. The emoji list downloads the first time a picker opens.
 const props = defineProps({
   // The button that opened it: the picker sits next to it, and focus goes back to it.
   anchor: { default: null, type: Object },

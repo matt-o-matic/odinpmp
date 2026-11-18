@@ -43,7 +43,7 @@ async function openRound() {
   };
 }
 
-test('AC-07 review state: package, screens with grant entry URLs, empty progress, and resume position', async () => {
+test('review state: package, screens with grant entry URLs, empty progress, and resume position', async () => {
   const { harness, jamieToken, pkg, round } = await openRound();
   const state = await harness.portal(jamieToken, round.id).get();
   assert.equal(state.status, 200, JSON.stringify(state.body));
@@ -137,7 +137,7 @@ test('directions and verdicts: stances, dimension validation, untouched stays ab
   assert.equal((await jamie.del('/directions/action-first')).body.progress.directions.done, 0);
 });
 
-test('AC-07 answers post into the linked topic thread as the reviewer, edits update the same comment, and a summary refresh is scheduled', async () => {
+test('answers post into the linked topic thread as the reviewer, edits update the same comment, and a summary refresh is scheduled', async () => {
   const { harness, jamieToken, priceTopic, round } = await openRound();
   const jamie = harness.portal(jamieToken, round.id);
   const topicEvents = harness.recordEvents(harness.projectChannel);
@@ -226,7 +226,7 @@ test('members review vs submit: any collaborator annotates and comments; only in
   assert.equal((await mona.post(`/annotations/${annotationId}/comments`, { body: 'Members can discuss.' })).status, 201);
 });
 
-test('AC-08 annotations: client ids, server display numbers per screen, own-only edits, soft delete and restore, moderator delete', async () => {
+test('annotations: client ids, server display numbers per screen, own-only edits, soft delete and restore, moderator delete', async () => {
   const { casey, caseyToken, harness, jamieToken, round } = await openRound();
   const jamie = harness.portal(jamieToken, round.id);
   const casey2 = harness.portal(caseyToken, round.id);
@@ -318,7 +318,7 @@ test('AC-08 annotations: client ids, server display numbers per screen, own-only
   assert.equal((await harness.team('projectManager', round.id).del(`/annotations/${second}`)).status, 200);
 });
 
-test('AC-08 shape validation: types, schema version, stroke 1-24, min size 4 px, bounds, pen point limits, text', async () => {
+test('shape validation: types, schema version, stroke 1-24, min size 4 px, bounds, pen point limits, text', async () => {
   const { harness, jamieToken, round } = await openRound();
   const jamie = harness.portal(jamieToken, round.id);
   const put = (shapes, screenId = 'home') => jamie.put(`/annotations/${randomUUID()}`, { screenId, shapes });
@@ -369,7 +369,7 @@ test('AC-08 shape validation: types, schema version, stroke 1-24, min size 4 px,
   assert.equal(outside.body.details.issues[0].code, 'out_of_bounds');
 });
 
-test('AC-09 snapshots: PNG only, validated, 10 MB limit, served as image/png with nosniff, bounds come from the snapshot', async () => {
+test('snapshots: PNG only, validated, 10 MB limit, served as image/png with nosniff, bounds come from the snapshot', async () => {
   const { harness, jamieToken, outsideToken, round } = await openRound();
   const jamie = harness.portal(jamieToken, round.id);
 
@@ -399,7 +399,7 @@ test('AC-09 snapshots: PNG only, validated, 10 MB limit, served as image/png wit
   assert.equal(tooLarge.status, 413);
   assert.equal(tooLarge.body.details.code, 'snapshot_too_large');
 
-  // An annotation on the snapshot records screen, state, snapshot, and element hint (AC-09).
+  // An annotation on the snapshot records screen, state, snapshot, and element hint.
   const annotationId = randomUUID();
   const annotated = await jamie.put(`/annotations/${annotationId}`, {
     elementHint: { odinId: 'time-slot', tag: 'button', text: '10:30' },
@@ -529,7 +529,7 @@ test('submit records submitted_at with a not-reviewed summary; comments continue
   assert.equal((await jamie.raw('/snapshots', makePng(10, 10))).status, 409);
 });
 
-test('AC-18 live events: annotation saves reach the project channel and the invited stakeholders\' portal channels only', async () => {
+test('live events: annotation saves reach the project channel and the invited stakeholders\' portal channels only', async () => {
   const { harness, jamieToken, outsideToken, round } = await openRound();
   const links = harness.requirementsRepository.state.links;
   const tokenLink = async (token) => (await harness.requirementsRepository.findAccessTokenByHash({ tokenHash: (await import('../src/modules/requirements/requirements-access-links.js')).hashAccessToken(token) })).link.id;

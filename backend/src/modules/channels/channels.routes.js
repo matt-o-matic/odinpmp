@@ -39,10 +39,10 @@ import {
   votePollForUser,
 } from './channels.service.js';
 
-// Channels, posts, file comments, folders and the editing marker, under /api/projects/:projectId
-// (docs/engagements/plan.md, API). Members only: guests get their own routes (workstream 6). MCP
-// credentials reach the file tree, folders and moving files, as mcp/access/files.js admits them,
-// for the folder tools. Each write publishes channel.updated (channel-events.js).
+// Channels, posts, file comments, folders and the editing marker, under /api/projects/:projectId.
+// Members only: guests get their own routes. MCP credentials reach the file tree, folders and
+// moving files, as mcp/access/files.js admits them, for the folder tools. Each write publishes
+// channel.updated (channel-events.js).
 
 const id = z.string().trim().min(1).max(64);
 const body = z.string().max(20_000);
@@ -151,7 +151,7 @@ export function createChannelsRouter(deps) {
   router.get('/channels', send(200, (request) => listChannelsForUser(deps, user(request), projectIdOf(request))));
   router.post('/channels', send(201, (request) => createChannelForUser(deps, user(request), projectIdOf(request), channelCreateSchema.parse(request.body ?? {})), channelWrite('members')));
   router.patch('/channels/:channelId', send(200, (request) => updateChannelForUser(deps, user(request), projectIdOf(request), request.params.channelId, channelUpdateSchema.parse(request.body ?? {})), channelWrite('members')));
-  // Archiving is the only removal: a channel goes for good only with its project (E-04).
+  // Archiving is the only removal: a channel goes for good only with its project.
   router.delete('/channels/:channelId', send(200, (request) => archiveChannelForUser(deps, user(request), projectIdOf(request), request.params.channelId), channelWrite('members')));
   router.post('/channels/:channelId/restore', send(200, (request) => restoreChannelForUser(deps, user(request), projectIdOf(request), request.params.channelId), channelWrite('members')));
   router.post('/channels/:channelId/read', send(200, (request) => markChannelReadForUser(deps, user(request), projectIdOf(request), request.params.channelId)));
@@ -200,9 +200,8 @@ export function createChannelsRouter(deps) {
   router.patch('/folders/:folderId', send(200, (request) => updateFolderForUser(deps, user(request), projectIdOf(request), request.params.folderId, folderUpdateSchema.parse(request.body ?? {})), folderWrite));
   router.delete('/folders/:folderId', send(200, (request) => deleteFolderForUser(deps, user(request), projectIdOf(request), request.params.folderId), folderWrite));
 
-  // The project's files as one tree, and renaming or moving a file in it (docs/engagements/plan.md,
-  // Folders). The vault's guard (channel-events.js) refreshes the library the file left; this
-  // refreshes the one it went to.
+  // The project's files as one tree, and renaming or moving a file in it. The vault's guard
+  // (channel-events.js) refreshes the library the file left; this refreshes the one it went to.
   router.get('/file-tree', send(200, (request) => getFileTreeForUser(deps, user(request), projectIdOf(request))));
   router.patch('/files/:fileId', send(200, (request) => moveFileForUser(deps, user(request), projectIdOf(request), request.params.fileId, fileMoveSchema.parse(request.body ?? {})), (result, request) => {
     if (result.changed && result.channelId && result.channelId !== result.fromChannelId) {

@@ -1,6 +1,6 @@
 import { buildUntrustedContentEnvelope } from '../../../lib/ai/assistant-untrusted-content.js';
 
-// Prompt and input for "Draft questions from brief" (Q-13). Listed in
+// Prompt and input for "Draft questions from brief". Listed in
 // docs/ai-prompts-inventory.md; keep the two in step.
 
 export const REQUIREMENTS_DRAFT_QUESTIONS_OPERATION = 'requirements.draftQuestions';

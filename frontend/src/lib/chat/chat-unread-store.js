@@ -3,7 +3,7 @@ import { reactive } from 'vue';
 import { createLiveUpdates, deferWhileHidden } from '../live/live-updates.js';
 import { NOTIFICATION_CREATED_EVENT, NOTIFICATION_READ_EVENT } from '../notifications/notifications.js';
 
-// The Chat badge in Odin proper's top bar (docs/odin-chat/plan.md, layout A): unread posts in the
+// The Chat badge in Odin proper's top bar: unread posts in the
 // person's channels and direct messages, from /api/chat/unread. It reads the count once on start,
 // then again only when the person's own stream (GET /api/me/events, the one the bell opens)
 // says one of their notifications was made or read, and when Odin Chat reports its totals. No

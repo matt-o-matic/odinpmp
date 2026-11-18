@@ -1,6 +1,5 @@
-// 0101_odin_replies (docs/engagements/plan.md, Odin in channels; Data, 0100_pursuit): one record
-// per post that tags @odin, so each tag is answered once and its thread can show "Odin is
-// replying".
+// 0101_odin_replies: one record per post that tags @odin, so each tag is answered once
+// and its thread can show "Odin is replying".
 //
 // - odin_replies: the post that tagged Odin (unique: one reply each), who asked (a member's user
 //   id or a guest's stakeholder id), the assistant chat that ran the turn (members only), the

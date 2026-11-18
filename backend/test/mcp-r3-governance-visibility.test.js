@@ -11,7 +11,7 @@ import { createInMemoryAuthRepository } from '../src/modules/auth/auth.repositor
 import { createInMemoryProjectsRepository } from '../src/modules/projects/projects.repository.js';
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 
-// D-027 in schedule analysis and governance: a ticket from outside the team that nobody has
+// Schedule analysis and governance: a ticket from outside the team that nobody has
 // validated, live or deleted, adds nothing an agent sees, not even its id. A milestone tracking one
 // tracks nothing and a dependency on one is not there, in reads and in what each write answers
 // with. People still see everything.

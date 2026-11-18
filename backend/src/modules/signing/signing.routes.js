@@ -33,9 +33,8 @@ import {
   signingDeps,
 } from './signing.service.js';
 
-// Signature request routes (docs/document-signing/plan.md, API). Members reach them under the
-// project; stakeholders through their portal link, mounted inside the public requirements router
-// so the link's rate limits apply.
+// Signature request routes. Members reach them under the project; stakeholders through their
+// portal link, mounted inside the public requirements router so the link's rate limits apply.
 
 function handle(run, status = 200) {
   return async (request, response, next) => {

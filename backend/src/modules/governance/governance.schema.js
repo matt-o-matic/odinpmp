@@ -53,7 +53,7 @@ export const workingCalendarWriteSchema = z.object({
   try { new Intl.DateTimeFormat('en-US', { timeZone: value.timezone }); } catch { context.addIssue({ code: 'custom', message: 'Timezone must be a valid IANA timezone.', path: ['timezone'] }); }
 });
 
-// agentView=1 answers with only what agents may see (D-027). The governance tools always send it,
+// agentView=1 answers with only what agents may see. The governance tools always send it,
 // and every MCP credential gets it anyway.
 export const governanceAgentViewQuerySchema = z.object({ agentView: z.enum(['0', '1']).optional() });
 

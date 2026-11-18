@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import { liveEvalSettings, runLivePlanEval } from '../evals/requirements-plan/run-live-eval.js';
 
-// AC-13 handoff evidence: the fixture decisions through the real provider, from draft to
+// Track plans: the fixture decisions through the real provider, from draft to
 // applied work. Skips without OPENAI_API_KEY, like the other live tests.
 const settings = liveEvalSettings();
 

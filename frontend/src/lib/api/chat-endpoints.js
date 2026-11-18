@@ -1,6 +1,6 @@
-// Odin Chat's API (docs/odin-chat/plan.md, Odin Chat): the sidebar and the Chat badge's totals,
-// Mentions, Threads, and direct messages with their posts, files and live stream, under
-// /api/chat. Spread into the app's API client (client.js), so calls share its working modes.
+// Odin Chat's API: the sidebar and the Chat badge's totals, Mentions, Threads, and direct
+// messages with their posts, files and live stream, under /api/chat. Spread into the app's
+// API client (client.js), so calls share its working modes.
 
 /**
  * `request(path, options)` and `subscribe(path, options)` are the client's own; `segment` encodes

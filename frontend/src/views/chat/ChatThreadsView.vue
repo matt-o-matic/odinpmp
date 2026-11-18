@@ -7,8 +7,8 @@ import { channelErrorMessage, postTimeLabel } from '../../lib/channels/channels.
 import { placeLabel, placeRoute } from '../../lib/chat/chat.js';
 import { useChatShell } from '../../lib/chat/chat-shell.js';
 
-// Threads (docs/odin-chat/plan.md, Odin Chat; AC-N08): threads the person started or replied in,
-// latest reply first, with how many replies are new since they last read there.
+// Threads: threads the person started or replied in, latest reply first, with how many
+// replies are new since they last read there.
 const shell = useChatShell();
 const token = computed(() => authSession.state.token);
 const threads = ref([]);

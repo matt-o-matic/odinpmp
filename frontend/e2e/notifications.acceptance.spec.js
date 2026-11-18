@@ -5,10 +5,10 @@ import { settleForAxe } from './fixtures/axe-settle.js';
 import { installNotificationsApi, sampleNotification } from './fixtures/notifications-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// The bell in Odin proper's top bar (docs/odin-chat/plan.md, Delivery; AC-N03 with a simulated
-// stream event): the unread count on the bell and in the tab title, the list newest first under
-// by project or engagement with collapsible groups, opening one, marking all read, and the settings link. Screenshots of the
-// open bell are attached for desktop and phone.
+// The bell in Odin proper's top bar, with a simulated stream event: the unread count on the bell
+// and in the tab title, the list newest first under by project or engagement with collapsible
+// groups, opening one, marking all read, and the settings link. Screenshots of the open bell are
+// attached for desktop and phone.
 
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21aa'];
 const yesterday = new Date(Date.now() - 36 * 3600_000).toISOString();

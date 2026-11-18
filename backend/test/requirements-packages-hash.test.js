@@ -122,7 +122,7 @@ test('another prototype\'s directory and image screen files are outside a protot
   assert.notEqual(homeChanged.home, base.home);
 });
 
-test('R4 a script-only reference to an image screen file: the package is accepted, the hash ignores the file, and the review origin will not serve it to the prototype', async () => {
+test('a script-only reference to an image screen file: the package is accepted, the hash ignores the file, and the review origin will not serve it to the prototype', async () => {
   // Scripts are not scanned, so this is accepted (static references are rejected; see the
   // validator tests). review-origin.test.js shows the booking grant gets 404 for it.
   const scripted = (home) => packageFiles({
@@ -185,7 +185,7 @@ test('resolvePackageReference maps a reference to the package path the review or
   }
 });
 
-test('AC-12 carry-forward: when only a shared stylesheet changes, an open annotation on the prototype goes outdated, not carried', async () => {
+test('carry-forward: when only a shared stylesheet changes, an open annotation on the prototype goes outdated, not carried', async () => {
   const harness = await createRoundsTestApp();
   const files = (shared) => ({ ...roundPackageFiles({ css: SHARED_IMPORT_CSS }), 'assets/shared.css': shared });
   const reviewers = [{ actorId: ROLE_USERS.reviewer.id, actorType: 'user' }];

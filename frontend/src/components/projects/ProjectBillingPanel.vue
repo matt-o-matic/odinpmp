@@ -7,9 +7,9 @@ import {
   billingErrorMessage, filterStories, formatBillingDate, formatHours, formatMoney, invoiceStatusIcon, invoiceStatusLabel, remainingHours,
 } from '../../lib/projects/project-billing.js';
 
-// The project's billing from invoice-gen (docs/invoice-gen-connection/plan.md): the linked client
-// and SOW, each milestone's hours, and the invoices. Read-only, except the story assignment,
-// which opens as its own dialog. Shown to project and workspace admins and managers.
+// The project's billing from invoice-gen: the linked client and SOW, each milestone's hours,
+// and the invoices. Read-only, except the story assignment, which opens as its own dialog.
+// Shown to project and workspace admins and managers.
 
 const props = defineProps({
   projectId: { required: true, type: String },

@@ -39,10 +39,9 @@ import {
   voteDirectPoll,
 } from './direct-messages.service.js';
 
-// Odin Chat's routes, mounted at /api/chat (docs/odin-chat/plan.md, Odin Chat): the sidebar and
-// the Chat badge's totals, Mentions, Threads, and direct messages with their posts, files and live
-// stream. Members only: a guest's session is refused by the auth middleware, and MCP credentials
-// are not allowed here.
+// Odin Chat's routes, mounted at /api/chat: the sidebar and the Chat badge's totals, Mentions,
+// Threads, and direct messages with their posts, files and live stream. Members only: a guest's
+// session is refused by the auth middleware, and MCP credentials are not allowed here.
 //
 // Each direct message write publishes `direct-message.updated` on the conversation's own stream
 // (its members only, checked when the stream opens) and `workspace.changed` with area chat, so

@@ -8,7 +8,7 @@ import { copyText } from '../../lib/clipboard.js';
 import { INTAKE_LINK_STATE_LABELS, filterIntakeLinks, intakeLinkState } from '../../lib/projects/ticket-intake.js';
 import { endOfLocalDayIso, formatShortDate, toDateInputValue } from '../../lib/requirements/requirements-time.js';
 
-// The project's ticket intake links (D-028). Each link lets one external reporter file
+// The project's ticket intake links. Each link lets one external reporter file
 // tickets against this project at /report/:token; creating one emails it to the reporter.
 const props = defineProps({
   projectId: { required: true, type: String },

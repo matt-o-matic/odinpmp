@@ -6,7 +6,7 @@ import { createChannelsWorld, installChannelsApi } from './fixtures/channels-api
 import { storedPoll } from './fixtures/polls-fixture.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Polls in channels (docs/engagements/plan.md, Polls): the composer's Poll dialog, voting in each
+// Polls in channels: the composer's Poll dialog, voting in each
 // kind, changing a vote, results, anonymous polls and closing. The API is the channels fixture
 // (fixtures/polls-fixture.js); backend/test/polls.test.js covers the server's rules and tallies.
 

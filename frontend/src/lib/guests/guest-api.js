@@ -1,4 +1,4 @@
-// The API a channel guest's browser talks to (docs/engagements/plan.md, Guests): /api/guest only.
+// The API a channel guest's browser talks to: /api/guest only.
 // The session is an HttpOnly cookie the server sets at sign-in; writes send the readable
 // odin_guest_csrf cookie back in X-CSRF-Token, as members' writes send theirs.
 //

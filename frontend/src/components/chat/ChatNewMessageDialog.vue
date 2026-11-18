@@ -4,9 +4,9 @@ import { computed, ref, useId, watch } from 'vue';
 import { MAX_DIRECT_OTHERS, pickablePeople } from '../../lib/chat/chat.js';
 import RequirementsDialog from '../requirements/RequirementsDialog.vue';
 
-// "New message" (docs/odin-chat/plan.md, Odin Chat; qna.md Q-02): choose 1 to 7 people from the
-// workspace and open the conversation with them. The same people always reach the same
-// conversation; who is in it can't change later, so a new person means a new conversation.
+// "New message": choose 1 to 7 people from the workspace and open the conversation with
+// them. The same people always reach the same conversation; who is in it can't change
+// later, so a new person means a new conversation.
 const props = defineProps({
   busy: { default: false, type: Boolean },
   error: { default: '', type: String },

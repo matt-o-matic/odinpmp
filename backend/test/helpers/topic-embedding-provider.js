@@ -1,4 +1,4 @@
-// A stand-in for OpenAI embeddings in the semantic search tests (docs/semantic-search/plan.md):
+// A stand-in for OpenAI embeddings in the semantic search tests:
 // each vector counts the words of a few topics, so texts on one topic are close whatever their
 // wording. A text with no topic words gets a zero vector, which matches nothing.
 

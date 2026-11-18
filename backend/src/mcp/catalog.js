@@ -126,7 +126,7 @@ export function createOdinToolCatalog({ api: client, extended = false }) {
   const commentTargetShape = { ...projectShape, targetType, targetId: id };
   // A ticket submitted from outside the team stays hidden from agents until someone validates it,
   // and so do its comments, which hold the reporter's replies. Same rule as
-  // isTicketVisibleToAssistant (D-027).
+  // isTicketVisibleToAssistant.
   async function requireCommentTarget({ projectId, targetType: type, targetId }) {
     if (type !== 'ticket') return;
     const { project } = await api.request('GET', projectPath(projectId));

@@ -45,8 +45,8 @@ self.addEventListener('fetch', (event) => {
   }
 });
 
-// Web Push (docs/odin-chat/plan.md, Delivery: Push). The server sends { title, body, url, tag,
-// notificationId }; the same tag replaces an earlier one, so a busy channel shows one entry.
+// Web Push. The server sends { title, body, url, tag, notificationId }; the same tag
+// replaces an earlier one, so a busy channel shows one entry.
 self.addEventListener('push', (event) => {
   let message = {};
   try {

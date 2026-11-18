@@ -8,7 +8,7 @@ import { askInNextRoundText } from '../../../lib/requirements/requirements-round
 import { chipToneClass, stanceLabel } from '../../../lib/requirements/requirements-topics.js';
 import { plural } from '../../../lib/requirements/requirements-tracks.js';
 
-// Proposed preferences from this round's Odin summaries (design-v1 team-results). People
+// Proposed preferences from this round's Odin summaries. People
 // with decision rights edit or accept one, which records it in their name, while the round
 // is open; closing the round settles them with the round decision, and they never appear
 // in Decide. Undecided ones can be carried into the next round: there is no draft round to attach them to yet, so

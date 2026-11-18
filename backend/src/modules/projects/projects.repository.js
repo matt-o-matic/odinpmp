@@ -838,7 +838,7 @@ function projectItemCollection(project, itemType, parentId) {
     return project.epics;
   }
   if (itemType === 'ticket') {
-    // Tickets are a flat project-level collection; parentId is a reference, not containment (D-006).
+    // Tickets are a flat project-level collection; parentId is a reference, not containment.
     if (parentId) {
       const parent = findProjectItemContext(project, parentId);
       if (!parent || !['epic', 'story', 'task'].includes(parent.itemType)) {
@@ -1091,7 +1091,7 @@ function findTargetInProject(project, targetType, targetId) {
     return { id: targetId, issueType: 'clarification' };
   }
 
-  // Tickets are a flat project-level collection rather than tree nodes (D-006), so they
+  // Tickets are a flat project-level collection rather than tree nodes, so they
   // are resolved before the epic walk rather than inside it.
   if (targetType === 'ticket') {
     return (project.tickets ?? []).find((ticket) => ticket.id === targetId) ?? null;
@@ -1229,7 +1229,7 @@ export function createInMemoryProjectsRepository({
   mailRepository,
   seed = {},
   ticketConfigRepository = null,
-  // The project change log (docs/mcp-change-feed/plan.md). Shared with the in-memory governance
+  // The project change log. Shared with the in-memory governance
   // repository so dependency changes land in the same log.
   changeLog = createInMemoryProjectChangeLog(),
   itemChangeRequests = createInMemoryItemChangeRequests(),
@@ -1462,7 +1462,7 @@ export function createInMemoryProjectsRepository({
       return project;
     }
 
-    // A channel's library (docs/engagements/plan.md, Files).
+    // A channel's library.
     if (targetType === 'channel') {
       return (state.channels ?? []).some((channel) => channel.id === targetId && channel.projectId === projectId && channel.tenantId === tenantId) ? project : null;
     }
@@ -1557,14 +1557,14 @@ export function createInMemoryProjectsRepository({
     const project = projectForTenant(file.projectId, file.tenantId);
     return {
       ...stored,
-      // Who marked it as being edited, and its folder in a channel library (docs/engagements/plan.md, Library).
+      // Who marked it as being edited, and its folder in a channel library.
       editing: editingMarker({ editingBy: file.editingBy, editingName: authRepository?.state?.users?.find((user) => user.id === file.editingBy)?.name ?? null, editingSince: file.editingSince }),
       folderId: file.folderId ?? null,
-      // Files saved before 0097 were scanned before saving (docs/engagements/plan.md, Data).
+      // Files saved before 0097 were scanned before saving.
       scanStatus: file.scanStatus ?? 'clean',
       scannedAt: file.scannedAt ?? null,
       sha256: file.sha256 ?? null,
-      // Internal unless someone shared it with stakeholders (docs/document-signing).
+      // Internal unless someone shared it with stakeholders.
       audience: file.audience === 'external' ? 'external' : 'internal',
       links: state.fileLinks.filter((link) => link.fileId === file.id).flatMap((link) => {
         const target = findTargetInProject(project, link.targetType, link.targetId);
@@ -2361,7 +2361,7 @@ export function createInMemoryProjectsRepository({
       return true;
     },
     // Token lookup deliberately returns null for expired and revoked tokens as well as
-    // unknown ones, so callers cannot distinguish the cases (AC6.2).
+    // unknown ones, so callers cannot distinguish the cases.
     async getTicketIntakeInvitationByToken({ intakeToken }) {
       const invitation = state.ticketIntakeInvitations.find((entry) => entry.intakeToken === intakeToken);
       if (!invitation || invitation.revokedAt) return null;
@@ -2426,7 +2426,7 @@ export function createInMemoryProjectsRepository({
       if (!project) return null;
       if (itemId === input.toItemId) throw new HttpError(400, 'A work item cannot relate to itself.');
       if (!findProjectItemContext(project, itemId)) throw new HttpError(404, 'Project item not found.');
-      // AC5.4: relations may not cross a project boundary.
+      // Relations may not cross a project boundary.
       if (!findProjectItemContext(project, input.toItemId)) {
         throw new HttpError(400, 'Related work items must belong to the same project.');
       }
@@ -2434,7 +2434,7 @@ export function createInMemoryProjectsRepository({
       const existing = state.workItemRelations.find((relation) => relation.fromItemId === itemId
         && relation.toItemId === input.toItemId
         && relation.relationType === input.relationType);
-      // AC1.7: creating the same relation twice is idempotent. `created` says which happened, so
+      // Creating the same relation twice is idempotent. `created` says which happened, so
       // an undo of the create leaves a link that was already there.
       if (existing) return { created: false, relation: clone(existing) };
 
@@ -2585,7 +2585,7 @@ export function createInMemoryProjectsRepository({
       const now = nextProjectTimestamp(project.updatedAt);
       const deletedVersion = Number(context.node.version) + 1;
       context.collection.splice(context.index, 1);
-      // AC5.5: relations in both directions go with the item, leaving no orphan rows.
+      // Relations in both directions go with the item, leaving no orphan rows.
       state.workItemRelations = state.workItemRelations.filter(
         (relation) => relation.fromItemId !== itemId && relation.toItemId !== itemId,
       );
@@ -3500,7 +3500,7 @@ function toIsoString(value) {
   return Number.isNaN(date.valueOf()) ? String(value) : date.toISOString();
 }
 
-// Shared cross-project ticket filtering (D-020). Project is a filter, not a container.
+// Shared cross-project ticket filtering. Project is a filter, not a container.
 export function matchesTicketFilters(ticket, filters = {}) {
   const anyOf = (values, actual) => !values?.length || values.includes(actual);
   const search = String(filters.search ?? '').trim().toLowerCase();
@@ -3524,7 +3524,7 @@ export function matchesTicketFilters(ticket, filters = {}) {
 }
 
 // Stable cursor over (updatedAt desc, id) so pagination does not repeat or skip rows
-// while the underlying data is unchanged (AC5.2).
+// while the underlying data is unchanged.
 export function encodeTicketCursor(ticket) {
   return Buffer.from(`${ticket.updatedAt ?? ''}|${ticket.id}`, 'utf8').toString('base64url');
 }
@@ -5003,7 +5003,7 @@ export function createMysqlProjectsRepository({ fileScanner, fileStorage, fronte
     }
   }
 
-  // Tickets are a flat project-level collection rather than tree nodes (D-006, D-015).
+  // Tickets are a flat project-level collection rather than tree nodes.
   // A ticket's parentId may point at any epic/story/task or be null; it never nests.
   function buildProjectTickets(lookup, taskTypeIds) {
     if (!taskTypeIds.Ticket) {
@@ -5104,7 +5104,7 @@ export function createMysqlProjectsRepository({ fileScanner, fileStorage, fronte
       return null;
     }
     if (itemType === 'ticket') {
-      // Tickets may hang off any work item or directly off the project (D-006).
+      // Tickets may hang off any work item or directly off the project.
       if (!parentId) return null;
       const row = await getMysqlProjectItemRow(executor, { itemId: parentId, projectId, tenantId });
       if (!row || row.deleted || !['epic', 'story', 'task'].includes(String(row.item_type ?? '').toLowerCase())) {
@@ -5217,7 +5217,7 @@ export function createMysqlProjectsRepository({ fileScanner, fileStorage, fronte
     targetType,
     tenantId,
   }) {
-    // A channel's library (docs/engagements/plan.md, Files).
+    // A channel's library.
     if (targetType === 'channel') {
       const [rows] = await executor.execute('SELECT id, project_id AS projectId, tenant_id AS tenantId FROM project_channels WHERE id = ? AND project_id = ? AND tenant_id = ? LIMIT 1', [targetId, projectId, tenantId]);
       return rows[0] ?? null;
@@ -5484,12 +5484,12 @@ export function createMysqlProjectsRepository({ fileScanner, fileStorage, fronte
 
   function serializeMysqlFile(row) {
     return {
-      // Internal unless someone shared it with stakeholders (docs/document-signing).
+      // Internal unless someone shared it with stakeholders.
       audience: row.audience === 'external' ? 'external' : 'internal',
       contentType: row.fileType,
       createdAt: toIsoString(row.createdAt),
       description: row.fileDescription ?? '',
-      // Who marked it as being edited, and its folder in a channel library (docs/engagements/plan.md, Library).
+      // Who marked it as being edited, and its folder in a channel library.
       editing: editingMarker(row),
       fileName: row.fileName,
       fileSize: Number(row.fileSize ?? 0),
@@ -7467,7 +7467,7 @@ export function createMysqlProjectsRepository({ fileScanner, fileStorage, fronte
       return Number(result?.affectedRows ?? 0) > 0;
     },
     // Expired and revoked tokens return null exactly like unknown ones, so a caller
-    // cannot distinguish the cases or learn whether the project exists (AC6.2).
+    // cannot distinguish the cases or learn whether the project exists.
     async getTicketIntakeInvitationByToken({ intakeToken }) {
       const [rows] = await pool.execute(
         `SELECT id, tenant_id AS tenantId, project_id AS projectId, reporter_email AS reporterEmail, reporter_name AS reporterName,
@@ -7524,7 +7524,7 @@ export function createMysqlProjectsRepository({ fileScanner, fileStorage, fronte
       const scoped = filters.projectIds?.length
         ? visible.filter((project) => filters.projectIds.includes(project.id))
         : visible;
-      // AC5.1: a ticket in an unauthorized project is absent, not redacted.
+      // A ticket in an unauthorized project is absent, not redacted.
       if (scoped.length === 0) return { nextCursor: null, tickets: [], total: 0 };
 
       const projectNames = new Map(scoped.map((project) => [project.id, project.name]));
@@ -7591,12 +7591,12 @@ export function createMysqlProjectsRepository({ fileScanner, fileStorage, fronte
       if (itemId === input.toItemId) throw new HttpError(400, 'A work item cannot relate to itself.');
       const from = await getMysqlProjectItemRow(pool, { itemId, projectId, tenantId });
       if (!from || from.deleted) throw new HttpError(404, 'Project item not found.');
-      // AC5.4: relations may not cross a project boundary.
+      // Relations may not cross a project boundary.
       const to = await getMysqlProjectItemRow(pool, { itemId: input.toItemId, projectId, tenantId });
       if (!to || to.deleted) throw new HttpError(400, 'Related work items must belong to the same project.');
 
       const id = randomUUID();
-      // AC1.7: the unique key makes a repeated create idempotent rather than duplicated.
+      // The unique key makes a repeated create idempotent rather than duplicated.
       await pool.execute(
         `INSERT INTO work_item_relations (id, tenant_id, project_id, from_item_id, to_item_id, relation_type, created_by, created_at)
          VALUES (?, ?, ?, ?, ?, ?, ?, NOW(3))
@@ -7795,7 +7795,7 @@ export function createMysqlProjectsRepository({ fileScanner, fileStorage, fronte
         } else {
           await connection.execute('UPDATE tasks SET sort_order = sort_order - 1 WHERE project_id = ? AND task_type = ? AND parent_task_id IS NULL AND deleted = 0 AND sort_order > ?', [projectId, row.task_type, row.sort_order]);
         }
-        // AC5.5: relations in both directions go with the item, leaving no orphan rows.
+        // Relations in both directions go with the item, leaving no orphan rows.
         await connection.execute(
           'DELETE FROM work_item_relations WHERE project_id = ? AND (from_item_id = ? OR to_item_id = ?)',
           [projectId, itemId, itemId],

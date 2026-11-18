@@ -12,7 +12,7 @@ import { createInMemorySessionsRepository } from '../src/modules/sessions/sessio
 import { scriptedOpenAi } from './helpers/agent-test-utils.js';
 
 // GET /api/projects/:projectId/tickets/awaiting-review: a project's pending external tickets as
-// agents may see them (D-027), with the automated check of each and none of their content; and
+// agents may see them, with the automated check of each and none of their content; and
 // the review route's gate on an agent's validation. On an in-process app with in-memory
 // repositories and a scripted Decisions client.
 

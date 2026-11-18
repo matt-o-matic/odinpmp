@@ -1,7 +1,7 @@
-// The bell's endpoints for browser specs (docs/odin-chat/plan.md, Delivery). Register after
-// installSyntheticApi; anything else falls back to it. Each /api/me/events response carries the
-// events queued since the last one, then ends, so the client reconnects about a second later,
-// as it does when a real stream drops.
+// The bell's endpoints for browser specs. Register after installSyntheticApi; anything else
+// falls back to it. Each /api/me/events response carries the events queued since the last one,
+// then ends, so the client reconnects about a second later, as it does when a real stream
+// drops.
 
 const API_ORIGIN = 'http://localhost:3001';
 

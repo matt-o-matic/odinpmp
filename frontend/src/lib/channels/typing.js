@@ -1,8 +1,8 @@
-// "Ana is typing…" in channels (docs/engagements/plan.md, Live updates). The browser sends a
-// signal at most once per TYPING_SEND_INTERVAL_MS while someone types, and a stop when the box
-// empties. The server publishes `channel.typing` on the project stream (the guest stream for
-// guests) to everyone who can read the channel but the typer. Nothing is stored: each screen
-// drops a person TYPING_EXPIRY_MS after their last signal.
+// "Ana is typing…" in channels. The browser sends a signal at most once per
+// TYPING_SEND_INTERVAL_MS while someone types, and a stop when the box empties. The server
+// publishes `channel.typing` on the project stream (the guest stream for guests) to everyone
+// who can read the channel but the typer. Nothing is stored: each screen drops a person
+// TYPING_EXPIRY_MS after their last signal.
 import { createLiveUpdates } from '../live/live-updates.js';
 
 export const CHANNEL_TYPING_EVENT = 'channel.typing';

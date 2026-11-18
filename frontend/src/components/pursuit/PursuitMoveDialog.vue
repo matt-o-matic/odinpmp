@@ -5,7 +5,7 @@ import RequirementsDialog from '../requirements/RequirementsDialog.vue';
 import { apiClient, authSession } from '../../lib/auth/index.js';
 import { deliveryStoryOptions, pursuitMovePayload, pursuitTasks } from '../../lib/pursuit/pursuit.js';
 
-// Moves pursuit tasks to the project plan, under a story the person chooses (Q-07). One task or
+// Moves pursuit tasks to the project plan, under a story the person chooses. One task or
 // several; all of them move or none do.
 
 const props = defineProps({

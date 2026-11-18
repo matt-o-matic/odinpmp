@@ -4,10 +4,9 @@ import { expect, test } from '@playwright/test';
 import { settleForAxe } from './fixtures/axe-settle.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// The files panel's viewer (docs/engagements/plan.md, Download and preview; AC-08): images, PDFs,
-// Markdown through the sanitized renderer, and Office files as their converted PDF, preparing, or
-// with no preview and a download. The routes are stand-ins; backend/test/file-previews.test.js
-// runs the real ones.
+// The files panel's viewer: images, PDFs, Markdown through the sanitized renderer, and Office
+// files as their converted PDF, preparing, or with no preview and a download. The routes are
+// stand-ins; backend/test/file-previews.test.js runs the real ones.
 
 const API_ORIGIN = 'http://localhost:3001';
 const PROJECT = syntheticProject.id;

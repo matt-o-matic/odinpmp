@@ -1,6 +1,6 @@
 // Which Requirements controls a person sees. The API enforces every rule; these helpers
-// only keep the UI from offering actions that would come back as 404 (plan.md,
-// Permissions). Decision rights come from the API's `canDecide`.
+// only keep the UI from offering actions that would come back as 404. Decision rights come
+// from the API's `canDecide`.
 
 const COLLABORATE_PROJECT_ROLES = new Set(['admin', 'contributor', 'editor', 'manager', 'member', 'user']);
 const TENANT_COLLABORATE_ROLES = new Set(['admin', 'manager']);
@@ -49,12 +49,12 @@ export function requirementsAbilities({ canCollaborate = null, canDecide = false
     : canEditPlans({ canDecide, projectRole, tenantRole });
   return {
     acceptPreferences: Boolean(canDecide),
-    // Approve a track plan; the approver owns it (Q-04, Q-14).
+    // Approve a track plan; the approver owns it.
     approvePlans: Boolean(canDecide),
     addTopics: collaborate,
     assign: collaborate,
     changeStatus: Boolean(canDecide),
-    // Close a round, or close the open one while publishing the next (Q-04).
+    // Close a round, or close the open one while publishing the next.
     closeRounds: Boolean(canDecide),
     comment: collaborate,
     deleteTopics: collaborate,
@@ -66,7 +66,7 @@ export function requirementsAbilities({ canCollaborate = null, canDecide = false
     manageLinks: Boolean(canDecide),
     // Move a topic between tracks. Decided topics also need decision rights (server-checked).
     moveTopics: collaborate,
-    // Publish a draft package as a round and invite reviewers (Q-05).
+    // Publish a draft package as a round and invite reviewers.
     publishRounds: collaborate,
     // Propose epics and stories from an approved plan into the proposer's AI Workspace review.
     proposeWork: editPlans,

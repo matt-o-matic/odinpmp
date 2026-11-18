@@ -11,7 +11,7 @@ async function expectNoSeriousAxe(page) {
   expect(results.violations.filter(({ impact }) => ['critical', 'serious'].includes(impact))).toEqual([]);
 }
 
-test('with the Consulting module off, Engagements is not in the navigation and its page says so (AC-18)', async ({ page }) => {
+test('with the Consulting module off, Engagements is not in the navigation and its page says so', async ({ page }) => {
   const api = await installSyntheticApi(page);
   await authenticateSyntheticUser(page);
   const work = await openTopMenu(page, 'Work');
@@ -21,7 +21,7 @@ test('with the Consulting module off, Engagements is not in the navigation and i
   api.assertNoUnexpectedRequests();
 });
 
-test('a member lists engagements by status, creates one, and lands on its page with only the engagement sections (AC-01)', async ({ page }) => {
+test('a member lists engagements by status, creates one, and lands on its page with only the engagement sections', async ({ page }) => {
   await installSyntheticApi(page);
   const engagements = await installEngagementsApi(page);
   await authenticateSyntheticUser(page);
@@ -79,7 +79,7 @@ test('a member lists engagements by status, creates one, and lands on its page w
   await expectNoSeriousAxe(page);
 });
 
-test('an engagement is marked lost, shown read-only, reopened, and converted with a template (AC-12, AC-13)', async ({ page }) => {
+test('an engagement is marked lost, shown read-only, reopened, and converted with a template', async ({ page }) => {
   await installSyntheticApi(page);
   const engagements = await installEngagementsApi(page);
   await authenticateSyntheticUser(page);
@@ -88,7 +88,7 @@ test('an engagement is marked lost, shown read-only, reopened, and converted wit
   await expect(page).toHaveURL(/\/app\/engagements\/eng-northwind$/);
   await page.getByRole('navigation', { name: 'Engagement sections' }).getByRole('link', { name: 'Settings' }).click();
 
-  // The customer and owner change here (E-09).
+  // The customer and owner change here.
   await page.getByRole('button', { name: 'Customer and owner' }).click();
   const details = page.getByRole('dialog', { name: 'Customer and owner' });
   await details.getByLabel('Customer').fill('Northwind Traders');
@@ -117,7 +117,7 @@ test('an engagement is marked lost, shown read-only, reopened, and converted wit
   expect(engagements.calls.at(-1)).toEqual({ body: { moveOpenPursuitTasks: false, templateId: 'template-delivery' }, method: 'POST', path: '/api/projects/eng-northwind/convert' });
 });
 
-test('a workspace admin switches the Consulting module on and off; switching off says how many open engagements it hides (AC-18)', async ({ page }) => {
+test('a workspace admin switches the Consulting module on and off; switching off says how many open engagements it hides', async ({ page }) => {
   await installSyntheticApi(page, { admin: true });
   await page.route('**/api/tenants/**', (route) => route.fulfill({ json: { domains: [], invites: [], requests: [], statuses: [], task_types: [], tenant_name: 'Synthetic workspace', users: [] } }));
   const engagements = await installEngagementsApi(page, { enabled: false, openEngagementCount: 4 });

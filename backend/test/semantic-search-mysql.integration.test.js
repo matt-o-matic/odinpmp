@@ -11,9 +11,9 @@ import { createMysqlReportingRepository } from '../src/modules/reporting/reporti
 import { refreshEverySearchIndex, refreshTenantSearchIndex } from '../src/modules/reporting/reporting.service.js';
 import { topicProvider } from './helpers/topic-embedding-provider.js';
 
-// Semantic search on MySQL (docs/semantic-search/plan.md AC-06, AC-07): migration 0109, the
-// comment and file sources, the file text cache, the incremental writes, the vector cache, the
-// refresh lock, and query time on 5,000 rows. semantic-search.test.js covers behavior in memory.
+// Semantic search on MySQL: migration 0109, the comment and file sources, the file text cache,
+// the incremental writes, the vector cache, the refresh lock, and query time on 5,000 rows.
+// semantic-search.test.js covers behavior in memory.
 
 const databaseUrl = String(process.env.ODIN_TEST_DATABASE_URL ?? '').trim();
 
@@ -43,7 +43,7 @@ test('semantic search stores, refreshes and answers on MySQL', { skip: !database
     try { await importer.query(await readFile(new URL('../db/base-schema.sql', import.meta.url), 'utf8')); } finally { await importer.end(); }
     await bootstrapMysqlSchema({ executor: pool });
 
-    // AC-06: the migration made both tables.
+    // The migration made both tables.
     const [tables] = await pool.query("SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME IN ('search_file_texts', 'search_index_state') ORDER BY TABLE_NAME");
     assert.deepEqual(tables.map((row) => row.TABLE_NAME), ['search_file_texts', 'search_index_state']);
 
@@ -137,7 +137,7 @@ test('semantic search stores, refreshes and answers on MySQL', { skip: !database
     const everyone = await refreshEverySearchIndex({ dependencies: { projectRepository, searchEmbeddingProvider: provider }, repository });
     assert.ok(everyone.some((result) => result.tenantId === tenantId && result.ok));
 
-    // AC-07: 5,000 rows of 1,024 dimensions answer in under 300 ms once the vectors are loaded.
+    // 5,000 rows of 1,024 dimensions answer in under 300 ms once the vectors are loaded.
     const bigTenant = randomUUID();
     const random = () => Array.from({ length: 1024 }, () => Math.random() - 0.5);
     const rows = Array.from({ length: 5000 }, (_, index) => ({

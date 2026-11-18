@@ -1,6 +1,6 @@
-// The guest view's pursuit tasks (docs/engagements/plan.md, Pursuit board; qna.md Q-06). A guest
-// sees the tasks assigned to them, or every task while the engagement's "Guests see the whole
-// board" is on, and changes the status of, comments on and attaches files to only their own.
+// The guest view's pursuit tasks. A guest sees the tasks assigned to them, or every task
+// while the engagement's "Guests see the whole board" is on, and changes the status of,
+// comments on and attaches files to only their own.
 
 /** The guest's own tasks first, then the rest, each group by due date (none last), then name. */
 export function sortGuestTasks(tasks = []) {

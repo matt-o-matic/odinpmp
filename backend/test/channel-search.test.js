@@ -17,10 +17,10 @@ import { createInMemorySessionsRepository } from '../src/modules/sessions/sessio
 import { createInMemoryUsersRepository } from '../src/modules/users/users.repository.js';
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 
-// Workspace search over channels, posts and channel file names (docs/engagements/plan.md AC-15;
-// qna.md E-11), on in-memory repositories through Odin's routes. The daily channel digest that
-// was tested here is replaced by the rolled-up chat email (notifications.test.js).
-// channel-search-mysql.integration.test.js runs the same queries on MySQL.
+// Workspace search over channels, posts and channel file names, on in-memory repositories
+// through Odin's routes. The daily channel digest that was tested here is replaced by the
+// rolled-up chat email (notifications.test.js). channel-search-mysql.integration.test.js
+// runs the same queries on MySQL.
 
 const TENANT_ID = 'tenant-acme';
 const ROLLOUT = 'project-rollout';
@@ -167,7 +167,7 @@ test('search finds channel names, posts by text, author, channel and project, an
   assert.equal((await search('member', 'hexagonal')).records.length, 0);
 });
 
-test('search shows nothing from projects or engagements a person is not in (AC-15), and hides engagements while the module is off', async (t) => {
+test('search shows nothing from projects or engagements a person is not in, and hides engagements while the module is off', async (t) => {
   const { createEngagement, generalOf, post, search, send, switchConsulting } = await fixture(t);
   await post('lead', ROLLOUT, (await generalOf(ROLLOUT)).id, 'Rollout marmalade checklist');
   await post('lead', LEDGER, (await generalOf(LEDGER)).id, 'Ledger marmalade reconciliation');

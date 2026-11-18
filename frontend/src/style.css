@@ -3534,8 +3534,7 @@ html.dark .success-banner {
 }
 
 /* ─── Requirements workspace ──────────────────────────────────────
-   Component vocabulary from docs/requirements-gathering/design-v1/mockups/rq.css and
-   design-v2/mockups/v2.css, on Odin's tokens. Track and signal colors are P-11. */
+   Component vocabulary on Odin's tokens. */
 :root {
   --rq-exp: #285ec6;
   --rq-exp-bg: #e9f0fa;
@@ -4280,7 +4279,7 @@ html.dark .rq-jump__badge { color: #1b1206; }
 }
 
 /* On phones the topic page's jump links take the sticky slot under the app bar, so the
-   project tab bar scrolls away with the page there (Q-15, AC-20). */
+   project tab bar scrolls away with the page there. */
 @media (max-width: 767.98px) {
   .dashboard-panel--workbench:has(.rq-topic) .project-detail-tabs-bar { position: static; }
 }
@@ -4480,8 +4479,7 @@ html.dark .rq-proto__state--on { color: var(--accent); }
   .rq-package-row .rq-item__when { grid-column: 2 / -1; text-align: left; }
 }
 
-/* ─── Requirements portal and guided review (U7) ──────────────────────────────
-   design-v1 sh-inbox, sh-review-screen, sh-review-prototype, sh-submit, sh-mobile.
+/* ─── Client portal and guided review ──────────────────────────────
    The portal has no app chrome; the guided review is shared by the portal and the team. */
 :root {
   --rq-keep: #17734a;

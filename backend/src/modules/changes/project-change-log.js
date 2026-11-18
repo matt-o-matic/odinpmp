@@ -2,7 +2,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 
 import { currentRequestChannel } from '../../lib/http/request-channel.js';
 
-// The project change log (docs/mcp-change-feed/plan.md). Each change to a project's work items,
+// The project change log. Each change to a project's work items,
 // comments, item links, schedule dependencies, sprint assignments and details adds a row, in the
 // same transaction as the change, with a sequence number that agents read as a cursor:
 // odin_get_project_changes returns what came after it. Rows hold the actor, how the change
@@ -88,7 +88,7 @@ export function commentChange({ action, actorId, comment, projectId, tenantId })
  * version_delete (an old version deleted: detail.deletedVersion). A link names the item it was made on; otherwise the entry sits on the
  * item the file was uploaded to, if any. A file that came with a ticket is logged without its name,
  * type or note: intake names it after the ticket, and a link can put the entry on an item agents
- * see while the ticket itself stays hidden from them (D-027).
+ * see while the ticket itself stays hidden from them.
  */
 export function fileChange({ action, actorId, extra = null, file, link = null, note = null, projectId, tenantId }) {
   const target = link ?? file;
@@ -105,7 +105,7 @@ export function fileChange({ action, actorId, extra = null, file, link = null, n
   };
 }
 
-/** The change log entry for a signature request created, signed, declined, cancelled or completed (docs/document-signing). */
+/** The change log entry for a signature request created, signed, declined, cancelled or completed. */
 export function signingChange({ action, actorId, detail = {}, projectId, request, tenantId }) {
   return {
     action,

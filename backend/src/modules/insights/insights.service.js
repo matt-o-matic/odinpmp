@@ -70,7 +70,7 @@ function sprintRows(payload) {
 }
 
 /**
- * The tickets agents may not see (D-027), live or deleted. A live ticket is judged by its state
+ * The tickets agents may not see, live or deleted. A live ticket is judged by its state
  * now, so one validated since counts in history too; a deleted one by the state its last revision
  * recorded, and stays hidden when none was recorded.
  */
@@ -84,7 +84,7 @@ async function hiddenTicketIds({ insightsRepository, project, projectId, tenantI
 }
 
 /**
- * Insights for one project. An agent's view (D-027) is built as if the tickets agents may not see
+ * Insights for one project. An agent's view is built as if the tickets agents may not see
  * never existed: they are left out of the project, its links and its history, and contributor
  * totals, which count ticket work without saying which ticket, give way to totals from that history.
  */

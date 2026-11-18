@@ -1,6 +1,6 @@
 import { numberPins } from './annotation-shapes.js';
 
-// Carry-forward (package-spec.md section 6, AC-12). When a new round publishes for a track,
+// Carry-forward (package-spec.md section 6). When a new round publishes for a track,
 // every open or carried annotation from the track's earlier rounds is compared with the new
 // package by screen id and content hash:
 //   - same id, same hash: the annotation moves to the new round as 'carried', keeping its id

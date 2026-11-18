@@ -4,10 +4,9 @@ import { onBeforeUnmount, ref, useId } from 'vue';
 import { reactionButtonLabel, whoReacted } from '../../lib/channels/reactions.js';
 import EmojiPicker from './EmojiPicker.vue';
 
-// The reactions under a message (docs/engagements/plan.md, Reactions): each emoji with its count,
-// marked when one is yours; pressing one adds or takes back yours. Hovering, focusing or a long
-// press shows who reacted. "Add reaction" here, or React in the message's actions (openPicker),
-// opens the picker.
+// The reactions under a message: each emoji with its count, marked when one is yours; pressing
+// one adds or takes back yours. Hovering, focusing or a long press shows who reacted. "Add
+// reaction" here, or React in the message's actions (openPicker), opens the picker.
 const props = defineProps({
   canReact: { default: false, type: Boolean },
   // Whose message, for the picker's name.

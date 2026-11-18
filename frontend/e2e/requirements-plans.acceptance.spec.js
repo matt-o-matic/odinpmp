@@ -6,10 +6,10 @@ import { installRequirementsPlansApi, plansScenario } from './fixtures/requireme
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// Plan & work (journey 9, AC-13 UI, AC-11, AC-15, AC-17): the decisions a plan builds on,
-// the plan with its owner and no AI-drafted tag, draft and redraft with every error the
-// stage explains, editing with the optimistic revision, approving (decision rights only),
-// proposing work, and who sees the AI Workspace review link. Synthetic API only.
+// Plan & work: the decisions a plan builds on, the plan with its owner and no AI-drafted
+// tag, draft and redraft with every error the stage explains, editing with the optimistic
+// revision, approving (decision rights only), proposing work, and who sees the AI
+// Workspace review link. Synthetic API only.
 const base = `projects/${syntheticProject.id}/requirements`;
 const planPath = `${base}/experience/plan`;
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];

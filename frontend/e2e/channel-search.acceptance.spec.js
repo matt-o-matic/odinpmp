@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test';
 import { settleForAxe } from './fixtures/axe-settle.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Workspace search over channels, posts and channel files (docs/engagements/qna.md E-11): the
+// Workspace search over channels, posts and channel files: the
 // results group under their own headings, show the project (an engagement's name comes with the
 // row, since engagements are not in the project list) and open the channel, the post or the file.
 

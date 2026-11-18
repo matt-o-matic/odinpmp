@@ -7,9 +7,9 @@ import { countsLabel, jumpTargets, landingRedirect, markLanding, pickablePeople,
 import { CHAT_MANIFEST, CHAT_TOUCH_ICON, linkChatInstall } from '../src/lib/chat/chat-shell.js';
 import { createDirectMessageApi } from '../src/lib/chat/direct-message-api.js';
 
-// Odin Chat's helpers (docs/odin-chat/plan.md, workstream 2): the jump-to list, landing and the
-// start page, where Mentions and Threads open, the direct message API the channel screens call,
-// the client's /api/chat paths, and Odin Chat's own Home Screen install.
+// Odin Chat's helpers: the jump-to list, landing and the start page, where Mentions and Threads
+// open, the direct message API the channel screens call, the client's /api/chat paths, and Odin
+// Chat's own Home Screen install.
 
 const sidebar = {
   directMessages: [
@@ -168,7 +168,7 @@ test('under /app/chat the page links Odin Chat’s manifest, icon and name, and 
   assert.equal(doc.head.querySelector('link[rel="apple-touch-icon"]'), null, 'what it added goes');
 });
 
-test('Odin Chat installs as its own app, inside the service worker’s scope (AC-N10)', async () => {
+test('Odin Chat installs as its own app, inside the service worker’s scope', async () => {
   const manifest = JSON.parse(await readFile(new URL('../public/chat.webmanifest', import.meta.url), 'utf8'));
   const odin = JSON.parse(await readFile(new URL('../public/manifest.webmanifest', import.meta.url), 'utf8'));
   const worker = await readFile(new URL('../public/sw.js', import.meta.url), 'utf8');

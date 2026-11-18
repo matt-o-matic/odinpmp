@@ -4,9 +4,9 @@ import { onMounted, ref, useId } from 'vue';
 import { apiClient, authSession } from '../../lib/auth/index.js';
 import { NOTIFICATION_LEVEL_OPTIONS, levelOption } from '../../lib/notifications/levels.js';
 
-// The Notifications tab of the profile (docs/odin-chat/plan.md, Levels): each channel in the
-// person's projects and engagements with its level. A change applies at once, as it does from
-// the channel header; there is nothing to save.
+// The Notifications tab of the profile: each channel in the person's projects and engagements
+// with its level. A change applies at once, as it does from the channel header; there is
+// nothing to save.
 const uid = useId();
 const projects = ref([]);
 const loaded = ref(false);

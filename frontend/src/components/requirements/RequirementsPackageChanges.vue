@@ -4,7 +4,7 @@ import { computed } from 'vue';
 import { describePackageChanges } from '../../lib/requirements/requirements-packages.js';
 import { chipToneClass } from '../../lib/requirements/requirements-topics.js';
 
-// "What changed since round N" (design-v1 team-upload): every screen compared with the
+// "What changed since round N": every screen compared with the
 // previous version by id and content hash, changed screens first.
 const props = defineProps({
   changes: { default: null, type: Object },

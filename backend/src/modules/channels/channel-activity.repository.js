@@ -1,6 +1,5 @@
-// What workspace search and notification settings read from channels (docs/engagements/plan.md,
-// qna.md E-11; docs/odin-chat/plan.md, Levels). These methods are spread into the projects
-// repositories, as the other channel methods are.
+// What workspace search and notification settings read from channels. These methods are spread
+// into the projects repositories, as the other channel methods are.
 //
 // - listChannelSearchSources: every channel, channel post and channel file of a workspace, for
 //   the search index. The index is built for the whole workspace; search filters it to the

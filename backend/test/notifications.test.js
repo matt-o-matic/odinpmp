@@ -24,10 +24,10 @@ import { createInMemorySessionsRepository } from '../src/modules/sessions/sessio
 import { createInMemoryUsersRepository } from '../src/modules/users/users.repository.js';
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 
-// Notifications (docs/odin-chat/plan.md; AC-N01, AC-N02, AC-N04 locally, AC-N05, AC-N06): levels
-// and their defaults, records and collapsing, reading, the per-person stream with its focus
-// heartbeat, Web Push against a fake push service, the rolled-up email on a fake clock, guests
-// through the principal router, assignment and Odin reply notifications, and retention.
+// Notifications: levels and their defaults, records and collapsing, reading, the per-person
+// stream with its focus heartbeat, Web Push against a fake push service, the rolled-up email on
+// a fake clock, guests through the principal router, assignment and Odin reply notifications,
+// and retention.
 // notifications-mysql.integration.test.js runs migration 0102 and the MySQL repository.
 
 const TENANT_ID = 'tenant-acme';
@@ -71,7 +71,7 @@ async function fixture(t, { guestDirectory = null, webPush = null, webPushSend =
     mailRepository,
     seed: {
       projectMemberships: Object.fromEntries([PROJECT, DELIVERY].map((projectId) => [projectId, Object.values(USERS).filter((user) => user.projectRole).map((user) => ({ email: `${user.id}@acme.example`, id: user.id, name: user.name, role: user.projectRole }))])),
-      // Oona owns the engagement but has an ordinary role: the owner still hears everything (Q-03).
+      // Oona owns the engagement but has an ordinary role: the owner still hears everything.
       projects: [
         { engagementOwnerId: USERS.owner.id, engagementStatus: 'open', epics: [], id: PROJECT, kind: 'engagement', name: 'Northwind pursuit', status: 'In Progress', tenantId: TENANT_ID },
         { epics: [], id: DELIVERY, name: 'Northwind rollout', status: 'In Progress', tenantId: TENANT_ID },
@@ -144,7 +144,7 @@ async function fixture(t, { guestDirectory = null, webPush = null, webPushSend =
 
 // --- levels and records ------------------------------------------------------------------------
 
-test('AC-N01: the owner, admins and managers hear every post; others only mentions and replies; a level change applies at once', async (t) => {
+test('the owner, admins and managers hear every post; others only mentions and replies; a level change applies at once', async (t) => {
   const { general, kinds, ok, post } = await fixture(t);
   const channel = await general();
   const levelOf = async (as) => (await ok(as, 'GET', `${P}/channels/${channel.id}/notification-level`));
@@ -189,7 +189,7 @@ test('the level route checks access, and settings list each channel in the perso
   assert.deepEqual((await ok('outsider', 'GET', '/api/me/notification-levels')).projects, []);
 });
 
-test('AC-N02: five posts in a watched channel make one notification showing 5; opening the channel reads it; own posts never notify', async (t) => {
+test('five posts in a watched channel make one notification showing 5; opening the channel reads it; own posts never notify', async (t) => {
   const { bell, general, ok, post } = await fixture(t);
   const channel = await general();
   await post('lead', channel.id, 'My own post');
@@ -349,7 +349,7 @@ async function sendThroughFetch(subscription, payload, options) {
   if (response.status >= 300) throw new webpush.WebPushError('Push service refused', response.status, {}, '', details.endpoint);
 }
 
-test('AC-N04 locally: a push goes to each device unless an Odin tab is focused; 410 removes the subscription; other failures retry twice', async (t) => {
+test('a push goes to each device unless an Odin tab is focused; 410 removes the subscription; other failures retry twice', async (t) => {
   const vapid = generateVapidKeys();
   const service = await fakePushService(t, { status: (url, count) => (url.startsWith('/gone') ? 410 : url.startsWith('/flaky') ? 500 : 201) });
   const { app, general, ok, post, send, settle } = await fixture(t, { webPush: { ...vapid, subject: 'mailto:ops@odin.example' }, webPushSend: sendThroughFetch });
@@ -404,7 +404,7 @@ test('without VAPID keys push is off: the bell is told so and subscribing is ref
 
 // --- the rolled-up email (fake clock) ----------------------------------------------------------
 
-test('AC-N05: a mention read within 10 minutes never emails; unread items roll into one email once 20 quiet minutes pass; items read first are dropped', async (t) => {
+test('a mention read within 10 minutes never emails; unread items roll into one email once 20 quiet minutes pass; items read first are dropped', async (t) => {
   const { clock, flush, general, mailRepository, ok, post, sent } = await fixture(t);
   const channel = await general();
   await post('lead', channel.id, `${mention('member')} read me soon`);
@@ -528,9 +528,9 @@ test('the digest leaves out people who turned it off, and retries a mail failure
   assert.equal(CHAT_DIGEST_RELEASE_REASONS.digestOff.startsWith('chat digest'), true);
 });
 
-// --- guests (AC-N06) ---------------------------------------------------------------------------
+// --- guests ---------------------------------------------------------------------------
 
-test('AC-N06: a guest hears of mentions and replies in their channels only, on their own bell, and their email links open the guest view', async (t) => {
+test('a guest hears of mentions and replies in their channels only, on their own bell, and their email links open the guest view', async (t) => {
   // The notifications module's own directory, keyed by stakeholder; the guests module's, keyed by
   // access link, is tested with real guest sessions in guests.test.js.
   const { app, clock, flush, general, ok, post, projectRepository, sent } = await fixture(t, { guestDirectory: (projectRepository) => createChannelGuestDirectory({ projectRepository }) });
@@ -557,7 +557,7 @@ test('AC-N06: a guest hears of mentions and replies in their channels only, on t
   await post('lead', shared.id, `${guestTag} could you confirm the dates?`);
   await post('lead', internal.id, `${guestTag} not for them`);
   await post('lead', shared.id, 'Plain post');
-  // The guest's own post (guest routes arrive with WS6), and a member's reply to it.
+  // The guest's own post, and a member's reply to it.
   const guestPost = await projectRepository.createPost({ post: { authorId: GUEST.id, authorType: 'stakeholder', body: 'Dates work for us', projectId: PROJECT, targetId: shared.id, targetType: 'channel', tenantId: TENANT_ID } });
   await post('lead', shared.id, 'Great, thanks', { parentId: guestPost.id });
 

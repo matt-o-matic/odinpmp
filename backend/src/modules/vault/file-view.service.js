@@ -1,7 +1,6 @@
-// A file for the model to look at (odin_view_project_file; docs/engagements/plan.md, Odin in
-// channels: images): an image (PNG, JPEG, GIF or WebP) up to IMAGE_MAX_BYTES, or a PDF up to
-// PDF_MAX_BYTES, as base64, with the rights of a download. Agents only: the route answers only
-// the agent view (agentView=1 or an MCP credential).
+// A file for the model to look at (odin_view_project_file): an image (PNG, JPEG, GIF or WebP) up
+// to IMAGE_MAX_BYTES, or a PDF up to PDF_MAX_BYTES, as base64, with the rights of a download.
+// Agents only: the route answers only the agent view (agentView=1 or an MCP credential).
 import { PROJECT_CAPABILITIES } from '../../lib/auth/project-capabilities.js';
 import { HttpError } from '../../lib/errors/http-error.js';
 import { assertFileScanClean } from '../../lib/files/file-scan-status.js';

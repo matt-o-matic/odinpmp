@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { OdinApiError } from './api-client.js';
 
-// Sharing files with stakeholders and asking them to sign (docs/document-signing/plan.md), through
+// Sharing files with stakeholders and asking them to sign, through
 // Odin's routes and its rules: anyone who can change files marks a file internal or external;
 // project and workspace admins and managers send, cancel and manage signature requests. Signers
 // are the project's stakeholders. They sign in their portal with a code emailed to them, so a

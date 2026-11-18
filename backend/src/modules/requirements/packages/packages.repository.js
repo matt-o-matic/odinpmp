@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
 
-// Review package storage. Package rows and screens live in the U1 tables from migration
+// Review package storage. Package rows and screens live in the tables from migration
 // 0053 (review_packages, review_package_screens), so the My open items query sees drafts
 // with no extra wiring. Migration 0057 below adds what 0053 lacks: a column for validation
 // warnings, a per-package file index for the review origin, and single-use upload URLs.

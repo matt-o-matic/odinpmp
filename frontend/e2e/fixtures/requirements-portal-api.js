@@ -1,7 +1,7 @@
-// Synthetic stakeholder portal and guided-review API for browser acceptance (U7). One
+// Synthetic client portal and guided-review API for browser acceptance. One
 // "world" holds the round, the reviewers' verdicts, answers and marks, and the portal's
 // questions; every page that installs a handler shares it, so two browser contexts see each
-// other's work through the held event streams, as the real portal does (AC-18). Shapes
+// other's work through the held event streams, as the real portal does. Shapes
 // follow backend/src/modules/requirements/requirements-portal.service.js and
 // rounds/review.service.js. All people and text here are synthetic.
 
@@ -687,7 +687,7 @@ const LINK_PROBLEMS = {
 };
 
 /**
- * The stakeholder portal for one page. `actor` is whose link `token` is. Options:
+ * The client portal for one page. `actor` is whose link `token` is. Options:
  * `standInOrigin` (default true) serves the example package from the stand-in review origin.
  */
 export async function installPortalApi(page, world, { actor = 'ravi', standInOrigin = true, token = PORTAL_TOKENS.ravi } = {}) {
@@ -781,7 +781,7 @@ export async function installPortalApi(page, world, { actor = 'ravi', standInOri
         publish(world, 'requirements.topics.invalidated', { reason: 'topic-comment', topicIds: [topic.id] });
         return json(route, { ok: true, topic: view() });
       }
-      // There is no route that changes a question's status: stakeholders can't (Q-04).
+      // There is no route that changes a question's status: stakeholders can't.
       return json(route, { error: 'Not found.', ok: false }, 404);
     }
     return json(route, { error: `Unhandled portal call ${method} ${rest}`, ok: false }, 501);

@@ -1,7 +1,7 @@
-// Odin Chat for browser specs (docs/odin-chat/plan.md, workstream 2): the sidebar, its totals,
-// Mentions, Threads, people and direct messages under /api/chat. Install after
-// installSyntheticApi and installChannelsApi: the sidebar's channels and their unread counts come
-// from the channels world, so opening one shows the same channel the Channels tab does.
+// Odin Chat for browser specs: the sidebar, its totals, Mentions, Threads, people and direct
+// messages under /api/chat. Install after installSyntheticApi and installChannelsApi: the
+// sidebar's channels and their unread counts come from the channels world, so opening one shows
+// the same channel the Channels tab does.
 const API_ORIGIN = 'http://localhost:3001';
 
 function json(route, body, status = 200) {

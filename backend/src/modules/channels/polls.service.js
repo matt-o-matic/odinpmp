@@ -1,4 +1,4 @@
-// Polls on posts (docs/engagements/plan.md, Polls), for channels and direct messages alike. The
+// Polls on posts, for channels and direct messages alike. The
 // channel and DM services own the post; this adds its poll, takes votes and closes it.
 //
 // Rights: anyone who can post where the poll is can vote, guests in their channels included.

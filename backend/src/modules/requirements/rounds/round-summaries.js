@@ -17,7 +17,7 @@ import { actorRefOf, collectDirectionStances, collectScreenVerdicts, loadPeople,
 import { mentionsToPlainText } from '../mentions/mention-tokens.js';
 import { publishRoundEvent, ROUND_EVENTS } from './round-events.js';
 
-// Odin summaries for screens in a round and for whole rounds (plan.md, "AI running summary").
+// Odin summaries for screens in a round and for whole rounds.
 // Sources are the human feedback in the round: annotations (labeled A<number> on a screen,
 // as reviewers see them), their thread comments (C1, C2, ...), screen verdicts with their
 // notes (V1, ...), direction stances (D1, ...), and answers (Q1, ...). Stored refs are

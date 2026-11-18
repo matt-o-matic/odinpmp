@@ -153,8 +153,8 @@ export function selectRequirementsAiProvider({ nodeEnv = 'development', provider
 }
 
 /**
- * The requirements AI service: draftQuestions (Q-13), summarize (the Odin summary, E-04),
- * and draftPlan and proposeWork (track plans, AC-13), from OpenAI or, outside production,
+ * The requirements AI service: draftQuestions, summarize (the Odin summary),
+ * and draftPlan and proposeWork (track plans), from OpenAI or, outside production,
  * the deterministic local fixture.
  */
 export function createRequirementsAiService({

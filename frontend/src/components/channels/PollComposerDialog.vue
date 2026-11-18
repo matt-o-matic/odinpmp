@@ -17,9 +17,9 @@ import {
 } from '../../lib/channels/polls.js';
 import RequirementsDialog from '../requirements/RequirementsDialog.vue';
 
-// The composer's Poll dialog (docs/engagements/plan.md, Polls): the question, the kind, the
-// options (2 to 20, in order), and how votes show. Create hands the poll to the conversation,
-// which posts it with whatever is in the message box above it.
+// The composer's Poll dialog: the question, the kind, the options (2 to 20, in order), and
+// how votes show. Create hands the poll to the conversation, which posts it with whatever is
+// in the message box above it.
 const props = defineProps({
   busy: { default: false, type: Boolean },
   error: { default: '', type: String },

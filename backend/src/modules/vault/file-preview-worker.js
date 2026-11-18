@@ -8,9 +8,9 @@ import { publishProjectChanged } from '../../lib/events/project-live-events.js';
 import { DEFAULT_PREVIEW_MAX_BYTES, extensionOf, NO_PREVIEW, OFFICE_EXTENSIONS, previewStorageKeyFor } from '../../lib/files/file-preview.js';
 import { buildOperationLogContext, logBackendError } from '../../lib/logging/backend-logger.js';
 
-// The preview worker (docs/engagements/plan.md, Download and preview; AC-08). After a file's scan
-// passes, it converts Word, Excel, PowerPoint and OpenDocument files up to maxBytes to PDF, one at
-// a time, and records the PDF on every row that holds the object (lib/files/file-preview.js):
+// The preview worker. After a file's scan passes, it converts Word, Excel, PowerPoint and
+// OpenDocument files up to maxBytes to PDF, one at a time, and records the PDF on every row that
+// holds the object (lib/files/file-preview.js):
 //
 // - The source streams from storage to a temporary directory, LibreOffice converts it there
 //   (lib/files/soffice-converter.js), and the PDF streams back to storage. The directory goes

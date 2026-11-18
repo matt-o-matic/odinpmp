@@ -142,7 +142,7 @@ export function myItemTarget(item = {}, projectId = '', { roundReview = true } =
 
 /**
  * A second action for rows that have one: a draft package can be published as a round by
- * anyone who can publish (Q-05). Returns null otherwise.
+ * anyone who can publish. Returns null otherwise.
  */
 export function myItemSecondaryAction(item = {}, projectId = '', { canPublish = false } = {}) {
   if (item.kind !== 'package' || !item.id || !canPublish) return null;

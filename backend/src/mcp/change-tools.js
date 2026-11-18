@@ -2,9 +2,9 @@ import { z } from 'zod';
 import { itemChangesSchema } from '../modules/changes/changes.schema.js';
 import { OdinApiError } from './api-client.js';
 
-// Tools for agents that keep a project in step with the world outside Odin
-// (docs/mcp-change-feed/plan.md): what changed since they last looked, the details of the cards
-// they pick, and a batch of checked changes, each a single call.
+// Tools for agents that keep a project in step with the world outside Odin: what changed
+// since they last looked, the details of the cards they pick, and a batch of checked
+// changes, each a single call.
 
 const ERRORS = {
   changes: {

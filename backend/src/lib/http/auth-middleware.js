@@ -31,7 +31,7 @@ export function createAuthMiddleware({ authRepository, identityRepository = null
         throw new HttpError(401, 'Authentication required.');
       }
 
-      // A channel guest's session works only under /api/guest (docs/engagements/plan.md, Guests).
+      // A channel guest's session works only under /api/guest.
       if (isGuestToken(token)) {
         throw new HttpError(403, 'Guests cannot use this part of Odin.', { details: { code: 'guest_not_allowed' } });
       }

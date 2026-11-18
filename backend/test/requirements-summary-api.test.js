@@ -246,7 +246,7 @@ test('portal summaries carry display names only, and summary events reach only l
   const jamieEvents = harness.recordEvents(LIVE_EVENT_CHANNELS.publicRequirements(jamieLink.link.id));
   const raviEvents = harness.recordEvents(LIVE_EVENT_CHANNELS.publicRequirements(raviLink.link.id));
 
-  // Unassigned topics are visible to every link (Q-13a).
+  // Unassigned topics are visible to every link.
   const open = await harness.createTopic({ prompt: 'Should clients see a price estimate?' });
   const first = await comment(harness, 'member', open.id, 'Show the estimate before booking.');
   const portalReply = await harness.portal(jamieLink.token).post(`/topics/${open.id}/comments`, { body: 'Agreed, show it before booking.', parentCommentId: first.id });

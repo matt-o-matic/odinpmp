@@ -1,7 +1,7 @@
-// Rate limits for guest sign-in (docs/engagements/plan.md, Guests): code requests per email and
-// per IP address, and sign-in attempts per IP address. Keys are the normalized email or the
-// address, so an unknown email is limited exactly as a guest's is. In this process only, as the
-// other public limits are (lib/http/token-bucket.js).
+// Rate limits for guest sign-in: code requests per email and per IP address, and sign-in
+// attempts per IP address. Keys are the normalized email or the address, so an unknown email is
+// limited exactly as a guest's is. In this process only, as the other public limits are
+// (lib/http/token-bucket.js).
 import { createTokenBucket } from '../../lib/http/token-bucket.js';
 
 const HOUR_SECONDS = 60 * 60;

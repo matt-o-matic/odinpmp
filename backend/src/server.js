@@ -212,7 +212,7 @@ const memoryEmbeddingProvider = createOpenAiMemoryEmbeddingProvider({
   apiKey: env.openAiApiKey, dimensions: env.openAiMemoryEmbeddingDimensions, model: env.openAiMemoryEmbeddingModel,
   resolveApiKey: resolveTenantOpenAiKey,
 });
-// The search index embeds with its own model and size (docs/semantic-search/plan.md).
+// The search index embeds with its own model and size.
 const searchEmbeddingProvider = createOpenAiMemoryEmbeddingProvider({
   apiKey: env.openAiApiKey, dimensions: env.searchEmbeddingDimensions, model: env.searchEmbeddingModel,
   resolveApiKey: resolveTenantOpenAiKey,
@@ -390,7 +390,7 @@ filePreviewWorker = startFilePreviewWorker({
   processor: createFilePreviewProcessor({ converter: sofficeConverter, liveEventBus, maxBytes: env.previewMaxBytes, projectRepository, storage: fileStorage }),
 });
 app.locals.stopFilePreviewWorker = () => filePreviewWorker.stop();
-// Keeps every workspace's search index current, every minute by default (docs/semantic-search/plan.md).
+// Keeps every workspace's search index current, every minute by default.
 app.locals.stopSearchIndexScheduler = startSearchIndexScheduler({ intervalMs: env.searchIndexIntervalMs, run: () => app.locals.refreshSearchIndexes() });
 
 if (!env.openAiApiKey) {

@@ -8,7 +8,7 @@ import { toolNeedsConfirmation } from '../src/lib/agent/agent-tools.js';
 
 // The ticket tools, ticket links and project templates against a fake Odin REST API: the requests
 // they send, what they return, and how they keep externally submitted tickets nobody has validated
-// out of reach (D-027). The flow over HTTP with OAuth is in mcp-ticket-e2e.test.js.
+// out of reach. The flow over HTTP with OAuth is in mcp-ticket-e2e.test.js.
 
 const project = {
   id: 'project-1', name: 'Disposable project', status: 'Active', updatedAt: '2026-10-01T12:00:00.000Z',

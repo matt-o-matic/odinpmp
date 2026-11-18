@@ -66,7 +66,7 @@ function findProjectItemContext(project, itemId) {
 function projectItemCollection(project, itemType, parentId) {
   if (itemType === 'epic') return project.epics;
   if (itemType === 'ticket') {
-    // Tickets are a flat project-level collection; parentId is a reference, not containment (D-006).
+    // Tickets are a flat project-level collection; parentId is a reference, not containment.
     if (parentId) {
       const parent = findProjectItemContext(project, parentId);
       if (!parent || !['epic', 'story', 'task'].includes(parent.itemType)) {
@@ -444,7 +444,7 @@ export async function createProjectForUser(user, input, repository, workflowRepo
     project = await applyProjectTemplate({ plan: templatePlan, project, projectRepository: repository, tenantId, user, workflowRepository });
   }
 
-  // AC3.1: a new project gets the default ticket lifecycle without manual configuration.
+  // A new project gets the default ticket lifecycle without manual configuration.
   // A binding failure must not fail project creation, since tickets are optional.
   if (project?.id) {
     try {
@@ -729,8 +729,8 @@ export async function restoreProjectItemForUser(user, projectId, itemId, input, 
   return mutateProjectItemForUser({ input, itemId, metricsRepository, notifyTicketStatusChange, operation: 'restore', projectId, repository, user, workflowRepository });
 }
 
-// Cross-project ticket listing (D-020). Authorization resolves through each owning
-// project exactly as it does for other work items, so no tenant-level rule is needed (D-026).
+// Cross-project ticket listing. Authorization resolves through each owning
+// project exactly as it does for other work items, so no tenant-level rule is needed.
 export async function listTicketsForUser(user, input, repository) {
   const tenantId = requirePrimaryTenantId(user);
   return {
@@ -771,7 +771,7 @@ export async function createWorkItemRelationForUser(user, projectId, itemId, inp
   await requireProjectCapability({ capability: PROJECT_CAPABILITIES.PLAN_EDIT, projectId, repository, tenantId, user });
   const saved = await repository.createWorkItemRelation({ input, itemId, projectId, tenantId, user });
   if (!saved) throw new HttpError(404, 'Project not found.');
-  // created is false when the same link was already there (AC1.7).
+  // created is false when the same link was already there.
   return { created: saved.created, ok: true, relation: saved.relation };
 }
 
@@ -783,7 +783,7 @@ export async function deleteWorkItemRelationForUser(user, projectId, relationId,
   return { ok: true };
 }
 
-// Intake invitations (D-028). Creating one is a project-configuration act, so it needs
+// Intake invitations. Creating one is a project-configuration act, so it needs
 // the same plan-edit capability as other project configuration.
 // The link is emailed to the reporter on create; `email` reports whether that was queued,
 // and the URL is returned either way so the creator can copy it.
@@ -818,7 +818,7 @@ const ticketTarget = ({ projectId, tenantId, ticketId }) => ({ projectId, target
 const ticketFileReader = (repository, tenantId) => async (file) => (await repository.getFileAsset?.({ fileId: file.id, tenantId }))?.bytes ?? null;
 
 // An agent validates a ticket from outside the team only when Odin's automated check finds its
-// current content safe (D-027). The check runs before the write; the write re-reads the ticket,
+// current content safe. The check runs before the write; the write re-reads the ticket,
 // its comments and its attachments and refuses if any of it differs from what was checked, so a
 // reply or file that lands meanwhile never becomes visible to agents unchecked. Errors name the
 // safety label only, never the content.
@@ -861,7 +861,7 @@ async function agentValidationCheck({ classifier, now, projectId, repository, re
   };
 }
 
-// External review gate (D-027). Marking a ticket validated or rejected controls whether
+// External review gate. Marking a ticket validated or rejected controls whether
 // the assistant may see it; it never affects scheduling, assignment, or board presence.
 // agentCheck marks an agent's decision (the route sets it for every MCP credential): validating
 // then needs the automated check, while rejecting never does.
@@ -912,7 +912,7 @@ export async function listTicketReviewQueueForUser(user, input, repository) {
   return { ok: true, tickets: pending };
 }
 
-// A project's pending external tickets as an agent may see them (D-027): no title, text or
+// A project's pending external tickets as an agent may see them: no title, text or
 // reporter, only what the ticket review classifier made of each, oldest first. Same access as
 // deciding a review.
 export async function listTicketsAwaitingReviewForUser(user, projectId, input, repository, classifier = null) {

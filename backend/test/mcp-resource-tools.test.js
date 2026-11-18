@@ -235,7 +235,7 @@ test('changing time resolves a new work item, clears one with null, and deleting
   const deleted = await call('odin_delete_time_entry', { expectedVersion: 5, projectId: 'project-1', timeEntryId: 'time-1' });
   assert.deepEqual([deleted.data.deleted, calls.at(-1)], [true, ['DELETE', `${TIME}/time-1`, { body: { expectedVersion: 5 } }]]);
 
-  // Time a person logged against a ticket from outside that nobody has validated doesn't name it (D-027).
+  // Time a person logged against a ticket from outside that nobody has validated doesn't name it.
   const hidden = await session(t, routes({
     [`GET ${PROJECT}`]: { project: TREE },
     [`PATCH ${TIME}/time-2`]: ({ body }) => ({ ok: true, value: { hours: 1, id: 'time-2', note: body.note, projectId: 'project-1', version: 2, workItemId: 'ticket-hidden' } }),

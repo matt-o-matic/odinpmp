@@ -15,8 +15,8 @@ import {
 } from '../../lib/requirements/requirements-sources.js';
 import { chipToneClass, topicSettled } from '../../lib/requirements/requirements-topics.js';
 
-// "Record a decision" for admins and managers (Q-04). The statement starts from the
-// summary's proposed answer; once recorded it belongs to the person who recorded it (Q-14).
+// "Record a decision" for admins and managers. The statement starts from the
+// summary's proposed answer; once recorded it belongs to the person who recorded it.
 // It is rich text stored as Markdown, like comments, and opens in a larger editor on demand.
 const props = defineProps({
   headingId: { default: 'rq-decision-heading', type: String },

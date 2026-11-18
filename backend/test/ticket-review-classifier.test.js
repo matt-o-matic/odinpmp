@@ -5,7 +5,7 @@ import test from 'node:test';
 import { createTicketReviewClassifier, externalTicketSource, labelTicketReview, ticketReviewFingerprint } from '../src/modules/projects/ticket-review-classifier.js';
 import { scriptedOpenAi } from './helpers/agent-test-utils.js';
 
-// The automated check agents triage external tickets with (D-027): what it asks the Decisions API,
+// The automated check agents triage external tickets with: what it asks the Decisions API,
 // the labels it derives, its cache and shared limits, and how it gives up when the API or the
 // ticket's comments or attachments are unavailable.
 

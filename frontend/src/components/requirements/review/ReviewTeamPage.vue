@@ -10,7 +10,7 @@ import { reviewLocation } from '../../../lib/requirements/requirements-tracks.js
 import { createReviewAdapter, createTeamReviewFeed, reviewScope } from '../../../lib/requirements/review-adapters.js';
 
 // A team member reviewing a round inside the app (route project-requirements-round-review).
-// Same guided review as the stakeholder portal, on the team review API, with live updates
+// Same guided review as the client portal, on the team review API, with live updates
 // from the shared project event stream. `?mark=<id>` opens on that mark, as links from
 // Marks and comments do; each mark links back there.
 const route = useRoute();

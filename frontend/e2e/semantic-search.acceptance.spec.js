@@ -7,9 +7,9 @@ import { createChatWorld, installChatApi } from './fixtures/chat-api.js';
 import { installShellApi } from './fixtures/shell-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Results as you type (docs/semantic-search/plan.md AC-08): the top bar's search (Ctrl+K) and
-// Odin Chat's jump box show the best few matches after a pause; choosing one opens it, and Enter
-// with none chosen opens the search page. The search API is the shell fixture's corpus.
+// Results as you type: the top bar's search (Ctrl+K) and Odin Chat's jump box show the best few
+// matches after a pause; choosing one opens it, and Enter with none chosen opens the search
+// page. The search API is the shell fixture's corpus.
 
 async function expectNoSeriousAxe(page, testInfo, name) {
   await settleForAxe(page);

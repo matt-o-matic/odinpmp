@@ -38,7 +38,7 @@ async function roundWithReviewers() {
   };
 }
 
-test('AC-10 results: the verdict grid matches stored verdicts, directions tally, and summaries cite real annotations and comments', async () => {
+test('results: the verdict grid matches stored verdicts, directions tally, and summaries cite real annotations and comments', async () => {
   const { casey, caseyRecord, harness, jamie, jamieRecord, ravi, round } = await roundWithReviewers();
 
   await jamie.put('/screens/home/verdict', { change: 'Smaller price.', dimensions: { hierarchy: 'keep' }, overall: 'keep-with-changes', stay: 'One button.' });
@@ -211,7 +211,7 @@ test('feedback export returns exactly the odin.round-feedback/v1 shape, omits wh
   assert.equal(served.headers['content-type'], 'image/png');
 });
 
-test('AC-12 carry-forward: unchanged screens carry, changed ones go outdated, removed ones are superseded; carry and close move or settle outdated marks', async () => {
+test('carry-forward: unchanged screens carry, changed ones go outdated, removed ones are superseded; carry and close move or settle outdated marks', async () => {
   const { casey, harness, jamie, jamieRecord, jamieToken, ravi, round } = await roundWithReviewers();
   const marks = {
     deleted: randomUUID(), gone: randomUUID(), home: randomUUID(), homeRavi: randomUUID(), proto: randomUUID(), resolved: randomUUID(),

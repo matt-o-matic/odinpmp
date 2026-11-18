@@ -5,7 +5,7 @@ import { settleForAxe } from './fixtures/axe-settle.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 import { INTAKE_TOKENS, createIntakeWorld, installTicketIntakeApi } from './fixtures/ticket-intake-api.js';
 
-// External ticket intake (D-011, D-021): the reporter's public page at /report/:token and
+// External ticket intake: the reporter's public page at /report/:token and
 // the project's Intake links tab. Synthetic data: e2e/fixtures/ticket-intake-api.js.
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 // The reference of the fixture's in-progress ticket, which the email link points at.

@@ -45,7 +45,7 @@ import ProjectRequirementsRoundAnnotationsView from '../views/requirements/Proje
 import ProjectRequirementsRoundView from '../views/requirements/ProjectRequirementsRoundView.vue';
 import ProjectRequirementsTopicView from '../views/requirements/ProjectRequirementsTopicView.vue';
 import ProjectRequirementsTrackView from '../views/requirements/ProjectRequirementsTrackView.vue';
-// U7: stakeholder portal and the guided review.
+// Client portal and the guided review.
 import PortalDocuments from '../components/requirements/portal/PortalDocuments.vue';
 import PortalInbox from '../components/requirements/portal/PortalInbox.vue';
 import PortalQuestion from '../components/requirements/portal/PortalQuestion.vue';
@@ -109,7 +109,7 @@ const routes = [
     name: 'clarification-portal',
     component: ClarificationLinkMovedView,
   },
-  // U7: the stakeholder portal. The link token is the credential; `portal` hides the app chrome.
+  // The client portal. The link token is the credential; `portal` hides the app chrome.
   {
     path: '/requirements/:token',
     component: RequirementsPortalView,
@@ -118,12 +118,12 @@ const routes = [
       { path: '', name: 'requirements-portal', component: PortalInbox },
       { path: 'questions/:topicId', name: 'requirements-portal-question', component: PortalQuestion },
       { path: 'rounds/:roundId', name: 'requirements-portal-review', component: PortalRoundReview },
-      // Shared documents and signature requests (docs/document-signing).
+      // Shared documents and signature requests.
       { path: 'documents', name: 'requirements-portal-documents', component: PortalDocuments },
       { path: 'signing/:requestId', name: 'requirements-portal-signing', component: PortalSigning },
     ],
   },
-  // External ticket intake (D-011): the reporter's page. The link token is the credential.
+  // External ticket intake: the reporter's page. The link token is the credential.
   {
     path: '/report/:token',
     name: 'ticket-report',
@@ -144,14 +144,13 @@ const routes = [
     component: AccessTasksView,
     meta: { portal: true },
   },
-  // Channel guests (docs/engagements/plan.md, Guests): sign-in by emailed code, then their
-  // channels. Their session is a cookie of its own; the app's chrome is hidden.
-  // Signed in, guests land in the Chat layout (docs/odin-chat/plan.md, Landing): its sidebar
-  // with their channels (`chatLayout` gives them the whole page).
+  // Channel guests: sign-in by emailed code, then their channels. Their session is a
+  // cookie of its own; the app's chrome is hidden. Signed in, guests land in the Chat
+  // layout: its sidebar with their channels (`chatLayout` gives them the whole page).
   { path: '/guest/sign-in', name: 'guest-sign-in', component: GuestSignInView, meta: { portal: true } },
   { path: '/guest', name: 'guest-home', component: GuestHomeView, meta: { chatLayout: true, portal: true } },
   { path: '/guest/channels/:channelId', name: 'guest-channel', component: GuestChannelView, meta: { chatLayout: true, portal: true } },
-  // Odin Chat (docs/odin-chat/plan.md, layout B): its own shell, without Odin's top bar.
+  // Odin Chat: its own shell, without Odin's top bar.
   {
     path: '/chat',
     component: ChatShellView,
@@ -172,7 +171,7 @@ const routes = [
     component: ProjectsView,
     meta: { requiresAuth: true },
   },
-  // The Consulting module (docs/engagements/plan.md). The pages show a notice when it is off.
+  // The Consulting module. The pages show a notice when it is off.
   { path: '/engagements', name: 'engagements', component: EngagementsView, meta: { requiresAuth: true } },
   { path: '/engagements/:projectId/:section(channels|board|insights|files|people|settings)?', name: 'engagement-detail', component: EngagementDetailView, meta: { requiresAuth: true } },
   {
@@ -278,7 +277,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    // Channels (docs/engagements/plan.md): ?channel=, ?tab=files, ?folder=, ?file=, ?post=.
+    // Channels: ?channel=, ?tab=files, ?folder=, ?file=, ?post=.
     path: '/projects/:projectId/channels',
     name: 'project-channels',
     component: ProjectDetailView,
@@ -343,7 +342,7 @@ const routes = [
         name: 'project-requirements-round-annotations',
         component: ProjectRequirementsRoundAnnotationsView,
       },
-      // U7: a team member's own guided review of a round.
+      // A team member's own guided review of a round.
       {
         path: 'review/rounds/:roundId/review',
         name: 'project-requirements-round-review',

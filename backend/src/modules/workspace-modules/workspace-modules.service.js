@@ -1,4 +1,4 @@
-// Which optional modules a workspace has on (docs/engagements/plan.md, "Consulting module").
+// Which optional modules a workspace has on.
 // Workspace admins switch them; every member can see whether one is on, so the app can show or
 // hide what it holds.
 import { HttpError } from '../../lib/errors/http-error.js';

@@ -41,14 +41,14 @@ const TICKET_WORKFLOW = {
   ],
 };
 
-test('AC8.3 columns come from the bound workflow, folding cancelled states into done', () => {
+test('columns come from the bound workflow, folding cancelled states into done', () => {
   const columns = buildTicketColumns(TICKET_WORKFLOW);
 
   assert.deepEqual(columns.map((column) => column.key), ['new', 'triage', 'open', 'in_progress', 'resolved', 'closed']);
   assert.deepEqual(columns.at(-1).statuses, ['closed', 'rejected', 'deferred']);
 });
 
-test('AC3.4 a custom workflow still produces columns', () => {
+test('a custom workflow still produces columns', () => {
   const columns = buildTicketColumns({
     states: [
       { category: 'backlog', key: 'reported', label: 'Reported' },
@@ -123,7 +123,7 @@ test('summary counts totals, open work, severity, and review backlog', () => {
   assert.equal(summary.awaitingReview, 1);
 });
 
-test('AC8.4 pending-review tickets are distinguishable', () => {
+test('pending-review tickets are distinguishable', () => {
   assert.equal(isAwaitingReview(ticket('a', { externalReviewState: 'pending' })), true);
   assert.equal(isAwaitingReview(ticket('a', { externalReviewState: 'validated' })), false);
   assert.equal(isAwaitingReview(ticket('a')), false);
@@ -154,7 +154,7 @@ test('the review queue hints at the automated check of each ticket without decid
   assert.equal(ticketsViewSource.match(/loadReviewChecks\(/g).length, 2, 'declared once and called from one place');
 });
 
-test('AC8.2 filter state converts to the query the API expects', () => {
+test('filter state converts to the query the API expects', () => {
   const filters = createTicketFilterState({ categories: ['defect'], search: '  checkout  ', severities: ['S1', 'S2'] });
 
   assert.deepEqual(buildTicketFilterQuery(filters), {
@@ -165,7 +165,7 @@ test('AC8.2 filter state converts to the query the API expects', () => {
   });
 });
 
-test('AC8.2 untouched filters never become restrictions', () => {
+test('untouched filters never become restrictions', () => {
   const query = buildTicketFilterQuery(createTicketFilterState());
 
   assert.deepEqual(Object.keys(query), ['limit']);
@@ -181,45 +181,45 @@ test('the query does not alias the filter arrays', () => {
   assert.deepEqual(filters.severities, ['S1']);
 });
 
-test('AC8.1 the tenant board route and navigation entry exist', () => {
+test('the tenant board route and navigation entry exist', () => {
   assert.match(routerSource, /path: '\/tickets'/);
   assert.match(routerSource, /name: 'tickets'/);
   assert.match(appSource, /:to="\{ name: 'tickets' \}"/);
 });
 
-test('AC9.1 the project workbench exposes a tickets tab on its own route', () => {
+test('the project workbench exposes a tickets tab on its own route', () => {
   assert.match(routerSource, /path: '\/projects\/:projectId\/tickets'/);
   assert.match(routerSource, /name: 'project-tickets'/);
   assert.match(projectDetailSource, /ProjectTicketsPanel/);
   assert.match(projectDetailSource, /activeWorkspace === 'tickets'/);
 });
 
-test('AC8.1 the tenant board queries across projects and offers a review queue', () => {
+test('the tenant board queries across projects and offers a review queue', () => {
   // Live refreshes call the same routes through the background client.
   assert.match(ticketsViewSource, /(?:apiClient|client)\.listTickets\(/);
   assert.match(ticketsViewSource, /(?:apiClient|client)\.listTicketReviewQueue\(/);
   assert.match(ticketsViewSource, /apiClient\.decideTicketReview/);
 });
 
-test('AC9.2 the project panel creates tickets in the current project with no project picker', () => {
+test('the project panel creates tickets in the current project with no project picker', () => {
   assert.match(projectPanelSource, /\.listProjectTickets\(/);
   assert.match(projectPanelSource, /itemType: 'ticket'/);
   assert.match(projectPanelSource, /props\.projectId/);
   assert.equal(projectPanelSource.includes('projectIds'), false, 'the project filter is suppressed');
 });
 
-test('AC9.4 the project panel does not put new tickets on a sprint', () => {
+test('the project panel does not put new tickets on a sprint', () => {
   assert.equal(/sprintId/.test(projectPanelSource), false);
 });
 
-test('AC8.7 both surfaces carry a narrow-width layout and touch-sized controls', () => {
+test('both surfaces carry a narrow-width layout and touch-sized controls', () => {
   for (const source of [ticketsViewSource, projectPanelSource]) {
     assert.match(source, /@media\(max-width:48rem\)/);
     assert.match(source, /min-height:2\.75rem/);
   }
 });
 
-test('AC11.3 interactive controls have accessible names and visible focus', () => {
+test('interactive controls have accessible names and visible focus', () => {
   assert.match(ticketsViewSource, /aria-label="Close ticket detail"/);
   assert.match(ticketsViewSource, /focus-visible/);
   assert.match(projectPanelSource, /aria-label="Close new ticket form"/);

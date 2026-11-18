@@ -1,5 +1,5 @@
-// Odin Chat's helpers (docs/odin-chat/plan.md, Odin Chat): where each sidebar entry opens, the
-// jump-to list, the start page, and labels. Pure functions, so they test without a browser.
+// Odin Chat's helpers: where each sidebar entry opens, the jump-to list, the start page,
+// and labels. Pure functions, so they test without a browser.
 import { unreadLabel } from '../channels/channels.js';
 
 export const CHAT_PHONE_QUERY = '(max-width: 767.98px)';

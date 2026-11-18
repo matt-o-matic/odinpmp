@@ -1,8 +1,7 @@
-// Rows for the search index beyond projects, governance and channel posts
-// (docs/semantic-search/plan.md): work items with their own links, comments, and the files of a
-// project with the passages of their text. Long text is split into passages; each passage is a
-// row of its own, `<sourceId>#<n>` from the second on, so each gets its own embedding and the
-// search collapses them back to one result.
+// Rows for the search index beyond projects, governance and channel posts: work items with
+// their own links, comments, and the files of a project with the passages of their text. Long
+// text is split into passages; each passage is a row of its own, `<sourceId>#<n>` from the
+// second on, so each gets its own embedding and the search collapses them back to one result.
 import { isEngagementProject } from '../../lib/projects/project-kind.js';
 import { folderPaths } from '../channels/channel-library.js';
 import { channelPath } from '../channels/channel-links.js';

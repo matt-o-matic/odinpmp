@@ -46,7 +46,7 @@ export function itemParent(item) {
 
 /**
  * What a failed request means for the whole page: the link's own problems (`not-found`,
- * `expired`, `revoked`, `rate-limited`, `failed`) as on the requirements portal, plus
+ * `expired`, `revoked`, `rate-limited`, `failed`) as on the client portal, plus
  * `no-project` when the link still works but this project is no longer shared.
  */
 export function classifyAccessError(error) {
@@ -411,7 +411,7 @@ export function buildTimeEntry(form) {
 }
 
 /** Only entries still waiting for approval can be deleted from the link. */
-// Time on an invoice stays as billed (invoice-gen E-06).
+// Time on an invoice stays as billed.
 export function canDeleteTimeEntry(entry) {
   return String(entry?.status ?? '') === 'submitted' && !entry?.invoiced;
 }

@@ -9,9 +9,9 @@ import { REVIEW_ORIGIN, defaultRequirementsScenario, installRequirementsApi, pac
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// Review stage, package upload, and package preview (AC-03 UI, AC-04 UI, AC-12 changes list,
-// AC-17 for the new views). Synthetic API; screens come from the stand-in review origin in
-// the fixture, which serves the fieldwork example files with the real bridge script.
+// Review stage, package upload, package preview, and the changes list. Synthetic API; screens
+// come from the stand-in review origin in the fixture, which serves the fieldwork example
+// files with the real bridge script.
 const base = `projects/${syntheticProject.id}/requirements`;
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 // A zip's first bytes; the synthetic API never unpacks it.

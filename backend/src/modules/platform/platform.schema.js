@@ -3,7 +3,7 @@ import { PLATFORM_EVENT_TYPES } from './platform-event-registry.js';
 
 export const PLATFORM_SCOPES = Object.freeze([
   'audit.read',
-  // invoice-gen's billing routes (docs/invoice-gen-connection/api-contract.md).
+  // invoice-gen's billing routes.
   'billing.read',
   'billing.write',
   'projects.read',

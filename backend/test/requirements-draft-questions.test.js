@@ -60,7 +60,7 @@ test('duplicate detection ignores case, punctuation, filler words, plurals, and 
   assert.equal(isDuplicatePrompt('', 'anything'), false);
 });
 
-test('AC-01 drafting creates open, unassigned topics that cite the brief, skips duplicates, and is visible to stakeholders at once', async () => {
+test('drafting creates open, unassigned topics that cite the brief, skips duplicates, and is visible to stakeholders at once', async () => {
   const ai = stubAi({
     questions: [
       {
@@ -156,7 +156,7 @@ test('AC-01 drafting creates open, unassigned topics that cite the brief, skips 
   const register = await harness.as('viewer').get('/tracks/experience/topics');
   assert.equal(register.body.topics.length, 2);
 
-  // Q-13a: stakeholders see drafted questions immediately, next to every other unassigned
+  // Stakeholders see drafted questions immediately, next to every other unassigned
   // open topic, and can comment, but not change status.
   const portal = await harness.portal(token).get();
   assert.deepEqual(

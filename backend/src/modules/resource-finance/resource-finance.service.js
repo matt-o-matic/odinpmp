@@ -32,9 +32,8 @@ function groupSum(records, key, value = 'amount') {
 function overlapsToday(record, today) { return record.startDate <= today && record.endDate >= today; }
 
 /**
- * The invoice that holds a time entry (docs/invoice-gen-connection, E-06), or null. Everyone who
- * sees the entry sees its number, or that it is on a draft; only finance-visible people get the
- * link to the invoice (E-08).
+ * The invoice that holds a time entry, or null. Everyone who sees the entry sees its number, or
+ * that it is on a draft; only finance-visible people get the link to the invoice.
  */
 export function timeEntryInvoice(entry, financeVisible) {
   if (!entry?.invoiceClaimId) return null;
@@ -527,7 +526,7 @@ export async function updateProjectResourceForUser({ authRepository = null, comp
   return { ok: true, resource: value };
 }
 
-// Task access (docs/task-access/plan.md). A manager turns a project's tasks on for someone without
+// Task access. A manager turns a project's tasks on for someone without
 // a login (their own, or everyone's) and sends them their access link. It takes what managing the
 // project's resources takes: a workspace admin or manager role and plan-edit access to the project.
 // `access` is the access service's deps (accessServiceDeps).
@@ -733,7 +732,7 @@ export async function listTimeEntriesForUser({ input, projectRepository, reposit
       billable: Boolean(entry.billable), hours: entry.hours, id: entry.id, note: entry.note ?? '', periodId: entry.periodId ?? null,
       projectId: entry.projectId, projectName: projectNames.get(entry.projectId) ?? '', resourceId: entry.resourceId, resourceName: resourceNames.get(entry.resourceId) ?? '',
       // Only work items named from a project's epics, stories and tasks: an id stored for anything
-      // else could be a ticket from outside that nobody has validated (D-027).
+      // else could be a ticket from outside that nobody has validated.
       status: entry.status, version: entry.version, workDate: entry.workDate,
       workItemId: itemNames.has(entry.workItemId) ? entry.workItemId : null, workItemName: itemNames.get(entry.workItemId) ?? null,
       // A claimed entry is locked until invoice-gen releases it.

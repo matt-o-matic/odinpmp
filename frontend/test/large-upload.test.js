@@ -11,8 +11,8 @@ import {
 } from '../src/lib/projects/large-upload.js';
 import { fileScanState, fileSizeLabel, isFileReady } from '../src/lib/projects/project-files.js';
 
-// The browser side of large uploads (docs/engagements/plan.md, Upload): parts in parallel, a
-// failed part retried, a resume after reload, and cancelling.
+// The browser side of large uploads: parts in parallel, a failed part retried, a resume
+// after reload, and cancelling.
 
 function memoryStorage() {
   const values = new Map();

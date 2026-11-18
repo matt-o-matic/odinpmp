@@ -68,7 +68,7 @@ test('every requirements read route returns 200 to viewers and members and 404 t
 
 test('the overview and my open items tell the workspace what the caller may do, so viewers get read-only controls', async () => {
   // The project detail API has no caller role; without these flags the workspace treated a
-  // viewer as a member and showed Assign, Edit, Delete and the comment box (U8 finding).
+  // viewer as a member and showed Assign, Edit, Delete and the comment box.
   const harness = await createRequirementsTestApp();
   const expected = {
     member: { canCollaborate: true, canDecide: false, canEditPlans: false, projectRole: 'member' },
@@ -89,7 +89,7 @@ test('the overview and my open items tell the workspace what the caller may do, 
 
 test('the overview lists project members for the assign and reviewer pickers to members, not viewers', async () => {
   // valid-users needs project.plan.edit, so a member's Assign dialog and reviewer picker
-  // were empty of teammates (U8 finding).
+  // were empty of teammates.
   const harness = await createRequirementsTestApp();
   const response = await harness.as('member').get('/');
   assert.equal(response.status, 200);
@@ -106,7 +106,7 @@ test('the overview lists project members for the assign and reviewer pickers to 
   assert.deepEqual(asViewer.body.members, []);
 });
 
-test('AC-15 viewers get 404 on every write route, before body validation', async () => {
+test('viewers get 404 on every write route, before body validation', async () => {
   const harness = await createRequirementsTestApp({ requirementsAiService: stubAi() });
   await harness.seedBrief();
   const stakeholder = await harness.seedStakeholder();
@@ -151,7 +151,7 @@ test('AC-15 viewers get 404 on every write route, before body validation', async
   assert.equal(unchanged.body.topic.prompt, 'Which reminder channels do clients want?');
 });
 
-test('AC-11 and AC-15 members collaborate but cannot decide; admins and managers can', async () => {
+test('members collaborate but cannot decide; admins and managers can', async () => {
   const harness = await createRequirementsTestApp({ requirementsAiService: stubAi() });
   await harness.seedBrief();
   const stakeholder = await harness.seedStakeholder();
@@ -608,7 +608,7 @@ test('preferences list proposals from summaries and accept them as decisions own
   assert.equal(after.body.accepted.length, 1);
 });
 
-test('AC-19 my open items lists exactly the manager\'s four items with tracks; viewers get no decision group', async () => {
+test('my open items lists exactly the manager\'s four items with tracks; viewers get no decision group', async () => {
   const harness = await createRequirementsTestApp();
   const manager = ROLE_USERS.projectManager;
 

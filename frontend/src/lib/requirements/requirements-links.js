@@ -1,4 +1,4 @@
-// Stakeholder link display: status chip, validity text, and extension defaults (Q-11).
+// Stakeholder link display: status chip, validity text, and extension defaults.
 
 import { formatShortDate, toDateInputValue } from './requirements-time.js';
 

@@ -1,7 +1,7 @@
-// The images Odin looks at when tagged in a channel (docs/engagements/plan.md, Odin in channels:
-// images): those attached to the post that tagged it first, then those in the rest of its thread,
-// newest first, up to TURN_IMAGE_LIMIT and TURN_MEDIA_MAX_BYTES. Only images in the channel's
-// library, scanned clean and under IMAGE_MAX_BYTES, are picked.
+// The images Odin looks at when tagged in a channel: those attached to the post that tagged it
+// first, then those in the rest of its thread, newest first, up to TURN_IMAGE_LIMIT and
+// TURN_MEDIA_MAX_BYTES. Only images in the channel's library, scanned clean and under
+// IMAGE_MAX_BYTES, are picked.
 //
 // An image a guest posted is outside content, so it is screened like a guest's text before a turn
 // sees it (odin-screen.js), at that turn's bar. One that can't be checked is left out, and the

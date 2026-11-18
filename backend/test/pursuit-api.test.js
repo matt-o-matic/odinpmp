@@ -24,8 +24,7 @@ import {
   requireOutsiderPursuitChange,
 } from '../src/modules/pursuit/pursuit-visibility.js';
 
-// The pursuit board and insights (docs/engagements/plan.md "Pursuit board", "Pursuit insights";
-// AC-20, AC-21, AC-22).
+// The pursuit board and insights.
 
 const TENANT = 'tenant-acme';
 const DAY_MS = 86_400_000;
@@ -124,7 +123,7 @@ async function fixture({ sowLinkReader = null } = {}) {
 const cardNames = (board) => board.cards.map((card) => card.name).sort();
 const json = (body) => JSON.stringify(body);
 
-test('a new engagement gets a hidden Pursuit story; members add, assign and move pursuit tasks on its board (AC-20)', async () => {
+test('a new engagement gets a hidden Pursuit story; members add, assign and move pursuit tasks on its board', async () => {
   const f = await fixture();
   const engagement = await f.createEngagement();
   assert.ok(engagement.storyId, 'the Pursuit story exists');
@@ -170,7 +169,7 @@ test('a new engagement gets a hidden Pursuit story; members add, assign and move
   assert.equal((await f.api.get('oscar', `/api/projects/${engagement.projectId}/kanban`)).status, 404, 'people outside the engagement see nothing');
 });
 
-test('after conversion, pursuit tasks stay off every delivery view and on the Pursuit board (AC-21)', async (t) => {
+test('after conversion, pursuit tasks stay off every delivery view and on the Pursuit board', async (t) => {
   const f = await fixture();
   const engagement = await f.createEngagement();
   const { projectId } = engagement;
@@ -254,7 +253,7 @@ test('after conversion, pursuit tasks stay off every delivery view and on the Pu
   });
 });
 
-test('converting moves open pursuit tasks to the project board only when asked (AC-21)', async (t) => {
+test('converting moves open pursuit tasks to the project board only when asked', async (t) => {
   for (const moveOpenPursuitTasks of [false, true]) {
     await t.test(moveOpenPursuitTasks ? 'with the option' : 'without the option', async () => {
       const f = await fixture();
@@ -281,7 +280,7 @@ test('converting moves open pursuit tasks to the project board only when asked (
   }
 });
 
-test('people who can edit the plan move pursuit tasks later, one or several, under a story they choose (AC-21)', async () => {
+test('people who can edit the plan move pursuit tasks later, one or several, under a story they choose', async () => {
   const f = await fixture();
   const engagement = await f.createEngagement();
   const first = await f.addTask(engagement, { name: 'Send diagrams' });
@@ -317,7 +316,7 @@ test('people who can edit the plan move pursuit tasks later, one or several, und
   assert.ok(third.id);
 });
 
-test('outside people see their own pursuit tasks, or all of them with "Guests see the whole board", and change only their own (AC-20)', async (t) => {
+test('outside people see their own pursuit tasks, or all of them with "Guests see the whole board", and change only their own', async (t) => {
   const f = await fixture();
   const engagement = await f.createEngagement();
   const { projectId } = engagement;
@@ -357,7 +356,7 @@ test('outside people see their own pursuit tasks, or all of them with "Guests se
   });
 });
 
-test('a person without a login sees their assigned pursuit tasks through their task-access link and changes only those (AC-20)', async (t) => {
+test('a person without a login sees their assigned pursuit tasks through their task-access link and changes only those', async (t) => {
   const f = await fixture();
   const engagement = await f.createEngagement();
   const { projectId } = engagement;
@@ -419,7 +418,7 @@ test('a person without a login sees their assigned pursuit tasks through their t
   });
 });
 
-test('everyone on the project reads the settings; only decision rights change them (AC-25 setting)', async () => {
+test('everyone on the project reads the settings; only decision rights change them', async () => {
   const f = await fixture();
   const { projectId } = await f.createEngagement();
   const path = `/api/projects/${projectId}/settings`;
@@ -448,7 +447,7 @@ test('everyone on the project reads the settings; only decision rights change th
   assert.deepEqual((await f.api.get('carol', '/api/projects/project-launch/settings')).body.settings.guestsSeeBoard, false);
 });
 
-test('the engagement Insights tab shows SOW state, tasks, activity, people and age; guests and outsiders cannot reach it (AC-22)', async (t) => {
+test('the engagement Insights tab shows SOW state, tasks, activity, people and age; guests and outsiders cannot reach it', async (t) => {
   const sow = { history: [{ at: '2026-11-01T10:00:00.000Z', status: 'drafting' }, { at: '2026-11-05T10:00:00.000Z', status: 'awaiting_signature' }], status: 'awaiting_signature', title: 'Northwind SOW', url: 'https://invoice.example/sows/7' };
   const readers = { linked: async ({ projectId }) => (projectId ? sow : null), unlinked: async () => null };
   for (const [label, reader] of Object.entries(readers)) {
@@ -492,7 +491,7 @@ test('the engagement Insights tab shows SOW state, tasks, activity, people and a
 });
 
 
-test('the SOW card reads billing\u2019s invoice-gen link: title, status, link and signing date when linked; no SOW otherwise (AC-22)', async () => {
+test('the SOW card reads billing\u2019s invoice-gen link: title, status, link and signing date when linked; no SOW otherwise', async () => {
   const f = await fixture();
   const linked = await f.createEngagement();
   const unlinked = await f.createEngagement();
@@ -532,7 +531,7 @@ test('the SOW card reads billing\u2019s invoice-gen link: title, status, link an
   assert.equal((await sowCard(linked.projectId)).status, 'empty', 'an unlinked project has no SOW again');
 });
 
-test('the activity and people cards count channel posts per week by channel, the last activity, and who posted in 7 and 30 days (AC-22)', async () => {
+test('the activity and people cards count channel posts per week by channel, the last activity, and who posted in 7 and 30 days', async () => {
   const f = await fixture();
   const engagement = await f.createEngagement();
   const { projectId } = engagement;

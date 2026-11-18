@@ -1,4 +1,4 @@
-// The @odin tag in channel posts (docs/engagements/plan.md, Odin in channels). It is stored as
+// The @odin tag in channel posts. It is stored as
 // `@[Odin](odin:odin)`, a token of its own beside the user and stakeholder tokens, so it never
 // resolves to a person and never sends a mention email. The mention picker offers it while the
 // project's "Let Odin answer when tagged" setting is on. A plain "@odin" typed without the picker

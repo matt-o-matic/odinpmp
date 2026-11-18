@@ -8,9 +8,8 @@ import { itemChangesSchema } from './changes.schema.js';
 import { applyItemChangesForUser } from './item-changes.service.js';
 import { getItemDetailsForUser, MAX_DETAIL_ITEMS } from './item-details.service.js';
 
-// Tools for agents that keep a project in step with the world outside Odin
-// (docs/mcp-change-feed/plan.md): what changed since a cursor, details for chosen items, and a
-// batch of checked changes.
+// Tools for agents that keep a project in step with the world outside Odin: what changed since
+// a cursor, details for chosen items, and a batch of checked changes.
 const changesQuerySchema = z.object({
   cursor: z.string().trim().max(400).optional(),
   limit: z.coerce.number().int().min(1).max(500).optional(),

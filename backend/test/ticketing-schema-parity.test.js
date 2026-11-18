@@ -1,4 +1,4 @@
-// AC11.2: every ticketing table and column reaches a database through the registered
+// Every ticketing table and column reaches a database through the registered
 // migration path, so a fresh bootstrap and an existing deployment converge.
 //
 // The production parity job (migrate-prod-schema-parity.lib.js) covers legacy tables that
@@ -74,7 +74,7 @@ function createPopulatedSchemaExecutor() {
   };
 }
 
-test('AC11.2 the ticketing migration adds every ticket column and the relations table', async () => {
+test('the ticketing migration adds every ticket column and the relations table', async () => {
   const executor = createEmptySchemaExecutor();
 
   await ensureMysqlTicketingSchema(executor);
@@ -90,7 +90,7 @@ test('AC11.2 the ticketing migration adds every ticket column and the relations 
   assert.ok(executor.ddl.some((statement) => statement.includes('idx_tasks_external_review')));
 });
 
-test('AC11.2 the relations table enforces uniqueness so repeated links cannot duplicate', async () => {
+test('the relations table enforces uniqueness so repeated links cannot duplicate', async () => {
   const executor = createEmptySchemaExecutor();
 
   await ensureMysqlTicketingSchema(executor);
@@ -99,7 +99,7 @@ test('AC11.2 the relations table enforces uniqueness so repeated links cannot du
   assert.match(relations, /UNIQUE KEY uq_work_item_relation \(from_item_id, to_item_id, relation_type\)/);
 });
 
-test('AC11.2 the configuration and intake migrations create their tables', async () => {
+test('the configuration and intake migrations create their tables', async () => {
   const configExecutor = createEmptySchemaExecutor();
   await ensureMysqlTicketConfigSchema(configExecutor);
   assert.ok(configExecutor.ddl.some((statement) => statement.includes('CREATE TABLE tenant_environments')));
@@ -113,7 +113,7 @@ test('AC11.2 the configuration and intake migrations create their tables', async
   assert.match(intake, /UNIQUE KEY uq_ticket_intake_reply_token \(reply_token\)/);
 });
 
-test('AC11.2 re-running the migrations against a populated schema changes nothing', async () => {
+test('re-running the migrations against a populated schema changes nothing', async () => {
   for (const migration of [ensureMysqlTicketingSchema, ensureMysqlTicketConfigSchema, ensureMysqlTicketIntakeSchema]) {
     const executor = createPopulatedSchemaExecutor();
     await migration(executor);
@@ -121,7 +121,7 @@ test('AC11.2 re-running the migrations against a populated schema changes nothin
   }
 });
 
-test('AC11.2 the ticketing migrations are registered in order with unique ids', async () => {
+test('the ticketing migrations are registered in order with unique ids', async () => {
   const registered = [];
 
   await bootstrapMysqlSchema({
@@ -143,7 +143,7 @@ test('AC11.2 the ticketing migrations are registered in order with unique ids', 
   assert.deepEqual(registered, [...registered].sort(), 'they are appended, not inserted mid-history');
 });
 
-test('AC11.2 no earlier migration id was renumbered', async () => {
+test('no earlier migration id was renumbered', async () => {
   const registered = [];
 
   await bootstrapMysqlSchema({

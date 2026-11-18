@@ -10,7 +10,7 @@ import { classifyPortalError, isLinkProblem } from '../../lib/requirements/porta
 import { createPortalFeed } from '../../lib/requirements/review-adapters.js';
 import { batchTouchesInbox } from '../../lib/requirements/review-live.js';
 
-// The stakeholder portal at /requirements/:token (Q-03). The link token is the only
+// The client portal at /requirements/:token. The link token is the only
 // credential. This shell loads what the link can see, keeps it live through the link's own
 // event stream, and shows the explanation screens when the link stops working. The app's
 // header and navigation are hidden here (App.vue, route meta `portal`).

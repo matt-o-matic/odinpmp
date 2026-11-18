@@ -12,7 +12,7 @@ import { issuePackageGrant, ingestPackage } from '../src/modules/requirements/pa
 import { createReviewOriginApp } from '../src/review-origin/app.js';
 import { buildZip, manifestWith, prototypeScreen, REPO_ROOT } from './helpers/review-packages.js';
 
-// Real-browser check of the review origin (AC-05, AC-09 bridge part). The app page and the
+// Real-browser check of the review origin. The app page and the
 // review origin run on the same host and different ports, so they share cookies by host:
 // the frame could read the app's cookie if the sandbox did not give it an opaque origin.
 // Skips when Playwright or its Chromium build is not installed.

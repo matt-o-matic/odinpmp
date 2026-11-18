@@ -1,4 +1,4 @@
-// 0102_notifications (docs/odin-chat/plan.md, Data): who hears what, and how.
+// 0102_notifications: who hears what, and how.
 //
 // - channel_notification_levels: a person's stored level for one channel (all, mentions or
 //   off). Without a row the level is the default (notification-levels.js).

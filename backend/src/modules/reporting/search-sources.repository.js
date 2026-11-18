@@ -1,4 +1,4 @@
-// What the search index reads besides projects and channels (docs/semantic-search/plan.md):
+// What the search index reads besides projects and channels:
 // comments on projects and work items, and every project file. Spread into the projects
 // repositories, as the channel search sources are (channels/channel-activity.repository.js).
 //

@@ -66,7 +66,7 @@ Shared code lives in `src/lib/`: auth, events, files, AI clients, logging and HT
 - **Workspaces** isolate data. Every query is scoped by the workspace (tenant) id, and a person's role in the workspace and in each project decides what the service allows.
 - **People outside the workspace** don't hold accounts:
   - Channel guests sign in with an emailed code and get a guest token (`src/lib/auth/guest-token.js`).
-  - Stakeholders reach the requirements portal through private links.
+  - Stakeholders reach the client portal through private links.
   - A task access link carries its own token.
 - **Machines** use OAuth applications and service accounts on `/api/v1`, SCIM 2.0 on `/api/scim/v2`, and OAuth for the MCP endpoint.
 

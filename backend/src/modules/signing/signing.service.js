@@ -13,10 +13,10 @@ import { resolvePortalAccess } from '../requirements/requirements-portal.service
 import { certificateLines, renderTextPdf } from './signing-certificate.js';
 import { canonicalJson, sha256Hex } from './signing-seal.js';
 
-// Signature requests (docs/document-signing/plan.md), after invoice-gen's statement of work
-// signing: the team freezes a package of document versions and a statement, names stakeholders
-// as signers, and each signer signs in the client portal with a one-time code emailed to them.
-// Every signature keeps a sealed evidence record; a completed request keeps a sealed manifest.
+// Signature requests, after invoice-gen's statement of work signing: the team freezes a
+// package of document versions and a statement, names stakeholders as signers, and each signer
+// signs in the client portal with a one-time code emailed to them. Every signature keeps a
+// sealed evidence record; a completed request keeps a sealed manifest.
 
 export const SIGNING_KINDS = Object.freeze(['acceptance', 'signoff']);
 export const DEFAULT_STATEMENTS = Object.freeze({
@@ -184,7 +184,7 @@ export function presentRequestForMember(deps, detail, { full = false, names = ne
   };
 }
 
-/** A request as a stakeholder sees it: names and progress, no emails or evidence (E-03). */
+/** A request as a stakeholder sees it: names and progress, no emails or evidence. */
 export function presentRequestForPortal(detail, { stakeholderId, subject = '' }) {
   const { documents, request, signers } = detail;
   const me = signers.find((signer) => signer.stakeholderId === stakeholderId) ?? null;
@@ -628,7 +628,7 @@ async function portalAccess(deps, token) {
   return { ...access, actor: `stakeholder:${access.stakeholder.id}` };
 }
 
-/** External files on the project, each with the requests it is in, and every request (E-03). */
+/** External files on the project, each with the requests it is in, and every request. */
 export async function listPortalDocuments(deps, { token }) {
   const access = await portalAccess(deps, token);
   const { projectId, tenantId } = access;

@@ -13,7 +13,7 @@ import { reviewSteps, stepDone } from '../../../lib/requirements/review-progress
 import { REVIEW_MARKS_LINK_KEY, REVIEW_SESSION_KEY, createReviewSession } from '../../../lib/requirements/review-session.js';
 import { useMediaQuery } from '../../../lib/requirements/review-viewport.js';
 
-// The guided review, shared by the stakeholder portal and team members in the app. The
+// The guided review, shared by the client portal and team members in the app. The
 // adapter decides which API it talks to; everything else is the same: Overview, Directions,
 // Screens, Questions, Submit, resuming where the reviewer left off and saving as they go.
 // `focusMark` opens on one mark instead; `marksLink` (team only) links each mark to the

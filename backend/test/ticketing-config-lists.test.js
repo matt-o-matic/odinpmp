@@ -111,7 +111,7 @@ async function createConfigTestApp() {
   };
 }
 
-test('AC2.1 a tenant starts with the four default environments', async () => {
+test('a tenant starts with the four default environments', async () => {
   const { adminToken, app } = await createConfigTestApp();
 
   const response = await request(app)
@@ -123,7 +123,7 @@ test('AC2.1 a tenant starts with the four default environments', async () => {
   assert.ok(response.body.entries.every((entry) => entry.status === 'active'));
 });
 
-test('AC2.1 the release list starts empty and accepts entries', async () => {
+test('the release list starts empty and accepts entries', async () => {
   const { adminToken, app } = await createConfigTestApp();
 
   const initial = await request(app)
@@ -142,7 +142,7 @@ test('AC2.1 the release list starts empty and accepts entries', async () => {
   assert.ok(saved.body.entries.every((entry) => entry.id));
 });
 
-test('AC2.5 a contributor cannot read or write the configuration lists', async () => {
+test('a contributor cannot read or write the configuration lists', async () => {
   const { app, contributorToken } = await createConfigTestApp();
 
   const read = await request(app)
@@ -167,7 +167,7 @@ test('an unknown list kind is rejected', async () => {
   assert.equal(response.status, 400);
 });
 
-test('AC2.2 a ticket referencing an unknown environment is rejected', async () => {
+test('a ticket referencing an unknown environment is rejected', async () => {
   const { adminToken, app } = await createConfigTestApp();
 
   const response = await request(app)
@@ -179,7 +179,7 @@ test('AC2.2 a ticket referencing an unknown environment is rejected', async () =
   assert.match(JSON.stringify(response.body), /Unknown environment/);
 });
 
-test('AC2.2 a ticket referencing an unknown release is rejected', async () => {
+test('a ticket referencing an unknown release is rejected', async () => {
   const { adminToken, app } = await createConfigTestApp();
 
   const response = await request(app)
@@ -191,7 +191,7 @@ test('AC2.2 a ticket referencing an unknown release is rejected', async () => {
   assert.match(JSON.stringify(response.body), /Unknown found-in release/);
 });
 
-test('AC2.3 a ticket referencing an inactive environment is rejected', async () => {
+test('a ticket referencing an inactive environment is rejected', async () => {
   const { adminToken, app, tenantsRepository } = await createConfigTestApp();
 
   await tenantsRepository.saveTicketConfigList({
@@ -209,7 +209,7 @@ test('AC2.3 a ticket referencing an inactive environment is rejected', async () 
   assert.match(JSON.stringify(response.body), /inactive/);
 });
 
-test('AC2.4 deactivating an environment does not break tickets already referencing it', async () => {
+test('deactivating an environment does not break tickets already referencing it', async () => {
   const { adminToken, app, tenantsRepository } = await createConfigTestApp();
 
   const created = await request(app)

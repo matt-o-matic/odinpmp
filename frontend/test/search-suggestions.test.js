@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import { createSearchSuggestions, signedInKey, suggestionOption } from '../src/lib/search/search-suggestions.js';
 
-// Results as you type in Ctrl+K and the Odin Chat jump box (docs/semantic-search/plan.md AC-08).
+// Results as you type in Ctrl+K and the Odin Chat jump box.
 
 function fakeTimers() {
   const pending = new Map();

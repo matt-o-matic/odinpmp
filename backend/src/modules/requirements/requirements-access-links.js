@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from 'node:crypto';
 
-// Stakeholder links for the requirements portal (Q-03, Q-11).
+// Stakeholder links for the client portal.
 //
 // A link is shown once when it is created and stored only as a SHA-256 hash. Its lifetime
 // is computed from data each time it is used, so no scheduled job is needed:
@@ -67,7 +67,7 @@ export function computeLinkStatus({ involvement = { rounds: [], topics: [] }, li
     else ends.push(end);
   }
   // A signer is involved while asked to sign: until they sign, decline or are removed, or the
-  // request ends (docs/document-signing/plan.md).
+  // request ends.
   for (const signing of involvement.signings ?? []) {
     const end = toMs(signing.endedAt);
     if (end === null) involvementActive = true;
@@ -95,9 +95,9 @@ export function computeLinkStatus({ involvement = { rounds: [], topics: [] }, li
   };
 }
 
-// "Request a new link" (plan.md, "Failure and recovery"). A request is stored as a token
-// row with this purpose: its hash is of a random value nobody holds and it is revoked from
-// the start, so it never opens the portal, and its created_at is the request time.
+// "Request a new link". A request is stored as a token row with this purpose: its hash is
+// of a random value nobody holds and it is revoked from the start, so it never opens the
+// portal, and its created_at is the request time.
 export const LINK_REQUEST_PURPOSE = 'link-request';
 export const LINK_REQUEST_INTERVAL_MS = DAY_MS;
 

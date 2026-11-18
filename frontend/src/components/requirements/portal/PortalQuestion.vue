@@ -18,7 +18,7 @@ import RequirementsDecisionStatement from '../RequirementsDecisionStatement.vue'
 
 // One question in the portal: the prompt, the discussion with numbered sources, the Odin
 // summary (names only), and the decision once recorded. Stakeholders comment, reply, vote,
-// and edit or delete their own comments. They never change a question's status (Q-04).
+// and edit or delete their own comments. They never change a question's status.
 const route = useRoute();
 const { liveBatch, reportProblem, token } = usePortal();
 

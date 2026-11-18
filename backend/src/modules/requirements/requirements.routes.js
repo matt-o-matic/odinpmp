@@ -329,7 +329,7 @@ export function createRequirementsRouter(deps) {
 }
 
 /**
- * Stakeholder portal routes, mounted at /api/public/requirements. The link token in the
+ * Client portal routes, mounted at /api/public/requirements. The link token in the
  * path is the only credential. There is deliberately no route that changes a topic's
  * status or records a decision.
  */
@@ -431,7 +431,7 @@ export function createPublicRequirementsRouter(deps) {
   })));
 
   if (deps.roundsRepository) router.use('/:token/rounds', createPortalRoundsRouter(deps));
-  // Shared documents and signature requests (docs/document-signing).
+  // Shared documents and signature requests.
   if (deps.signingRepository) router.use('/:token', createPortalSigningRouter(deps));
 
   return router;

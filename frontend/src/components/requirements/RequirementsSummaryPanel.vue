@@ -7,7 +7,7 @@ import { hasSummaryFindings, normalizeSummaryOutput, outstandingOwnerText } from
 import { describeSummaryStatus, summaryPeople } from '../../lib/requirements/requirements-summary-status.js';
 
 // The Odin summary for one topic. Labeled "Odin summary" like any contributor, with no
-// disclaimer or AI badge (Q-14a). `compact` is the register's quick view. A failed run
+// disclaimer or AI badge. `compact` is the register's quick view. A failed run
 // keeps the previous summary, shown as "Last updated <time>" plus "refresh failed".
 const props = defineProps({
   canAsk: { default: false, type: Boolean },

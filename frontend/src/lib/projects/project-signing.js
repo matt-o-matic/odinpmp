@@ -1,4 +1,4 @@
-// What the vault and the client portal show about signature requests (docs/document-signing).
+// What the vault and the client portal show about signature requests.
 // The API holds every rule; these helpers only word and order what it returns.
 
 export const SIGNING_KIND_LABELS = Object.freeze({ acceptance: 'Acceptance', signoff: 'Sign-off' });

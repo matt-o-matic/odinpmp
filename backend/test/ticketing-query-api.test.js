@@ -132,7 +132,7 @@ test('the cross-project list returns tickets from every readable project, newest
   assert.equal(response.body.tickets[0].projectName, 'Alpha');
 });
 
-test('AC5.1 tickets in projects the caller cannot read are absent, not redacted', async () => {
+test('tickets in projects the caller cannot read are absent, not redacted', async () => {
   const { app, memberToken } = await createQueryTestApp();
 
   const response = await listTickets(app, memberToken);
@@ -142,7 +142,7 @@ test('AC5.1 tickets in projects the caller cannot read are absent, not redacted'
   assert.equal(response.body.tickets.some((entry) => entry.projectId === 'project-beta'), false);
 });
 
-test('AC5.2 each filter works independently', async () => {
+test('each filter works independently', async () => {
   const { adminToken, app } = await createQueryTestApp();
 
   const bySeverity = await listTickets(app, adminToken, '?severities=S1');
@@ -170,7 +170,7 @@ test('AC5.2 each filter works independently', async () => {
   assert.deepEqual(bySearch.body.tickets.map((entry) => entry.id), ['t-a2']);
 });
 
-test('AC5.2 filters combine', async () => {
+test('filters combine', async () => {
   const { adminToken, app } = await createQueryTestApp();
 
   const combined = await listTickets(app, adminToken, '?severities=S1&projectIds=project-alpha');
@@ -180,7 +180,7 @@ test('AC5.2 filters combine', async () => {
   assert.deepEqual(contradictory.body.tickets, []);
 });
 
-test('AC5.2 pagination is stable and does not repeat or skip rows', async () => {
+test('pagination is stable and does not repeat or skip rows', async () => {
   const { adminToken, app } = await createQueryTestApp();
 
   const first = await listTickets(app, adminToken, '?limit=2');
@@ -249,7 +249,7 @@ test('typed relations can be created, listed, and deleted', async () => {
   assert.deepEqual(after.body.relations, []);
 });
 
-test('AC1.6 a self-relation is rejected', async () => {
+test('a self-relation is rejected', async () => {
   const { adminToken, app } = await createQueryTestApp();
 
   const response = await request(app)
@@ -261,7 +261,7 @@ test('AC1.6 a self-relation is rejected', async () => {
   assert.match(JSON.stringify(response.body), /cannot relate to itself/);
 });
 
-test('AC1.7 creating the same relation twice is idempotent', async () => {
+test('creating the same relation twice is idempotent', async () => {
   const { adminToken, app } = await createQueryTestApp();
 
   const first = await request(app)
@@ -284,7 +284,7 @@ test('AC1.7 creating the same relation twice is idempotent', async () => {
   assert.equal(listed.body.relations.length, 1);
 });
 
-test('AC5.4 a relation to a work item in another project is rejected', async () => {
+test('a relation to a work item in another project is rejected', async () => {
   const { adminToken, app } = await createQueryTestApp();
 
   const response = await request(app)
@@ -296,7 +296,7 @@ test('AC5.4 a relation to a work item in another project is rejected', async () 
   assert.match(JSON.stringify(response.body), /same project/);
 });
 
-test('AC5.5 deleting a ticket removes its relations in both directions', async () => {
+test('deleting a ticket removes its relations in both directions', async () => {
   const { adminToken, app } = await createQueryTestApp();
 
   await request(app)

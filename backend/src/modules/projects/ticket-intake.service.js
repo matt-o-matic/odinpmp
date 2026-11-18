@@ -1,8 +1,8 @@
-// External ticket intake (D-011, D-021, D-028).
+// External ticket intake.
 //
 // The invite token is project-scoped exactly as clarification invitations are, so the
 // project comes from the token and a reporter never selects one. A submitted ticket is
-// always created with externalReviewState 'pending' (D-027) and carries the reporter's
+// always created with externalReviewState 'pending' and carries the reporter's
 // invitation id, so it is invisible to the assistant until a human validates it.
 //
 // Every failure path returns the same generic not-found so a caller cannot distinguish
@@ -41,7 +41,7 @@ async function findLiveInvitation(projectRepository, intakeToken) {
 }
 
 /**
- * Per-token sliding-window limiter (AC6.8). One token exhausting its allowance never
+ * Per-token sliding-window limiter. One token exhausting its allowance never
  * affects another token.
  */
 export function createIntakeRateLimiter({ maxSubmissions, windowMs } = DEFAULT_INTAKE_RATE_LIMIT) {
@@ -66,7 +66,7 @@ export function createIntakeRateLimiter({ maxSubmissions, windowMs } = DEFAULT_I
   };
 }
 
-// Only the reporter's own tickets, and only what a reporter needs to follow them (AC6.9).
+// Only the reporter's own tickets, and only what a reporter needs to follow them.
 function presentReporterTicket(ticket) {
   return {
     category: ticket.category ?? 'defect',
@@ -109,7 +109,7 @@ export async function getPublicTicketIntakeContext({ intakeToken, projectReposit
   return {
     intake: {
       // Deliberately minimal: no internal identities, no other reporters' tickets, no
-      // project structure (AC6.9).
+      // project structure.
       attachmentLimits: {
         allowedTypes: [...PUBLIC_ATTACHMENT_ALLOWED_TYPES],
         maxBytes: PUBLIC_ATTACHMENT_MAX_BYTES,
@@ -161,7 +161,7 @@ export async function submitPublicTicket({
         foundInReleaseId: input.foundInReleaseId ?? null,
         id: randomUUID(),
         name: input.name,
-        // AC6.3: externally created tickets are always pending and always carry a reporter.
+        // Externally created tickets are always pending and always carry a reporter.
         externalReviewState: 'pending',
         reporterExternalId: invitation.id,
         reproSteps: input.reproSteps ?? '',
@@ -169,7 +169,7 @@ export async function submitPublicTicket({
         status: 'new',
       },
       itemType: 'ticket',
-      // AC6.1: the project comes from the token; the request body cannot override it.
+      // The project comes from the token; the request body cannot override it.
       parentId: null,
     },
     projectId: invitation.projectId,
@@ -180,7 +180,7 @@ export async function submitPublicTicket({
   if (!created) throw intakeNotFound();
 
   // Attachments are stored after the ticket exists so a rejected file cannot leave an
-  // orphan record, and a scan failure rolls the whole submission back (AC6.4).
+  // orphan record, and a scan failure rolls the whole submission back.
   try {
     await storeAttachments({ attachments, invitation, projectRepository, ticket: created.item });
   } catch (error) {
@@ -211,7 +211,7 @@ export async function submitPublicTicket({
 
   return {
     ok: true,
-    // AC6.9: the reporter gets their own ticket reference and nothing else.
+    // The reporter gets their own ticket reference and nothing else.
     ticket: presentReporterTicket(created.item),
   };
 }
@@ -219,7 +219,7 @@ export async function submitPublicTicket({
 /**
  * Decodes and size-checks attachments before anything is written. Size is checked against
  * the decoded bytes rather than the base64 length, so padding cannot smuggle an oversized
- * file past the limit (AC6.5).
+ * file past the limit.
  */
 function decodeAttachments(attachments) {
   let totalBytes = 0;
@@ -242,7 +242,7 @@ function decodeAttachments(attachments) {
 
 /**
  * Stores reporter attachments through the existing vault and ClamAV path. A scan failure
- * throws so the caller can roll the submission back (AC6.4).
+ * throws so the caller can roll the submission back.
  */
 async function storeAttachments({ attachments, invitation, projectRepository, ticket }) {
   for (const attachment of attachments) {
@@ -269,7 +269,7 @@ async function storeAttachments({ attachments, invitation, projectRepository, ti
 }
 
 /**
- * Appends an inbound email reply to the reporter's ticket (AC6.7). The reply goes to the
+ * Appends an inbound email reply to the reporter's ticket. The reply goes to the
  * ticket its subject names (`[Ref XXXXXXXX]`), else the reporter's most recently updated
  * one. Unknown tokens and senders other than the invited reporter are ignored rather than
  * creating anything, so a stray or forged reply can never become new work.

@@ -37,7 +37,7 @@ function handle(run, status = 200) {
 /**
  * Access link routes, mounted at /api/public/access. The token in the path is the only
  * credential; every request works out again what it opens. Rate limited per link and per IP as
- * the requirements portal is, with its own buckets.
+ * the client portal is, with its own buckets.
  */
 export function createPublicAccessRouter(deps) {
   const router = Router();

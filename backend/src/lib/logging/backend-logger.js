@@ -67,7 +67,7 @@ function serializeError(error) {
 }
 
 // Public routes whose only credential is the URL segment right after their mount path
-// (app.js): the requirements portal, single-use package upload URLs, clarification links,
+// (app.js): the client portal, single-use package upload URLs, clarification links,
 // and ticket intake links. Request logs redact that segment by position, however it is spelled, and any
 // parameter or query value equal to it. Working from the URL alone also covers requests
 // that fail before any router runs, such as a malformed JSON body. The app's Apache vhost

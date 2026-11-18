@@ -7,7 +7,7 @@ import { apiClient, authSession } from '../../../lib/auth/index.js';
 import { describeRequirementsError, requirementsErrorCode } from '../../../lib/requirements/requirements-errors.js';
 import { closeFormError, closePayload } from '../../../lib/requirements/requirements-rounds.js';
 
-// Close round N (decision rights, Q-04): an outcome, the chosen direction when there is
+// Close round N (decision rights): an outcome, the chosen direction when there is
 // one, and an optional statement. The API records a round decision owned by the closer.
 const props = defineProps({
   directions: { default: () => [], type: Array },

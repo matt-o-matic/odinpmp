@@ -10,7 +10,7 @@ import { MAX_APPLY_CHANGES } from './changes.schema.js';
 import { actorNames, commentText, decodeChangeCursor, flattenWork, loadProject, placement, presentChange, tenantIdOf, workflowVersions } from './changes.service.js';
 import { runWithChangeNote } from './project-change-log.js';
 
-// odin_apply_item_changes (docs/mcp-change-feed/plan.md): a bounded batch of changes an agent has
+// odin_apply_item_changes: a bounded batch of changes an agent has
 // checked, each applied only if nothing it was based on has moved since. Each change carries the
 // card version it saw, optionally the item's newest change log entry it saw (comments and links
 // included) and its workflow's version, an idempotency key, a reason and evidence. A change whose

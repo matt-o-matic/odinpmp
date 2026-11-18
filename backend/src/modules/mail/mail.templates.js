@@ -18,17 +18,17 @@ export const TASK_ACCESS_LINK_TEMPLATE_ID = 'task-access-link-v1';
 export const TICKET_INTAKE_INVITATION_TEMPLATE_ID = 'ticket-intake-invitation-v1';
 export const TICKET_INTAKE_ACKNOWLEDGEMENT_TEMPLATE_ID = 'ticket-intake-acknowledgement-v1';
 export const TICKET_INTAKE_STATUS_TEMPLATE_ID = 'ticket-intake-status-v1';
-// Signature requests (docs/document-signing): asking for a signature or reminding, the one-time
+// Signature requests: asking for a signature or reminding, the one-time
 // code a signer enters, and news of a request (signed by everyone, declined or withdrawn).
 export const SIGNING_REQUEST_TEMPLATE_ID = 'signing-request-v1';
 export const SIGNING_CODE_TEMPLATE_ID = 'signing-code-v1';
 export const SIGNING_UPDATE_TEMPLATE_ID = 'signing-update-v1';
-// A file someone uploaded had a virus in it, and was removed (docs/engagements/plan.md, Upload).
+// A file someone uploaded had a virus in it, and was removed.
 export const FILE_INFECTED_TEMPLATE_ID = 'file-infected-v1';
-// The rolled-up chat email: notifications a person has not seen in Odin (docs/odin-chat/plan.md,
-// Email; modules/notifications/chat-digest.service.js).
+// The rolled-up chat email: notifications a person has not seen in Odin
+// (modules/notifications/chat-digest.service.js).
 export const CHAT_DIGEST_TEMPLATE_ID = 'chat-digest-v1';
-// Channel guests (docs/engagements/plan.md, Guests): the invitation, and the code that signs them in.
+// Channel guests: the invitation, and the code that signs them in.
 export const GUEST_INVITATION_TEMPLATE_ID = 'guest-invitation-v1';
 export const GUEST_SIGN_IN_CODE_TEMPLATE_ID = 'guest-sign-in-code-v1';
 
@@ -285,7 +285,7 @@ export const builtInTemplates = {
     contents: `
       <h2 style="margin:0 0 6px; font-size:20px;">Hello {{stakeholderName}}</h2>
       <p>{{senderName}} invited you to answer questions and review work for {{projectName}}.</p>
-      <p><a class="cta" href="{{portalUrl}}">Open your requirements page</a></p>
+      <p><a class="cta" href="{{portalUrl}}">Open your client portal</a></p>
       <p class="muted">This link is for you alone, so please do not forward it. No account or password is needed.</p>
     `,
   },

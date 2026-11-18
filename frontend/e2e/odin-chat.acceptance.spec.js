@@ -6,11 +6,11 @@ import { createChannelsWorld, installChannelsApi } from './fixtures/channels-api
 import { createChatWorld, installChatApi } from './fixtures/chat-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, openPhoneMenu, openTopMenu } from './fixtures/synthetic-api.js';
 
-// Odin proper's grouped top bar and Odin Chat (docs/odin-chat/plan.md, workstream 2; AC-N07 to
-// AC-N10): the Work, Plan and Insights menus and Ctrl+K, every former top-level page reachable,
-// Odin Chat's own shell with its sidebar and unread counts, a channel, a new direct message, Odin
-// as a direct message, the phone's screens and bottom bar, Odin Chat's own manifest, and the Chat
-// start page. The APIs are the stateful fixtures in fixtures/.
+// Odin proper's grouped top bar and Odin Chat: the Work, Plan and Insights menus and Ctrl+K,
+// every former top-level page reachable, Odin Chat's own shell with its sidebar and unread
+// counts, a channel, a new direct message, Odin as a direct message, the phone's screens and
+// bottom bar, Odin Chat's own manifest, and the Chat start page. The APIs are the stateful
+// fixtures in fixtures/.
 
 const ODIN_CHAT = {
   createdAt: '2026-11-14T09:00:00.000Z',
@@ -54,7 +54,7 @@ async function openBarIfCollapsed(page) {
   if (!await page.locator('#navbarSupportedContent.show').count()) await openPhoneMenu(page);
 }
 
-test('the top bar groups Odin into Home, Work, Chat, Plan and Insights, with Ctrl+K search, and every former page stays reachable (AC-N07)', async ({ page }, testInfo) => {
+test('the top bar groups Odin into Home, Work, Chat, Plan and Insights, with Ctrl+K search, and every former page stays reachable', async ({ page }, testInfo) => {
   const api = await installSyntheticApi(page, { admin: true });
   await installChatApi(page, { world: createChatWorld({ channelsWorld: createChannelsWorld() }) });
   await authenticateSyntheticUser(page);
@@ -131,7 +131,7 @@ test('the top bar groups Odin into Home, Work, Chat, Plan and Insights, with Ctr
   expect(api).toBeTruthy();
 });
 
-test('Odin Chat lists channels and direct messages with unread counts, opens a channel, starts a direct message, and opens Odin (AC-N08 to AC-N10)', async ({ page }, testInfo) => {
+test('Odin Chat lists channels and direct messages with unread counts, opens a channel, starts a direct message, and opens Odin', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === 'chromium-mobile', 'The phone has its own test below.');
   const { api, chatWorld } = await signedInToChat(page);
   await authenticateSyntheticUser(page);
@@ -258,7 +258,7 @@ test('on a phone Odin Chat opens on the sidebar, a conversation replaces it with
   api.assertNoUnexpectedRequests();
 });
 
-test('a member who chose Odin Chat as their start page lands there when Odin opens (AC-N10)', async ({ page }) => {
+test('a member who chose Odin Chat as their start page lands there when Odin opens', async ({ page }) => {
   await signedInToChat(page, { preferences: { startPage: 'chat' } });
   await page.goto('/app/login');
   await page.getByLabel('Work email').fill('demo@example.com');

@@ -5,10 +5,10 @@ import { settleForAxe } from './fixtures/axe-settle.js';
 import { createChannelsWorld, holdProjectStream, installChannelsApi } from './fixtures/channels-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Channels on a project (docs/engagements/plan.md, workstreams 3 and 4): channels, posts and
-// replies with tags, a second person seeing a post live (AC-03), unread counts (AC-11), library
-// folders and uploads, and file comments that show their version (AC-07). The API is the
-// stateful fixture in fixtures/channels-api.js; live events are delivered on the held stream.
+// Channels on a project: channels, posts and replies with tags, a second person seeing a post
+// live, unread counts, library folders and uploads, and file comments that show their
+// version. The API is the stateful fixture in fixtures/channels-api.js; live events are
+// delivered on the held stream.
 
 const CHANNELS = `projects/${syntheticProject.id}/channels`;
 
@@ -41,7 +41,7 @@ async function composeWithTag(page, textbox, before, query, after) {
   await page.keyboard.type(after);
 }
 
-test('a member adds a channel, posts with a tag, and replies (AC-03)', async ({ page }) => {
+test('a member adds a channel, posts with a tag, and replies', async ({ page }) => {
   const world = createChannelsWorld();
   const api = await signedIn(page, world);
   await page.goto(CHANNELS);
@@ -75,7 +75,7 @@ test('a member adds a channel, posts with a tag, and replies (AC-03)', async ({ 
   api.assertNoUnexpectedRequests();
 });
 
-test('a post in one browser appears in a second one live, and once in the first (AC-03)', async ({ browser, page }, testInfo) => {
+test('a post in one browser appears in a second one live, and once in the first', async ({ browser, page }, testInfo) => {
   // Two people sign in.
   test.setTimeout(60_000);
   const world = createChannelsWorld();
@@ -105,7 +105,7 @@ test('a post in one browser appears in a second one live, and once in the first 
   }
 });
 
-test('an unread count shows on the channel list and clears when the channel opens (AC-11)', async ({ page }) => {
+test('an unread count shows on the channel list and clears when the channel opens', async ({ page }) => {
   const world = createChannelsWorld();
   await signedIn(page, world);
   await page.goto(CHANNELS);
@@ -147,7 +147,7 @@ test('a folder is added, opened, and a file uploads into it', async ({ page }) =
   api.assertNoUnexpectedRequests();
 });
 
-test('a file comment shows the version it was made on (AC-07), and the editing marker shows who and when', async ({ page }) => {
+test('a file comment shows the version it was made on, and the editing marker shows who and when', async ({ page }) => {
   const world = createChannelsWorld();
   world.files.push({ contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', createdAt: '2026-11-14T09:00:00.000Z', fileName: 'sow.docx', fileSize: 48_000, folderId: null, id: 'file-sow', targetId: 'channel-general', updatedAt: '2026-11-14T10:00:00.000Z', version: 2 });
   await signedIn(page, world);

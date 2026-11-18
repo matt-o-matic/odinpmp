@@ -298,7 +298,7 @@ test('a project manager sees the team view: the sprint, who is behind, and team 
   ]);
   assert.deepEqual(body.tabs.map((tab) => tab.key), ['focus', 'decide', 'team', 'assigned', 'all']);
   assert.deepEqual(body.rail.counts.map((entry) => [entry.key, entry.value, entry.note]), [
-    ['active-sprints', 1, '1 behind'],
+    ['active-sprints', 1, '1 at risk'],
     ['approvals', 0, 'none past SLA'],
     ['critical-risks', 1, 'of 1 open'],
     ['overallocated', 0, 'people this sprint'],
@@ -470,7 +470,7 @@ test('a soft-deleted project drops out of Home, and its leaderboard credit with 
   assert.deepEqual(body.rail.leaderboard.top, []);
 });
 
-test('the agent view leaves out the leaderboard and change trends, which count hidden tickets (D-027)', async () => {
+test('the agent view leaves out the leaderboard and change trends, which count hidden tickets', async () => {
   const { app, tokens } = await createHomeTestApp();
   const person = (await getHome(app, tokens['user-sam'])).body;
   assert.ok(person.rail.leaderboard);

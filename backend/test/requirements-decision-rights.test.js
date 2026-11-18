@@ -24,7 +24,7 @@ function userWith(tenantRole) {
   return { id: 'user-1', memberships: [{ role: tenantRole, tenantId: TENANT }] };
 }
 
-// Q-04: project admin or manager, or tenant admin or manager.
+// Project admin or manager, or tenant admin or manager.
 const ROLE_CASES = [
   { allowed: false, label: 'viewer', projectRole: 'viewer', tenantRole: 'user' },
   { allowed: false, label: 'member', projectRole: 'member', tenantRole: 'user' },

@@ -192,7 +192,7 @@ function withoutHiddenTicketApprovals(workflowState, contexts) {
 
 /**
  * Everything Home reads per project for one view, for the projects loadHomeAccess allowed. An
- * agent's view (D-027) reads each project without the tickets agents may not see, so no card,
+ * agent's view reads each project without the tickets agents may not see, so no card,
  * count or total comes from one: not their own cards, nor blockers or approvals on them.
  */
 async function loadHomeContext(deps, access, { agentView = false, needs, now, user }) {
@@ -332,7 +332,7 @@ export async function getHomeForUser(deps, { agentView = false, lens: requestedL
   const viewer = viewerOf(user);
 
   // The leaderboard and change trends are counted ahead of time, hidden tickets included, so the
-  // agent view (D-027) goes without them.
+  // agent view goes without them.
   const [alerts, leaderboard, changes, workspace] = await Promise.all([
     lens === HOME_LENS.WORKSPACE ? null : settle(deps.agentExecutionRepository?.listNotifications ? deps.agentExecutionRepository.listNotifications({ ownerUserId: user.id, status: 'unread', tenantId }) : []),
     agentView ? null : settle(deps.metricsRepository ? getContributorLeaderboardForUser(user, { days: LEADERBOARD_DAYS }, deps.metricsRepository, deps.authRepository, deps.projectRepository) : null),

@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 import { PORTAL_TOKENS, createReviewWorld, installPortalApi } from './fixtures/requirements-portal-api.js';
 import { installSyntheticApi } from './fixtures/synthetic-api.js';
 
-// AC-12 UI: marks from an earlier version on a screen that changed are Outdated. Their author
+// Marks from an earlier version on a screen that changed are Outdated. Their author
 // carries each one forward into this version, or closes it.
 test('an outdated mark can be carried forward or closed, and shows its status', async ({ isMobile, page }) => {
   const world = createReviewWorld();

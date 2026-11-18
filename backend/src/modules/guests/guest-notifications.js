@@ -1,4 +1,4 @@
-// Guests' notifications (docs/odin-chat/plan.md, Notifications; docs/engagements/plan.md, Guests).
+// Guests' notifications.
 //
 // A guest has one stakeholder record per project they are a guest in, and one access link per
 // workspace, which their sign-in codes and sessions hang on (0098). Channel posts name the

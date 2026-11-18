@@ -7,8 +7,8 @@ import { createOdinMcpServer } from '../src/mcp/server.js';
 import { requireMcpRouteAccess } from '../src/mcp/route-access.js';
 import { KEYWORD_GROUPS, toolNeedsConfirmation } from '../src/lib/agent/agent-tools.js';
 
-// The file sharing and signature request tools against a fake Odin REST API (docs/document-signing,
-// AC-11): what they send, what they return, when the assistant asks first, and which routes an MCP
+// The file sharing and signature request tools against a fake Odin REST API: what they send,
+// what they return, when the assistant asks first, and which routes an MCP
 // credential may reach. The routes themselves are covered in document-signing.test.js.
 
 const P = '/api/projects/project-1';

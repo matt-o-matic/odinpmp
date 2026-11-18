@@ -434,7 +434,7 @@ export function registerWorkspaceTools({ api, dryRun, extended = true, id, tool:
     return { ok: true, itemsWithGaps: findings.length, findings: findings.slice(0, 60) };
   }, { mcp: true });
 
-  // Revisions copy the item's content, so a ticket's are read only while agents may see it (D-027).
+  // Revisions copy the item's content, so a ticket's are read only while agents may see it.
   // A deleted item is judged by its revisions (an item never changes type): one that was a ticket
   // needs its newest snapshot to say it was never external or was validated.
   tool('odin_list_item_revisions', 'Read the revision history of one epic, story, task or ticket, newest first: who (a user id) changed which fields from what to what, and when.', z.object({
@@ -473,7 +473,7 @@ export function registerWorkspaceTools({ api, dryRun, extended = true, id, tool:
     projectId: id.optional(), ...ticketQuery,
   }).strict(), async ({ projectId, ...query }) => {
     const path = projectId ? `${projectPath(projectId)}/tickets` : '/api/projects/tickets';
-    // External tickets nobody has validated stay out of agents' sight (D-027).
+    // External tickets nobody has validated stay out of agents' sight.
     const result = await explained(() => api.request('GET', path, { query: { ...query, externalReviewStates: AGENT_VISIBLE_REVIEW_STATES } }), projectId ? {} : {
       404: ['http_404', 'Odin refused the list across projects. A connection limited to some projects must name one of them: pass its projectId.'],
     });
@@ -514,7 +514,7 @@ export function registerWorkspaceTools({ api, dryRun, extended = true, id, tool:
   // baselines. Odin needs plan-edit for every write; change-scope.js leaves all but the RAID log to
   // the project's admins and managers.
   // Every governance call asks for Odin's agent view, which leaves out the tickets agents may not
-  // see (D-027) from what it reads and from what each write answers with.
+  // see from what it reads and from what each write answers with.
   const agentView = { agentView: 1 };
   const governanceRequest = (method, path, options = {}) => api.request(method, path, { ...options, query: agentView });
   const readGovernance = (projectId) => governanceRequest('GET', `${projectPath(projectId)}/governance`);
@@ -531,7 +531,7 @@ export function registerWorkspaceTools({ api, dryRun, extended = true, id, tool:
   // Governance links take any id, so check that each new one (ids) names an epic, story or task in
   // the project: a milestone made with a mistyped id tracked nothing. Ids a record already holds
   // (held) are named but not checked, so a record whose item was deleted can still be changed or
-  // removed. A ticket agents may not see (D-027) is never named and its id never shown: hides says
+  // removed. A ticket agents may not see is never named and its id never shown: hides says
   // whether a record links one, and link gives a link as agents may see it.
   async function workItemsNamed(projectId, ids, held = []) {
     const wanted = ids.filter(Boolean);
@@ -558,7 +558,7 @@ export function registerWorkspaceTools({ api, dryRun, extended = true, id, tool:
     'with the ids the update and delete tools take. Linked work items are named. A calendar marked isDefault was never set.',
   ].join(' '), z.object({ projectId: id }).strict(), async ({ projectId }) => {
     const [snapshot, project] = await Promise.all([readGovernance(projectId), readProject(projectId).catch(() => null)]);
-    // A link to a ticket agents may not see (D-027) is left out: a dependency on one is not listed,
+    // A link to a ticket agents may not see is left out: a dependency on one is not listed,
     // and a milestone tracking one shows no work item. Without the project to check, no link shows.
     const tickets = project?.tickets ?? [];
     const hidden = new Set(tickets.filter((ticket) => !isTicketVisibleToAssistant(ticket)).map((ticket) => ticket.id));
@@ -788,7 +788,7 @@ export function registerWorkspaceTools({ api, dryRun, extended = true, id, tool:
 
   tool('odin_get_my_work', 'Read the signed-in user\'s home: focus items, assignments, tickets, approvals and alerts across all their projects, plus sprint status.', z.object({}).strict(), async () => {
     // Odin's agent view of Home is built without tickets from outside the team that nobody has
-    // validated (D-027), so no card, blocker, approval or count comes from one.
+    // validated, so no card, blocker, approval or count comes from one.
     const result = await explained(() => api.request('GET', '/api/home', { query: { agentView: 1 } }), {
       404: ['needs_every_project', 'Home spans every project, and this connection is limited to some of them. Use odin_find_items with assignee and state "open" in each of its projects instead.'],
     });
@@ -819,7 +819,7 @@ export function registerWorkspaceTools({ api, dryRun, extended = true, id, tool:
     return { ok: true, memory: compactPayload(result.memory ?? result, { maxString: 400 }) };
   }, { purpose: 'Save a fact, decision or preference for the assistant to remember later.', write: true });
 
-  // Semantic search (docs/semantic-search/plan.md): matches by meaning as well as by words.
+  // Semantic search: matches by meaning as well as by words.
   const SEARCH_TYPES = ['project', 'epic', 'story', 'task', 'comment', 'file', 'post', 'channel', 'milestone', 'risk', 'issue', 'decision', 'assumption', 'change_request'];
   tool('odin_search', [
     'Search the workspace by meaning as well as by words: projects, epics, stories and tasks, comments on them, the text inside uploaded files',

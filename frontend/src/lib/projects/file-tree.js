@@ -1,4 +1,4 @@
-// The project's files as folders (docs/engagements/plan.md, Files): the project is the top folder,
+// The project's files as folders: the project is the top folder,
 // each channel is a folder in it, and people make their own folders inside a channel. These read
 // the GET file-tree payload: { project, canManage, rootFileCount, channels: [{ id, name,
 // isGeneral, archived, guestCount, fileCount, totalFileCount, folders: [{ id, parentId, name, fileCount, totalFileCount }] }] }.

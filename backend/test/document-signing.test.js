@@ -8,8 +8,8 @@ import { computeLinkStatus } from '../src/modules/requirements/requirements-acce
 import { canonicalJson, createSigningSealer, sha256Hex } from '../src/modules/signing/signing-seal.js';
 import { createRequirementsTestApp, PROJECT_ID } from './helpers/requirements-test-app.js';
 
-// Document signing (docs/document-signing/plan.md): file audience, signature requests, the
-// emailed code, sealed evidence, completion, decline, cancel, and what stakeholders see.
+// Document signing: file audience, signature requests, the emailed code, sealed evidence,
+// completion, decline, cancel, and what stakeholders see.
 
 const FILES = `/api/projects/${PROJECT_ID}/files`;
 const SIGNING = `/api/projects/${PROJECT_ID}/signing-requests`;
@@ -272,7 +272,7 @@ test('a request freezes a file by the SHA-256 stored at its scan, and refuses a 
   const file = await upload('contract v1');
   assert.equal(file.sha256, sha256('contract v1'), 'the base64 path stores the SHA-256 it scanned');
 
-  // A large upload lands as version 2 and waits for its scan (docs/engagements/plan.md, Upload).
+  // A large upload lands as version 2 and waits for its scan.
   const repository = harness.projectRepository;
   const user = { id: 'user-pmanager', name: 'Pia Manager' };
   const now = new Date();

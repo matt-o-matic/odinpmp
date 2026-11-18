@@ -10,7 +10,7 @@ import { chipToneClass } from '../../../lib/requirements/requirements-topics.js'
 // the criteria it implements, the decisions behind them, and whether it was applied, is
 // still pending, or was dismissed. Proposals live in the proposer's AI Workspace review, so
 // only the proposer gets the link there; everyone else sees status. Nothing becomes a work
-// item until a person applies it (Q-06).
+// item until a person applies it.
 const props = defineProps({
   labels: { default: () => new Map(), type: Map },
   plan: { required: true, type: Object },

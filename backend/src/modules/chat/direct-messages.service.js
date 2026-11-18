@@ -1,9 +1,8 @@
-// Direct messages (docs/odin-chat/plan.md, Odin Chat; qna.md Q-02; AC-N09): conversations of 2 to
-// 8 workspace members, started from Odin Chat's "New message" picker. The members are fixed when
-// a conversation is made, so the same people always reach the same one; a new member means a new
-// conversation. Posts, replies, tags and attachments work as in channels and reuse their records
-// (chat.repository.js). Guests never reach these routes, and can't be members: only people with a
-// membership in the workspace can be picked.
+// Direct messages: conversations of 2 to 8 workspace members, started from Odin Chat's "New
+// message" picker. The members are fixed when a conversation is made, so the same people always
+// reach the same one; a new member means a new conversation. Posts, replies, tags and attachments
+// work as in channels and reuse their records (chat.repository.js). Guests never reach these
+// routes, and can't be members: only people with a membership in the workspace can be picked.
 //
 // Anyone outside a conversation gets the same 404 as for one that doesn't exist. Inside it, every
 // member may post and reply; authors edit and delete their own posts.

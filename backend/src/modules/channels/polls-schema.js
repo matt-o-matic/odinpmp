@@ -1,5 +1,5 @@
-// 0108_polls (docs/engagements/plan.md, Polls): a poll attached to a post, in a channel or a
-// direct message, and one vote per person.
+// 0108_polls: a poll attached to a post, in a channel or a direct message, and one vote
+// per person.
 //
 // - post_polls: one row per post that is a poll. kind, the question, the options as JSON
 //   ([{ id, label }]), the settings as JSON ({ anonymous, showResults, maxChoices, scaleMax }), an

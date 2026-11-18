@@ -162,7 +162,7 @@ export function createProjectStore({ apiClient, authSession }) {
       try {
         const result = await apiClient.getProject(projectId, authSession.state.token);
         state.activeProject = result.project;
-        // canManage: project or workspace admin or manager, who also see billing (E-08).
+        // canManage: project or workspace admin or manager, who also see billing.
         state.activeProjectPermissions = { canDelete: Boolean(result.permissions?.canDelete), canManage: Boolean(result.permissions?.canManage) };
         return result.project;
       } finally {

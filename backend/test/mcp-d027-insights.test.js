@@ -12,7 +12,7 @@ import { createInMemoryAuthRepository } from '../src/modules/auth/auth.repositor
 import { createInMemoryProjectsRepository } from '../src/modules/projects/projects.repository.js';
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 
-// D-027 in Insights and the reads built on it: a ticket submitted from outside the team that nobody
+// Insights and the reads built on it: a ticket submitted from outside the team that nobody
 // has validated adds nothing an agent sees, not to today's counts, signals or links, and not to
 // history. Whether a ticket counts is decided by its state now (or, once deleted, by the state it
 // was deleted in), so one validated since counts in history too. Tickets come in through the

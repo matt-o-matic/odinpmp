@@ -102,11 +102,11 @@ function createTicket(app, token, body) {
     .send(body);
 }
 
-test('AC1.1 Ticket is a canonical work-item type alongside epic, story, and task', () => {
+test('Ticket is a canonical work-item type alongside epic, story, and task', () => {
   assert.deepEqual(CANONICAL_TASK_TYPES, ['Epic', 'Story', 'Task', 'Ticket']);
 });
 
-test('AC1.3 a ticket persists against its project with no parent item', async () => {
+test('a ticket persists against its project with no parent item', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const response = await createTicket(app, token, {
@@ -130,7 +130,7 @@ test('AC1.3 a ticket persists against its project with no parent item', async ()
   assert.equal(response.body.project.tickets.length, 1);
 });
 
-test('AC1.3 a ticket may attach to an epic, a story, or a task', async () => {
+test('a ticket may attach to an epic, a story, or a task', async () => {
   const { app, token } = await createTicketingTestApp();
 
   for (const [index, parentId] of ['epic-intake', 'story-routing', 'task-rules'].entries()) {
@@ -145,7 +145,7 @@ test('AC1.3 a ticket may attach to an epic, a story, or a task', async () => {
   }
 });
 
-test('AC1.3 a ticket rejects a parent that is not a work item in the project', async () => {
+test('a ticket rejects a parent that is not a work item in the project', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const response = await createTicket(app, token, {
@@ -158,7 +158,7 @@ test('AC1.3 a ticket rejects a parent that is not a work item in the project', a
   assert.match(JSON.stringify(response.body), /existing epic, story, or task parent/);
 });
 
-test('AC1.5 epics, stories, and tasks keep their existing nesting rules', async () => {
+test('epics, stories, and tasks keep their existing nesting rules', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const parentlessStory = await createTicket(app, token, {
@@ -183,7 +183,7 @@ test('AC1.5 epics, stories, and tasks keep their existing nesting rules', async 
   assert.equal(taskUnderEpic.status, 400);
 });
 
-test('AC1.4 ticket writes are rejected when the project does not exist', async () => {
+test('ticket writes are rejected when the project does not exist', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const response = await request(app)
@@ -194,7 +194,7 @@ test('AC1.4 ticket writes are rejected when the project does not exist', async (
   assert.equal(response.status, 404);
 });
 
-test('AC1.4 an unknown category or severity is rejected as a validation error', async () => {
+test('an unknown category or severity is rejected as a validation error', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const badCategory = await createTicket(app, token, {
@@ -212,7 +212,7 @@ test('AC1.4 an unknown category or severity is rejected as a validation error', 
   assert.equal(badSeverity.status, 400);
 });
 
-test('AC1.3 ticket fields survive an update and bump the item version', async () => {
+test('ticket fields survive an update and bump the item version', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const created = await createTicket(app, token, {
@@ -238,7 +238,7 @@ test('AC1.3 ticket fields survive an update and bump the item version', async ()
   assert.equal(updated.body.item.version, created.body.item.version + 1);
 });
 
-test('AC5.3 a stale expectedVersion on a ticket update is a conflict, not a silent overwrite', async () => {
+test('a stale expectedVersion on a ticket update is a conflict, not a silent overwrite', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const created = await createTicket(app, token, {
@@ -261,7 +261,7 @@ test('AC5.3 a stale expectedVersion on a ticket update is a conflict, not a sile
   assert.equal(stale.status, 409);
 });
 
-test('AC4.4 tickets do not alter epic or story progress rollups', async () => {
+test('tickets do not alter epic or story progress rollups', async () => {
   const { app, projectsRepository, token } = await createTicketingTestApp();
 
   const before = await projectsRepository.getProjectDetail({ projectId: 'project-launch', tenantId: 'tenant-acme' });
@@ -281,7 +281,7 @@ test('AC4.4 tickets do not alter epic or story progress rollups', async () => {
   assert.equal(after.epics[0].stories[0].tasks.length, 1);
 });
 
-test('AC5.6 ticket create and update produce item revisions', async () => {
+test('ticket create and update produce item revisions', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const created = await createTicket(app, token, {
@@ -306,7 +306,7 @@ test('AC5.6 ticket create and update produce item revisions', async () => {
   assert.ok(revisions.body.revisions.every((revision) => revision.itemType === 'ticket'));
 });
 
-test('AC1.3 a ticket can be deleted and leaves the project tree intact', async () => {
+test('a ticket can be deleted and leaves the project tree intact', async () => {
   const { app, token } = await createTicketingTestApp();
 
   const created = await createTicket(app, token, {

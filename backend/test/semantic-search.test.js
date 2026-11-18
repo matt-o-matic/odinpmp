@@ -24,7 +24,7 @@ import { createInMemoryUsersRepository } from '../src/modules/users/users.reposi
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 import { topicProvider } from './helpers/topic-embedding-provider.js';
 
-// Semantic search (docs/semantic-search/plan.md): work items, comments and the text of files,
+// Semantic search: work items, comments and the text of files,
 // found by meaning, on in-memory repositories through Odin's routes. A fake embedding provider
 // stands in for OpenAI: each vector counts the words of a few topics, so texts on one topic are
 // close whatever their wording, and texts with no topic words are far from everything.
@@ -173,9 +173,8 @@ test('fusion ranks rows found both ways first, and collapses the passages of one
   assert.deepEqual(crowded.records.map((record) => record.sourceId), ['task-strong', 'file-long#2']);
 });
 
-// --- AC-01 ------------------------------------------------------------------------------------
 
-test('a search by meaning finds a work item that shares none of its words, and links to the item (AC-01)', async (t) => {
+test('a search by meaning finds a work item that shares none of its words, and links to the item', async (t) => {
   const { search } = await fixture(t);
   // The offsite story and its booking task are both about travel; nothing else is.
   const found = await search('lead', 'journey');
@@ -195,9 +194,8 @@ test('without an embedding provider the same search falls back to words', async 
   assert.deepEqual(byWord.records.map((record) => [record.sourceId, record.retrievalMode]), [['task-book', 'lexical']]);
 });
 
-// --- AC-02 ------------------------------------------------------------------------------------
 
-test('a comment is found by its text, names its author and item, and links to the item; others\' projects stay hidden (AC-02)', async (t) => {
+test('a comment is found by its text, names its author and item, and links to the item; others\' projects stay hidden', async (t) => {
   const { comment, search } = await fixture(t);
   const posted = await comment('lead', PAYROLL, 'story', 'story-offsite', '<p>Can we fly out on <em>Sunday</em>? The <strong>flight</strong> on Monday is full.</p>');
   await comment('lead', SECRET, 'epic', 'epic-hidden', 'The login credentials leaked again.');
@@ -218,7 +216,6 @@ test('a comment is found by its text, names its author and item, and links to th
   assert.deepEqual((await search('outsider', 'password')).records, []);
 });
 
-// --- AC-03 ------------------------------------------------------------------------------------
 
 async function workbook(rows) {
   const zip = new JSZip();
@@ -228,7 +225,7 @@ async function workbook(rows) {
   return zip.generateAsync({ type: 'nodebuffer' });
 }
 
-test('the text of files is found by meaning or words, a long file shows the passage that matched, and a damaged one is still found by name (AC-03)', async (t) => {
+test('the text of files is found by meaning or words, a long file shows the passage that matched, and a damaged one is still found by name', async (t) => {
   const { projectRepository, reportingRepository, saveFile, search } = await fixture(t);
   const filler = (count) => Array.from({ length: count }, (_, index) => `Line ${index} of the general handbook covers office matters.`).join('\n');
   const handbook = await saveFile(PAYROLL, { bytes: `${filler(150)}\nThe zeppelin hangar opens at dawn.\n${filler(150)}`, fileName: 'handbook.txt' });
@@ -260,7 +257,6 @@ test('the text of files is found by meaning or words, a long file shows the pass
   assert.deepEqual(sources.map((file) => file.id).filter((id) => ['file-dm', 'file-ticket'].includes(id)), []);
 });
 
-// --- AC-04 and AC-05 --------------------------------------------------------------------------
 
 async function indexFixture(provider) {
   const authRepository = await createInMemoryAuthRepository({
@@ -280,7 +276,7 @@ async function indexFixture(provider) {
   return { projectRepository, refresh, repository, writes };
 }
 
-test('a refresh with nothing changed writes nothing; an edit embeds one row; a deletion removes its row (AC-05)', async () => {
+test('a refresh with nothing changed writes nothing; an edit embeds one row; a deletion removes its row', async () => {
   const provider = topicProvider();
   const { projectRepository, refresh, repository, writes } = await indexFixture(provider);
   const first = await refresh();
@@ -303,7 +299,7 @@ test('a refresh with nothing changed writes nothing; an edit embeds one row; a d
   assert.equal((await repository.listDocumentManifests({ tenantId: TENANT_ID })).some((row) => row.sourceId === 'task-book'), false);
 });
 
-test('a new embedding model embeds every row again; until then a row matches by words only (AC-04)', async () => {
+test('a new embedding model embeds every row again; until then a row matches by words only', async () => {
   const small = topicProvider({ model: 'fake-small' });
   const { refresh, repository } = await indexFixture(small);
   const first = await refresh();

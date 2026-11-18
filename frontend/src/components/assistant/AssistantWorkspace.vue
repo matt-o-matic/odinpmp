@@ -16,7 +16,7 @@ import AssistantTypingDots from './AssistantTypingDots.vue';
 // beside the page so Odin stays usable while you chat. The list of chats sits in a rail on the
 // left; the open chat streams its replies, tool activity and plan as the assistant works.
 // `embedded` puts it in a page instead: Odin's direct message in Odin Chat shows the same chats,
-// store and agent there, without the window controls (docs/odin-chat/plan.md, Odin Chat).
+// store and agent there, without the window controls.
 const props = defineProps({
   embedded: { default: false, type: Boolean },
 });

@@ -45,7 +45,7 @@ export function createInMemoryReportingRepository() {
   return {
     ...repository,
     ...warehouse,
-    // Search storage (docs/semantic-search/plan.md) replaces the whole-index sync above.
+    // Search storage replaces the whole-index sync above.
     ...createInMemorySearchIndexMethods({ state }),
     claimDueSubscriptions: async (input) => warehouse.claimDueSubscriptions({ ...input, subscriptions: await repository.listDueSubscriptions(input) }),
     completeSubscriptionClaim: async (input) => {
@@ -103,7 +103,7 @@ export function createMysqlReportingRepository({ pool }) {
     async updateReport({ input, reportId, tenantId }) { const old = await select('report_definitions', reportId, tenantId, maps.reports); if (!old) return null; const next = { ...old, ...input }; return update('report_definitions', reportId, tenantId, input.expectedVersion, 'project_id = ?, name = ?, description = ?, dataset = ?, columns_json = ?, filters_json = ?, group_by_json = ?, visualization = ?, visibility = ?, status = ?', [next.projectId, next.name, next.description, next.dataset, JSON.stringify(next.columns), JSON.stringify(next.filters), JSON.stringify(next.groupBy), next.visualization, next.visibility, next.status], maps.reports); },
     async updateSubscription({ input, subscriptionId, tenantId }) { const old = await select('report_subscriptions', subscriptionId, tenantId, maps.subscriptions); if (!old) return null; const next = { ...old, ...input }; return update('report_subscriptions', subscriptionId, tenantId, input.expectedVersion, 'report_id = ?, delivery_channel = ?, format = ?, recipients_json = ?, schedule_json = ?, enabled = ?, next_run_at = ?', [next.reportId, next.deliveryChannel, next.format, JSON.stringify(next.recipients), JSON.stringify(next.schedule), next.enabled, new Date(next.nextRunAt)], maps.subscriptions); },
     async updateView({ input, tenantId, viewId }) { const old = await select('saved_views', viewId, tenantId, maps.views); if (!old) return null; const next = { ...old, ...input }; return update('saved_views', viewId, tenantId, input.expectedVersion, 'project_id = ?, name = ?, surface = ?, visibility = ?, filters_json = ?, columns_json = ?, sort_json = ?', [next.projectId, next.name, next.surface, next.visibility, JSON.stringify(next.filters), JSON.stringify(next.columns), JSON.stringify(next.sort)], maps.views); },
-    // Search storage (docs/semantic-search/plan.md) replaces the whole-index sync above.
+    // Search storage replaces the whole-index sync above.
     ...createMysqlSearchIndexMethods({ pool }),
   };
 }

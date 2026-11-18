@@ -1,4 +1,4 @@
-// Live updates for the stakeholder portal and the guided review (AC-18). One stream feeds
+// Live updates for the client portal and the guided review. One stream feeds
 // any number of listeners with debounced batches. A dropped stream reconnects with backoff,
 // and the first batch after a reconnect is flagged so listeners refetch what they missed.
 

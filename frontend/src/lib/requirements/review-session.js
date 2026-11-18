@@ -639,7 +639,7 @@ export function createReviewSession({ adapter, now = () => new Date(), onLinkPro
     return threadAction(id, () => adapter.setAnnotationStatus(id, status));
   }
 
-  /** Carries an outdated mark from an earlier version into this round (AC-12). */
+  /** Carries an outdated mark from an earlier version into this round. */
   async function carryAnnotation(id) {
     const result = await threadAction(id, () => adapter.carryAnnotation(id));
     await refresh();

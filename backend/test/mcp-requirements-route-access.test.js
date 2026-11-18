@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { requireMcpRouteAccess } from '../src/mcp/route-access.js';
 
-// The MCP route allowlist for requirements (Q-07): reads for the context and feedback tools,
+// The MCP route allowlist for requirements: reads for the context and feedback tools,
 // the upload-URL request, topic administration, topic decisions, publishing rounds and
 // changing their reviewers, and nothing that closes a round, edits a decision, accepts,
 // approves, proposes or reviews. The end-to-end

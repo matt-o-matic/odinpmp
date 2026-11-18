@@ -1,5 +1,5 @@
-// The invoice-gen connection's Odin side (docs/invoice-gen-connection): the /api/v1 billing routes
-// per api-contract.md, the lock on claimed time entries, and the member billing routes.
+// The invoice-gen connection's Odin side: the /api/v1 billing routes, the lock on claimed time
+// entries, and the member billing routes.
 import assert from 'node:assert/strict';
 import test from 'node:test';
 

@@ -6,7 +6,7 @@ import { citationChips, staleNotice } from '../../../lib/requirements/requiremen
 
 // One plan version as people read it: objective, scope, what is not in scope, and the
 // acceptance criteria with the decisions each cites. Citations to superseded decisions are
-// flagged. No AI-drafted tag anywhere (Q-14).
+// flagged. No AI-drafted tag anywhere.
 const props = defineProps({
   labels: { default: () => new Map(), type: Map },
   plan: { required: true, type: Object },

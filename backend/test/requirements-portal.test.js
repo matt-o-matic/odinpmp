@@ -11,7 +11,7 @@ import { createRequirementsTestApp, PROJECT_ID, ROLE_USERS, TENANT_ID } from './
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-test('computeLinkStatus applies the Q-11 lifetime rule from data', () => {
+test('computeLinkStatus applies the link lifetime rule from data', () => {
   const issuedAt = '2026-10-01T00:00:00.000Z';
   const link = { extendedUntil: null, issuedAt, revokedAt: null };
   const at = (days) => new Date(Date.parse(issuedAt) + days * DAY_MS);
@@ -222,7 +222,7 @@ test('every token of a link expires with the link', async () => {
   }
 });
 
-test('AC-01 portal: a stakeholder sees assigned topics and unassigned open topics, comments, and votes, but never changes status', async () => {
+test('portal: a stakeholder sees assigned topics and unassigned open topics, comments, and votes, but never changes status', async () => {
   const harness = await createRequirementsTestApp();
   const jamie = await harness.seedStakeholder();
   const ravi = await harness.seedStakeholder({ email: 'ravi@client.example', name: 'Ravi Shah', roleTitle: 'Finance' });
@@ -312,7 +312,7 @@ test('AC-01 portal: a stakeholder sees assigned topics and unassigned open topic
     assert.equal(JSON.stringify(view.body).includes(leaked), false, `${leaked} must not leak`);
   }
 
-  // Comment on an unassigned open topic (Q-13a); the status stays open.
+  // Comment on an unassigned open topic; the status stays open.
   const teamComment = await harness.as('member').post(`/topics/${unassigned.id}/comments`, { body: 'Email is cheapest.' });
   const posted = await portal.post(`/topics/${unassigned.id}/comments`, { body: 'Text, please.' });
   assert.equal(posted.status, 201);

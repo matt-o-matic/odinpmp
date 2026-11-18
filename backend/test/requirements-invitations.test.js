@@ -82,7 +82,7 @@ test('assigning a stakeholder to a tracked topic emails a fresh requirements lin
   assert.equal(firstMail.replyTo, `clarification+${firstInvitation.replyToken}@${MAIL_REPLY_DOMAIN}`, 'reply-by-email keeps the existing reply token');
   assert.equal(firstMail.html.includes(`/clarifications/${firstInvitation.invitationToken}`), false, 'no link to the older portal');
   const firstToken = PORTAL_URL.exec(firstMail.html)?.[1];
-  assert.ok(firstToken, 'the email links to the requirements portal');
+  assert.ok(firstToken, 'the email links to the client portal');
 
   // The link was created on demand, and the emailed token opens the portal.
   const { links, tokens } = harness.requirementsRepository.state;

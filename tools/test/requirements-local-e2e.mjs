@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Real-stack local end-to-end exercise of the Requirements feature (plan.md journeys J1-J12).
+// Real-stack local end-to-end exercise of the Requirements feature.
 //
 // It runs against a stack that is already running on this machine (see tools/test/README.md,
 // "Requirements real-stack exercise"): the backend with REQUIREMENTS_AI_PROVIDER=local-fixture,
@@ -395,7 +395,7 @@ async function j1DraftQuestions() {
   // The manager gives Cy (client services) a project link before anything is drafted.
   const manager = await newPage({ user: USERS.manager });
   const link = await createPortalLink(manager, 'c');
-  check(link.url.startsWith(`${CONFIG.appUrl}/requirements/`), 'New link URL points at the requirements portal', link.url.replace(link.token, '<token>'));
+  check(link.url.startsWith(`${CONFIG.appUrl}/requirements/`), 'New link URL points at the client portal', link.url.replace(link.token, '<token>'));
   const [linkRow] = await sql('SELECT id, stakeholder_id FROM requirements_access_links WHERE project_id = ? AND stakeholder_id = ?', [state.projectId, state.stakeholders.c.id]);
   check(Boolean(linkRow), 'requirements_access_links row exists for Cy');
   const [tokenRow] = await sql('SELECT token_hash FROM requirements_access_link_tokens WHERE link_id = ?', [linkRow.id]);
@@ -459,7 +459,7 @@ async function j1DraftQuestions() {
   }
   check(Object.keys(state.topics).length === 5, 'Topics mapped by brief line', state.topics);
 
-  // Q-13a: Cy's open portal shows the new questions without a reload.
+  // Cy's open portal shows the new questions without a reload.
   const questions = portal.getByRole('region', { name: /Questions waiting for you/ });
   await questions.waitFor({ timeout: 10_000 });
   await waitUntil(async () => (await questions.getByRole('listitem').count()) === 5, { message: 'five questions in the portal', timeout: 10_000 });
@@ -1002,7 +1002,7 @@ async function j5Publish() {
   for (const key of ['a', 'b']) {
     const mail = byRecipient.get(STAKEHOLDERS[key].email)[0];
     const match = portalUrl.exec(mail.body);
-    check(Boolean(match) && match[3] === state.rounds.r1, `${STAKEHOLDERS[key].name}'s email links to the requirements portal for round 1`, match ? match[1].replace(match[2], '<token>') : mail.body.slice(0, 200));
+    check(Boolean(match) && match[3] === state.rounds.r1, `${STAKEHOLDERS[key].name}'s email links to the client portal for round 1`, match ? match[1].replace(match[2], '<token>') : mail.body.slice(0, 200));
     const hash = createHash('sha256').update(match[2]).digest('hex');
     const [tokenRow] = await sql('SELECT t.purpose, t.revoked_at, l.stakeholder_id FROM requirements_access_link_tokens t JOIN requirements_access_links l ON l.id = t.link_id WHERE t.token_hash = ?', [hash]);
     check(tokenRow?.stakeholder_id === state.stakeholders[key].id && !tokenRow.revoked_at && match[2] !== state.links[key].token, `${STAKEHOLDERS[key].name}'s emailed token is fresh (not the manual link), hashed in the DB, and bound to that stakeholder`, { purpose: tokenRow?.purpose });

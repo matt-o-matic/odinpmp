@@ -10,9 +10,9 @@ import { createMysqlProjectsRepository } from '../src/modules/projects/projects.
 import { createMysqlRequirementsRepository } from '../src/modules/requirements/requirements.repository.js';
 import { createMysqlSigningRepository } from '../src/modules/signing/signing.repository.js';
 
-// Document signing on MySQL (docs/document-signing, AC-09 and AC-10), from a database built like
-// production's: the legacy schema plus every migration. document-signing.test.js covers the
-// routes on the in-memory repositories.
+// Document signing on MySQL, from a database built like production's: the legacy schema
+// plus every migration. document-signing.test.js covers the routes on the in-memory
+// repositories.
 
 const databaseUrl = String(process.env.ODIN_TEST_DATABASE_URL ?? '').trim();
 

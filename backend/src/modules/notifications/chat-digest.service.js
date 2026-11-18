@@ -13,13 +13,13 @@ import { findEmailOptOuts, isOptedOut } from '../users/notification-preferences.
 import { createChannelGuestDirectory } from './guest-directory.js';
 import { describeNotification, memberNotificationPath } from './notifications.service.js';
 
-// The rolled-up chat email (docs/odin-chat/plan.md, Email; qna.md Q-04, AC-N05). A notification
-// still unread 10 minutes after it was made joins its person's digest. The digest is sent once
-// the quiet period (20 minutes by default, CLARIFICATION_DIGEST_QUIET_MINUTES) passes with no new
-// item: one email per person and workspace that lists each item with a link. It runs with the
-// mail queue job every minute, under the same rules as the requirements mention digest
-// (requirements/mentions/mention-digest.service.js): claim and lease, re-reads before rendering
-// and again right before SMTP, retries, bounces, at-least-once delivery.
+// The rolled-up chat email. A notification still unread 10 minutes after it was made joins its
+// person's digest. The digest is sent once the quiet period (20 minutes by default,
+// CLARIFICATION_DIGEST_QUIET_MINUTES) passes with no new item: one email per person and workspace
+// that lists each item with a link. It runs with the mail queue job every minute, under the same
+// rules as the requirements mention digest (requirements/mentions/mention-digest.service.js):
+// claim and lease, re-reads before rendering and again right before SMTP, retries, bounces,
+// at-least-once delivery.
 //
 // Before every attempt each item must still hold, or it is released for good with the reason:
 // the person can still open it (a member of its project, or a guest still in its channel), has

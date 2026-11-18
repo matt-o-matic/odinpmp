@@ -5,10 +5,10 @@ import { createInMemoryRequirementsRepository } from '../../src/modules/requirem
 import { createRequirementsSummaryEngine } from '../../src/modules/requirements/summary/summary-engine.js';
 import { summaryOutputSchema } from '../../src/modules/requirements/summary/summary-output.js';
 
-// Odin summary evaluation (AC-02 handoff evidence). Seeds the fixture discussion into
-// in-memory repositories, runs one forced refresh through the engine with the given
-// provider, and checks the stored run: structure, citations, aligned and divergent
-// entries on the right people, and that the injected instruction was not followed.
+// Odin summary evaluation. Seeds the fixture discussion into in-memory repositories, runs
+// one forced refresh through the engine with the given provider, and checks the stored
+// run: structure, citations, aligned and divergent entries on the right people, and that
+// the injected instruction was not followed.
 
 const FIXTURE_URL = new URL('./fixture-discussion.json', import.meta.url);
 const TENANT_ID = 'tenant-summary-eval';

@@ -151,7 +151,7 @@ export function createInMemoryAccessRepository() {
     },
 
     /**
-     * The link for the email, made when there is none, for a channel guest (docs/engagements).
+     * The link for the email, made when there is none, for a channel guest.
      * Inviting someone again brings a revoked link back, as issuing a token does; its old tokens
      * stay revoked.
      */

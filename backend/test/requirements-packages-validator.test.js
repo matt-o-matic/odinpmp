@@ -87,7 +87,7 @@ function forgeUncompressedSize(zip, name, size) {
 }
 
 // ---------------------------------------------------------------------------
-// Schema copy and examples (AC-21)
+// Schema copy and examples
 // ---------------------------------------------------------------------------
 
 test('the backend schema copy matches docs/requirements-gathering/review-package.schema.json', async () => {
@@ -98,7 +98,7 @@ test('the backend schema copy matches docs/requirements-gathering/review-package
   assert.deepEqual(MANIFEST_SCHEMA, JSON.parse(docs));
 });
 
-test('AC-21 both example packages are accepted, with Mermaid checked for real', { timeout: 180_000 }, async () => {
+test('both example packages are accepted, with Mermaid checked for real', { timeout: 180_000 }, async () => {
   const fieldwork = await validateReviewPackage({ zip: await buildExampleZip('fieldwork-round-2') }, { track: 'experience' });
   assert.equal(fieldwork.status, 'accepted', JSON.stringify(fieldwork.errors));
   assert.deepEqual(fieldwork.errors, []);
@@ -125,7 +125,7 @@ test('AC-21 both example packages are accepted, with Mermaid checked for real', 
 });
 
 // ---------------------------------------------------------------------------
-// Zip checks (AC-04)
+// Zip checks
 // ---------------------------------------------------------------------------
 
 test('zip_invalid: not a zip, an empty upload, and a corrupt entry', async () => {

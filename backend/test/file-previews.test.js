@@ -20,10 +20,9 @@ import { createFilePreviewProcessor } from '../src/modules/vault/file-preview-wo
 import { inlineFramePolicy } from '../src/modules/vault/large-files.routes.js';
 import { createMemoryLargeFileStorage } from './helpers/large-file-fixtures.js';
 
-// File previews (docs/engagements/plan.md, Download and preview; AC-08): what preview-url returns
-// for each kind of file and who may ask, and the preview worker against a fake soffice (a Node
-// script) that converts, fails, writes nothing, or hangs. file-previews-soffice.integration.test.js
-// converts real files with LibreOffice.
+// File previews: what preview-url returns for each kind of file and who may ask, and the preview
+// worker against a fake soffice (a Node script) that converts, fails, writes nothing, or hangs.
+// file-previews-soffice.integration.test.js converts real files with LibreOffice.
 
 const TENANT_ID = 'tenant-acme';
 const PROJECT = 'project-1';

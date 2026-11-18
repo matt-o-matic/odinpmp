@@ -6,7 +6,7 @@ import { resolveKanbanColumn } from '../../lib/projects/kanban-placement.js';
 import { isTicketVisibleToAssistant } from '../assistant/assistant-ticket-visibility.js';
 import { CHANGE_SETTLE_MS } from './project-change-log.js';
 
-// What changed in a project since an agent last looked (docs/mcp-change-feed/plan.md). Without
+// What changed in a project since an agent last looked. Without
 // a cursor: the project's work in compact form and a cursor. With one: the changes after it, from
 // the project change log, with the current state of what they touched. Deterministic data, read
 // with the caller's own project access.
@@ -56,7 +56,7 @@ export function flattenWork(project) {
       for (const task of story.tasks ?? []) rows.push({ item: task, itemType: 'task', parentId: story.id });
     }
   }
-  // Tickets from outside the team stay hidden until someone validates them (D-027).
+  // Tickets from outside the team stay hidden until someone validates them.
   for (const ticket of project?.tickets ?? []) if (isTicketVisibleToAssistant(ticket)) rows.push({ item: ticket, itemType: 'ticket', parentId: ticket.parentId ?? null });
   return rows;
 }

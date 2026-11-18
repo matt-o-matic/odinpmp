@@ -1,6 +1,5 @@
-// Pursuit work and project settings (docs/engagements/plan.md, "Pursuit board"). These methods are
-// spread into the projects repositories, as the engagement methods are, so they share the project
-// records, revisions and change log.
+// Pursuit work and project settings. These methods are spread into the projects repositories, as
+// the engagement methods are, so they share the project records, revisions and change log.
 import { randomUUID } from 'node:crypto';
 
 import { HttpError } from '../../lib/errors/http-error.js';
@@ -13,7 +12,7 @@ import {
   pursuitParents,
 } from '../../lib/projects/pursuit.js';
 
-// What a project has before anyone changes its settings (Q-06). "Let Odin answer when tagged" is
+// What a project has before anyone changes its settings. "Let Odin answer when tagged" is
 // each channel's own setting now (0105_channel_odin): project_settings.odin_replies_enabled stays
 // in the table, and nothing reads or writes it.
 export const DEFAULT_PROJECT_SETTINGS = Object.freeze({ guestsSeeBoard: false });

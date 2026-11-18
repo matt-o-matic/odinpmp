@@ -9,7 +9,7 @@ import { createFilePreviewProcessor } from '../src/modules/vault/file-preview-wo
 import { createMemoryLargeFileStorage } from './helpers/large-file-fixtures.js';
 import { corruptOfficeFile, sampleDocx, samplePptx, sampleXlsx } from './helpers/office-samples.js';
 
-// AC-08 with real LibreOffice: a .docx, .xlsx and .pptx built in the test each convert to a PDF,
+// File previews with real LibreOffice: a .docx, .xlsx and .pptx built in the test each convert to a PDF,
 // and a corrupt .docx gets no preview. Skipped unless soffice (or PREVIEW_SOFFICE_PATH) is
 // installed. Without it on the machine, run it in a container that has it:
 //

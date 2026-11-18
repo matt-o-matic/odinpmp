@@ -1,4 +1,4 @@
-// Live track plan evaluation against the real provider (AC-13 handoff evidence).
+// Live track plan evaluation against the real provider.
 //
 //   node backend/evals/requirements-plan/run-live-eval.js
 //

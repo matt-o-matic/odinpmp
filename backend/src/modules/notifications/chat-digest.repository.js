@@ -2,8 +2,8 @@ import { randomUUID } from 'node:crypto';
 
 import { NOTIFICATION_COLUMNS, iso, notificationFromRow } from './notification-rows.js';
 
-// The rolled-up chat email's durable state (docs/odin-chat/plan.md, Email; qna.md Q-04), on the
-// notifications themselves and chat_digest_deliveries (migration 0102). It mirrors
+// The rolled-up chat email's durable state, on the notifications themselves and
+// chat_digest_deliveries (migration 0102). It mirrors
 // requirements/mentions/mentions.repository.js, which holds the same digest for requirements
 // mentions:
 //

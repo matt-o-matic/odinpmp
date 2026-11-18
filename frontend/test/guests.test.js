@@ -5,7 +5,7 @@ import { createGuestApi, parseSseChunk } from '../src/lib/guests/guest-api.js';
 import { guestStatusOptions, guestTaskErrorMessage, guestTaskMeta, sortGuestTasks } from '../src/lib/guests/guest-tasks.js';
 import { guestNotice, needsSignIn, resendCountdown, safeGuestNext, signInErrorMessage, signInNoticeFor, signInRouteFor } from '../src/lib/guests/guest-view.js';
 
-// The guest view's API client and helpers (docs/engagements/plan.md, Guests).
+// The guest view's API client and helpers.
 
 function recordingFetch(responses = []) {
   const calls = [];

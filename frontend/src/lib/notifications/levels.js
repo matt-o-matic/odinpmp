@@ -1,4 +1,4 @@
-// Channel notification levels as people see them (backend notification-levels.js; Q-03).
+// Channel notification levels as people see them (backend notification-levels.js).
 
 export const NOTIFICATION_LEVEL_OPTIONS = Object.freeze([
   { help: 'Every post, collapsed into one notification until you read the channel.', icon: 'bi-bell-fill', label: 'All new posts', level: 'all', short: 'All posts' },

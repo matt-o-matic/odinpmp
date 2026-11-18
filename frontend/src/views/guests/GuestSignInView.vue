@@ -6,9 +6,9 @@ import { guestApi } from '../../lib/guests/guest-client.js';
 import { guestNotice, resendCountdown, safeGuestNext, signInErrorMessage } from '../../lib/guests/guest-view.js';
 import { odinMarkUrl } from '../../lib/requirements/portal-context.js';
 
-// Guest sign-in (docs/engagements/plan.md, Guests; qna.md Q-03): the guest enters their email,
-// Odin emails a 6-digit code, and the code starts a 30-day session that renews with use. Every
-// address gets the same answer, so this page never says whether someone is invited.
+// Guest sign-in: the guest enters their email, Odin emails a 6-digit code, and the code starts
+// a 30-day session that renews with use. Every address gets the same answer, so this page
+// never says whether someone is invited.
 const route = useRoute();
 const router = useRouter();
 const uid = useId();

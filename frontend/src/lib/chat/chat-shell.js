@@ -1,6 +1,6 @@
 // What Odin Chat's shell gives the screens inside it (views/chat): the sidebar's data, a way to
 // refetch it, and starting a conversation. Also the Home Screen install: under /app/chat the page
-// links Odin Chat's own manifest and icon, so it installs as its own app (docs/odin-chat/plan.md).
+// links Odin Chat's own manifest and icon, so it installs as its own app.
 import { inject } from 'vue';
 
 export const CHAT_SHELL_KEY = Symbol('chat-shell');

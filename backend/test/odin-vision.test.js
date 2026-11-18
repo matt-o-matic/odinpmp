@@ -23,9 +23,9 @@ import { createInMemoryProjectsRepository } from '../src/modules/projects/projec
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { agentAppDeps, listen, scriptedOpenAi } from './helpers/agent-test-utils.js';
 
-// Odin's vision (docs/engagements/plan.md, Odin in channels: images): a tag sees the images on its
-// post and its thread, guests' images are screened first, odin_view_project_file shows the model a
-// file, and no image bytes are kept in the chat, the transcript or a paused turn.
+// Odin's vision: a tag sees the images on its post and its thread, guests' images are screened
+// first, odin_view_project_file shows the model a file, and no image bytes are kept in the chat,
+// the transcript or a paused turn.
 
 const TENANT_ID = 'tenant-acme';
 const PROJECT = 'project-vision';

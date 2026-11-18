@@ -36,9 +36,9 @@ function billingV1ErrorHandler(error, _request, response, next) {
 }
 
 /**
- * The invoice-gen routes under /api/v1 (docs/invoice-gen-connection/api-contract.md). Each checks
- * the application's scope, its project allowlist and the Consulting module. Writes accept an
- * Idempotency-Key: a replay returns the first response with Idempotency-Replayed: true.
+ * The invoice-gen routes under /api/v1. Each checks the application's scope, its project
+ * allowlist and the Consulting module. Writes accept an Idempotency-Key: a replay returns
+ * the first response with Idempotency-Replayed: true.
  */
 export function createBillingV1Router({ authRepository, billingRepository, platformRepository, projectRepository, workspaceModulesRepository }) {
   const router = Router();
@@ -104,7 +104,7 @@ export function createBillingV1Router({ authRepository, billingRepository, platf
 
 /**
  * The project's billing for its members (mounted at /api/projects/:projectId/billing): the
- * panel's summary and the story-to-milestone mapping. Finance-visible people only (E-08);
+ * panel's summary and the story-to-milestone mapping. Finance-visible people only;
  * the Consulting module must be on.
  */
 export function createProjectBillingRouter({ authRepository, billingRepository, invoiceGenBaseUrl = '', projectRepository, tokenService, workspaceModulesRepository }) {

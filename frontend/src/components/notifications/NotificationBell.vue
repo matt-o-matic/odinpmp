@@ -7,13 +7,13 @@ import { readCollapsed, writeCollapsed } from '../../lib/chat/chat.js';
 import { notificationsStore } from '../../lib/notifications/index.js';
 import { badgeLabel, groupByProject, notificationTimeLabel } from '../../lib/notifications/notifications.js';
 
-// The bell (docs/odin-chat/plan.md, Delivery): the unread count, and a menu with the person's
-// notifications grouped by project or engagement (direct messages apart, System last), newest
-// first. Each group collapses and stays as the person left it on this device, showing its unread
-// count while closed. Titles leave the project out, since the group names it. Opening one reads it and goes to
-// it. The menu also marks everything read, turns device notifications on or off when the server
-// offers push, and links to the notification settings. Odin proper's top bar has it now; Odin
-// Chat's header can place the same component.
+// The bell: the unread count, and a menu with the person's notifications grouped by project or
+// engagement (direct messages apart, System last), newest first. Each group collapses and stays as
+// the person left it on this device, showing its unread count while closed. Titles leave the
+// project out, since the group names it. Opening one reads it and goes to it. The menu also marks
+// everything read, turns device notifications on or off when the server offers push, and links to
+// the notification settings. Odin proper's top bar has it now; Odin Chat's header can place the
+// same component.
 const props = defineProps({
   // The member's store by default; the guest view passes its own (lib/guests/guest-notifications.js).
   store: { default: () => notificationsStore, type: Object },

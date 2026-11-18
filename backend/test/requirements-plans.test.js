@@ -13,7 +13,7 @@ import {
   TENANT_ID,
 } from './helpers/requirements-plans-app.js';
 
-// Track plans through the API (journey 9, AC-13): drafting from decisions, citation checks,
+// Track plans through the API: drafting from decisions, citation checks,
 // failure recovery, edits, approval and ownership, permissions, and live events. Proposed
 // work is covered in requirements-plans-work.test.js.
 
@@ -21,7 +21,7 @@ function planEvents(recorder) {
   return recorder.events.filter((event) => event.type === REQUIREMENTS_PLAN_EVENT);
 }
 
-test('AC-13 drafting builds the plan from active decisions only, validates citations, and records what it dropped', async () => {
+test('drafting builds the plan from active decisions only, validates citations, and records what it dropped', async () => {
   const ai = stubPlanAi({
     draft: {
       criteria: [
@@ -115,7 +115,7 @@ test('AC-13 drafting builds the plan from active decisions only, validates citat
   assertNoAiAttribution(assert, listed.body);
 });
 
-test('AC-13 a failed or uncited draft keeps the previous version and returns a retryable error', async () => {
+test('a failed or uncited draft keeps the previous version and returns a retryable error', async () => {
   const ai = stubPlanAi();
   const harness = await createPlansTestApp({ requirementsAiService: ai });
   await harness.seedDecisions();
@@ -346,7 +346,7 @@ test('plan changes publish requirements.plans.invalidated on the project channel
     ['work-proposed', plan.id, 'experience'],
   ]);
   assert.equal(planEvents(project)[0].actor.id, ROLE_USERS.editor.id);
-  assert.deepEqual(portal.events.filter((event) => event.type === REQUIREMENTS_PLAN_EVENT), [], 'stakeholder portals never get plan events');
+  assert.deepEqual(portal.events.filter((event) => event.type === REQUIREMENTS_PLAN_EVENT), [], 'client portals never get plan events');
 });
 
 test('approval approves only the revision it checked: an edit or a supersede landing after the checks is a conflict', async () => {

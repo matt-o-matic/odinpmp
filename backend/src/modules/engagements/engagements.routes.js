@@ -23,7 +23,7 @@ const engagementUpdateSchema = z.object({
   ownerId: z.string().trim().min(1).max(36).optional(),
 }).strict();
 const engagementConvertSchema = z.object({
-  // "Move open pursuit tasks to the project board", off by default (Q-07).
+  // "Move open pursuit tasks to the project board", off by default.
   moveOpenPursuitTasks: z.boolean().optional().default(false),
   templateId: z.string().trim().min(1).max(128).nullable().optional().default(null),
 }).strict();
@@ -72,7 +72,7 @@ export function createEngagementActionsRouter({ assistantRepository = null, auth
       next(error);
     }
   });
-  // The engagement's customer and owner (E-09); the name is the project's own.
+  // The engagement's customer and owner; the name is the project's own.
   router.patch('/:projectId/engagement', requireAuth, async (request, response, next) => {
     try {
       response.json(await updateEngagementForUser({ ...deps, input: engagementUpdateSchema.parse(request.body ?? {}), projectId: request.params.projectId, user: request.auth.user }));

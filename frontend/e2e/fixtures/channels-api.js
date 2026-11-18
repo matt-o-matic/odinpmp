@@ -1,5 +1,5 @@
 // Channels, posts, folders, channel files, file comments and the editing marker for browser
-// specs (docs/engagements/plan.md, workstreams 3 and 4). Install after installSyntheticApi:
+// specs. Install after installSyntheticApi:
 // Playwright tries the latest route first, and this one passes on what it does not own. Two
 // pages given the same `world` share one set of channels, as two people in one project do.
 // Odin in channels: `world.odin` ({ available }) is what the list returns, each channel's

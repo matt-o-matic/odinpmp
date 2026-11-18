@@ -1,7 +1,7 @@
-// Reactions and replies to a reply (docs/engagements/plan.md, Reactions; Replies to a reply). The
-// server keeps one reaction per post, person and emoji and sends each post's reactions as
-// [{ emoji, count, mine, people: [{ id, name, type }] }]; a reply that answers another reply
-// carries replyToId, and the app shows a short quote of that reply above it.
+// Reactions and replies to a reply. The server keeps one reaction per post, person and emoji
+// and sends each post's reactions as [{ emoji, count, mine, people: [{ id, name, type }] }];
+// a reply that answers another reply carries replyToId, and the app shows a short quote of
+// that reply above it.
 
 /** The picker's first row, also offered without opening it. */
 export const QUICK_REACTIONS = Object.freeze([

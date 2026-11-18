@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import { OdinApiError } from './api-client.js';
 
-// A project's billing from invoice-gen (docs/invoice-gen-connection/plan.md): its SOW, milestone
-// hours and invoices, and the SOW milestone each story bills to. Odin's routes allow only project
-// admins and managers and workspace admins and managers (finance visibility, E-08), for reads and
-// for changes alike, so no model can reach past that. There are no claim or release tools:
-// invoice-gen claims time as it drafts invoices, and releases it when one is voided.
+// A project's billing from invoice-gen: its SOW, milestone hours and invoices, and the SOW
+// milestone each story bills to. Odin's routes allow only project admins and managers and
+// workspace admins and managers (finance visibility), for reads and for changes alike, so no
+// model can reach past that. There are no claim or release tools: invoice-gen claims time as it
+// drafts invoices, and releases it when one is voided.
 
 const projectPath = (projectId) => `/api/projects/${encodeURIComponent(projectId)}`;
 

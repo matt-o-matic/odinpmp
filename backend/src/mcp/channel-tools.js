@@ -5,11 +5,11 @@ import { commentPlainText } from '../modules/requirements/mentions/mention-token
 import { OdinApiError } from './api-client.js';
 import { pollLine } from './poll-tools.js';
 
-// Reading a project's channels (docs/engagements/plan.md, Channels and conversation), for the
-// in-app assistant only for now: the Agents workstream opens channel tools to MCP clients, with
-// posting and the rest. Like every catalog tool these go through Odin's routes as the person:
-// members read every channel; a guest's turn in a channel reads through an API that answers only
-// for that guest's channels (modules/channels/odin-guest-api.js).
+// Reading a project's channels, for the in-app assistant only for now: the Agents workstream
+// opens channel tools to MCP clients, with posting and the rest. Like every catalog tool these
+// go through Odin's routes as the person: members read every channel; a guest's turn in a
+// channel reads through an API that answers only for that guest's channels
+// (modules/channels/odin-guest-api.js).
 //
 // They ask for the agent view, in which a guest's post that isn't clearly free of instructions
 // aimed at an AI comes back as a note instead of its text (modules/channels/odin-screen.js).

@@ -6,11 +6,10 @@ import { createChannelsWorld, installChannelsApi } from './fixtures/channels-api
 import { GUEST, WORKSPACE_ID, createGuestWorld, installChannelGuestsApi, installGuestApi } from './fixtures/guests-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Channel guests in the browser (docs/engagements/plan.md, workstream 6; AC-02, AC-10): signing
-// in with an emailed code, seeing only their channel with no Odin navigation, posting, uploading
-// in parts and commenting on a file, on desktop, a phone and Safari. Members invite guests from
-// the channel's Guests dialog. The API is the stateful fixture in fixtures/guests-api.js;
-// guests.test.js in the backend proves the server's checks.
+// Channel guests in the browser: signing in with an emailed code, seeing only their channel with
+// no Odin navigation, posting, uploading in parts and commenting on a file, on desktop, a phone
+// and Safari. Members invite guests from the channel's Guests dialog. The API is the stateful
+// fixture in fixtures/guests-api.js; guests.test.js in the backend proves the server's checks.
 
 async function expectNoSeriousAxe(page, selector) {
   await settleForAxe(page);
@@ -24,7 +23,7 @@ async function asGuest(page, world = createGuestWorld()) {
   return { api, world };
 }
 
-test('a guest signs in with an emailed code and sees only their channel, with no Odin navigation (AC-02)', async ({ page }, testInfo) => {
+test('a guest signs in with an emailed code and sees only their channel, with no Odin navigation', async ({ page }, testInfo) => {
   const { api, world } = await asGuest(page);
   // The invitation's link: the channel, which asks them to sign in first.
   await page.goto(`guest/channels/channel-deal?workspace=${WORKSPACE_ID}`);
@@ -55,9 +54,9 @@ test('a guest signs in with an emailed code and sees only their channel, with no
   await expect(page.getByRole('button', { name: 'Channel settings' })).toHaveCount(0);
   await page.screenshot({ path: testInfo.outputPath('guest-channel.png') });
 
-  // Guests are in Odin Chat's layout (docs/odin-chat/plan.md, Landing): their channels in the
-  // sidebar beside the channel, with no direct messages, Mentions or Odin.
-  // On a phone the channel takes the sidebar's place, with a link back to it.
+  // Guests are in Odin Chat's layout: their channels in the sidebar beside the channel,
+  // with no direct messages, Mentions or Odin. On a phone the channel takes the sidebar's
+  // place, with a link back to it.
   const sidebar = page.getByRole('navigation', { name: 'Conversations' });
   const back = page.getByRole('link', { name: 'Your channels' });
   if (await back.isVisible()) {
@@ -145,7 +144,7 @@ test('a guest\u2019s bell shows a mention from their channel and opens it in the
   api.assertNoUnexpectedRequests();
 });
 
-test('a guest changes the status of their pursuit task, comments on it and attaches a file; others\u2019 tasks are read-only (AC-20)', async ({ page }, testInfo) => {
+test('a guest changes the status of their pursuit task, comments on it and attaches a file; others\u2019 tasks are read-only', async ({ page }, testInfo) => {
   const tasks = [
     { assignedToMe: true, dueDate: '2026-11-20', id: 'task-gina', name: 'Send network diagrams', status: 'Not Started' },
     { assignedToMe: false, assigneeName: 'Otto Outside', dueDate: '2026-11-18', id: 'task-otto', name: 'Confirm licences', status: 'In Progress' },

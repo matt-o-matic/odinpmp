@@ -1,5 +1,5 @@
 // One guided review, two audiences. The adapter hides whether the review talks to the team
-// API (a signed-in member, /requirements/rounds/:roundId/review) or the stakeholder portal
+// API (a signed-in member, /requirements/rounds/:roundId/review) or the client portal
 // (/api/public/requirements/:token/rounds/:roundId), and where its live updates come from
 // (the shared project stream, or the link's own stream).
 

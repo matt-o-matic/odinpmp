@@ -11,7 +11,7 @@ import { NOTIFICATION_LEVELS } from './notification-levels.js';
 import { openPrincipalEventStream } from './notification-events.js';
 import { memberPrincipal } from './notifications.service.js';
 
-// Notification routes (docs/odin-chat/plan.md, Notifications).
+// Notification routes.
 //
 // createPrincipalNotificationsRouter serves one signed-in person's notifications, stream, focus
 // and push subscriptions. Members get it at /api/me (createMemberNotificationsRouter). The guest

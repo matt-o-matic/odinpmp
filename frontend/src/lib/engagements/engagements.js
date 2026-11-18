@@ -1,4 +1,4 @@
-// Engagements list and page helpers (docs/engagements/plan.md). Pure functions, so they test
+// Engagements list and page helpers. Pure functions, so they test
 // without a browser.
 
 export const ENGAGEMENT_STATUS_FILTERS = Object.freeze([

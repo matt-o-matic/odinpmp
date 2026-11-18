@@ -1,4 +1,4 @@
-// One place for the rules every engagement URL follows (docs/engagements/plan.md):
+// One place for the rules every engagement URL follows:
 //  - with the Consulting module off, an engagement's project URLs answer 404, as a missing
 //    project does;
 //  - delivery views reached by a project URL (Insights) answer 404 for an engagement, while its
@@ -20,7 +20,7 @@ const READ_MARKER_PATH = /^\/channels\/[^/]+\/read\/?$/;
 // Removing a guest from a lost engagement's channel only takes access away.
 const GUEST_REMOVAL_PATH = /^\/channels\/[^/]+\/guests\/[^/]+\/?$/;
 // Delivery views with a per-project URL. An engagement has no delivery Insights until it
-// converts; its pursuit Insights are its Insights tab (docs/engagements/plan.md).
+// converts; its pursuit Insights are its Insights tab.
 const DELIVERY_ONLY_PATH = /^\/insights(?!\/pursuit\/?$)(?:\/|$)/;
 
 /**

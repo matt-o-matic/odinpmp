@@ -1,5 +1,4 @@
-// Channel screens' helpers (docs/engagements/plan.md, Channels and conversation, Files). Pure
-// functions, so they test without a browser.
+// Channel screens' helpers. Pure functions, so they test without a browser.
 import { createLiveUpdates } from '../live/live-updates.js';
 
 export const CHANNEL_UPDATED_EVENT = 'channel.updated';

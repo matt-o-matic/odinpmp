@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { OdinApiError } from './api-client.js';
 
-// A project's files as one folder tree (docs/engagements/plan.md, Folders): "/" is the project and
+// A project's files as one folder tree: "/" is the project and
 // holds its own files; each channel is a folder in it ("/General", "/Design"), holding the
 // channel's library; people make their own folders inside a channel ("/General/Contracts/Signed").
 // Channels are made and named in Odin, never here. Files on epics, stories, tasks, tickets and

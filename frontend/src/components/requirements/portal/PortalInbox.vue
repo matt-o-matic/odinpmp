@@ -21,7 +21,7 @@ import { trackChipClass, trackLabel } from '../../../lib/requirements/requiremen
 import { commentPlainText } from '../../../lib/rich-content/comment-markdown.js';
 
 // The stakeholder's inbox (sh-inbox.png): one clear ask per open round, the questions
-// waiting for them (assigned ones first, then every open question, Q-13a), and what was
+// waiting for them (assigned ones first, then every open question), and what was
 // recently decided, which they can still comment on.
 const { portal, rounds, token } = usePortal();
 
@@ -30,7 +30,7 @@ const open = computed(() => openRounds(rounds.value));
 const closed = computed(() => closedRounds(rounds.value));
 const questions = computed(() => waitingQuestions(portal.value?.topics));
 const decisions = computed(() => (portal.value?.decisions ?? []).slice(0, 6));
-// Shared documents and signature requests (docs/document-signing). A server without them, or a
+// Shared documents and signature requests. A server without them, or a
 // failed load, leaves the inbox as it was.
 const signing = ref(null);
 const awaitingSignature = computed(() => {

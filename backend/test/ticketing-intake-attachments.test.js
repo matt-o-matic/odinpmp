@@ -86,7 +86,7 @@ async function createAttachmentTestApp({ fileScanner } = {}) {
 
 const PNG_BASE64 = Buffer.from('fake-png-bytes').toString('base64');
 
-test('AC6.4 an attachment is stored against the submitted ticket', async () => {
+test('an attachment is stored against the submitted ticket', async () => {
   const { app, invitation, projectsRepository, token } = await createAttachmentTestApp();
 
   const response = await request(app)
@@ -109,7 +109,7 @@ test('AC6.4 an attachment is stored against the submitted ticket', async () => {
   assert.equal(files.body.files[0].fileName, 'screenshot.png');
 });
 
-test('AC6.4 an infected attachment rejects the submission and leaves no ticket', async () => {
+test('an infected attachment rejects the submission and leaves no ticket', async () => {
   const { app, invitation, projectsRepository } = await createAttachmentTestApp({
     fileScanner: { enabled: true, async scanBytes() { return { clean: false, scanner: 'test' }; } },
   });
@@ -128,7 +128,7 @@ test('AC6.4 an infected attachment rejects the submission and leaves no ticket',
   assert.deepEqual(project.tickets, [], 'no ticket record survives a failed scan');
 });
 
-test('AC6.5 a disallowed content type is rejected', async () => {
+test('a disallowed content type is rejected', async () => {
   const { app, invitation } = await createAttachmentTestApp();
 
   const response = await request(app)
@@ -141,7 +141,7 @@ test('AC6.5 a disallowed content type is rejected', async () => {
   assert.equal(response.status, 400);
 });
 
-test('AC6.5 an oversized attachment is rejected on decoded bytes, not base64 length', async () => {
+test('an oversized attachment is rejected on decoded bytes, not base64 length', async () => {
   const { app, invitation, projectsRepository } = await createAttachmentTestApp();
   const oversized = Buffer.alloc(10 * 1024 * 1024 + 1024, 0x41).toString('base64');
 
@@ -158,7 +158,7 @@ test('AC6.5 an oversized attachment is rejected on decoded bytes, not base64 len
   assert.deepEqual(project.tickets, []);
 });
 
-test('AC6.5 more than five attachments are rejected', async () => {
+test('more than five attachments are rejected', async () => {
   const { app, invitation } = await createAttachmentTestApp();
   const attachment = { contentBase64: PNG_BASE64, contentType: 'image/png', fileName: 'shot.png' };
 
@@ -188,7 +188,7 @@ test('the reply token is parsed from the recipient address', () => {
   assert.equal(extractReplyToken(undefined), '');
 });
 
-test('AC6.7 an inbound reply is appended to the reporter ticket as a comment', async () => {
+test('an inbound reply is appended to the reporter ticket as a comment', async () => {
   const { app, invitation, projectsRepository, token } = await createAttachmentTestApp();
 
   await request(app)
@@ -221,7 +221,7 @@ test('AC6.7 an inbound reply is appended to the reporter ticket as a comment', a
   assert.match(comments.body.comments[0].comment, /Safari/);
 });
 
-test('AC6.7 a reply to an unknown token never creates a ticket', async () => {
+test('a reply to an unknown token never creates a ticket', async () => {
   const { app, projectsRepository } = await createAttachmentTestApp();
 
   const response = await request(app)

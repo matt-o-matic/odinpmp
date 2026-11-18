@@ -1,7 +1,7 @@
-// Images and PDFs the model looks at (docs/engagements/plan.md, Odin in channels: images). A tool
-// that shows the model a file returns it under `media` beside its JSON result; the agent loop
-// sends the JSON as text and each media entry as an input_image or input_file part of the same
-// function_call_output. MCP clients get the media as image or embedded-resource content.
+// Images and PDFs the model looks at. A tool that shows the model a file returns it under
+// `media` beside its JSON result; the agent loop sends the JSON as text and each media entry
+// as an input_image or input_file part of the same function_call_output. MCP clients get the
+// media as image or embedded-resource content.
 //
 // The bytes are for one request only. Anything kept (the transcript, a turn paused for
 // confirmation, decision evidence, logs) holds "[image]" or "[file: name]" in their place.

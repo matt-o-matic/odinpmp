@@ -69,7 +69,7 @@ const form = reactive({
   newPassword: '',
   preferences: {
     darkMode: false,
-    // Where Odin opens: Odin, or Odin Chat (docs/odin-chat/plan.md, Landing).
+    // Where Odin opens: Odin, or Odin Chat.
     startPage: 'odin',
     ...effectiveEmailNotifications(),
   },

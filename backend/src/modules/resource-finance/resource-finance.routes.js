@@ -39,7 +39,7 @@ const grantProjectIdsOf = (request) => (request.auth.credentialSource === 'mcp' 
 
 export function createResourceFinanceRouter(deps) {
   const { authRepository, complianceRepository, fileScanner, fileStorage, projectRepository, resourceFinanceRepository, tenantsRepository = null, tokenService } = deps;
-  // Task access links for people without a login (docs/task-access/plan.md).
+  // Task access links for people without a login.
   const access = accessServiceDeps(deps);
   const router = Router();
   // MCP credentials reach only the routes mcp/route-access.js allows.

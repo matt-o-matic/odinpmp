@@ -1,5 +1,5 @@
 // A project is a delivery project (every project made before 0095) or an engagement: a sales
-// engagement that stays out of delivery views until someone converts it (docs/engagements/plan.md).
+// engagement that stays out of delivery views until someone converts it.
 
 export const PROJECT_KIND_DELIVERY = 'delivery';
 export const PROJECT_KIND_ENGAGEMENT = 'engagement';

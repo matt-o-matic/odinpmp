@@ -1,4 +1,4 @@
-// Uploads a file in parts straight to storage (docs/engagements/plan.md, Upload): Odin starts the
+// Uploads a file in parts straight to storage: Odin starts the
 // upload and signs part URLs in batches, the browser sends several parts at once, retries a part
 // that fails, and after a reload resumes from the parts storage already has. Completing is a
 // separate step, so the caller can handle a version conflict.

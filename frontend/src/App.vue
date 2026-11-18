@@ -31,7 +31,7 @@ import { createSearchSuggestions, signedInKey, suggestionIcon, suggestionOption 
 const route = useRoute();
 const router = useRouter();
 
-// The stakeholder requirements portal has its own header (route meta `portal`). Odin Chat and the
+// The client portal has its own header (route meta `portal`). Odin Chat and the
 // guest view have their own whole-page layout (route meta `chatLayout`, components/chat).
 const isPortalRoute = computed(() => route.meta?.portal === true);
 const isChatLayout = computed(() => route.meta?.chatLayout === true);
@@ -53,7 +53,7 @@ const canRankProjects = computed(() => userCanRankProjects(currentUser.value));
 const canViewAgentMemory = computed(() => userCanViewAgentMemory(currentUser.value));
 const accessNotice = computed(() => accessNoticeMessage(route.query.notice));
 const showEngagements = computed(() => workspaceModules.state.consulting);
-// Layout A (docs/odin-chat/plan.md): the groups the top bar's menus hold, by route name, so each
+// Layout A: the groups the top bar's menus hold, by route name, so each
 // menu shows as current while one of its pages is open.
 const WORK_ROUTES = /^(projects|project-|engagement|tickets)/;
 const PLAN_ROUTES = /^(portfolio|ranking|resources|finance|workflow)/;
@@ -65,7 +65,7 @@ const insightsActive = computed(() => INSIGHTS_ROUTES.test(routeName.value));
 const chatUnreadCount = computed(() => chatUnread.state.unread);
 const searchInput = ref(null);
 const navbarQuery = ref('');
-// Results as you type (docs/semantic-search/plan.md): after a pause, the best few matches open
+// Results as you type: after a pause, the best few matches open
 // under the box; Enter with none chosen opens the search page.
 const navbarSuggestions = createSearchSuggestions({
   search: (filters) => (apiClient.passive ?? apiClient).searchEnterprise(filters, authSession.state.token),
@@ -437,7 +437,7 @@ watch(
         </RouterLink>
 
         <!-- The one bell. On a phone it stays outside the collapsed menu, so the count shows without
-             opening it; on wide screens it moves into its slot after search (layout A). -->
+             opening it; on wide screens it moves into its slot after search. -->
         <Teleport defer to="#notifications-bell-slot" :disabled="!wideTopBar">
           <NotificationBell class="app-topbar__bell" :class="wideTopBar ? '' : 'ms-auto me-2'" />
         </Teleport>
@@ -600,7 +600,7 @@ watch(
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
 
-          <!-- The notifications bell (docs/odin-chat/plan.md, layout A): after search, before AI Workspace. -->
+          <!-- The notifications bell: after search, before AI Workspace. -->
           <div id="notifications-bell-slot" class="app-topbar__bell me-lg-2" data-slot="notifications-bell"></div>
 
           <button class="btn btn-dark btn-sm me-3 app-assistant-launch" type="button" @click="openAssistantWorkspace()">
@@ -705,7 +705,7 @@ watch(
 </template>
 
 <style scoped>
-/* Layout A (docs/odin-chat/plan.md): the menus' buttons look like the bar's links. */
+/* Layout A: the menus' buttons look like the bar's links. */
 .app-menu__toggle { border: 0; background: transparent; }
 /* The group of the open page. Not a class: Bootstrap keeps its own on the toggle. */
 .app-menu__toggle[aria-current="true"] { color: var(--bs-navbar-active-color); }

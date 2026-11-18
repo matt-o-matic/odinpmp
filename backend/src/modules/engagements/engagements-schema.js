@@ -1,7 +1,7 @@
-// 0095_engagements (docs/engagements/plan.md, "Data"): the kind of each project, the fields an
-// engagement carries before it becomes a delivery project, and which optional modules each
-// workspace has switched on. Additive only, so the release before it keeps working while it runs.
-// Applied migrations are checksummed: never edit this body, add a new migration instead.
+// 0095_engagements: the kind of each project, the fields an engagement carries before it becomes
+// a delivery project, and which optional modules each workspace has switched on. Additive only,
+// so the release before it keeps working while it runs. Applied migrations are checksummed: never
+// edit this body, add a new migration instead.
 
 async function columnExists(executor, tableName, columnName) {
   const [rows] = await executor.execute('SELECT COUNT(*) AS n FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?', [tableName, columnName]);

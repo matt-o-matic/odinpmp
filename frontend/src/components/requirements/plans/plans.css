@@ -1,4 +1,4 @@
-/* Plan & work stage (design-v2 team-decide-plan): the decisions a plan builds on, the plan
+/* Plan & work stage: the decisions a plan builds on, the plan
    document, its editor, versions, and proposed work, on Odin's tokens. */
 .rq-plan-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 1rem; align-items: start; }
 

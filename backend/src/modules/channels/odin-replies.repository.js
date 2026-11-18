@@ -1,7 +1,7 @@
-// Odin's replies in channels (docs/engagements/plan.md, Odin in channels): one record per post
-// that tags @odin. Spread into the projects repositories, as the channel methods are. Each
-// channel's "Let Odin answer when tagged" setting is project_channels.odin_enabled
-// (channels.repository.js, 0105_channel_odin).
+// Odin's replies in channels: one record per post that tags @odin. Spread into the
+// projects repositories, as the channel methods are. Each channel's "Let Odin answer when
+// tagged" setting is project_channels.odin_enabled (channels.repository.js,
+// 0105_channel_odin).
 import { randomUUID } from 'node:crypto';
 
 export const ODIN_REPLY_STATUSES = Object.freeze(['queued', 'running', 'awaiting_confirmation', 'replied', 'failed', 'screened']);

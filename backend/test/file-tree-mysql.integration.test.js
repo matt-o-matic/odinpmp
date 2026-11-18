@@ -9,9 +9,9 @@ import { bootstrapMysqlSchema } from '../src/jobs/bootstrap-schema.lib.js';
 import { createMysqlProjectsRepository } from '../src/modules/projects/projects.repository.js';
 import { createMemoryLargeFileStorage } from './helpers/large-file-fixtures.js';
 
-// The MySQL side of renaming and moving a file in the project's file tree (docs/engagements/
-// plan.md, Folders): projects.repository.js moveFile, its name check in the destination folder,
-// and the change log entry. file-tree.test.js covers the routes and tools in memory.
+// The MySQL side of renaming and moving a file in the project's file tree: projects.repository.js
+// moveFile, its name check in the destination folder, and the change log entry. file-tree.test.js
+// covers the routes and tools in memory.
 
 const databaseUrl = String(process.env.ODIN_TEST_DATABASE_URL ?? '').trim();
 const base64 = (text) => Buffer.from(text).toString('base64');

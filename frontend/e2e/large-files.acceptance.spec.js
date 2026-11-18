@@ -4,10 +4,9 @@ import { expect, test } from '@playwright/test';
 import { settleForAxe } from './fixtures/axe-settle.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Large files in the files panel (docs/engagements/plan.md, Files): uploads in parts with
-// resume and conflicts, Scanning and Virus found states, signed downloads, deleting old
-// versions, and storage used. The routes are stand-ins; backend/test/large-files.test.js runs
-// the real ones.
+// Large files in the files panel: uploads in parts with resume and conflicts, Scanning and
+// Virus found states, signed downloads, deleting old versions, and storage used. The routes
+// are stand-ins; backend/test/large-files.test.js runs the real ones.
 
 const PROJECT = syntheticProject.id;
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];

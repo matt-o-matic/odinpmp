@@ -91,7 +91,7 @@ export function buildSearchDocuments(context) {
   for (const objective of context.portfolio.objectives) documents.push({ content: `${objective.description ?? ''} ${objective.status} ${objective.unit}`, documentType: objective.kind, facets: { status: objective.status }, projectId: null, sourceId: objective.id, title: objective.title, updatedAt: objective.updatedAt, url: '/portfolio' });
   for (const goal of context.goals.filter((record) => record.projectId)) documents.push({ content: `${goal.status} ${JSON.stringify(goal.success)} ${JSON.stringify(goal.scope)}`, documentType: 'agent_goal', facets: { status: goal.status }, projectId: goal.projectId, sourceId: goal.id, title: goal.title, updatedAt: goal.updatedAt, url: projectUrl(goal.projectId, '/governance') });
   // Channels and posts, then comments, then files with their text, after the records above so
-  // the index cap drops them first (docs/semantic-search/plan.md).
+  // the index cap drops them first.
   if (context.channelSources) documents.push(...buildChannelSearchDocuments(context.channelSources));
   const allProjects = searchProjects(context);
   if (context.comments) documents.push(...buildCommentDocuments({ comments: context.comments, projects: allProjects }));
@@ -149,7 +149,7 @@ export async function refreshSearchIndexForUser({ dependencies, repository, user
 export async function searchForUser({ dependencies, input, projectOnly = false, repository, user }) {
   const tenantId = tenantIdFor(user);
   if (projectOnly && !input.projectId) throw new HttpError(404, 'Project not found.');
-  // Engagements' channels are searched while the Consulting module is on (E-11), and an
+  // Engagements' channels are searched while the Consulting module is on, and an
   // engagement named by projectId answers 404 while it is off, as its project URL does.
   const includeEngagements = await isModuleEnabled(dependencies.workspaceModulesRepository, tenantId, CONSULTING_MODULE);
   if (input.projectId) {

@@ -18,7 +18,7 @@ import { scriptedOpenAi } from './helpers/agent-test-utils.js';
 // Tickets, ticket comments with mentions, ticket links and project templates for OAuth MCP clients,
 // through the real Odin routes on an in-process app over loopback HTTP. Repositories are disposable
 // and in memory; mail is only queued, never sent. Tickets someone outside the team submitted stay
-// out of reach until they are validated (D-027); agents triage them with a scripted automated check.
+// out of reach until they are validated; agents triage them with a scripted automated check.
 
 const TENANT_ID = 'tenant-acme';
 const PROJECT_ID = 'project-pilot';

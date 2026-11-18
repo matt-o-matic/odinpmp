@@ -14,7 +14,7 @@ import { createInMemoryProjectsRepository } from '../src/modules/projects/projec
 import { createInMemoryResourceFinanceRepository } from '../src/modules/resource-finance/resource-finance.repository.js';
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 
-// odin_get_project_changes (docs/mcp-change-feed/plan.md): a baseline, then only what changed
+// odin_get_project_changes: a baseline, then only what changed
 // after a cursor, from the project change log, with who changed it and through what.
 
 async function fixture() {

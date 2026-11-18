@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import { liveEvalSettings, runLiveSummaryEval } from '../evals/requirements-summary/run-live-eval.js';
 
-// AC-02 handoff evidence: the fixture discussion through the real provider. Skips without
+// The Odin summary: the fixture discussion through the real provider. Skips without
 // OPENAI_API_KEY, like the other live tests.
 const settings = liveEvalSettings();
 

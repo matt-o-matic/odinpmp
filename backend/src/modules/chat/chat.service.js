@@ -1,6 +1,6 @@
-// Odin Chat's lists (docs/odin-chat/plan.md, Odin Chat; AC-N08): every channel a person is in
-// across their projects and engagements, their direct messages, the posts that tag them
-// (Mentions) and the threads they are in (Threads).
+// Odin Chat's lists: every channel a person is in across their projects and engagements,
+// their direct messages, the posts that tag them (Mentions) and the threads they are in
+// (Threads).
 //
 // A person is in a project's channels when they can read the project, the same rule the
 // project's Channels tab uses (channels.service.js). Engagements count only while the Consulting

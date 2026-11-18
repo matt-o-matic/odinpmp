@@ -3,8 +3,8 @@ import { computed, reactive, watch } from 'vue';
 
 import { apiClient, authSession } from '../../lib/auth/index.js';
 
-// The pursuit board's setting (docs/engagements/qna.md Q-06). Everyone on the project sees it;
-// people with decision rights change it. "Let Odin answer when tagged" (E-16) is each channel's
+// The pursuit board's setting. Everyone on the project sees it;
+// people with decision rights change it. "Let Odin answer when tagged" is each channel's
 // own, in Channel settings (ChannelsWorkspace.vue).
 
 const props = defineProps({

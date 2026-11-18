@@ -5,7 +5,7 @@ import { manifestDirections, manifestQuestions, manifestScreens } from './round-
 import { DIMENSION_PREFIX, OVERALL_DIMENSION } from './rounds.repository.js';
 
 // Shared read models for rounds: people, verdict grids, progress, and how annotations and
-// their threads are shown to the team and to the stakeholder portal.
+// their threads are shown to the team and to the client portal.
 
 export function actorRefOf(actorType, actorId) {
   return `${actorType === 'stakeholder' ? 'stakeholder' : 'user'}:${actorId}`;

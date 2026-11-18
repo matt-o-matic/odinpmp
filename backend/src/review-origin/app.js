@@ -9,8 +9,8 @@ import { DEVELOPMENT_GRANT_SECRET, verifyPackageGrant } from '../modules/require
 import { packageLayout, screenScopeAllows } from '../modules/requirements/packages/package-scope.js';
 import { isMissingObjectError } from '../modules/requirements/packages/package-storage.js';
 
-// The review origin (plan.md, "Hosting and isolation"). A separate Express app on its own
-// port and host. It answers exactly two kinds of request:
+// The review origin. A separate Express app on its own port and host. It answers exactly
+// two kinds of request:
 //
 //   GET /p/<packageId>/<grant>/<path>   a package file, if the grant is valid
 //   GET /__odin/bridge.js               the bridge injected into package HTML
@@ -27,8 +27,7 @@ import { isMissingObjectError } from '../modules/requirements/packages/package-s
 //
 // The review origin cannot keep prototype scripts off the network entirely: no browser lets
 // a CSP block WebRTC (Chromium ignores the proposed `webrtc` directive), so a script can
-// still reach another host that way. That is an accepted limitation (plan.md, "Hosting and
-// isolation").
+// still reach another host that way. That is an accepted limitation.
 
 const BRIDGE_PLACEHOLDER = '/*__ODIN_BRIDGE_CONFIG__*/{ "allowedParentOrigins": [] }';
 export const BRIDGE_PATH = '/__odin/bridge.js';

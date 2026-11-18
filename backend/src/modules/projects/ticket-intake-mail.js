@@ -1,4 +1,4 @@
-// Reporter-facing mail for external ticket intake (D-021): the intake link, the
+// Reporter-facing mail for external ticket intake: the intake link, the
 // acknowledgement, and status-change notices, plus the reply-by-email address they carry.
 //
 // A reporter's page lives at <FRONTEND_APP_URL>/report/<intakeToken>. Replies go to
@@ -42,7 +42,7 @@ export function isTicketReplyAddress(options) {
   return Boolean(extractTicketReplyToken(options));
 }
 
-/** Client-facing label for a ticket state (D-021); custom states fall back to their key. */
+/** Client-facing label for a ticket state; custom states fall back to their key. */
 export function ticketStatusLabel(status) {
   const key = String(status ?? '').trim();
   const state = TICKET_WORKFLOW_STATES.find((entry) => entry.key === key);

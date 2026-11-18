@@ -9,7 +9,7 @@ import { hasSummaryFindings, normalizeSummaryOutput, outstandingOwnerText } from
 import { describeSummaryStatus, summaryPeople } from '../../../lib/requirements/requirements-summary-status.js';
 
 // The Odin summary of one screen in a round, or of the whole round. Labeled "Odin summary"
-// like any contributor, with no disclaimer or AI badge (Q-14a). Every point shows the
+// like any contributor, with no disclaimer or AI badge. Every point shows the
 // feedback behind it: annotation numbers, comment labels, and the people whose verdicts,
 // direction choices, or answers it cites. Feedback themes group every annotation and
 // comment; with `feedbackLocation`, their citations open in "Marks and comments".

@@ -1,4 +1,4 @@
-// Who sees which pursuit tasks (docs/engagements/qna.md Q-06, plan.md "Pursuit board", AC-20).
+// Who sees which pursuit tasks.
 //
 // Internal members of the project see every pursuit task. An outside person (a guest or
 // stakeholder, or a resource without a login) sees the tasks assigned to them; with the project

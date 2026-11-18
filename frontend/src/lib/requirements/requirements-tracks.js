@@ -33,7 +33,7 @@ export function trackChipClass(track) {
   return TRACK_META[track]?.chipClass ?? 'rq-chip--neutral';
 }
 
-// The pipeline stages double as the track's subtabs (Q-10, design v2). Review is the one
+// The pipeline stages double as the track's subtabs. Review is the one
 // project-wide stage: from either track it opens the same Review tab.
 export const REQUIREMENTS_STAGES = Object.freeze([
   { id: 'brief', label: 'Brief', number: '01' },

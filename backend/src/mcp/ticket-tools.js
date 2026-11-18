@@ -7,7 +7,7 @@ import { TICKET_CATEGORIES, TICKET_SEVERITIES, projectItemCreateSchema, projectI
 // them, read the choices a ticket offers, and find people a comment can @mention. Listing and
 // updating tickets is in workspace-tools.js, comments in catalog.js, links in relation-tools.js.
 // A ticket submitted from outside the team stays hidden from agents until someone validates it
-// (D-027, assistant-ticket-visibility.js). No tool here returns its content. Agents triage with
+// (assistant-ticket-visibility.js). No tool here returns its content. Agents triage with
 // Odin's automated check of each one (ticket-review-classifier.js) and validate only what it
 // finds safe; anything else waits for a person. Odin enforces that when the validation is
 // saved, against the content as it is then; the checks here only explain a refusal sooner.

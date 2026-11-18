@@ -7,7 +7,7 @@ import { createChatWorld, installChatApi } from './fixtures/chat-api.js';
 import { installPursuitApi } from './fixtures/pursuit-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// The Tasks tab of a channel in Odin Chat (docs/odin-chat/plan.md, Tasks): a delivery project's
+// The Tasks tab of a channel in Odin Chat: a delivery project's
 // stories and tasks, or an engagement's pursuit tasks, as a board or a list beside the
 // conversation. Quick add, moving a card, the Mine filter, read-only members, the phone's list and
 // Ask Odin. The project's board API is mocked here; the pursuit board is fixtures/pursuit-api.js.

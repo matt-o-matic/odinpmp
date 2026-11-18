@@ -1,5 +1,5 @@
 // The guests' task source (guests/guest-tasks.js), built on the pursuit board's visibility rule
-// (pursuit-visibility.js, docs/engagements/qna.md Q-06): a guest sees the pursuit tasks assigned
+// (pursuit-visibility.js): a guest sees the pursuit tasks assigned
 // to their stakeholder record, or every pursuit task while "Guests see the whole board" is on.
 // They change the status of, comment on and attach files to only their own.
 //

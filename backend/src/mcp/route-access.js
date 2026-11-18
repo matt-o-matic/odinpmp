@@ -54,7 +54,7 @@ export function requireMcpRouteAccess(request, grant) {
     ...['GET', 'POST'].map(verb => [verb, `^/api/projects/${resource}/comments$`]),
     ...['PUT', 'DELETE'].map(verb => [verb, `^/api/projects/${resource}/comments/${resource}$`]),
     ['GET', '^/api/workflows$'],
-    // Requirements (Q-07): reads for the context and feedback tools, plus upload URLs for
+    // Requirements: reads for the context and feedback tools, plus upload URLs for
     // package drafts. Closing rounds, preferences, plans, proposed work, reviews and decision
     // edits stay outside every MCP grant.
     ['GET', `${requirements}$`],

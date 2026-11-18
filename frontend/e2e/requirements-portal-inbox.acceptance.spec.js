@@ -5,9 +5,9 @@ import { PORTAL_TOKENS, createReviewWorld, installPortalApi } from './fixtures/r
 import { installSyntheticApi } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// The stakeholder portal (U7, AC-06 portal part, AC-17): the inbox, link problems with
-// "Request a new link", and the question page, with no app chrome and no sign-in.
-// Synthetic data: e2e/fixtures/requirements-portal-api.js.
+// The client portal: the inbox, link problems with "Request a new link", and the
+// question page, with no app chrome and no sign-in. Synthetic data:
+// e2e/fixtures/requirements-portal-api.js.
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'];
 
 async function expectNoSeriousIssues(page, testInfo, name) {
@@ -34,7 +34,7 @@ async function noHorizontalOverflow(page) {
   expect(overflow, 'no horizontal scrolling').toBeLessThanOrEqual(1);
 }
 
-test.describe('Stakeholder portal inbox', () => {
+test.describe('Client portal inbox', () => {
   test('shows one clear ask per open round, the questions waiting, and recent decisions without app chrome', async ({ page }, testInfo) => {
     const { api, errors } = await openPortal(page);
 

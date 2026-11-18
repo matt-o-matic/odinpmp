@@ -1,9 +1,8 @@
-// The quick check for instructions aimed at an AI, on guests' channel posts (docs/engagements/
-// plan.md, Odin in channels; docs/agentic-strategy.md, principle 13). It is the outside-ticket
-// check (ticket-review-classifier.js) asked about a post: the same Decisions model, timeout and
-// thresholds. Guests write to Odin on purpose, so a question or request addressed to Odin is not
-// what it looks for: only text that tries to steer the AI past its instructions or the writer's
-// own access.
+// The quick check for instructions aimed at an AI, on guests' channel posts. It is the
+// outside-ticket check (ticket-review-classifier.js) asked about a post: the same Decisions model,
+// timeout and thresholds. Guests write to Odin on purpose, so a question or request addressed to
+// Odin is not what it looks for: only text that tries to steer the AI past its instructions or the
+// writer's own access.
 //
 // It fails closed: a post that can't be checked (no client, the Decisions API off, an error, a
 // timeout) counts as not checked, which callers treat as flagged.

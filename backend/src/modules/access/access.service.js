@@ -30,7 +30,7 @@ import {
   REQUIREMENTS_TOKEN_PURPOSE,
 } from './access-links.js';
 
-// The access link (docs/task-access/plan.md). Every request resolves the token to its link and
+// The access link. Every request resolves the token to its link and
 // works out again what the link's email has in the workspace; nothing about access comes from the
 // client. A person with task access sees the project's board and edits only the epics, stories and
 // tasks assigned to them, as `resource:<resourceId>`, through the same workflow rules, version
@@ -94,7 +94,7 @@ function taskNotFound() {
   return new HttpError(404, 'Work item not found.', { details: { code: 'task_not_found' } });
 }
 
-// Outside people change the status of their pursuit tasks and comment on them (Q-06); hours and
+// Outside people change the status of their pursuit tasks and comment on them; hours and
 // time stay with the team.
 function notOnPursuitTask() {
   return new HttpError(403, 'Pursuit tasks take status changes and comments here.', { details: { code: 'not_allowed_on_pursuit_task' } });
@@ -187,7 +187,7 @@ export async function evaluateEmailAccess(deps, { email, now, tenantId }) {
   }
 
   // Pursuit tasks assigned to them open their engagement too, with no grant or allocation: an
-  // outside person sees the pursuit tasks assigned to them (docs/engagements/qna.md Q-06).
+  // outside person sees the pursuit tasks assigned to them.
   // An engagement shows only while the workspace has the Consulting module on.
   const pursuitAssignments = resourceIds.length && deps.projectRepository.listPursuitAssignments
     ? await deps.projectRepository.listPursuitAssignments({ assigneeIds: resourceIds.map(resourceAssigneeId), tenantId })
@@ -243,7 +243,7 @@ export async function resolveAccessToken(deps, { token }) {
   const now = nowFor(deps);
   const access = await evaluateEmailAccess(deps, { email: link.email, now, tenantId: link.tenantId });
   const linkStatus = computeAccessLinkStatus({ grants: access.grants, link, now });
-  // An engagement drops out while the Consulting module is off (docs/engagements/plan.md, E-13).
+  // An engagement drops out while the Consulting module is off.
   // Its grants still count toward the link's lifetime, so switching the module back restores it.
   for (const projectId of [...access.projects.keys()]) {
     if (await isHiddenByModule(deps, projectId)) access.projects.delete(projectId);
@@ -495,7 +495,7 @@ function presentStory({ canAddTask, epic, story }) {
   };
 }
 
-// invoiced: an invoice holds the entry, so it stays as billed (docs/invoice-gen-connection, E-06).
+// invoiced: an invoice holds the entry, so it stays as billed.
 function presentTimeEntry(entry) {
   return { hours: entry.hours, id: entry.id, invoiced: Boolean(entry.invoiceClaimId), note: entry.note ?? '', status: entry.status, version: entry.version, workDate: entry.workDate };
 }

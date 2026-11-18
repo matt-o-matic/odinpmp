@@ -16,13 +16,13 @@ import {
 } from '../../lib/requirements/review-bridge.js';
 
 // A prototype screen from a review package, running in a sandboxed frame on the review
-// origin (plan.md, Hosting and isolation). The frame renders at the manifest's viewport
-// size and is scaled down to fit. The bridge inside reports state; this component sends
-// it commands. Every message is checked against this frame and treated as untrusted data.
+// origin. The frame renders at the manifest's viewport size and is scaled down to fit.
+// The bridge inside reports state; this component sends it commands. Every message is
+// checked against this frame and treated as untrusted data.
 //
 // Exposed: capture(options) and hint(x, y) return promises that always resolve, with
 // `{ ok: false, reason }` on failure or timeout; gotoState(key); ping(); state; ready.
-// The team preview uses Browse only; the stakeholder portal adds Annotate on top. The
+// The team preview uses Browse only; the client portal adds Annotate on top. The
 // `overlay` slot draws over the frame at its shown size and gets the frame's `scale`.
 
 const props = defineProps({
@@ -288,7 +288,7 @@ defineExpose({ capture, frameViewport, gotoState, hint, ping, ready, state });
         </div>
       </div>
     </div>
-    <!-- Prototype scripts can still reach other hosts over WebRTC (plan.md, "Hosting and isolation"). -->
+    <!-- Prototype scripts can still reach other hosts over WebRTC. -->
     <p v-if="src" class="rq-proto__notice" data-testid="rq-proto-notice">
       <i class="bi bi-info-circle" aria-hidden="true"></i>
       <span>This is a mockup. Don't type real personal or payment details into it.</span>

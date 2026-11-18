@@ -6,7 +6,7 @@ import { installRequirementsRoundsApi, roundsScenario } from './fixtures/require
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 import { settleForAxe } from './fixtures/axe-settle.js';
 
-// Publishing a draft package as a round (journey 4, AC-06 team part, AC-11, AC-15, AC-17):
+// Publishing a draft package as a round:
 // reviewers with required flags, the ask, the summary line, closing the open round first
 // with decision rights, and every publish error the form handles. Synthetic API only.
 const base = `projects/${syntheticProject.id}/requirements`;

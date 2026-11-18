@@ -10,7 +10,7 @@ import { useMarksLink, useReviewSession } from '../../../lib/requirements/review
 
 // Every mark on the screen as a keyboard list ("1. Pin · Ravi Shah · Hierarchy"), plus the
 // marks from earlier versions whose screen changed (Outdated). Their author, or an admin or
-// manager, carries each one forward or closes it (AC-12).
+// manager, carries each one forward or closes it.
 const props = defineProps({
   activeId: { default: null, type: String },
   annotations: { default: () => [], type: Array },

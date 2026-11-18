@@ -18,7 +18,7 @@ import { createInMemorySessionsRepository } from '../src/modules/sessions/sessio
 import { createStubSummaryAi, roundPackageFiles } from './helpers/requirements-rounds-app.js';
 import { buildExampleZip, buildZip, makePng } from './helpers/review-packages.js';
 
-// AC-14: an MCP client over HTTP with OAuth reads requirements context and round feedback,
+// An MCP client over HTTP with OAuth reads requirements context and round feedback,
 // uploads the template package through a single-use URL, and sees a new draft version. It
 // cannot close a round, and a member's grant cannot record a decision. Everything runs on disposable in-memory
 // repositories behind a loopback listener.
@@ -248,7 +248,7 @@ async function seedProject(env) {
   return { decisionId: decision.body.decision.id, openId, packageId: uploaded.body.package.id, preferenceId: preference.body.decision.id, resolvedId, round, snapshotId: snapshot.body.snapshotFileId };
 }
 
-test('AC-14 an OAuth MCP client reads requirements context and feedback, uploads a package draft, and cannot close rounds, or decide without decision rights', { timeout: 180_000 }, async (t) => {
+test('an OAuth MCP client reads requirements context and feedback, uploads a package draft, and cannot close rounds, or decide without decision rights', { timeout: 180_000 }, async (t) => {
   const env = await fixture(t);
   const seeded = await seedProject(env);
   const reader = await env.connect(await env.grant(await env.register(['projects.read']), 'member'));

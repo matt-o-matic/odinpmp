@@ -17,7 +17,7 @@ import {
 import { TICKET_CATEGORIES, TICKET_SEVERITIES, categoryLabel, severityLabel } from '../lib/projects/ticket-board.js';
 import { formatAgo } from '../lib/requirements/requirements-time.js';
 
-// The reporter's page at /report/:token (D-011, D-021). The intake token is the only
+// The reporter's page at /report/:token. The intake token is the only
 // credential; the page files tickets against the token's project and lists the tickets
 // filed through this link. The app's header and navigation are hidden (route meta `portal`).
 const PAGE_SIZE = 10;

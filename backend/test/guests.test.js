@@ -28,11 +28,11 @@ import { createInMemoryProjectsRepository } from '../src/modules/projects/projec
 import { createInMemorySessionsRepository } from '../src/modules/sessions/sessions.repository.js';
 import { createInMemoryWorkspaceModulesRepository } from '../src/modules/workspace-modules/workspace-modules.repository.js';
 
-// Channel guests (docs/engagements/plan.md, workstream 6; AC-02, AC-10): invitations, sign-in by
-// emailed code, the 30-day session that renews with use, everything a guest may do in their
-// channels, the 404s and 403s for everything else, removal, the guest stream, the Consulting
-// module, conversion and the audit trail. Through Odin's routes on in-memory repositories, with a
-// fake clock for codes and sessions. guests-mysql.integration.test.js runs migration 0098.
+// Channel guests: invitations, sign-in by emailed code, the 30-day session that renews with use,
+// everything a guest may do in their channels, the 404s and 403s for everything else, removal,
+// the guest stream, the Consulting module, conversion and the audit trail. Through Odin's routes
+// on in-memory repositories, with a fake clock for codes and sessions.
+// guests-mysql.integration.test.js runs migration 0098.
 
 const TENANT_ID = 'tenant-acme';
 const OTHER_TENANT_ID = 'tenant-other';
@@ -498,16 +498,16 @@ test('a guest uploads in parts into their channel, downloads after the scan, pre
   assert.equal(comments.comments[0].author.name, GINA.name);
   const marked = await ok(gina, 'PUT', `/api/guest/files/${file.id}/editing`, {});
   assert.equal(marked.editing.name, GINA.name);
-  // A member who uploads over Gina's marker is asked to confirm (AC-09).
+  // A member who uploads over Gina's marker is asked to confirm.
   const overMarker = await send('member', 'POST', `${P(ENG)}/uploads`, { contentType: 'text/plain', expectedVersion: 2, fileId: file.id, fileName: 'diagram.txt', fileSize: 4 });
   assert.deepEqual([overMarker.status, overMarker.body.details.code, overMarker.body.details.editing.name], [409, 'file_being_edited', GINA.name]);
   assert.equal((await ok(gina, 'DELETE', `/api/guest/files/${file.id}/editing`)).editing, null);
-  // The 1 GB limit applies to guests (Q-05).
+  // The 1 GB limit applies to guests.
   const tooBig = await send(gina, 'POST', '/api/guest/uploads', { contentType: 'text/plain', fileName: 'huge.bin', fileSize: 1_073_741_825, targetId: deal.id, targetType: 'channel' });
   assert.deepEqual([tooBig.status, tooBig.body.details.code], [413, 'file_too_large']);
 });
 
-test('AC-02: every guest route answers 404 for another channel, its posts, files, versions, comments, previews, downloads, uploads and events', async (t) => {
+test('every guest route answers 404 for another channel, its posts, files, versions, comments, previews, downloads, uploads and events', async (t) => {
   const { contoso, deal, gina, general, internal, ok, openStream, P, scanAll, send, upload, waitFor } = await withGuests(t);
   // Internal has a post, a file with a comment, and an upload in progress by a member.
   const internalPost = (await ok('member', 'POST', `${P(ENG)}/channels/${internal.id}/posts`, { body: 'Internal pricing' }, 201)).post;
@@ -577,7 +577,7 @@ test('AC-02: every guest route answers 404 for another channel, its posts, files
   assert.ok(delivered.every((event) => !('actor' in event.data)), 'events name no member');
 });
 
-test('AC-02: a guest token opens no member route, and member routes refuse it as a guest', async (t) => {
+test('a guest token opens no member route, and member routes refuse it as a guest', async (t) => {
   const { deal, gina, send } = await withGuests(t);
   const memberRoutes = [
     ['GET', '/api/projects'],
@@ -616,7 +616,7 @@ test('AC-02: a guest token opens no member route, and member routes refuse it as
   assert.deepEqual([member.status, member.body.details.code], [401, 'guest_sign_in_required']);
 });
 
-test('AC-10: removed from their only channel, the guest is refused on the next request, their stream closes and their sessions end', async (t) => {
+test('removed from their only channel, the guest is refused on the next request, their stream closes and their sessions end', async (t) => {
   const { audit, deal, gina, guestSessionsRepository, invite, ok, openStream, P, send, signIn, waitFor } = await withGuests(t);
   const stakeholderId = (await ok('lead', 'GET', `${P(ENG)}/channels/${deal.id}/guests`)).guests[0].stakeholderId;
   const stream = await openStream(gina.guest);
@@ -775,7 +775,7 @@ async function withPursuitTasks(t) {
   return { ...f, ginaId, guestsSeeBoard, ottoId, tasks };
 }
 
-test('AC-20 guest tasks, setting off: a guest sees only the pursuit tasks assigned to them and changes their status, comments and attaches files', async (t) => {
+test('guest tasks, setting off: a guest sees only the pursuit tasks assigned to them and changes their status, comments and attaches files', async (t) => {
   const { absoluteUrl, audit, gina, ok, P, scanAll, send, tasks, upload } = await withPursuitTasks(t);
   const T = (taskId, rest = '') => `/api/guest/projects/${ENG}/tasks/${taskId}${rest}`;
 
@@ -832,7 +832,7 @@ test('AC-20 guest tasks, setting off: a guest sees only the pursuit tasks assign
   assert.equal((await send(gina, 'GET', `/api/guest/files/${memberUpload.body.file.id}/versions`)).status, 404, 'task files take no versions or comments from guests');
 });
 
-test('AC-20 guest tasks, "Guests see the whole board" on: every pursuit task shows, and the guest still changes only their own', async (t) => {
+test('guest tasks, "Guests see the whole board" on: every pursuit task shows, and the guest still changes only their own', async (t) => {
   const { absoluteUrl, gina, guestsSeeBoard, ok, P, scanAll, send, tasks, upload } = await withPursuitTasks(t);
   const T = (taskId, rest = '') => `/api/guest/projects/${ENG}/tasks/${taskId}${rest}`;
   const memberUpload = await upload('lead', P(ENG), 'pricing', { fileName: 'pricing.txt', targetId: tasks.member.id, targetType: 'task' });

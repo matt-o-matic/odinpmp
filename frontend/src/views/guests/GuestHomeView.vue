@@ -7,10 +7,10 @@ import GuestTaskList from '../../components/guests/GuestTaskList.vue';
 import { guestApi } from '../../lib/guests/guest-client.js';
 import { guestNotice } from '../../lib/guests/guest-view.js';
 
-// A guest's start page (docs/engagements/plan.md, Guests; docs/odin-chat/plan.md, Landing): Odin
-// Chat's layout with the engagements and projects they are a guest in, each with only their
-// channels and unread counts. Below them, the pursuit tasks shared with them, where they change
-// the status of, comment on and attach files to their own (guest-tasks.js on the server).
+// A guest's start page: Odin Chat's layout with the engagements and projects they are a guest
+// in, each with only their channels and unread counts. Below them, the pursuit tasks shared
+// with them, where they change the status of, comment on and attach files to their own
+// (guest-tasks.js on the server).
 const route = useRoute();
 const notice = computed(() => guestNotice(route.query.notice));
 const tasks = ref({});

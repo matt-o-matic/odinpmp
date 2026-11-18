@@ -8,7 +8,7 @@ import { signingKindLabel, signingProgressLabel, signingStatus, signingTimeLabel
 import { usePortal } from '../../../lib/requirements/portal-context.js';
 import { isLinkProblem } from '../../../lib/requirements/portal-view.js';
 
-// What the team shared with this stakeholder (docs/document-signing): each external file with its
+// What the team shared with this stakeholder: each external file with its
 // signature history, and sign-offs that have no documents. Requests waiting for this stakeholder
 // come first.
 const { portal, reportProblem, token } = usePortal();

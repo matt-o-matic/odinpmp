@@ -18,9 +18,8 @@ import {
   startUploadForUser,
 } from '../src/modules/vault/large-files.service.js';
 
-// Large files against real S3 multipart behavior, on MinIO (docs/engagements/plan.md,
-// Development). Skipped unless ODIN_TEST_S3_ENDPOINT names one, with its keys in
-// AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
+// Large files against real S3 multipart behavior, on MinIO. Skipped unless
+// ODIN_TEST_S3_ENDPOINT names one, with its keys in AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
 //
 //   docker run -d --name odin-minio -p 127.0.0.1:19000:9000 -e MINIO_ROOT_USER=odintest -e MINIO_ROOT_PASSWORD=<secret> minio/minio server /data
 //   ODIN_TEST_S3_ENDPOINT=http://127.0.0.1:19000 AWS_ACCESS_KEY_ID=odintest AWS_SECRET_ACCESS_KEY=<secret> node --test test/large-files-s3.integration.test.js

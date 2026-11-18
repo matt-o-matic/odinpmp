@@ -2,8 +2,8 @@ import { reactive } from 'vue';
 
 import { searchResultLink, searchTypeLabel } from './enterprise-search.js';
 
-// Results as you type in the top bar's search (Ctrl+K) and Odin Chat's jump box
-// (docs/semantic-search/plan.md): after a pause, the best few matches by meaning or by words.
+// Results as you type in the top bar's search (Ctrl+K) and Odin Chat's jump box: after a
+// pause, the best few matches by meaning or by words.
 
 export const SUGGESTION_MIN_CHARS = 3;
 export const SUGGESTION_DELAY_MS = 300;

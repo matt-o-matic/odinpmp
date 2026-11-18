@@ -5,7 +5,7 @@ import { settleForAxe } from './fixtures/axe-settle.js';
 import { PORTAL_TOKENS, createReviewWorld, installPortalApi } from './fixtures/requirements-portal-api.js';
 import { authenticateSyntheticUser, installSyntheticApi, syntheticProject } from './fixtures/synthetic-api.js';
 
-// Document signing (docs/document-signing): the team shares a file and asks a stakeholder to
+// Document signing: the team shares a file and asks a stakeholder to
 // accept it in the vault; the stakeholder signs it in the client portal with an emailed code.
 // Synthetic data and a stand-in for the signing routes, registered after the shared fixtures
 // so they take precedence; anything else falls through to them.

@@ -1,7 +1,6 @@
-// Odin in channels (docs/engagements/plan.md, Odin in channels; qna.md Q-09, E-16, E-17; AC-23
-// to AC-25). A new post that tags @odin, in any project's channel (delivery or engagement), with
-// the project's "Let Odin answer when tagged" setting on, gets one answer from Odin in that
-// post's thread, posted as the author "Odin".
+// Odin in channels. A new post that tags @odin, in any project's channel (delivery or
+// engagement), with the project's "Let Odin answer when tagged" setting on, gets one answer
+// from Odin in that post's thread, posted as the author "Odin".
 //
 // A tag is an entry point into the one assistant, not a second agent. Each tag runs one AI
 // Workspace turn (agent-chat.service.js: startOriginTurn, then executeTurn, the turn queue and

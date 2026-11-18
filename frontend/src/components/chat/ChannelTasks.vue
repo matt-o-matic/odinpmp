@@ -24,7 +24,7 @@ import { buildKanbanMovePatch } from '../../lib/projects/kanban-placement.js';
 import { createProjectLiveUpdates } from '../../lib/projects/project-live-updates.js';
 import { PURSUIT_STATUS_OPTIONS } from '../../lib/pursuit/pursuit.js';
 
-// A channel's Tasks tab in Odin Chat (docs/odin-chat/plan.md, Tasks): the project's work beside
+// A channel's Tasks tab in Odin Chat: the project's work beside
 // its conversation. A delivery project shows its board's stories and tasks; an engagement shows
 // its pursuit tasks. People who can plan add work by name and move it between columns; others
 // see it read-only. Anything more opens in Odin proper. The filter and view stay in the address.

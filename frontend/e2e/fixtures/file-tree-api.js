@@ -1,6 +1,6 @@
-// The project's files as folders (docs/engagements/plan.md, Files) for browser specs: GET
-// file-tree, the file list for the project and each channel, PATCH a file (rename or move, with
-// the guests check), and channel folders. Install after installSyntheticApi; these routes win.
+// The project's files as folders for browser specs: GET file-tree, the file list for the
+// project and each channel, PATCH a file (rename or move, with the guests check), and channel
+// folders. Install after installSyntheticApi; these routes win.
 
 import { syntheticProject } from './synthetic-api.js';
 

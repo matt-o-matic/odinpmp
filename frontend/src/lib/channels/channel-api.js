@@ -1,4 +1,4 @@
-// Which API the channel screens call (docs/engagements/plan.md, Guests). Members use the app's API
+// Which API the channel screens call. Members use the app's API
 // client, as before. The guest view provides the guest API (lib/guests/guest-api.js) and who is
 // looking, so the same conversation, library, comments and viewer serve guests in their channels.
 import { inject } from 'vue';

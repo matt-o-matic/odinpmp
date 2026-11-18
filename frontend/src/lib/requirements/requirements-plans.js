@@ -1,10 +1,10 @@
-// Track plans for the Plan & work stage (journey 9, AC-13): which plan version to show, its
+// Track plans for the Plan & work stage: which plan version to show, its
 // owner line, the decisions it builds on with their D-labels, citation chips with stale
 // flags, the edit form and its payload, every error the stage explains, and proposed work
 // grouped by the person who proposed it. Pure helpers over the shapes
 // backend/src/modules/requirements/plans/plans.service.js returns.
 //
-// Accepted work shows its owner and never an AI-drafted tag (Q-14): a draft has no owner
+// Accepted work shows its owner and never an AI-drafted tag: a draft has no owner
 // line, an approved plan names its approver.
 
 import { buildDecisionLog } from './requirements-topics.js';

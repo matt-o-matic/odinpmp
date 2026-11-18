@@ -2,7 +2,7 @@ import { LIVE_EVENT_CHANNELS } from '../../../lib/events/live-event-bus.js';
 import { buildOperationLogContext, logBackendError } from '../../../lib/logging/backend-logger.js';
 import { REQUIREMENTS_EVENTS } from '../requirements-events.js';
 
-// Live events for rounds (AC-18). Team screens listen on project:{id}. A round is visible in
+// Live events for rounds. Team screens listen on project:{id}. A round is visible in
 // the portal only to the stakeholders invited to it, so portal events go to their links and
 // no others, and carry no actor ids.
 

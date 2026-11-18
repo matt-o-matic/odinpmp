@@ -7,7 +7,7 @@ import { describeRequirementsError } from '../../lib/requirements/requirements-e
 import { stanceLabel } from '../../lib/requirements/requirements-topics.js';
 
 // Accepting a proposed preference (decision rights only). The person edits the stance and
-// statement, and the accepted preference is recorded in their name (Q-14). Shared by the
+// statement, and the accepted preference is recorded in their name. Shared by the
 // Decide stage and a round's proposed preferences.
 const props = defineProps({
   // Where focus starts: the statement (to edit it) or the Accept button (to confirm as proposed).

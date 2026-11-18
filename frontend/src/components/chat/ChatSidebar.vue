@@ -4,10 +4,10 @@ import { computed, ref } from 'vue';
 import { countsLabel, readCollapsed, unreadLabel, writeCollapsed } from '../../lib/chat/chat.js';
 import OdinAvatar from './OdinAvatar.vue';
 
-// Odin Chat's sidebar (docs/odin-chat/plan.md, Odin Chat, layout B): Mentions and Threads, direct
-// messages with Odin pinned first, then each project or engagement with its channels. Unread
-// entries are bold with a count, and a tag shows as "@" with its count, so neither relies on
-// colour alone. Sections collapse, and stay as the person left them on this device.
+// Odin Chat's sidebar: Mentions and Threads, direct messages with Odin pinned first, then
+// each project or engagement with its channels. Unread entries are bold with a count, and a
+// tag shows as "@" with its count, so neither relies on colour alone. Sections collapse, and
+// stay as the person left them on this device.
 //
 // The guest view shows the same sidebar with channels only: it passes no direct messages and
 // turns off Mentions, Threads and Odin.

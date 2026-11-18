@@ -1,7 +1,7 @@
-// Live updates in the guest view (docs/engagements/plan.md, Live updates): batches of
-// channel.updated events for the guest's channels, as members get them, from the guest stream.
-// A stream the server refuses (signed out, removed from every channel) calls `onEnded`;
-// guest.changed (added to or removed from a channel) calls `onAccessChanged`.
+// Live updates in the guest view: batches of channel.updated events for the guest's channels,
+// as members get them, from the guest stream. A stream the server refuses (signed out, removed
+// from every channel) calls `onEnded`; guest.changed (added to or removed from a channel)
+// calls `onAccessChanged`.
 import { CHANNEL_UPDATED_EVENT } from '../channels/channels.js';
 import { createLiveUpdates } from '../live/live-updates.js';
 

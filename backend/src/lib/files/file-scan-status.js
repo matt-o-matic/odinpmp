@@ -1,7 +1,7 @@
 import { HttpError } from '../errors/http-error.js';
 
-// A file's scan status (docs/engagements/plan.md, Upload): pending until the scan worker reads it,
-// then clean, infected or failed. Only clean contents can be downloaded (Q-05).
+// A file's scan status: pending until the scan worker reads it,
+// then clean, infected or failed. Only clean contents can be downloaded.
 
 const NOT_READY = {
   failed: ['file_scan_failed', 'This file could not be scanned for viruses, so it cannot be opened.'],

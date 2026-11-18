@@ -1,7 +1,6 @@
-// 0100_pursuit (docs/engagements/plan.md, "Data"): the pursuit marker on work items, and the
-// project settings for the pursuit board and Odin. Odin's reply records are 0101_odin_replies
-// (channels/odin-replies-schema.js); 0096 made discussion_posts.author_type a VARCHAR, which takes
-// 'odin' with no change.
+// 0100_pursuit: the pursuit marker on work items, and the project settings for the pursuit board
+// and Odin. Odin's reply records are 0101_odin_replies (channels/odin-replies-schema.js); 0096
+// made discussion_posts.author_type a VARCHAR, which takes 'odin' with no change.
 
 async function columnExists(executor, tableName, columnName) {
   const [rows] = await executor.execute(
@@ -32,7 +31,7 @@ export async function ensureMysqlPursuitSchema(executor) {
   const [collations] = await executor.execute("SELECT COLLATION_NAME AS name FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'projects' AND COLUMN_NAME = 'id'");
   const collation = /^[a-z0-9_]+$/.test(String(collations[0]?.name ?? '')) ? collations[0].name : 'utf8mb4_0900_ai_ci';
   // A project with no row has the defaults: guests see only their own tasks, and Odin answers
-  // when tagged (E-16).
+  // when tagged.
   await executor.execute(`CREATE TABLE IF NOT EXISTS project_settings (
     project_id VARCHAR(36) NOT NULL PRIMARY KEY,
     tenant_id VARCHAR(36) NOT NULL,

@@ -1,7 +1,7 @@
 // Synthetic Requirements API for browser acceptance. It is installed after
 // installSyntheticApi(), so these handlers take precedence (Playwright runs the most
 // recently registered matching route first) and anything else falls back to the shared
-// fixture. Responses follow the U1 contract in docs/requirements-gathering/impl.md.
+// fixture. Responses follow the shapes the requirements API returns.
 // All people, topics, and text here are synthetic.
 
 import { readFileSync } from 'node:fs';
@@ -410,7 +410,7 @@ export function defaultRequirementsScenario() {
   };
 }
 
-/** Exactly the AC-19 setup: owns one topic, invited to one open round, two topics ready. */
+/** The My open items setup: owns one topic, invited to one open round, two topics ready. */
 export function myItemsScenario() {
   const scenario = defaultRequirementsScenario();
   scenario.proposedPreferences = [];

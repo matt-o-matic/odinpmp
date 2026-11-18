@@ -27,7 +27,7 @@ import {
 import { formatAgo } from '../../lib/requirements/requirements-time.js';
 import { REVIEW_TRACK, reviewLocation } from '../../lib/requirements/requirements-tracks.js';
 
-// Publish a draft package as the project's next review round (journey 4, design-v1 team-upload):
+// Publish a draft package as the project's next review round:
 // 1 the package, 2 reviewers with required flags, 3 the ask (due date, reminder, note).
 // One form, one submit. When another round is still open, people with decision rights
 // close it as part of publishing (closePrevious); members are told who can.

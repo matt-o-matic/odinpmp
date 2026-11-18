@@ -1,9 +1,8 @@
-// The API a guest's @odin turn calls (docs/engagements/plan.md, Odin in channels; AC-24). A guest
-// has no Odin account, so their turn can't call Odin's routes as a person does. Instead the same
-// assistant turn (agent-chat.service.js) gets this client in place of a session: the same catalog
-// tools call it with the same routes, and it answers only the reads a guest may make, from that
-// guest's channels. Anything else, and any write, is refused here, below the model, whatever tool
-// the model calls.
+// The API a guest's @odin turn calls. A guest has no Odin account, so their turn can't call
+// Odin's routes as a person does. Instead the same assistant turn (agent-chat.service.js) gets
+// this client in place of a session: the same catalog tools call it with the same routes, and it
+// answers only the reads a guest may make, from that guest's channels. Anything else, and any
+// write, is refused here, below the model, whatever tool the model calls.
 //
 // - GET /api/projects/:projectId: the project's name and only the tasks the guest sees (guestTasks;
 //   the app passes the pursuit board's guest task source, pursuit/pursuit-guest-tasks.js).
@@ -17,7 +16,7 @@ import { decodePostCursor, encodePostCursor } from './channels.service.js';
 import { SCREENED_POST_NOTE } from './odin-screen.js';
 
 /**
- * Which tasks a guest sees on the engagement's pursuit board (Q-06): listTasks returns tasks in
+ * Which tasks a guest sees on the engagement's pursuit board: listTasks returns tasks in
  * the shape the project read gives them. The app passes the pursuit board's guest task source;
  * this stands in where none is given, and shows no tasks.
  */

@@ -390,7 +390,7 @@ test('the server’s reasons for refusing task access or a link read in plain wo
   assert.deepEqual(taskAccessErrorMessage(Object.assign(new Error(''), { status: 500 }), 'Unable to save.'), { known: false, message: 'Unable to save.' });
 });
 
-test('the access routes hide the app chrome like the requirements portal', async () => {
+test('the access routes hide the app chrome like the client portal', async () => {
   const source = await readFile(new URL('../src/router/index.js', import.meta.url), 'utf8');
   assert.match(source, /path: '\/access\/:token',\s*name: 'task-access-hub',\s*component: AccessHubView,\s*meta: \{ portal: true \}/);
   assert.match(source, /path: '\/access\/:token\/projects\/:projectId',\s*name: 'task-access-project',\s*component: AccessTasksView,\s*meta: \{ portal: true \}/);

@@ -11,8 +11,8 @@ import { runWithChangeNote } from '../src/modules/changes/project-change-log.js'
 import { createMysqlGovernanceRepository } from '../src/modules/governance/governance.repository.js';
 import { createMysqlProjectsRepository } from '../src/modules/projects/projects.repository.js';
 
-// The MySQL reads behind odin_get_item_details and the stale check of odin_apply_item_changes
-// (docs/mcp-change-feed/plan.md): newest comments and changes per item in one windowed query,
+// The MySQL reads behind odin_get_item_details and the stale check of odin_apply_item_changes:
+// newest comments and changes per item in one windowed query,
 // links and dependencies from either end, and the idempotency keys.
 
 const databaseUrl = String(process.env.ODIN_TEST_DATABASE_URL ?? '').trim();

@@ -240,7 +240,7 @@ export async function queueLinkRequestEmail({
 }
 
 /**
- * Sends a stakeholder their requirements portal link. Every value except the URL is plain
+ * Sends a stakeholder their client portal link. Every value except the URL is plain
  * text and is escaped; the URL is built by Odin. Resolves to queueMail's result.
  */
 export async function queueRequirementsLinkEmail({
@@ -310,7 +310,7 @@ export async function queueTaskAccessLinkEmail({
 }
 
 /**
- * Signature request emails (docs/document-signing). `vars` are plain text and are escaped, except
+ * Signature request emails. `vars` are plain text and are escaped, except
  * keys ending in Url, which Odin builds, and `messageBlock`, which is built here from `message`.
  * Resolves to queueMail's result.
  */
