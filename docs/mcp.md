@@ -1,6 +1,6 @@
 # Odin MCP server
 
-Odin exposes 143 tools through a hosted Streamable HTTP endpoint at `/mcp`. Clients connect to the server over HTTPS and authorize through Odin's existing login, MFA/SSO and tenant selection. Tool operations reuse Odin's HTTP routes, current project permissions, workflow rules, revisions, legal holds and notifications.
+Odin exposes 151 tools through a hosted Streamable HTTP endpoint at `/mcp`. Clients connect to the server over HTTPS and authorize through Odin's existing login, MFA/SSO and tenant selection. Tool operations reuse Odin's HTTP routes, current project permissions, workflow rules, revisions, legal holds and notifications.
 
 An optional stdio bridge remains available for existing clients. The hosted endpoint is the intended remote integration; the repository does not need to be present on the client's machine.
 
@@ -72,7 +72,7 @@ Use the exact callback URL supplied by your client. HTTPS callbacks and HTTP loo
 1. In the client, add the remote Streamable HTTP server URL `https://odin.example.com/mcp`. ChatGPT, Codex, Claude and Claude Code identify themselves automatically through their metadata documents; other clients need their pre-registered client ID. Choose `projects.read` or `projects.read projects.write` as the requested scope.
 2. Follow the client's login prompt. It discovers protected-resource and authorization-server metadata, then opens Odin's existing login and the `/app/mcp/authorize` consent screen. Select the tenant where the client is registered. MFA and SSO continue through their existing flows; impersonation and emergency sessions cannot approve a grant.
 3. Approve the displayed permissions. The client receives a single-use authorization code and exchanges it using S256 PKCE. Authorization, exchange and refresh requests must identify the exact `/mcp` URL in the OAuth `resource` parameter.
-4. Initialize and discover tools. Expect 143 tools. Start with `odin_list_projects` to check the intended identity and tenant.
+4. Initialize and discover tools. Expect 151 tools. Start with `odin_list_projects` to check the intended identity and tenant.
 
 The initial authentication challenge asks for `projects.read projects.write`. A client can explicitly request `projects.read` for read-only consent. With the JavaScript MCP SDK, initiate the desired consent using `auth(provider, { serverUrl, scope: 'projects.read projects.write' })`, complete the browser callback, and call the transport's `finishAuth(code)` before reconnecting. The provider must store the returned client information and tokens, including their issuer, and verify callback state. A read-only grant returns `insufficient_scope` for write tools, including their dry runs; it does not automatically widen itself.
 
@@ -138,7 +138,7 @@ Configure any MCP client supporting stdio to launch Node with the absolute entry
 
 Use the client's secret/environment facility when available. Shell environment inheritance and variable interpolation differ by client. The entrypoint has no working-directory dependency. If Node is absent from the client's PATH, set `command` to its absolute executable path.
 
-Connect, initialize, and discover tools. Discovery should return 143 tools with strict input schemas and read/write annotations. Begin with `odin_list_projects`, then read the chosen project's metadata and hierarchy. Test credentials and intended tenant before issuing writes.
+Connect, initialize, and discover tools. Discovery should return 151 tools with strict input schemas and read/write annotations. Begin with `odin_list_projects`, then read the chosen project's metadata and hierarchy. Test credentials and intended tenant before issuing writes.
 
 ## Tool catalog
 
@@ -641,7 +641,7 @@ node --test --test-concurrency=1 --test-timeout=30000 backend/test/mcp*.test.js 
 npm run test:pr
 ```
 
-The MCP tests use SDK clients, linked transports, disposable loopback HTTP servers and a child stdio process against the real Odin application routes with in-memory repositories. They log in through Odin, discover all 143 tools, check workflow and version conflicts, target-scoped comments, authorization, foreign tenants, revoked sessions, pagination and schema-only previews. HTTP servers and child processes are closed and checked during cleanup. They do not read application `.env` files or production records.
+The MCP tests use SDK clients, linked transports, disposable loopback HTTP servers and a child stdio process against the real Odin application routes with in-memory repositories. They log in through Odin, discover all 151 tools, check workflow and version conflicts, target-scoped comments, authorization, foreign tenants, revoked sessions, pagination and schema-only previews. HTTP servers and child processes are closed and checked during cleanup. They do not read application `.env` files or production records.
 
 The requirements tests cover the review-loop tools. `mcp-requirements-e2e.test.js` runs AC-14 over HTTP with an OAuth test client against the in-process app: a read grant gets context and feedback, a write grant creates an upload URL, PUTs the template package built by `tools/review-package/build-examples.mjs`, and sees draft version 2, an expired URL returns 404, and publish and decide requests through the MCP path get 403. `mcp-requirements-tools.test.js` checks request composition, result shapes, truncation markers, the measured size bound, cursors and error mapping against a fake API. `mcp-requirements-route-access.test.js` checks the allowlist. `mcp-requirements-topics-e2e.test.js` covers topic administration and decisions, and `mcp-file-e2e.test.js` and `mcp-file-requirements.test.js` cover `odin_get_my_requirements_work` and editing or deleting only one's own topic comments.
 

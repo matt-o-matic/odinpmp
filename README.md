@@ -12,7 +12,7 @@ Odin brings project planning, requirements, delivery and bug fixing into one sys
 - Portfolio planning, project ranking, resource and finance management, and reporting cover the view above individual projects.
 - Bug Reporter (`bugs.odinpmp.com`) adds a bug capture widget to any website, and every report becomes an Odin ticket.
 - FaultLine (`faultline.odinpmp.com`) triages bugs and production errors, verifies fixes and opens pull requests. It never merges.
-- The MCP server (`odinpmp.com/mcp`) gives ChatGPT, Codex and other agents 121 tools for working in Odin projects. OAuth apps, webhooks, SCIM and connectors cover other systems.
+- The MCP server (`odinpmp.com/mcp`) gives ChatGPT, Codex and other agents 151 tools for working in Odin projects. OAuth apps, webhooks, SCIM and connectors cover other systems.
 
 ## Repo layout
 
@@ -105,6 +105,12 @@ Useful optional backend env:
 - `SEARCH_EMBEDDING_MODEL` (default `text-embedding-3-large`) and `SEARCH_EMBEDDING_DIMENSIONS` (default 1024): the embeddings of workspace search, which finds work items, comments, posts and the text of files by meaning. Changing either embeds every row again.
 - `SEARCH_INDEX_INTERVAL_MS` (default 60000): how often the backend refreshes every workspace's search index; 0 turns the schedule off, and a search still refreshes an index older than 5 minutes
 - `SEARCH_SEMANTIC_MIN_SIMILARITY` (default 0.3): the cosine similarity below which a row is not a semantic match
+- `OPENAI_MEMORY_EMBEDDING_MODEL` (default `text-embedding-3-small`) and `OPENAI_MEMORY_EMBEDDING_DIMENSIONS` (default 256): the embeddings of the assistant's memory
+- `SIGNING_SEAL_KEY` (at least 32 characters), `SIGNING_SEAL_KEY_ID` (default `seal-1`) and `SIGNING_SEAL_KEYS_PREVIOUS` (`id:key,id:key`, for records sealed before a rotation): seal signature records. Without a key, production refuses new signing requests.
+- `WEB_PUSH_VAPID_PUBLIC_KEY`, `WEB_PUSH_VAPID_PRIVATE_KEY` and `WEB_PUSH_SUBJECT` (a `mailto:` or `https:` URL): browser push notifications. `npm --prefix backend run job:generate-vapid-keys` makes a key pair. Without them, push is off.
+- `INVOICE_GEN_BASE_URL`: the invoice-gen service that a project's billing (SOW, invoices, milestone hours) is read from, with the Consulting module on
+- `JSON_BODY_LIMIT_BYTES` (default 1 MB, at most 5 MB): the JSON request body limit
+- `REVIEW_PACKAGE_MAX_BYTES` (default 50 MB, at most 200 MB): the largest review package upload
 - `GOOGLE_OAUTH_CLIENT_ID`
 - `GOOGLE_OAUTH_CLIENT_SECRET`
 - `GOOGLE_OAUTH_REDIRECT_URI`

@@ -1,6 +1,6 @@
 # Odin app
 
-The Vue 3 app at `odinpmp.com/app`: Home, projects, requirements, tickets, the AI Workspace and administration. Vite builds it with the base path `/app/`, and Apache serves `frontend/dist` there. Everything it shows comes from the backend's API.
+The Vue 3 app at `odinpmp.com/app`: Home, projects, requirements, tickets, the AI Workspace and administration. Vite builds it with the base path `/app/`, and the web server serves `frontend/dist` there. Everything it shows comes from the backend's API.
 
 ## Commands
 

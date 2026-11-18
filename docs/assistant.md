@@ -20,7 +20,7 @@ workspace chooses the model (see [Settings](#settings)).
      do we need to do to finish by Oct 30?" once read as a direct question and ran at `high`.
    - Which catalog operations does it probably need?
 
-   Simple messages run at `ASSISTANT_REASONING_SIMPLE` (`high`). A message that is not simple, or
+   Simple messages run at `ASSISTANT_REASONING_SIMPLE` (`max`). A message that is not simple, or
    that needs several steps, runs at `ASSISTANT_REASONING_COMPLEX` (`max`). A change right after
    such a turn carries that work on at `max`, however short it is (`run.previousTriage`): a "go
    ahead" to the assistant's proposal, or the answer to its question. If the Decisions API is

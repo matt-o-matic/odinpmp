@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `backend/` (Express API, jobs, MCP server), `frontend/` (Vue 3 app served under `/app`) and `marketing/` (Astro site) are independent Node projects, each with its own `package.json` and `node_modules`. The root `package.json` only orchestrates them. `marketing-classic/` is the earlier marketing site, kept buildable but not deployed. `tools/` holds the test runner, the review package validator, an SES inbound-mail Lambda and Prometheus rules (see `tools/README.md`).
 
-Setup, every environment variable and the local database steps are in `README.md`. It needs Node 22+, MySQL 8+, and the `mysql` client for `npm run db-reset`.
+Odin's vocabulary is defined in `CONTEXT.md`; use its terms in code, docs and replies. `docs/architecture.md` describes how the system fits together. Setup, every environment variable and the local database steps are in `README.md`. It needs Node 22+, MySQL 8+, and the `mysql` client for `npm run db-reset`.
 
 ## Commands
 
