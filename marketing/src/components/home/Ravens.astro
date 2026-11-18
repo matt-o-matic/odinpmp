@@ -1,0 +1,514 @@
+---
+// What the reply changed, in the app's own labels. The comment is made only if it is confirmed.
+const changes = [
+	{ text: 'Moved "Store drop-off without a label" to another sprint' },
+	{ text: 'Updated "Refund status emails": assignee' },
+	{ text: 'Added a comment', comment: true },
+];
+const memories = [
+	{ type: 'Decision', text: 'D-07: the return reason is optional.', source: 'Round 2 verdicts, topic "Return reasons"' },
+	{ type: 'Decision', text: 'Customers look orders up by email or phone. The order number is optional.', source: 'Topic answered Oct 2' },
+	{ type: 'Risk', text: 'Carrier API sandbox is down until Oct 20.', source: 'Raised by Marcus Chen' },
+	{ type: 'Fact', text: 'Harbor & Pine support is open 8 to 6 Pacific, Monday to Saturday.', source: 'Brief, current state' },
+	{ type: 'Outcome', text: 'Sprint 14 closed 3 points short. CSV export moved to Sprint 15.', source: 'Sprint 14 review' },
+	{ type: 'Fact', text: 'Refunds go back to the original payment method.', source: 'Brief, proposed solution 4' },
+];
+---
+
+<section class="section ravens" id="ai" aria-labelledby="ai-title">
+	<div class="wrap section-head">
+		<h2 id="ai-title">Thought and Memory.</h2>
+		<p>
+			In the old stories, Odin kept two ravens, Thought and Memory. Every day they flew over the world and came back
+			with what they had seen. Odin's assistant has the same two jobs.
+		</p>
+	</div>
+
+	<div class="wrap ravens__grid">
+		<article class="raven">
+			<header>
+				<svg class="raven__rune" viewBox="0 0 40 40" aria-hidden="true"><path d="M12 5v30M28 5v30M12 14l16 12"></path></svg>
+				<h3>Thought <span>Huginn</span></h3>
+			</header>
+			<p class="raven__lede">
+				Ask the AI Workspace a question and it answers. If changes would help, it says what it would change and
+				waits for your go-ahead. Tell it to do something and it does it in Odin, as you, with your permissions. It
+				has 128 tools for plans, sprints, tickets, schedules, time, files, requirements and its own memory.
+			</p>
+			<div class="app thought" data-thought>
+				<div class="thought__ask">
+					<span class="a-av" style="--c:#7c4ddb">LP</span>
+					<p>Sprint 15 is slipping. Move what you need to, and let Priya know.</p>
+				</div>
+				<div class="reply">
+					<p class="a-small a-muted">Used 4 tools</p>
+					<p>
+						Sprint 15 is past halfway with 47% of points done. I moved "Store drop-off without a label" (8 pts) to
+						Sprint 16 and gave "Refund status emails" to Sam, who has 6 free hours; Priya was 4 hours over. My comment
+						for Priya mentions her, so Odin will email her.
+					</p>
+					<section class="confirm is-open" aria-label="Confirmation" data-confirm>
+						<p class="confirm__title">
+							<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 1 2.5 3v4.6c0 3.3 2.3 6.2 5.5 7.4 3.2-1.2 5.5-4.1 5.5-7.4V3L8 1Zm0 1.6 4 1.45V7.6c0 2.5-1.6 4.8-4 5.8-2.4-1-4-3.3-4-5.8V4.05l4-1.45ZM7.25 4.5v4h1.5v-4h-1.5Zm0 5v1.5h1.5V9.5h-1.5Z"></path></svg>
+							Add a comment
+						</p>
+						<div class="confirm__actions" data-confirm-actions>
+							<button type="button" class="a-btn a-btn--danger" data-answer="approve">Confirm</button>
+							<button type="button" class="a-btn" data-answer="decline">Cancel</button>
+						</div>
+						<p class="a-small a-muted" data-confirm-outcome hidden></p>
+					</section>
+				</div>
+				<div class="reply" data-done hidden>
+					<p data-done-text></p>
+					<section class="changes" aria-label="Changes in Odin">
+						<div class="changes__head">
+							<span data-changes-summary></span>
+							<button type="button" class="changes__undo" data-undo>Undo</button>
+						</div>
+						<div class="changes__ask" role="group" aria-label="Undo these changes" data-undo-ask hidden>
+							<p class="a-small" data-undo-question></p>
+							<button type="button" class="a-btn a-btn--danger" data-undo-yes>Undo changes</button>
+							<button type="button" class="a-btn" data-undo-no>Keep them</button>
+						</div>
+						<ul class="changes__list">
+							{
+								changes.map((change) => (
+									<li data-change data-comment={change.comment ? '' : undefined}>
+										<span>{change.text}</span>
+										<span class="changes__state a-small">Undone</span>
+									</li>
+								))
+							}
+						</ul>
+					</section>
+				</div>
+				<p class="thought__status a-small a-muted" data-thought-status aria-live="polite">
+					The comment waits for you to confirm. The other two changes are already made.
+				</p>
+			</div>
+			<ul class="raven__facts">
+				<li>Deletes and anything that emails people wait for you to confirm</li>
+				<li>Project-wide changes, such as sprints, dates and the brief, need a project admin or manager</li>
+				<li>Undo reverses a reply's changes where it can, and leaves anything edited since</li>
+			</ul>
+		</article>
+
+		<article class="raven">
+			<header>
+				<svg class="raven__rune" viewBox="0 0 40 40" aria-hidden="true"><path d="M12 5v30M28 5v30M12 6l16 14M28 6L12 20"></path></svg>
+				<h3>Memory <span>Muninn</span></h3>
+			</header>
+			<p class="raven__lede">
+				Odin keeps a short summary of every project, epic and story, and a memory of decisions, risks, outcomes and
+				facts that it searches by meaning or keyword. People can add, correct and forget entries.
+			</p>
+			<div class="app memory" data-memory>
+				<label class="memory__search">
+					<span class="visually-hidden">Search what the AI remembers</span>
+					<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M10.7 9.6a5.5 5.5 0 1 0-1.1 1.1l3.6 3.6 1.1-1.1-3.6-3.6ZM6.5 10.5a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"></path></svg>
+					<input type="search" placeholder="Search what the AI remembers" data-memory-search />
+				</label>
+				<div class="memory__hints a-small">
+					Try
+					<button type="button" data-hint="return">return</button>
+					<button type="button" data-hint="sprint">sprint</button>
+					<button type="button" data-hint="carrier">carrier</button>
+				</div>
+				<ul class="memories" data-memory-list>
+					{
+						memories.map((memory) => (
+							<li class="memory-row" data-memory-row>
+								<span class:list={['a-chip', memory.type === 'Decision' ? 'a-chip--ok' : memory.type === 'Risk' ? 'a-chip--bad' : memory.type === 'Outcome' ? 'a-chip--merged' : 'a-chip--accent']}>{memory.type}</span>
+								<div>
+									<p>{memory.text}</p>
+									<p class="a-small a-muted">{memory.source}</p>
+								</div>
+								<button type="button" class="a-btn forget" data-forget>
+									Forget
+								</button>
+							</li>
+						))
+					}
+				</ul>
+				<p class="memory__empty a-small a-muted" data-memory-empty hidden>Nothing in memory matches that.</p>
+			</div>
+			<ul class="raven__facts">
+				<li>Workspace admins set expiry and legal holds</li>
+				<li>Each workspace can bring its own OpenAI key</li>
+				<li>Admins pick the assistant's model, and the model and reasoning effort for eight AI helpers</li>
+			</ul>
+		</article>
+	</div>
+</section>
+
+<script>
+	// Thought: as in the AI Workspace, the comment that emails Priya waits for Confirm or Cancel.
+	// Then the next reply lists what changed, with an Undo that asks once.
+	const thought = document.querySelector<HTMLElement>('[data-thought]');
+	if (thought) {
+		const find = <T extends HTMLElement = HTMLElement>(selector: string) => thought.querySelector<T>(selector)!;
+		const actions = find('[data-confirm-actions]');
+		const outcome = find('[data-confirm-outcome]');
+		const done = find('[data-done]');
+		const doneText = find('[data-done-text]');
+		const summary = find('[data-changes-summary]');
+		const undo = find<HTMLButtonElement>('[data-undo]');
+		const ask = find('[data-undo-ask]');
+		const question = find('[data-undo-question]');
+		const status = find('[data-thought-status]');
+		const allRows = [...thought.querySelectorAll<HTMLElement>('[data-change]')];
+		const count = (n: number) => `${n} change${n === 1 ? '' : 's'}`;
+		let rows = allRows;
+
+		thought.addEventListener('click', (event) => {
+			const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button');
+			if (!button || !thought.contains(button)) return;
+			const { dataset } = button;
+			if (dataset.answer) {
+				const confirmed = dataset.answer === 'approve';
+				rows = allRows.filter((row) => confirmed || row.dataset.comment === undefined);
+				allRows.forEach((row) => (row.hidden = !rows.includes(row)));
+				actions.hidden = true;
+				find('[data-confirm]').classList.remove('is-open');
+				outcome.hidden = false;
+				outcome.textContent = confirmed ? 'You confirmed this.' : 'You cancelled this.';
+				doneText.textContent = confirmed ? 'Posted the comment for Priya on "Refund status emails".' : 'Left the comment out. The sprint move and the reassignment stay.';
+				summary.textContent = `Made ${count(rows.length)} in Odin`;
+				done.hidden = false;
+				status.textContent = confirmed ? 'Priya gets an email about the comment.' : 'No comment was posted, so nobody was emailed.';
+				undo.focus({ preventScroll: true });
+			} else if (dataset.undo !== undefined) {
+				question.textContent = `Undo these ${count(rows.length)}? Anything edited since stays as it is.`;
+				undo.hidden = true;
+				ask.hidden = false;
+				find<HTMLButtonElement>('[data-undo-yes]').focus({ preventScroll: true });
+			} else if (dataset.undoNo !== undefined) {
+				ask.hidden = true;
+				undo.hidden = false;
+				undo.focus({ preventScroll: true });
+			} else if (dataset.undoYes !== undefined) {
+				ask.hidden = true;
+				rows.forEach((row) => row.classList.add('is-undone'));
+				summary.textContent = `Undid these ${count(rows.length)}`;
+				status.textContent = `Undid ${count(rows.length)}.`;
+				summary.setAttribute('tabindex', '-1');
+				summary.focus({ preventScroll: true });
+			}
+		});
+	}
+
+	// Memory: search and forget, as on the "What the AI remembers" screen.
+	const memory = document.querySelector<HTMLElement>('[data-memory]');
+	if (memory) {
+		const input = memory.querySelector<HTMLInputElement>('[data-memory-search]')!;
+		const rows = [...memory.querySelectorAll<HTMLElement>('[data-memory-row]')];
+		const empty = memory.querySelector<HTMLElement>('[data-memory-empty]')!;
+		const filter = () => {
+			const q = input.value.trim().toLowerCase();
+			let shown = 0;
+			rows.forEach((row) => {
+				const match = !q || row.textContent!.toLowerCase().includes(q);
+				row.hidden = !match || row.classList.contains('is-gone');
+				if (!row.hidden) shown += 1;
+			});
+			empty.hidden = shown > 0;
+		};
+		input.addEventListener('input', filter);
+		memory.querySelectorAll<HTMLButtonElement>('[data-hint]').forEach((hint) =>
+			hint.addEventListener('click', () => {
+				input.value = hint.dataset.hint!;
+				filter();
+				input.focus();
+			}),
+		);
+		memory.addEventListener('click', (event) => {
+			const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-forget]');
+			if (!button) return;
+			const row = button.closest<HTMLElement>('[data-memory-row]')!;
+			if (row.classList.contains('is-forgetting')) {
+				row.classList.remove('is-forgetting');
+				button.textContent = 'Forget';
+				return;
+			}
+			row.classList.add('is-forgetting');
+			button.textContent = 'Undo';
+			window.setTimeout(() => {
+				if (!row.classList.contains('is-forgetting')) return;
+				row.classList.add('is-gone');
+				filter();
+			}, 2600);
+		});
+	}
+</script>
+
+<style>
+	.ravens__grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: clamp(2rem, 4vw, 4rem);
+	}
+	.raven {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+	.raven header {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+	}
+	.raven h3 {
+		font-size: var(--step-3);
+	}
+	.raven h3 span {
+		margin-left: 0.4em;
+		font-family: var(--font-body);
+		font-stretch: 100%;
+		font-weight: 400;
+		font-size: var(--step-0);
+		letter-spacing: 0;
+		color: var(--muted);
+	}
+	.raven__rune {
+		width: 40px;
+		height: 40px;
+		fill: none;
+		stroke: var(--gold);
+		stroke-width: 3;
+		stroke-linecap: square;
+	}
+	.raven__lede {
+		max-width: 52ch;
+		color: var(--ink-2);
+	}
+	.raven__facts {
+		display: grid;
+		gap: 0.4rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-size: var(--step--1);
+		color: var(--muted);
+	}
+	.raven__facts li {
+		position: relative;
+		padding-left: 1rem;
+	}
+	.raven__facts li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.55em;
+		width: 6px;
+		height: 6px;
+		background: var(--line-2);
+		transform: rotate(45deg);
+	}
+
+	/* Interactive app panels share the real app's look. */
+	.thought,
+	.memory {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		min-height: 470px;
+		padding: 16px;
+		border-radius: var(--radius-m);
+		border: 1px solid var(--line);
+		box-shadow: var(--shadow-2);
+		user-select: text;
+	}
+	.thought__ask {
+		display: flex;
+		gap: 9px;
+		align-items: center;
+	}
+	.thought__ask p {
+		padding: 8px 12px;
+		border-radius: 10px;
+		background: var(--a-accent-soft);
+	}
+	.thought button {
+		cursor: pointer;
+	}
+	.thought [hidden] {
+		display: none !important;
+	}
+	.reply {
+		display: grid;
+		gap: 8px;
+	}
+	.a-btn--danger {
+		background: var(--a-bad);
+		border-color: var(--a-bad);
+		color: #fff;
+	}
+	:global(:root[data-theme='dark']) .a-btn--danger {
+		color: #07111f;
+	}
+	.confirm,
+	.changes {
+		display: grid;
+		gap: 8px;
+		padding: 10px 12px;
+		border-radius: 10px;
+		border: 1px solid var(--a-line);
+		background: var(--a-surface);
+	}
+	.confirm.is-open {
+		border-color: var(--a-bad);
+		border-left-width: 3px;
+	}
+	.confirm__title {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-weight: 600;
+	}
+	.confirm__actions,
+	.changes__ask {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px;
+	}
+	.changes__ask p {
+		flex-basis: 100%;
+	}
+	.changes__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		font-weight: 600;
+	}
+	.changes__head [data-changes-summary]:focus {
+		outline: none;
+	}
+	.changes__undo {
+		padding: 2px 4px;
+		border: 0;
+		border-radius: 6px;
+		background: none;
+		color: var(--a-accent);
+		font: inherit;
+		font-weight: 600;
+	}
+	.changes__list {
+		display: grid;
+		gap: 4px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.changes__list li {
+		display: flex;
+		gap: 8px;
+		align-items: baseline;
+	}
+	.changes__list li::before {
+		content: '\2713';
+		color: var(--a-ok);
+	}
+	.changes__state {
+		display: none;
+		margin-left: auto;
+		color: var(--a-muted);
+	}
+	.changes__list li:global(.is-undone)::before {
+		content: '\21BA';
+		color: var(--a-muted);
+	}
+	.changes__list li:global(.is-undone) span:first-child {
+		color: var(--a-muted);
+	}
+	.changes__list li:global(.is-undone) .changes__state {
+		display: inline;
+	}
+	.thought__status {
+		margin-top: auto;
+	}
+
+	.memory__search {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 12px;
+		border-radius: 9px;
+		border: 1px solid var(--a-line-2);
+		background: var(--a-surface);
+		color: var(--a-muted);
+	}
+	.memory__search input {
+		flex: 1;
+		border: 0;
+		outline: 0;
+		background: transparent;
+		font: inherit;
+		color: var(--a-ink);
+	}
+	.memory__search:focus-within {
+		border-color: var(--a-accent);
+		box-shadow: 0 0 0 3px var(--a-accent-soft);
+	}
+	.memory__hints {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		color: var(--a-muted);
+	}
+	.memory__hints button {
+		padding: 1px 8px;
+		border: 1px dashed var(--a-line-2);
+		border-radius: 999px;
+		background: transparent;
+		font-size: 11px;
+		cursor: pointer;
+	}
+	.memories {
+		display: grid;
+		gap: 6px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.memory-row {
+		display: grid;
+		grid-template-columns: 74px minmax(0, 1fr) auto;
+		gap: 10px;
+		align-items: center;
+		padding: 8px 10px;
+		border-radius: 9px;
+		background: var(--a-surface);
+		border: 1px solid var(--a-line);
+		transition: opacity 0.4s ease, filter 0.4s ease;
+	}
+	.memory-row .a-chip {
+		justify-self: start;
+	}
+	.memory-row[hidden] {
+		display: none;
+	}
+	.memory-row:global(.is-forgetting) p {
+		text-decoration: line-through;
+		opacity: 0.5;
+	}
+	.forget {
+		cursor: pointer;
+	}
+
+	@media (max-width: 960px) {
+		.ravens__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+	@media (max-width: 560px) {
+		.memory-row {
+			grid-template-columns: minmax(0, 1fr) auto;
+		}
+		.memory-row .a-chip {
+			grid-column: 1 / -1;
+		}
+	}
+</style>

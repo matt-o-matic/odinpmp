@@ -1,0 +1,63 @@
+{
+  "schema": "odin.review-package/v1",
+  "track": "experience",
+  "title": "Client booking — price and booking flow",
+  "summary": "Round 2 tries a price range on the home screen and moves day and time onto one screen. Please check whether the range would prevent the disputes Finance described, and whether booking still feels quick.",
+  "basedOnRoundId": "round-exp-1",
+  "generator": { "tool": "codex", "model": "reported by the agent", "notes": "Built from the find-inspiration workflow." },
+  "feedbackDimensions": ["type", "density", "hierarchy", "color", "branding", "behavior"],
+  "sections": [
+    {
+      "id": "context",
+      "type": "context",
+      "title": "What we heard in round 1",
+      "body": "- Booking should be the first task on the home screen (agreed, D-07).\n- Finance needs the price visible before clients commit.\n- Client services worries that price up front scares people off."
+    },
+    {
+      "id": "references",
+      "type": "references",
+      "items": [
+        { "title": "Commenting on your media", "url": "https://help.frame.io/en/articles/9105251-commenting-on-your-media", "creator": "Frame.io", "inspected": true, "pattern": "Price and availability shown together without leaving the main task.", "appliesTo": "booking-home" }
+      ]
+    },
+    {
+      "id": "directions",
+      "type": "directions",
+      "items": [
+        { "id": "action-first", "title": "Action first", "summary": "One primary **Book a visit** button with the next visit and a price range beside it.", "tradeoffs": "Fast for returning clients; the range needs careful wording.", "screenIds": ["booking-home"] },
+        { "id": "schedule-first", "title": "Schedule first", "summary": "Open on a week calendar and pick a service after the time.", "tradeoffs": "Good for repeat bookings; new clients lack service context.", "screenIds": ["booking-home-schedule"] }
+      ]
+    },
+    {
+      "id": "screens",
+      "type": "screens",
+      "items": [
+        { "id": "booking-home", "title": "Booking home", "kind": "image", "src": "screens/booking-home.png", "width": 1280, "height": 800, "alt": "Fieldwork home screen with a Book a visit button, the upcoming visit on Friday 18 October, and an estimated price of $70 to $95.", "directionId": "action-first", "rationale": "Keeps the round 1 agreement (booking first) and adds the price range Finance asked for.", "changeNote": "Added the estimated price card." },
+        { "id": "booking-home-schedule", "title": "Booking home, schedule first", "kind": "image", "src": "screens/booking-home-schedule.png", "width": 1280, "height": 800, "alt": "Fieldwork home screen that opens on a week calendar of available slots.", "directionId": "schedule-first" },
+        { "id": "booking-flow", "title": "Booking flow", "kind": "prototype", "src": "prototypes/booking/index.html", "viewport": { "width": 1280, "height": 800 }, "alt": "Clickable booking flow from service choice to confirmation.", "states": [ { "key": "choose-service", "label": "Choose service" }, { "key": "pick-time", "label": "Pick a time" }, { "key": "confirm", "label": "Confirm" } ], "rationale": "Round 1 asked for fewer steps. Day and time now share one screen." }
+      ]
+    },
+    {
+      "id": "flows",
+      "type": "flows",
+      "items": [
+        { "id": "book-visit", "title": "Book a visit", "mermaid": "flowchart TD\n  home[\"Home\"] --> service[\"Choose service\"]\n  service --> time[\"Pick a time\"]\n  time --> confirm[\"Confirm with exact price\"]\n  confirm --> done[\"Booked\"]" }
+      ]
+    },
+    {
+      "id": "questions",
+      "type": "questions",
+      "items": [
+        { "id": "price-placement", "topicId": "topic-exp-01", "prompt": "Where should the price first appear?", "kind": "single", "options": [ { "id": "range-on-home", "label": "A range on the home screen, exact before payment" }, { "id": "after-time", "label": "Only after a time is picked" }, { "id": "unsure", "label": "Not sure" } ] },
+        { "id": "before-tax", "prompt": "Should the price range say \"before tax\"?", "kind": "single", "options": [ { "id": "yes", "label": "Yes" }, { "id": "no", "label": "No" } ] },
+        { "id": "free-reschedule-notice", "topicId": "topic-exp-03", "prompt": "How much notice do clients need to reschedule for free?", "kind": "text", "help": "Hours or days, and any exceptions." },
+        { "id": "booking-speed", "prompt": "How quick did booking feel?", "kind": "scale", "scale": { "min": 1, "max": 5, "minLabel": "Slow", "maxLabel": "Very quick" } }
+      ]
+    },
+    {
+      "id": "boundaries",
+      "type": "boundaries",
+      "body": "This round does not cover payment screens, reminders, or the technician view."
+    }
+  ]
+}

@@ -1,0 +1,536 @@
+---
+// Bug Reporter, tried on this page. Everything stays in the browser.
+const pipeline = [
+	{ key: 'received', title: 'Bug Reporter', text: 'Report BR-DEMO received with your markup, console and page trail.' },
+	{ key: 'ticket', title: 'Odin ticket', text: 'Defect BR-DEMO, severity S3, in the project\'s review queue.' },
+	{ key: 'triage', title: 'FaultLine', text: 'Triaged and investigated in an isolated worktree.' },
+	{ key: 'pr', title: 'Pull request', text: 'Opened with test evidence, then merged by a person.' },
+	{ key: 'email', title: 'Email to you', text: 'A plain-language note that explains the fix.' },
+];
+---
+
+<section class="section bugdemo" id="report" aria-labelledby="report-title">
+	<div class="wrap bugdemo__grid">
+		<div class="bugdemo__copy">
+			<h2 id="report-title">Report a bug on this page.</h2>
+			<p>
+				Bug Reporter adds a bug button to any website with one script tag. This page has one. Mark up what you see
+				and follow the report to the fix. It's a demo, so nothing leaves your browser.
+			</p>
+			<button class="btn bugdemo__start" type="button" data-bug-open>
+				<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 4a3 3 0 0 1 3 3v.3A5 5 0 0 1 17 9.6l2.3-1.3.9 1.6-2.6 1.5c.1.4.1.8.1 1.1v1h3v1.9h-3v.6c0 .5-.1 1-.2 1.5l2.6 1.5-.9 1.6-2.4-1.4A5 5 0 0 1 12 21a5 5 0 0 1-4.8-3.6l-2.4 1.4-.9-1.6 2.6-1.5c-.1-.5-.2-1-.2-1.5v-.6H3.3v-1.9h3v-1c0-.4 0-.7.1-1.1L3.8 8.1l.9-1.6L7 7.8a5 5 0 0 1 2-2.5V7a3 3 0 0 1 3-3Z"></path></svg>
+				Report a bug on this page
+			</button>
+			<ul class="bugdemo__facts">
+				<li>Desktop Chrome and Edge capture the tab directly. Safari, Firefox and phones re-render the page.</li>
+				<li>Testers connect once with their Odin sign-in or an emailed one-time key.</li>
+				<li>Reporters can reply to a receipt or update email, and the reply lands on the report.</li>
+			</ul>
+		</div>
+
+		<div class="capture-card" aria-live="polite">
+			<p class="capture-card__title">What a report from you would carry right now</p>
+			<div class="capture-card__cols">
+				<div>
+					<p class="capture-card__label">Page trail <b data-trail-count>0</b></p>
+					<ol class="capture-card__trail" data-trail-preview></ol>
+				</div>
+				<div>
+					<p class="capture-card__label">Console <b data-console-count>0</b></p>
+					<ol class="capture-card__console" data-console-preview></ol>
+				</div>
+			</div>
+			<p class="capture-card__note">This is your real visit to this page. A report would also carry the screenshot, your markup and any files you attach.</p>
+		</div>
+	</div>
+</section>
+
+<button class="bug-fab" type="button" data-bug-open aria-label="Report a bug on this page">
+	<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 4a3 3 0 0 1 3 3v.3A5 5 0 0 1 17 9.6l2.3-1.3.9 1.6-2.6 1.5c.1.4.1.8.1 1.1v1h3v1.9h-3v.6c0 .5-.1 1-.2 1.5l2.6 1.5-.9 1.6-2.4-1.4A5 5 0 0 1 12 21a5 5 0 0 1-4.8-3.6l-2.4 1.4-.9-1.6 2.6-1.5c-.1-.5-.2-1-.2-1.5v-.6H3.3v-1.9h3v-1c0-.4 0-.7.1-1.1L3.8 8.1l.9-1.6L7 7.8a5 5 0 0 1 2-2.5V7a3 3 0 0 1 3-3Z"></path></svg>
+</button>
+
+<div class="reporter" data-reporter hidden>
+	<div class="reporter__flash" data-flash></div>
+	<canvas class="reporter__ink" data-ink aria-label="Drawing layer. Use the mouse, a finger or a pen to mark up the page."></canvas>
+	<div class="reporter__tools" role="toolbar" aria-label="Markup tools">
+		<button type="button" data-tool="arrow" aria-pressed="true">Arrow</button>
+		<button type="button" data-tool="box" aria-pressed="false">Box</button>
+		<button type="button" data-tool="pen" aria-pressed="false">Pen</button>
+		<button type="button" data-undo>Undo</button>
+	</div>
+	<p class="reporter__hint" data-hint>Draw on the page to show what's wrong.</p>
+
+	<aside class="reporter__panel" role="dialog" aria-modal="true" aria-labelledby="reporter-title">
+		<div class="reporter__form" data-form>
+			<header>
+				<h2 id="reporter-title">Report a bug</h2>
+				<button type="button" class="reporter__close" data-bug-close aria-label="Close without sending">×</button>
+			</header>
+			<label>
+				<span>Title</span>
+				<input type="text" data-title placeholder="What went wrong?" maxlength="120" />
+			</label>
+			<label>
+				<span>What happened</span>
+				<textarea rows="3" data-description placeholder="What did you expect, and what did you see?"></textarea>
+			</label>
+			<div class="reporter__tabs" role="tablist">
+				<button type="button" role="tab" aria-selected="true" data-tab="trail">Page trail <b data-trail-count>0</b></button>
+				<button type="button" role="tab" aria-selected="false" data-tab="console">Console <b data-console-count>0</b></button>
+			</div>
+			<ol class="reporter__list" data-list></ol>
+			<p class="reporter__fine">Demo only. Nothing is sent. On a real site this goes to the project's inbox.</p>
+			<button type="button" class="btn reporter__send" data-send>Send report</button>
+		</div>
+
+		<div class="reporter__sent" data-sent hidden>
+			<header>
+				<h2 tabindex="-1" data-sent-title>Where your report goes</h2>
+				<button type="button" class="reporter__close" data-bug-close aria-label="Close">×</button>
+			</header>
+			<figure class="reporter__thumb">
+				<img alt="Your markup on this page" data-thumb />
+				<figcaption data-thumb-caption></figcaption>
+			</figure>
+			<ol class="pipeline">
+				{
+					pipeline.map((step) => (
+						<li data-pipe={step.key}>
+							<i aria-hidden="true" />
+							<div>
+								<b>{step.title}</b>
+								<span>{step.text}</span>
+							</div>
+						</li>
+					))
+				}
+			</ol>
+			<p class="reporter__fine" data-sent-note>This was a demo, so the trip stopped here in your browser.</p>
+			<button type="button" class="btn btn--quiet reporter__done" data-bug-close>Close</button>
+		</div>
+	</aside>
+</div>
+
+<script>
+	import { mountBugReporter } from '../../scripts/bug-report';
+	mountBugReporter();
+</script>
+
+<style>
+	.bugdemo__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: center;
+	}
+	.bugdemo__copy h2 {
+		font-size: var(--step-4);
+	}
+	.bugdemo__copy > p {
+		max-width: 50ch;
+		margin-top: 1.25rem;
+		font-size: var(--step-1);
+		line-height: 1.55;
+		color: var(--ink-2);
+	}
+	.bugdemo__start {
+		margin-top: 2rem;
+		--btn-bg: var(--gold);
+		--btn-fg: #0a1428;
+	}
+	.bugdemo__facts {
+		display: grid;
+		gap: 0.6rem;
+		margin: 2rem 0 0;
+		padding: 0;
+		list-style: none;
+		font-size: var(--step--1);
+		color: var(--muted);
+	}
+	.capture-card {
+		padding: 1.5rem;
+		border-radius: var(--radius-l);
+		border: 1px solid var(--line);
+		background: var(--raised);
+		box-shadow: var(--shadow-2);
+	}
+	.capture-card__title {
+		font-family: var(--font-display);
+		font-stretch: 105%;
+		font-weight: 650;
+		font-size: var(--step-1);
+	}
+	.capture-card__cols {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.25rem;
+		margin-top: 1.25rem;
+	}
+	.capture-card__label {
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid var(--line);
+		font-size: var(--step--1);
+		font-weight: 600;
+		color: var(--muted);
+	}
+	.capture-card__label b {
+		color: var(--ink);
+	}
+	.capture-card__trail,
+	.capture-card__console {
+		display: grid;
+		gap: 0.35rem;
+		min-height: 9rem;
+		margin: 0.75rem 0 0;
+		padding: 0;
+		list-style: none;
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		line-height: 1.5;
+		color: var(--ink-2);
+	}
+	.capture-card__trail :global(li),
+	.capture-card__console :global(li) {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.75rem;
+		overflow-wrap: anywhere;
+	}
+	.capture-card__trail :global(time),
+	.capture-card__console :global(time) {
+		color: var(--muted);
+		flex: none;
+	}
+	.capture-card__note {
+		margin-top: 1rem;
+		font-size: var(--step--2);
+		color: var(--muted);
+	}
+
+	.bug-fab {
+		position: fixed;
+		right: clamp(1rem, 2.5vw, 2rem);
+		bottom: clamp(1rem, 2.5vw, 2rem);
+		z-index: 90;
+		display: grid;
+		place-items: center;
+		width: 56px;
+		height: 56px;
+		border: 1px solid rgba(242, 182, 54, 0.35);
+		border-radius: 50%;
+		background: #0a1428;
+		color: #f2b636;
+		box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+		cursor: pointer;
+		opacity: 0;
+		transform: translateY(16px) scale(0.9);
+		pointer-events: none;
+		transition: opacity 0.4s ease, transform 0.5s var(--ease-out);
+	}
+	.bug-fab:global(.is-shown) {
+		opacity: 1;
+		transform: none;
+		pointer-events: auto;
+	}
+	.bug-fab:hover {
+		transform: scale(1.06);
+	}
+
+	.reporter {
+		position: fixed;
+		inset: 0;
+		z-index: 200;
+		box-shadow: inset 0 0 0 3px #ff4f6d;
+		background: rgba(7, 17, 31, 0.05);
+	}
+	.reporter[hidden] {
+		display: none;
+	}
+	.reporter__flash {
+		position: absolute;
+		inset: 0;
+		background: #fff;
+		opacity: 0;
+		pointer-events: none;
+	}
+	.reporter__flash:global(.is-on) {
+		animation: flash 0.45s ease-out;
+	}
+	@keyframes flash {
+		from {
+			opacity: 0.85;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+	.reporter__ink {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		cursor: crosshair;
+		touch-action: none;
+	}
+	.reporter__tools {
+		position: absolute;
+		left: calc((100% - 380px) / 2);
+		top: 1rem;
+		display: flex;
+		gap: 3px;
+		padding: 4px;
+		border-radius: 12px;
+		background: #0a1428;
+		box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+		transform: translateX(-50%);
+	}
+	.reporter__tools button {
+		padding: 0.45rem 0.9rem;
+		border: 0;
+		border-radius: 9px;
+		background: transparent;
+		color: #c4d2e8;
+		font-size: 0.85rem;
+		cursor: pointer;
+	}
+	.reporter__tools button[aria-pressed='true'] {
+		background: #ff4f6d;
+		color: #fff;
+	}
+	.reporter__hint {
+		position: absolute;
+		left: calc((100% - 380px) / 2);
+		top: 4.4rem;
+		padding: 0.35rem 0.8rem;
+		border-radius: 999px;
+		background: rgba(10, 20, 40, 0.75);
+		color: #fff;
+		font-size: 0.8rem;
+		transform: translateX(-50%);
+		pointer-events: none;
+		transition: opacity 0.4s ease;
+	}
+	.reporter__hint:global(.is-gone) {
+		opacity: 0;
+	}
+	.reporter__panel {
+		position: absolute;
+		top: 0.75rem;
+		right: 0.75rem;
+		bottom: 0.75rem;
+		width: min(360px, calc(100% - 1.5rem));
+		padding: 1.25rem;
+		border-radius: 16px;
+		border: 1px solid var(--line);
+		background: var(--raised);
+		color: var(--ink);
+		box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+		overflow: auto;
+		animation: panel-in 0.55s var(--ease-out);
+	}
+	@keyframes panel-in {
+		from {
+			transform: translateX(110%);
+		}
+	}
+	.reporter__form,
+	.reporter__sent {
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+		min-height: 100%;
+	}
+	.reporter__form[hidden],
+	.reporter__sent[hidden] {
+		display: none;
+	}
+	.reporter header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.reporter h2 {
+		font-size: var(--step-1);
+		font-stretch: 105%;
+	}
+	.reporter h2:focus {
+		outline: none;
+	}
+	.reporter__close {
+		width: 32px;
+		height: 32px;
+		border: 1px solid var(--line-2);
+		border-radius: 50%;
+		background: transparent;
+		font-size: 1.1rem;
+		line-height: 1;
+		cursor: pointer;
+	}
+	.reporter label {
+		display: grid;
+		gap: 0.35rem;
+		font-size: var(--step--1);
+		font-weight: 600;
+	}
+	.reporter input,
+	.reporter textarea {
+		width: 100%;
+		padding: 0.6rem 0.75rem;
+		border: 1px solid var(--line-2);
+		border-radius: 10px;
+		background: var(--bg);
+		font-weight: 400;
+		resize: vertical;
+	}
+	.reporter__tabs {
+		display: flex;
+		gap: 0.25rem;
+		border-bottom: 1px solid var(--line);
+	}
+	.reporter__tabs button {
+		padding: 0.4rem 0.6rem;
+		border: 0;
+		border-bottom: 2px solid transparent;
+		background: transparent;
+		color: var(--muted);
+		font-size: var(--step--1);
+		cursor: pointer;
+	}
+	.reporter__tabs button[aria-selected='true'] {
+		color: var(--ink);
+		border-color: var(--ice);
+		font-weight: 600;
+	}
+	.reporter__list {
+		display: grid;
+		gap: 0.3rem;
+		max-height: 11rem;
+		margin: 0;
+		padding: 0;
+		overflow: auto;
+		list-style: none;
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		color: var(--ink-2);
+	}
+	.reporter__list :global(li) {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.6rem;
+		overflow-wrap: anywhere;
+	}
+	.reporter__list :global(time) {
+		color: var(--muted);
+		flex: none;
+	}
+	.reporter__fine {
+		font-size: var(--step--2);
+		color: var(--muted);
+	}
+	.reporter__send {
+		margin-top: auto;
+		--btn-bg: #ff4f6d;
+		--btn-fg: #fff;
+	}
+	.reporter__thumb {
+		margin: 0;
+		border-radius: 10px;
+		overflow: hidden;
+		border: 1px solid var(--line);
+		background: var(--sunk);
+	}
+	.reporter__thumb img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: contain;
+	}
+	.reporter__thumb figcaption {
+		padding: 0.4rem 0.6rem;
+		font-size: var(--step--2);
+		color: var(--muted);
+	}
+	.pipeline {
+		display: grid;
+		gap: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.pipeline li {
+		position: relative;
+		display: flex;
+		gap: 0.8rem;
+		padding: 0.55rem 0;
+		opacity: 0.35;
+		transition: opacity 0.4s ease;
+	}
+	.pipeline li::before {
+		content: '';
+		position: absolute;
+		left: 8px;
+		top: 1.6rem;
+		bottom: -0.55rem;
+		width: 1.5px;
+		background: var(--line-2);
+	}
+	.pipeline li:last-child::before {
+		display: none;
+	}
+	.pipeline i {
+		flex: none;
+		width: 18px;
+		height: 18px;
+		margin-top: 2px;
+		border-radius: 50%;
+		border: 1.5px solid var(--line-2);
+		transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+	}
+	.pipeline li:global(.is-on) {
+		opacity: 1;
+	}
+	.pipeline li:global(.is-on) i {
+		background: var(--gold);
+		border-color: var(--gold);
+		box-shadow: 0 0 0 4px var(--gold-glow);
+	}
+	.pipeline div {
+		display: grid;
+		font-size: var(--step--1);
+	}
+	.pipeline span {
+		color: var(--muted);
+	}
+	.reporter__done {
+		margin-top: auto;
+	}
+
+	@media (max-width: 960px) {
+		.bugdemo__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+	@media (max-width: 640px) {
+		.reporter__tools,
+		.reporter__hint {
+			left: 50%;
+			top: auto;
+			bottom: calc(55% + 0.5rem);
+		}
+		.reporter__hint {
+			bottom: calc(55% + 3.6rem);
+		}
+		.reporter__panel {
+			top: auto;
+			left: 0.5rem;
+			right: 0.5rem;
+			bottom: 0.5rem;
+			width: auto;
+			height: 55%;
+		}
+		.capture-card__cols {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

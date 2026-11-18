@@ -1,0 +1,130 @@
+---
+const {
+	title = 'ODINPMP // PROJECTS, FORGED.',
+	description = 'OdinPMP is the AI-first command deck for teams who plan with intent. Strategy in. Tasks out. No busywork.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico?v=odin-mark" />
+		<link rel="apple-touch-icon" href="/brand/odin-mark.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap"
+			rel="stylesheet"
+		/>
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<title>{title}</title>
+	</head>
+	<body>
+		<a class="skip" href="#main">SKIP TO MAIN</a>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--ink: #07111f;
+		--paper: #edf3fb;
+		--paper-warm: #f3f7fd;
+		--bone: #ffffff;
+		--rule: #1b314e;
+		--accent: #57a6ff;
+		--accent-deep: #285ec6;
+		--steel: #13233a;
+		--moss: #14283c;
+		--ochre: #c9ab68;
+		--muted: #5f6d82;
+		--noise:
+			repeating-linear-gradient(
+				0deg,
+				rgba(7, 17, 31, 0.02) 0,
+				rgba(7, 17, 31, 0.02) 1px,
+				transparent 1px,
+				transparent 3px
+			);
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		background: linear-gradient(180deg, #eef3fb 0%, #e6edf7 100%);
+		color: var(--ink);
+		font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+		font-size: 16px;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+
+	body {
+		min-height: 100vh;
+		background-image: var(--noise), linear-gradient(180deg, #eef3fb 0%, #e6edf7 100%);
+		background-attachment: fixed;
+	}
+
+	::selection {
+		background: var(--accent);
+		color: var(--bone);
+	}
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	button,
+	input,
+	select,
+	textarea {
+		font: inherit;
+		color: inherit;
+	}
+
+	.skip {
+		position: absolute;
+		left: -9999px;
+		top: 0;
+		background: var(--ink);
+		color: var(--bone);
+		padding: 0.5rem 1rem;
+		z-index: 999;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.75rem;
+		letter-spacing: 0.1em;
+	}
+	.skip:focus {
+		left: 0.5rem;
+		top: 0.5rem;
+	}
+
+	/* === Brutalist utilities used across pages === */
+	.mono {
+		font-family: 'JetBrains Mono', ui-monospace, monospace;
+		letter-spacing: 0.04em;
+	}
+	.display {
+		font-family: 'Archivo Black', 'Space Grotesk', sans-serif;
+		letter-spacing: -0.02em;
+		line-height: 0.88;
+	}
+	.serif-it {
+		font-family: 'Instrument Serif', Georgia, serif;
+		font-style: italic;
+		letter-spacing: -0.01em;
+	}
+</style>

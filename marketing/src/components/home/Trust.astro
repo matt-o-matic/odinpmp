@@ -1,0 +1,282 @@
+---
+const blocks = [
+	{ day: 'Oct 8', events: ['Lee Park changed D-07 to Agreed', 'Ava Lindqvist submitted Round 2', 'Sprint 15 started'] },
+	{ day: 'Oct 9', events: ['Priya Natarajan approved budget change CR-12', 'Legal hold placed on Harbor & Pine'] },
+	{ day: 'Oct 10', events: ['Marcus Chen was given the Approver role', 'Export written to S3 under Object Lock'] },
+	{ day: 'Oct 11', events: ['BR-142 opened from Bug Reporter', 'FaultLine opened pull request #318'] },
+	{ day: 'Oct 12', events: ['Pull request #318 merged by Lee Park', 'BR-142 closed, reporter emailed'] },
+];
+const controls = [
+	['Legal holds', 'block deletion of projects, items and AI memory, by people and by the assistant.'],
+	['Privacy erasure', 'needs two admins to approve, and reaches connected systems too.'],
+	['Retention and data region', 'are set as policy, with an audit feed for SIEM tools.'],
+	['Sign-in', 'with a password and two-factor, Google, or SSO over OIDC or SAML. SCIM 2.0 provisions users and groups.'],
+	['Impersonation', "needs a second admin's approval, and break-glass emergency access has its own policy."],
+	['Files', 'are virus-scanned with ClamAV and stored in S3.'],
+	['Review prototypes', 'run on a separate sandboxed host with signed per-viewer access and no cookies.'],
+	['FaultLine', 'keeps organizations apart with row-level security in PostgreSQL, and never merges code itself.'],
+];
+---
+
+<section class="section trust" id="trust" aria-labelledby="trust-title">
+	<div class="wrap section-head">
+		<h2 id="trust-title">Every change leaves a record.</h2>
+		<p>
+			Odin keeps an append-only audit trail and writes hash-chained exports to S3 under Object Lock. Each day's export
+			includes the fingerprint of the one before, so editing any entry breaks every link after it. Try it: change an
+			entry below.
+		</p>
+	</div>
+
+	<div class="wrap">
+		<ol class="chain" data-chain>
+			{
+				blocks.map((block, i) => (
+					<li class="link" data-link={i}>
+						<header>
+							<span class="link__day">{block.day}</span>
+							<span class="link__state" data-state>
+								Verified
+							</span>
+						</header>
+						<ul>
+							{block.events.map((event, j) => (
+								<li>
+									<span contenteditable="plaintext-only" spellcheck="false" role="textbox" aria-label={`${block.day} audit entry ${j + 1}`} data-event>{event}</span>
+								</li>
+							))}
+						</ul>
+						<dl>
+							<div>
+								<dt>Previous</dt>
+								<dd data-prev>{i === 0 ? 'genesis' : '…'}</dd>
+							</div>
+							<div>
+								<dt>This export</dt>
+								<dd data-hash>…</dd>
+							</div>
+						</dl>
+					</li>
+				))
+			}
+		</ol>
+		<div class="chain__foot">
+			<p class="chain__status" data-chain-status aria-live="polite">All five exports verify.</p>
+			<button type="button" class="btn btn--quiet btn--small" data-chain-reset>Restore the originals</button>
+		</div>
+
+		<dl class="controls">
+			{
+				controls.map(([term, text]) => (
+					<div>
+						<dt>{term}</dt>
+						<dd>{text}</dd>
+					</div>
+				))
+			}
+		</dl>
+	</div>
+</section>
+
+<script>
+	const chain = document.querySelector<HTMLElement>('[data-chain]');
+	if (chain && crypto?.subtle) {
+		const links = [...chain.querySelectorAll<HTMLElement>('[data-link]')];
+		const status = document.querySelector<HTMLElement>('[data-chain-status]')!;
+		const originals = links.map((link) => [...link.querySelectorAll<HTMLElement>('[data-event]')].map((el) => el.textContent!.trim()));
+		let sealed: string[] = [];
+
+		async function sha(text: string) {
+			const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+			return [...new Uint8Array(bytes)].map((b) => b.toString(16).padStart(2, '0')).join('');
+		}
+
+		// Recompute every hash from the current text, and compare it with what was sealed.
+		async function verify() {
+			let prev = 'genesis';
+			let broken = -1;
+			const hashes: string[] = [];
+			for (const [i, link] of links.entries()) {
+				const text = [...link.querySelectorAll<HTMLElement>('[data-event]')].map((el) => el.textContent!.trim()).join('\n');
+				const hash = await sha(`${prev}\n${text}`);
+				hashes.push(hash);
+				const sealedPrev = i === 0 ? 'genesis' : sealed[i - 1] ?? hashes[i - 1];
+				const ok = !sealed.length || (hash === sealed[i] && prev === sealedPrev);
+				if (!ok && broken < 0) broken = i;
+				link.querySelector('[data-hash]')!.textContent = hash.slice(0, 16);
+				link.querySelector('[data-prev]')!.textContent = i === 0 ? 'genesis' : (sealed[i - 1] ?? hash).slice(0, 16);
+				link.classList.toggle('is-broken', broken >= 0 && i >= broken);
+				link.querySelector('[data-state]')!.textContent = broken >= 0 && i >= broken ? (i === broken ? 'Altered' : 'Chain broken') : 'Verified';
+				prev = hash;
+			}
+			if (!sealed.length) sealed = hashes;
+			status.textContent =
+				broken < 0
+					? 'All five exports verify.'
+					: `The ${links[broken].querySelector('.link__day')!.textContent} export no longer matches its fingerprint, so ${links.length - broken - 1 === 0 ? 'it fails' : `it and the ${links.length - broken - 1} after it fail`} verification.`;
+		}
+
+		let pending = 0;
+		chain.addEventListener('input', () => {
+			window.clearTimeout(pending);
+			pending = window.setTimeout(verify, 120);
+		});
+		chain.addEventListener('keydown', (event) => {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				(event.target as HTMLElement).blur();
+			}
+		});
+		document.querySelector('[data-chain-reset]')!.addEventListener('click', () => {
+			links.forEach((link, i) => link.querySelectorAll<HTMLElement>('[data-event]').forEach((el, j) => (el.textContent = originals[i][j])));
+			verify();
+		});
+		verify();
+	}
+</script>
+
+<style>
+	.chain {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(220px, 1fr));
+		gap: 1.6rem;
+		margin: 0;
+		padding: 0 0 1rem;
+		list-style: none;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+	}
+	.link {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+		padding: 1.1rem;
+		border-radius: var(--radius-m);
+		border: 1px solid var(--line);
+		background: var(--raised);
+		scroll-snap-align: start;
+		transition: border-color 0.4s ease, box-shadow 0.4s ease;
+	}
+	.link:not(:last-child)::after {
+		content: '';
+		position: absolute;
+		right: -1.6rem;
+		top: 50%;
+		width: 1.6rem;
+		height: 2px;
+		background: repeating-linear-gradient(90deg, var(--gold) 0 6px, transparent 6px 10px);
+		transition: background 0.4s ease;
+	}
+	.link header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.link__day {
+		font-family: var(--font-display);
+		font-stretch: 112%;
+		font-weight: 700;
+		font-size: var(--step-1);
+	}
+	.link__state {
+		padding: 0.1rem 0.55rem;
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--pass) 15%, transparent);
+		color: var(--pass);
+		font-size: var(--step--2);
+		font-weight: 650;
+	}
+	.link ul {
+		display: grid;
+		gap: 0.4rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-size: var(--step--1);
+	}
+	.link [contenteditable] {
+		display: block;
+		padding: 0.35rem 0.5rem;
+		border-radius: 6px;
+		border: 1px dashed transparent;
+		cursor: text;
+		transition: border-color 0.2s ease, background-color 0.2s ease;
+	}
+	.link [contenteditable]:hover {
+		border-color: var(--line-2);
+	}
+	.link [contenteditable]:focus {
+		outline: none;
+		border-color: var(--ice);
+		background: var(--ice-soft);
+	}
+	.link dl {
+		display: grid;
+		gap: 0.3rem;
+		margin: auto 0 0;
+		padding-top: 0.7rem;
+		border-top: 1px solid var(--line);
+		font-size: var(--step--2);
+	}
+	.link dl div {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
+	.link dt {
+		color: var(--muted);
+	}
+	.link dd {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		color: var(--ink-2);
+	}
+	.link:global(.is-broken) {
+		border-color: var(--bug);
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--bug) 18%, transparent);
+	}
+	.link:global(.is-broken) .link__state {
+		background: color-mix(in srgb, var(--bug) 15%, transparent);
+		color: var(--bug);
+	}
+	.link:global(.is-broken)::after {
+		background: repeating-linear-gradient(90deg, var(--bug) 0 6px, transparent 6px 10px);
+	}
+	.chain__foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+	.chain__status {
+		color: var(--ink-2);
+	}
+	.controls {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0 clamp(2rem, 5vw, 5rem);
+		margin: clamp(3rem, 7vw, 5rem) 0 0;
+	}
+	.controls div {
+		padding: 1.1rem 0;
+		border-top: 1px solid var(--line);
+	}
+	.controls dt {
+		display: inline;
+		font-weight: 650;
+	}
+	.controls dd {
+		display: inline;
+		margin: 0;
+		color: var(--ink-2);
+	}
+	@media (max-width: 760px) {
+		.controls {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

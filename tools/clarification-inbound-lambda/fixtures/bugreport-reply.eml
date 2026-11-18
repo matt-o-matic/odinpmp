@@ -1,0 +1,28 @@
+Return-Path: <tester@example.com>
+Received: from mail.example.com (mail.example.com [203.0.113.10])
+ by inbound-smtp.us-east-2.amazonaws.com with SMTP id synthetic
+ for bugreport+0123456789abcdef0123456789abcdef01234567@reply.odinpmp.com;
+ Mon, 05 Oct 2026 10:24:12 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: pass (spfCheck: domain of example.com designates 203.0.113.10 as permitted sender) client-ip=203.0.113.10; envelope-from=tester@example.com;
+Authentication-Results: amazonses.com;
+ spf=pass (spfCheck: domain of example.com designates 203.0.113.10 as permitted sender) client-ip=203.0.113.10; envelope-from=tester@example.com;
+ dkim=pass header.i=@example.com;
+ dmarc=pass header.from=example.com;
+X-SES-RECEIPT: synthetic-receipt
+Received: by mail.example.com with SMTP id synthetic-inner
+Authentication-Results: amazonses.com; spf=pass; dkim=pass; dmarc=pass
+X-SES-Spam-Verdict: PASS
+Message-ID: <bugreport-1@example.com>
+Date: Mon, 05 Oct 2026 10:24:11 +0000
+From: Tester Example <tester@example.com>
+To: bugreport+0123456789abcdef0123456789abcdef01234567@reply.odinpmp.com
+Subject: Re: Update on your bug report: Import fails
+Auto-Submitted: auto-replied
+Precedence: bulk
+X-Autoreply: yes
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+
+The import still fails on Safari.

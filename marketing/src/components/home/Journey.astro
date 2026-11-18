@@ -1,0 +1,361 @@
+---
+import { stations } from '../../data/loop';
+import DemoBrief from '../demos/DemoBrief.astro';
+import DemoQuestions from '../demos/DemoQuestions.astro';
+import DemoReview from '../demos/DemoReview.astro';
+import DemoDecide from '../demos/DemoDecide.astro';
+import DemoBuild from '../demos/DemoBuild.astro';
+import DemoReport from '../demos/DemoReport.astro';
+import DemoFix from '../demos/DemoFix.astro';
+
+const steps = [
+	{
+		title: 'Describe the project. Odin drafts the brief.',
+		body: 'Start with a conversation in the AI Workspace, or write it yourself. The brief has eleven fields, from objective to success metrics, and every later step points back to it.',
+		facts: ['Eleven structured fields', 'Edits are version-checked', 'Agents can read and update it over MCP'],
+		demo: DemoBrief,
+	},
+	{
+		title: 'Odin asks what the brief leaves open.',
+		body: 'It drafts up to twelve requirements questions at a time, each tied to the brief line it came from. Stakeholders answer through a private link, with no account to create, or by replying to the email.',
+		facts: ['Experience and Architecture tracks', 'Summaries cite the comments they come from', '@ tags send one digest, not ten emails'],
+		demo: DemoQuestions,
+	},
+	{
+		title: 'Stakeholders review real screens.',
+		body: 'A coding agent builds a review package of screenshots and clickable prototypes. Reviewers step through it, mark up each screen and give it a verdict. Progress saves as they go.',
+		facts: ['Pins, boxes, arrows, pen, highlights and text', 'Marks carry forward to the next version', 'Prototypes run on a sandboxed host'],
+		demo: DemoReview,
+	},
+	{
+		title: 'Decisions get a number and their sources.',
+		body: 'Odin summarizes where reviewers agree and where they differ. People with decision rights record the outcome, and each decision lists the verdicts and comments behind it.',
+		facts: ['Agreed, decided, deferred or superseded', 'Required reviewers, due dates, reminders', 'A verdict grid for every round'],
+		demo: DemoDecide,
+	},
+	{
+		title: 'The plan cites the decisions. The board runs on the plan.',
+		body: 'Odin drafts a plan whose acceptance criteria name the decisions they come from, then proposes stories for anything not yet covered. Approved work goes into sprints and onto the board.',
+		facts: ['Sprints with capacity and staffing', 'Critical path, float and baselines', 'Home flags who is behind, with ways back'],
+		demo: DemoBuild,
+	},
+	{
+		title: 'Testers report bugs from the website itself.',
+		body: "One script tag adds Bug Reporter to any site. A report carries the screenshot with the tester's markup, the console and the pages they visited, and it becomes an Odin ticket with the same ID.",
+		facts: ['Up to 5,000 console records', 'The last 200 pages visited', 'Office and PDF files converted for assistants'],
+		demo: DemoReport,
+	},
+	{
+		title: 'FaultLine investigates and opens the fix.',
+		body: 'It works in an isolated Git worktree, runs the tests a change of that size needs, and opens a pull request with the evidence. A person merges it, and the reporter gets an email that explains the fix in plain words.',
+		facts: ['By 28 September 2026: 344 incidents, 191 investigations, 103 merged pull requests', 'Repairs Copilot review findings', 'Never merges on its own'],
+		demo: DemoFix,
+	},
+];
+---
+
+<section class="section journey" id="loop" aria-labelledby="loop-title">
+	<div class="wrap section-head">
+		<h2 id="loop-title">Follow one project around the loop.</h2>
+		<p>
+			Harbor & Pine, an outdoor retailer, wants customers to start returns online. Here is that project in Odin, from
+			the first conversation to the fix for its first bug.
+		</p>
+		<p class="journey__note">Harbor & Pine is a sample client. The screens are drawn from Odin's own.</p>
+	</div>
+
+	<div class="wrap journey__grid">
+		<aside class="rail" aria-hidden="true">
+			<div class="rail__inner">
+				<svg class="orbit" viewBox="-100 -100 200 200">
+					<circle r="78" class="orbit__track"></circle>
+					<circle r="78" class="orbit__progress" data-orbit-progress pathLength="1"></circle>
+					{
+						stations.map((_, i) => {
+							const a = (i / stations.length) * Math.PI * 2 - Math.PI / 2;
+							return <circle class="orbit__node" data-orbit-node cx={Math.cos(a) * 78} cy={Math.sin(a) * 78} r="4" />;
+						})
+					}
+					<g class="orbit__gem" data-orbit-gem>
+						<rect x="-7" y="-85" width="14" height="14" rx="1.5" transform="rotate(45 0 -78)"></rect>
+					</g>
+					<text class="orbit__num" y="12" text-anchor="middle" data-orbit-num>1</text>
+				</svg>
+				<ol class="rail__list">
+					{
+						stations.map((station, i) => (
+							<li data-rail-item>
+								<a href={`#step-${station.key}`} tabindex="-1">
+									{station.label}
+								</a>
+							</li>
+						))
+					}
+				</ol>
+			</div>
+		</aside>
+
+		<div class="steps">
+			{
+				steps.map((step, i) => {
+					const Demo = step.demo;
+					return (
+						<article class="jstep" id={`step-${stations[i].key}`} data-jstep={i}>
+							<div class="jstep__text">
+								<p class="jstep__num" aria-hidden="true">
+									{i + 1}
+								</p>
+								<div>
+									<h3>
+										<span class="visually-hidden">Step {i + 1}: </span>
+										{step.title}
+									</h3>
+									<p class="jstep__body">{step.body}</p>
+									<ul class="jstep__facts">
+										{step.facts.map((fact) => (
+											<li>{fact}</li>
+										))}
+									</ul>
+								</div>
+							</div>
+							<Demo />
+						</article>
+					);
+				})
+			}
+			<div class="closing">
+				<i class="gem" aria-hidden="true"></i>
+				<p>
+					Ava answered the first question, reviewed the screens and reported the bug. The email about the fix came
+					from the same project, and her next idea starts a new brief.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { autoplayDemos } from '../../scripts/timeline';
+
+	autoplayDemos('.journey [data-demo]');
+
+	const steps = [...document.querySelectorAll<HTMLElement>('[data-jstep]')];
+	const items = [...document.querySelectorAll<HTMLElement>('[data-rail-item]')];
+	const nodes = [...document.querySelectorAll<SVGCircleElement>('[data-orbit-node]')];
+	const gem = document.querySelector<SVGGElement>('[data-orbit-gem]');
+	const progress = document.querySelector<SVGCircleElement>('[data-orbit-progress]');
+	const num = document.querySelector<SVGTextElement>('[data-orbit-num]');
+	let turns = 0;
+	let current = 0;
+
+	function activate(index: number) {
+		// Keep the gem moving forward around the orbit, even when wrapping from the last step to the first.
+		if (index < current && current === steps.length - 1 && index === 0) turns += 1;
+		if (index > current && current === 0 && index === steps.length - 1 && turns > 0) turns -= 1;
+		current = index;
+		const angle = (turns * steps.length + index) * (360 / steps.length);
+		gem?.style.setProperty('transform', `rotate(${angle}deg)`);
+		progress?.style.setProperty('stroke-dashoffset', String(1 - (index + 1) / steps.length));
+		if (num) num.textContent = String(index + 1);
+		items.forEach((item, i) => item.classList.toggle('is-active', i === index));
+		nodes.forEach((node, i) => node.classList.toggle('is-done', i <= index));
+		steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+	}
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting) activate(Number((entry.target as HTMLElement).dataset.jstep));
+			}
+		},
+		{ rootMargin: '-45% 0px -45% 0px' },
+	);
+	steps.forEach((step) => observer.observe(step));
+	activate(0);
+</script>
+
+<style>
+	.journey__note {
+		font-size: var(--step--1) !important;
+		color: var(--muted) !important;
+	}
+	.journey__grid {
+		display: grid;
+		grid-template-columns: 200px minmax(0, 1fr);
+		gap: clamp(2rem, 5vw, 5rem);
+	}
+	.rail__inner {
+		position: sticky;
+		top: calc(var(--nav-h) + 2.5rem);
+	}
+	.orbit {
+		width: 170px;
+		overflow: visible;
+	}
+	.orbit__track {
+		fill: none;
+		stroke: var(--line-2);
+		stroke-width: 1;
+	}
+	.orbit__progress {
+		fill: none;
+		stroke: var(--gold);
+		stroke-width: 2;
+		stroke-dasharray: 1;
+		stroke-dashoffset: 1;
+		transform: rotate(-90deg);
+		transition: stroke-dashoffset 0.9s var(--ease-out);
+	}
+	.orbit__node {
+		fill: var(--bg);
+		stroke: var(--line-2);
+		stroke-width: 1.5;
+		transition: fill 0.4s ease, stroke 0.4s ease;
+	}
+	.orbit__node:global(.is-done) {
+		fill: var(--gold);
+		stroke: var(--gold);
+	}
+	.orbit__gem {
+		transition: transform 0.9s var(--ease-out);
+	}
+	.orbit__gem rect {
+		fill: var(--gold);
+		filter: drop-shadow(0 0 6px var(--gold-glow));
+	}
+	.orbit__num {
+		font-family: var(--font-display);
+		font-stretch: 125%;
+		font-weight: 800;
+		font-size: 40px;
+		fill: var(--ink);
+	}
+	.rail__list {
+		display: grid;
+		gap: 0.15rem;
+		margin: 1.75rem 0 0;
+		padding: 0;
+		list-style: none;
+		counter-reset: rail;
+	}
+	.rail__list li {
+		counter-increment: rail;
+	}
+	.rail__list a {
+		display: flex;
+		gap: 0.7rem;
+		padding: 0.3rem 0;
+		color: var(--muted);
+		text-decoration: none;
+		font-size: var(--step--1);
+		transition: color 0.3s ease, transform 0.4s var(--ease-out);
+	}
+	.rail__list a::before {
+		content: counter(rail);
+		width: 1.2em;
+		font-family: var(--font-display);
+		font-stretch: 125%;
+		font-weight: 800;
+	}
+	.rail__list li:global(.is-active) a {
+		color: var(--ink);
+		transform: translateX(6px);
+	}
+	.rail__list li:global(.is-active) a::before {
+		color: var(--gold-ink);
+	}
+
+	.steps {
+		display: grid;
+		gap: clamp(5rem, 12vh, 9rem);
+	}
+	.jstep {
+		display: grid;
+		gap: 2rem;
+	}
+	.jstep__text {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 1.5rem;
+		max-width: 52rem;
+	}
+	.jstep__num {
+		font-family: var(--font-display);
+		font-stretch: 125%;
+		font-weight: 800;
+		font-size: var(--step-4);
+		line-height: 0.85;
+		color: transparent;
+		-webkit-text-stroke: 1.5px var(--line-2);
+		transition: color 0.5s ease, -webkit-text-stroke-color 0.5s ease;
+	}
+	.jstep:global(.is-active) .jstep__num {
+		color: var(--gold);
+		-webkit-text-stroke-color: var(--gold);
+	}
+	.jstep h3 {
+		font-size: var(--step-3);
+		font-weight: 740;
+		line-height: 1.05;
+	}
+	.jstep__body {
+		max-width: var(--measure);
+		margin-top: 1rem;
+		color: var(--ink-2);
+		font-size: var(--step-1);
+		line-height: 1.55;
+	}
+	.jstep__facts {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.6rem;
+		margin: 1.25rem 0 0;
+		padding: 0;
+		list-style: none;
+		font-size: var(--step--1);
+		color: var(--muted);
+	}
+	.jstep__facts li {
+		position: relative;
+		padding-left: 1rem;
+	}
+	.jstep__facts li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.55em;
+		width: 6px;
+		height: 6px;
+		background: var(--line-2);
+		transform: rotate(45deg);
+	}
+	.closing {
+		display: flex;
+		align-items: flex-start;
+		gap: 1.25rem;
+		max-width: 46rem;
+		padding-top: 1rem;
+		font-family: var(--font-display);
+		font-stretch: 105%;
+		font-weight: 600;
+		font-size: var(--step-2);
+		line-height: 1.3;
+	}
+	.closing .gem {
+		margin-top: 0.45em;
+		font-size: 1.2rem;
+	}
+
+	@media (max-width: 960px) {
+		.journey__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+		.rail {
+			display: none;
+		}
+		.jstep__text {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 0.5rem;
+		}
+	}
+</style>

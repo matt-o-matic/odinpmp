@@ -1,0 +1,31 @@
+Return-Path: <reviewer@example.com>
+Received: from inbound.example by reply.odinpmp.com with SMTP;
+ Mon, 17 May 2026 11:05:15 -0400
+Message-ID: <message-2@reply.odinpmp.com>
+In-Reply-To: <thread-2@reply.odinpmp.com>
+Date: Mon, 17 May 2026 11:05:14 -0400
+From: Reviewer Example <reviewer@example.com>
+To: clarification+replytoken@reply.odinpmp.com
+Subject: Re: Clarification needed for Apollo
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="mix-1"
+
+--mix-1
+Content-Type: multipart/alternative; boundary="alt-1"
+
+--alt-1
+Content-Type: text/plain; charset="UTF-8"
+
+Approved in writing. See the attachment.
+--alt-1
+Content-Type: text/html; charset="UTF-8"
+
+<div><strong>Approved</strong> in writing. See the attachment.</div>
+--alt-1--
+--mix-1
+Content-Type: text/plain; name="approval.txt"
+Content-Disposition: attachment; filename="approval.txt"
+Content-Transfer-Encoding: base64
+
+YXBwcm92YWwtZXZpZGVuY2U=
+--mix-1--

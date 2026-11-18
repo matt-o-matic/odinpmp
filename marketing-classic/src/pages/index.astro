@@ -1,0 +1,1080 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Marquee from '../components/Marquee.astro';
+
+const marqueeItems = [
+	'ODINPMP',
+	'AI-DRAFTED PROJECT TREES',
+	'PAIRWISE RANKING',
+	'EVENT-NATIVE HISTORY',
+	'PER-TENANT AI',
+	'PRIVATE BETA — APR 2026',
+];
+
+const inversions = [
+	{
+		dim: '01 / WHERE THE PLAN STARTS',
+		odin: 'A prompt and a constraint, drafted inside the project tree.',
+		alt: 'Elsewhere — a decision someone already made, copied into a grid you maintain.',
+	},
+	{
+		dim: '02 / WHERE PRIORITY LANDS',
+		odin: 'On the slot the team ranked head-to-head against everything else.',
+		alt: 'On the slide whoever spoke last refused to back down from.',
+	},
+	{
+		dim: '03 / WHERE HISTORY LIVES',
+		odin: 'On an event log that explains what moved, who moved it, and when.',
+		alt: 'On the current label, and the comment thread someone half-remembers.',
+	},
+];
+
+const principles = [
+	{
+		tag: 'PRINCIPLE 01 — ARTIFACT',
+		statement: 'The plan is the artifact.',
+		body: 'What ships is the project, not the deck about the project. We keep the plan close enough to the work that nobody has to translate it back at the end of the quarter.',
+	},
+	{
+		tag: 'PRINCIPLE 02 — PROXIMITY',
+		statement: 'AI belongs in the tree, not in a tab.',
+		body: 'A model that has to be invited into a meeting is a search bar with better marketing. Generation, refinement, and analysis live inside the project — where the work and the history already are.',
+	},
+	{
+		tag: 'PRINCIPLE 03 — PROOF',
+		statement: 'Priority is something a team earns by choosing.',
+		body: 'A roadmap survives because the people building it ranked it against the alternatives. Pairwise, on the record, every cycle. The result is not negotiated in the hallway.',
+	},
+	{
+		tag: 'PRINCIPLE 04 — BOUNDARY',
+		statement: 'Tenancy is a boundary, not a setting.',
+		body: 'Your keys, your prompts, your statuses, your data. The architecture starts there. We did not retrofit it after the screenshots got popular.',
+	},
+];
+
+const workflowSteps = [
+	{
+		n: '01',
+		title: 'CHARTER',
+		desc: 'Drop the mission, constraints, and outcomes. OdinPMP drafts the first project tree from intent instead of asking the team to start in a blank grid.',
+	},
+	{
+		n: '02',
+		title: 'GENERATE',
+		desc: 'Epics break into stories. Stories break into tasks. Owners, statuses, and types land in the tree where the work will actually be run.',
+	},
+	{
+		n: '03',
+		title: 'RANK',
+		desc: 'Run the hard tradeoff head to head. The next priority earns its slot because the team chose it, not because someone shouted last.',
+	},
+	{
+		n: '04',
+		title: 'DELIVER',
+		desc: 'Status, assignee, and history are first-class events. What changed, who changed it, and why — inspectable long after the sprint ends.',
+	},
+];
+
+const evidenceCards = [
+	{
+		n: 'A02',
+		title: 'PAIRWISE RANKING',
+		body: 'Decide what ships next by ranking it head to head against everything else. No averages. No silent priorities.',
+	},
+	{
+		n: 'A03',
+		title: 'CONTRIBUTOR SIGNAL',
+		body: 'Movement, reviews, comments, mentions — the visible record of who did the work, kept legible without ceremony.',
+	},
+	{
+		n: 'A04',
+		title: 'EVENT-NATIVE STATE',
+		body: 'Status and assignment live on an event log. The label on a card is a view of the truth, not the truth itself.',
+	},
+	{
+		n: 'A05',
+		title: 'PER-TENANT AI',
+		body: 'Your OpenAI keys. Your prompt policy. Your isolation boundary. The product respects that boundary by default.',
+	},
+	{
+		n: 'A06',
+		title: 'VAULT, COMMENTS, MENTIONS',
+		body: 'Files, threads, and @-mentions stay attached to the task that needed them — not to a parallel channel that forgets the context by Monday.',
+	},
+	{
+		n: 'A07',
+		title: 'MULTI-TENANT',
+		body: 'Separate organizations, separate rules, separate AI configuration. Designed in from the first schema, not retrofitted.',
+	},
+];
+
+---
+
+<Layout
+	title="OdinPMP — AI-first project command."
+	description="OdinPMP is the AI-first planning deck for teams who would rather ship than perform. Strategy in. Tasks out. No busywork."
+>
+	<Nav current="index" />
+
+	<main id="main" class="home">
+		<section class="hero">
+			<div class="hero__media" aria-hidden="true">
+				<img src="/images/hero-badge.jpg" alt="" loading="eager" />
+			</div>
+			<div class="hero__veil" aria-hidden="true"></div>
+
+			<div class="hero__grid">
+				<div class="hero__copy">
+					<h1 class="hero__brand display">ODINPMP</h1>
+					<p class="hero__headline display">
+						PROJECT COMMAND,<br />
+						<span>WITH TEETH.</span>
+					</p>
+					<p class="hero__sub">
+						<span class="serif-it">An AI-first planning deck</span> for teams who would rather
+						ship than perform. Strategy in. Tasks out. <strong>No busywork.</strong>
+					</p>
+
+					<div class="hero__actions">
+						<a class="btn btn--primary" href="/signup">
+							<span>JOIN THE WAITLIST</span>
+							<span aria-hidden="true">→</span>
+						</a>
+						<a class="btn btn--ghost" href="#how">
+							<span>SEE THE FLOW</span>
+							<span aria-hidden="true">↓</span>
+						</a>
+					</div>
+
+					<dl class="hero__stats mono">
+						<div>
+							<dt>STATUS</dt>
+							<dd>PRIVATE BETA</dd>
+						</div>
+						<div>
+							<dt>AI</dt>
+							<dd>BUILT-IN</dd>
+						</div>
+						<div>
+							<dt>TENANCY</dt>
+							<dd>MULTI</dd>
+						</div>
+						<div>
+							<dt>WAITLIST</dt>
+							<dd>OPEN</dd>
+						</div>
+					</dl>
+				</div>
+			</div>
+		</section>
+
+		<Marquee items={marqueeItems} speed={45} />
+
+		<section class="position">
+			<div class="position__grid">
+				<div class="position__lead">
+					<h2 class="section__title display">
+						Most planning tools are filing cabinets.<br />
+						<span class="serif-it">This one is a drafting table.</span>
+					</h2>
+				</div>
+
+				<div class="position__body">
+					<p>
+						The cabinet version expects the plan to arrive finished — your job is to type it in,
+						keep it tidy, and produce a status update on Friday. OdinPMP starts a step earlier:
+						the first draft of the plan happens here, against your constraints, and the record
+						of what was decided stays attached to the decision instead of the meeting.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="how" class="flow">
+			<div class="flow__media" aria-hidden="true">
+				<img src="/images/process-deliver.jpg" alt="" loading="lazy" />
+			</div>
+
+			<div class="flow__content">
+				<h2 class="section__title display">Four moves, in order.</h2>
+				<p class="flow__lede">
+					A project goes from charter to receipt without stopping in anyone's inbox.
+					The trail it leaves behind is the artifact.
+				</p>
+
+				<ol class="flow__steps">
+					{
+						workflowSteps.map((step) => (
+							<li class="flow__step">
+								<div class="flow__step-num display">{step.n}</div>
+								<h3 class="flow__step-title display">{step.title}</h3>
+								<p class="flow__step-desc">{step.desc}</p>
+							</li>
+						))
+					}
+				</ol>
+			</div>
+		</section>
+
+		<section id="evidence" class="evidence">
+			<header class="evidence__head">
+				<h2 class="section__title display">The load-bearing parts.</h2>
+				<p class="evidence__lede">
+					The capabilities we couldn't cut without changing what the product is.
+					Everything else is implementation detail.
+				</p>
+			</header>
+
+			<article class="evidence__feature">
+				<div class="evidence__feature-copy">
+					<h3 class="evidence__feature-title display">AI on the same surface as the work.</h3>
+					<p class="evidence__feature-body">
+						Generate a full project tree from a prompt. Refine descriptions in place. Run analysis
+						against the live plan — not a copy of it, pasted into another window that forgets the
+						context the second you close the tab.
+					</p>
+				</div>
+				<div class="evidence__feature-media">
+					<img src="/images/evidence-command.jpg" alt="" loading="lazy" />
+				</div>
+			</article>
+
+			<div class="evidence__grid">
+				{
+					evidenceCards.map((card) => (
+						<article class="evidence__card">
+							<div class="evidence__card-num mono">{card.n}</div>
+							<h3 class="evidence__card-title display">{card.title}</h3>
+							<p class="evidence__card-body">{card.body}</p>
+						</article>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="compare">
+			<header class="compare__head">
+				<h2 class="section__title display">Three inversions.</h2>
+				<p class="compare__lede">
+					Each is a question every PM tool answers — quietly, in its defaults. These are the three
+					where OdinPMP answers differently, and why.
+				</p>
+			</header>
+
+			<ol class="compare__list">
+				{
+					inversions.map((row) => (
+						<li class="compare__item">
+							<div class="compare__dim mono">{row.dim}</div>
+							<p class="compare__odin">{row.odin}</p>
+							<p class="compare__alt">
+								<span class="compare__alt-prefix mono">INSTEAD&nbsp;OF</span>
+								{row.alt}
+							</p>
+						</li>
+					))
+				}
+			</ol>
+		</section>
+
+		<section id="manifesto" class="manifesto">
+			<div class="manifesto__head">
+				<p class="manifesto__lede">
+					<span class="serif-it">A short list.</span> Four things we believe hard enough to
+					start over for. Everything in the product is downstream of these.
+				</p>
+			</div>
+
+			<ol class="manifesto__list">
+				{
+					principles.map((p) => (
+						<li class="principle">
+							<div class="principle__tag mono">{p.tag}</div>
+							<p class="principle__statement display">{p.statement}</p>
+							<p class="principle__body">{p.body}</p>
+						</li>
+					))
+				}
+			</ol>
+
+			<div class="manifesto__sign-row">
+				<span class="manifesto__rule" aria-hidden="true"></span>
+				<p class="manifesto__sign mono">
+					<span>SIGNED</span>
+					<strong>ODINPMP</strong>
+					<span>COMMAND BUILD · v0 · 2026</span>
+				</p>
+			</div>
+		</section>
+
+		<section class="cta" aria-label="Join the waitlist">
+			<div class="cta__media" aria-hidden="true">
+				<img src="/images/process-deliver.jpg" alt="" loading="lazy" />
+			</div>
+			<div class="cta__veil" aria-hidden="true"></div>
+
+			<div class="cta__inner">
+				<div class="cta__copy">
+					<h2 class="cta__title display">
+						The first cohort is hand-seated.<br />
+						<span class="serif-it">We're still picking it.</span>
+					</h2>
+					<p class="cta__body">
+						Tell us what your current planning tool refuses to do. We are reading every entry and
+						using them to decide which of the rough edges in v0 get smoothed before launch and
+						which stay as a feature.
+					</p>
+					<div class="cta__actions">
+						<a class="btn btn--primary btn--xl" href="/signup">
+							<span>JOIN THE WAITLIST</span>
+							<span aria-hidden="true">→</span>
+						</a>
+						<a class="btn btn--ghost btn--xl" href="/app">
+							<span>PLANNED APP ENTRY</span>
+							<span aria-hidden="true">↗</span>
+						</a>
+					</div>
+				</div>
+
+				<p class="cta__sign mono">
+					<span class="cta__sign-rule" aria-hidden="true"></span>
+					<span>END&nbsp;/&nbsp;ODINPMP&nbsp;·&nbsp;v0&nbsp;·&nbsp;PRIVATE BETA</span>
+				</p>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	.home {
+		color: var(--bone);
+		background:
+			radial-gradient(circle at top right, rgba(87, 166, 255, 0.18), transparent 26%),
+			radial-gradient(circle at 15% 24%, rgba(201, 171, 104, 0.08), transparent 22%),
+			linear-gradient(180deg, #08111d 0%, #0b1626 42%, #08111d 100%);
+	}
+
+	/* ------------- buttons ------------- */
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.95rem 1.3rem;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.82rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		border: 1px solid rgba(237, 243, 251, 0.18);
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			border-color 0.2s ease,
+			background 0.2s ease,
+			color 0.2s ease;
+	}
+	.btn--primary {
+		background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+		color: var(--bone);
+		box-shadow: 0 18px 34px rgba(17, 72, 145, 0.28);
+	}
+	.btn--primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 24px 40px rgba(17, 72, 145, 0.36);
+	}
+	.btn--ghost {
+		background: rgba(255, 255, 255, 0.03);
+		color: var(--paper);
+	}
+	.btn--ghost:hover {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.38);
+		transform: translateY(-2px);
+	}
+	.btn--xl {
+		padding: 1.15rem 1.7rem;
+		font-size: 0.9rem;
+	}
+
+	/* ------------- shared section title (calmer scale) ------------- */
+	.section__title {
+		margin: 0;
+		font-size: clamp(1.9rem, 3.4vw, 3.1rem);
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+		max-width: 22ch;
+	}
+	.section__title .serif-it {
+		color: var(--accent);
+	}
+
+	/* ------------- hero (unchanged scale — this is the only big one) ------------- */
+	.hero {
+		position: relative;
+		min-height: calc(100svh - 78px);
+		padding: clamp(6rem, 8vw, 7.5rem) 0 2.5rem;
+		display: flex;
+		align-items: flex-end;
+		overflow: clip;
+	}
+	.hero__media,
+	.hero__veil {
+		position: absolute;
+		inset: 0;
+	}
+	.hero__media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 70% center;
+		filter: saturate(0.94) contrast(1.05);
+		animation: hero-settle 1.6s ease both;
+	}
+	.hero__veil {
+		background:
+			linear-gradient(90deg, rgba(8, 17, 29, 0.96) 0%, rgba(8, 17, 29, 0.82) 34%, rgba(8, 17, 29, 0.48) 58%, rgba(8, 17, 29, 0.72) 100%),
+			linear-gradient(180deg, rgba(8, 17, 29, 0.1) 0%, rgba(8, 17, 29, 0.6) 100%);
+	}
+	.hero__grid {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+		display: block;
+	}
+	.hero__copy > * {
+		opacity: 0;
+		animation: rise 0.8s ease forwards;
+	}
+	.hero__copy > *:nth-child(1) { animation-delay: 0.08s; }
+	.hero__copy > *:nth-child(2) { animation-delay: 0.14s; }
+	.hero__copy > *:nth-child(3) { animation-delay: 0.2s; }
+	.hero__copy > *:nth-child(4) { animation-delay: 0.28s; }
+	.hero__copy > *:nth-child(5) { animation-delay: 0.36s; }
+
+	.hero__brand {
+		margin: 0;
+		font-size: clamp(4.8rem, 14vw, 10rem);
+		line-height: 0.85;
+		text-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+	}
+	.hero__headline {
+		margin: 1.1rem 0 0;
+		font-size: clamp(1.7rem, 3.8vw, 4rem);
+		line-height: 0.95;
+		max-width: 7.5em;
+		color: rgba(237, 243, 251, 0.9);
+	}
+	.hero__headline span {
+		color: var(--accent);
+	}
+	.hero__sub {
+		max-width: 38rem;
+		margin: 1.55rem 0 0;
+		font-size: clamp(1.05rem, 1.5vw, 1.24rem);
+		line-height: 1.65;
+		color: rgba(237, 243, 251, 0.78);
+	}
+	.hero__sub strong {
+		color: var(--bone);
+	}
+	.hero__actions {
+		margin-top: 2rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.9rem;
+	}
+	.hero__stats {
+		margin: 2.4rem 0 0;
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		border-top: 1px solid rgba(237, 243, 251, 0.18);
+		border-bottom: 1px solid rgba(237, 243, 251, 0.18);
+	}
+	.hero__stats div {
+		padding: 0.9rem 0.3rem;
+		border-right: 1px solid rgba(237, 243, 251, 0.14);
+	}
+	.hero__stats div:last-child {
+		border-right: none;
+	}
+	.hero__stats dt {
+		margin: 0 0 0.28rem;
+		font-size: 0.66rem;
+		letter-spacing: 0.16em;
+		color: rgba(237, 243, 251, 0.48);
+	}
+	.hero__stats dd {
+		margin: 0;
+		font-size: 0.92rem;
+		font-weight: 700;
+		color: var(--bone);
+	}
+
+	/* ------------- shared section padding ------------- */
+	.position,
+	.flow,
+	.evidence,
+	.compare,
+	.manifesto {
+		padding: 6rem 1.5rem 0;
+	}
+	.position__grid,
+	.flow,
+	.evidence,
+	.compare,
+	.manifesto {
+		max-width: 1400px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	/* ------------- position ------------- */
+	.position__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.8fr);
+		gap: 2.5rem;
+		align-items: start;
+	}
+	.position__body {
+		padding-top: 0.3rem;
+		font-size: 1.08rem;
+		line-height: 1.72;
+		color: rgba(237, 243, 251, 0.74);
+	}
+	.position__body p {
+		margin: 0;
+	}
+
+	/* ------------- flow ------------- */
+	.flow {
+		display: grid;
+		grid-template-columns: minmax(18rem, 0.7fr) minmax(0, 1fr);
+		gap: 2.5rem;
+		align-items: start;
+	}
+	.flow__media {
+		position: sticky;
+		top: 6.2rem;
+		align-self: start;
+		border: 1px solid rgba(237, 243, 251, 0.12);
+		background: rgba(255, 255, 255, 0.03);
+		overflow: hidden;
+	}
+	.flow__media img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+	}
+	.flow__lede {
+		max-width: 38rem;
+		margin: 1.1rem 0 0;
+		font-size: 1.05rem;
+		line-height: 1.7;
+		color: rgba(237, 243, 251, 0.72);
+	}
+	.flow__steps {
+		list-style: none;
+		padding: 0;
+		margin: 2rem 0 0;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+	.flow__step {
+		padding: 1.2rem 1.2rem 1.3rem;
+		border: 1px solid rgba(237, 243, 251, 0.1);
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+		transition:
+			transform 0.2s ease,
+			border-color 0.2s ease,
+			background 0.2s ease;
+	}
+	.flow__step:hover {
+		transform: translateY(-4px);
+		border-color: rgba(87, 166, 255, 0.34);
+		background: linear-gradient(180deg, rgba(87, 166, 255, 0.11) 0%, rgba(255, 255, 255, 0.03) 100%);
+	}
+	.flow__step-num {
+		font-size: 1.5rem;
+		color: var(--accent);
+		line-height: 1;
+	}
+	.flow__step-title {
+		margin: 0.65rem 0 0;
+		font-size: 1.3rem;
+		line-height: 1.05;
+	}
+	.flow__step-desc {
+		margin: 0.65rem 0 0;
+		font-size: 0.97rem;
+		line-height: 1.68;
+		color: rgba(237, 243, 251, 0.72);
+	}
+
+	/* ------------- evidence ------------- */
+	.evidence__head {
+		max-width: 58rem;
+	}
+	.evidence__lede {
+		margin: 1.1rem 0 0;
+		font-size: 1.05rem;
+		line-height: 1.7;
+		color: rgba(237, 243, 251, 0.72);
+		max-width: 50rem;
+	}
+	.evidence__feature {
+		margin-top: 2.3rem;
+		display: grid;
+		grid-template-columns: minmax(16rem, 0.55fr) minmax(0, 1fr);
+		gap: 1.3rem;
+		align-items: stretch;
+	}
+	.evidence__feature-copy,
+	.evidence__card {
+		border: 1px solid rgba(237, 243, 251, 0.1);
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+	}
+	.evidence__feature-copy {
+		padding: 1.6rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: end;
+	}
+	.evidence__feature-title {
+		margin: 0;
+		font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+		line-height: 1.05;
+	}
+	.evidence__feature-body {
+		margin: 0.85rem 0 0;
+		font-size: 1rem;
+		line-height: 1.68;
+		color: rgba(237, 243, 251, 0.72);
+	}
+	.evidence__feature-media {
+		overflow: hidden;
+		border: 1px solid rgba(237, 243, 251, 0.1);
+	}
+	.evidence__feature-media img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		min-height: 22rem;
+		object-fit: cover;
+		transition: transform 0.7s ease;
+	}
+	.evidence__feature:hover .evidence__feature-media img {
+		transform: scale(1.02);
+	}
+	.evidence__grid {
+		margin-top: 1.3rem;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+	.evidence__card {
+		padding: 1.2rem;
+		transition:
+			transform 0.2s ease,
+			border-color 0.2s ease;
+	}
+	.evidence__card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(87, 166, 255, 0.28);
+	}
+	.evidence__card-num {
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.16em;
+		color: rgba(237, 243, 251, 0.48);
+	}
+	.evidence__card-title {
+		margin: 0.7rem 0 0;
+		font-size: 1.25rem;
+		line-height: 1.05;
+	}
+	.evidence__card-body {
+		margin: 0.65rem 0 0;
+		font-size: 0.97rem;
+		line-height: 1.65;
+		color: rgba(237, 243, 251, 0.72);
+	}
+
+	/* ------------- compare (inversion principles) ------------- */
+	.compare__head {
+		max-width: 56rem;
+	}
+	.compare__lede {
+		margin: 0.9rem 0 0;
+		font-size: 1.04rem;
+		line-height: 1.7;
+		color: rgba(237, 243, 251, 0.72);
+		max-width: 46rem;
+	}
+	.compare__list {
+		list-style: none;
+		padding: 0;
+		margin: 2.2rem 0 0;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+	.compare__item {
+		position: relative;
+		padding: 1.45rem 1.4rem 1.55rem;
+		border: 1px solid rgba(237, 243, 251, 0.1);
+		background: linear-gradient(180deg, rgba(87, 166, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+		display: grid;
+		gap: 0.9rem;
+		align-content: start;
+		transition: border-color 0.2s ease, transform 0.2s ease;
+	}
+	.compare__item::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 2px;
+		height: 36px;
+		background: var(--accent);
+	}
+	.compare__item:hover {
+		border-color: rgba(87, 166, 255, 0.36);
+		transform: translateY(-3px);
+	}
+	.compare__dim {
+		font-size: 0.7rem;
+		letter-spacing: 0.16em;
+		color: rgba(237, 243, 251, 0.5);
+	}
+	.compare__odin {
+		margin: 0;
+		font-size: 1.12rem;
+		line-height: 1.4;
+		color: var(--bone);
+		font-weight: 500;
+		letter-spacing: -0.005em;
+	}
+	.compare__alt {
+		margin: 0;
+		font-size: 0.93rem;
+		line-height: 1.6;
+		color: rgba(237, 243, 251, 0.55);
+		padding-top: 0.85rem;
+		border-top: 1px dashed rgba(237, 243, 251, 0.14);
+	}
+	.compare__alt-prefix {
+		display: inline-block;
+		margin-right: 0.4rem;
+		padding: 0.08rem 0.32rem;
+		font-size: 0.62rem;
+		letter-spacing: 0.16em;
+		color: rgba(237, 243, 251, 0.7);
+		background: rgba(237, 243, 251, 0.08);
+		border-radius: 1px;
+		vertical-align: 2px;
+	}
+
+	/* ------------- manifesto (signed declaration) ------------- */
+	.manifesto__head {
+		max-width: 56rem;
+	}
+	.manifesto__lede {
+		margin: 0;
+		font-size: clamp(1.45rem, 2.4vw, 2.05rem);
+		line-height: 1.32;
+		color: rgba(237, 243, 251, 0.92);
+		font-weight: 500;
+		letter-spacing: -0.005em;
+		max-width: 42rem;
+	}
+	.manifesto__lede .serif-it {
+		color: var(--accent);
+	}
+	.manifesto__list {
+		list-style: none;
+		padding: 0;
+		margin: 2.4rem 0 0;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+	.principle {
+		position: relative;
+		padding: 1.6rem 1.5rem 1.7rem;
+		border: 1px solid rgba(237, 243, 251, 0.1);
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%),
+			radial-gradient(circle at top right, rgba(87, 166, 255, 0.07), transparent 60%);
+		display: grid;
+		gap: 0.95rem;
+		align-content: start;
+	}
+	.principle::before {
+		content: '';
+		position: absolute;
+		left: -1px;
+		top: 1.5rem;
+		width: 3px;
+		height: 1.6rem;
+		background: var(--accent);
+	}
+	.principle__tag {
+		font-size: 0.68rem;
+		letter-spacing: 0.18em;
+		color: rgba(237, 243, 251, 0.5);
+	}
+	.principle__statement {
+		margin: 0;
+		font-size: clamp(1.3rem, 2vw, 1.7rem);
+		line-height: 1.08;
+		color: var(--bone);
+		letter-spacing: -0.015em;
+	}
+	.principle__body {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.7;
+		color: rgba(237, 243, 251, 0.72);
+	}
+	.manifesto__sign-row {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		gap: 1.25rem;
+		margin: 2rem 0 0;
+	}
+	.manifesto__rule {
+		display: block;
+		height: 1px;
+		background: rgba(237, 243, 251, 0.16);
+	}
+	.manifesto__sign {
+		margin: 0;
+		display: inline-flex;
+		gap: 0.85rem;
+		align-items: baseline;
+		font-size: 0.72rem;
+		letter-spacing: 0.16em;
+		color: rgba(237, 243, 251, 0.55);
+	}
+	.manifesto__sign strong {
+		color: var(--bone);
+		font-family: 'Archivo Black', sans-serif;
+		font-size: 0.92rem;
+		letter-spacing: 0.04em;
+	}
+
+	/* ------------- closing CTA (full bleed / 100vh bookend) ------------- */
+	.cta {
+		position: relative;
+		margin-top: 6rem;
+		width: 100%;
+		min-height: 100svh;
+		display: flex;
+		overflow: hidden;
+		isolation: isolate;
+	}
+	.cta__media,
+	.cta__veil {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+	}
+	.cta__media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 35%;
+		filter: contrast(1.05) saturate(0.95);
+	}
+	.cta__veil {
+		background:
+			linear-gradient(90deg, rgba(7, 17, 31, 0.96) 0%, rgba(7, 17, 31, 0.82) 38%, rgba(7, 17, 31, 0.6) 100%),
+			radial-gradient(circle at 78% 22%, rgba(87, 166, 255, 0.2), transparent 42%),
+			linear-gradient(180deg, rgba(7, 17, 31, 0.45) 0%, rgba(7, 17, 31, 0.88) 100%);
+	}
+	.cta__inner {
+		position: relative;
+		width: 100%;
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 7rem 1.5rem 3rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 100svh;
+	}
+	.cta__copy {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		flex: 1;
+		max-width: 58rem;
+	}
+	.cta__title {
+		margin: 0;
+		font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+		line-height: 1.0;
+		letter-spacing: -0.02em;
+		max-width: 18ch;
+	}
+	.cta__title .serif-it {
+		color: var(--accent);
+		display: block;
+		margin-top: 0.35rem;
+	}
+	.cta__body {
+		margin: 1.6rem 0 0;
+		max-width: 40rem;
+		font-size: 1.1rem;
+		line-height: 1.72;
+		color: rgba(237, 243, 251, 0.84);
+	}
+	.cta__actions {
+		margin-top: 2.4rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.9rem;
+	}
+	.cta__sign {
+		margin: 0;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		gap: 1.25rem;
+		font-size: 0.72rem;
+		letter-spacing: 0.18em;
+		color: rgba(237, 243, 251, 0.55);
+		padding-top: 2.5rem;
+	}
+	.cta__sign-rule {
+		display: block;
+		height: 1px;
+		background: rgba(237, 243, 251, 0.18);
+	}
+
+	/* ------------- animations ------------- */
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(18px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	@keyframes hero-settle {
+		from {
+			opacity: 0;
+			transform: scale(1.04);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	/* ------------- responsive ------------- */
+	@media (max-width: 1180px) {
+		.hero__grid,
+		.position__grid,
+		.flow,
+		.evidence__feature {
+			grid-template-columns: 1fr;
+		}
+		.hero {
+			min-height: auto;
+			padding-bottom: 3rem;
+		}
+		.flow__media {
+			position: relative;
+			top: auto;
+			max-width: 34rem;
+		}
+		.flow__media img {
+			aspect-ratio: 16 / 10;
+		}
+		.evidence__feature-media img {
+			min-height: 18rem;
+		}
+	}
+
+	@media (max-width: 1100px) {
+		.compare__list {
+			grid-template-columns: 1fr;
+		}
+		.manifesto__list {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.flow__steps,
+		.evidence__grid {
+			grid-template-columns: 1fr;
+		}
+		.hero__stats {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.hero__stats div:nth-child(2) {
+			border-right: none;
+		}
+		.hero__stats div:nth-child(1),
+		.hero__stats div:nth-child(2) {
+			border-bottom: 1px solid rgba(237, 243, 251, 0.14);
+		}
+		.cta__inner {
+			padding: 5rem 1.4rem 2.5rem;
+		}
+		.cta__sign {
+			grid-template-columns: 1fr;
+			gap: 0.7rem;
+		}
+		.manifesto__sign-row {
+			grid-template-columns: 1fr;
+			gap: 0.85rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero {
+			padding-top: 5.4rem;
+		}
+		.hero__media img {
+			object-position: 78% center;
+		}
+		.position,
+		.flow,
+		.evidence,
+		.compare,
+		.manifesto {
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+		.hero__grid {
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+		.hero__brand {
+			font-size: clamp(3.6rem, 18vw, 5.1rem);
+		}
+		.hero__headline {
+			font-size: 1.55rem;
+		}
+		.hero__stats dd {
+			font-size: 0.78rem;
+		}
+		.cta__inner {
+			padding: 3rem 1rem;
+		}
+	}
+</style>

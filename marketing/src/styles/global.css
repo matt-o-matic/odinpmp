@@ -1,0 +1,321 @@
+/* Odin marketing site: tokens, base type and shared pieces.
+   Colors come from the brand mark: helmet navy, steel and the gold gem. */
+
+:root {
+	--font-display: 'Hubot Sans Variable', 'Mona Sans Variable', system-ui, sans-serif;
+	--font-body: 'Mona Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--font-mono: 'Martian Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+	--font-app: 'Space Grotesk Variable', system-ui, sans-serif;
+
+	--step--2: 0.75rem;
+	--step--1: 0.875rem;
+	--step-0: 1.0625rem;
+	--step-1: 1.25rem;
+	--step-2: clamp(1.4rem, 1.2rem + 0.8vw, 1.75rem);
+	--step-3: clamp(1.9rem, 1.4rem + 2vw, 2.9rem);
+	--step-4: clamp(2.5rem, 1.6rem + 3.6vw, 4.6rem);
+	--step-5: clamp(3rem, 1.4rem + 6.4vw, 7.4rem);
+
+	--measure: 62ch;
+	--gutter: clamp(1.25rem, 4vw, 3.5rem);
+	--max: 1360px;
+	--nav-h: 68px;
+	--radius-s: 6px;
+	--radius-m: 12px;
+	--radius-l: 20px;
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+:root,
+:root[data-theme='light'] {
+	color-scheme: light;
+	--bg: #f1f4f9;
+	--bg-2: #e5eaf2;
+	--raised: #ffffff;
+	--sunk: #e9eef5;
+	--ink: #0a1428;
+	--ink-2: #2c3d60;
+	--muted: #586a8b;
+	--line: #d4dbe7;
+	--line-2: #b6c2d6;
+	--gold: #e3a21a;
+	--gold-ink: #8f5d00;
+	--gold-glow: rgba(227, 162, 26, 0.28);
+	--ice: #2457c5;
+	--ice-soft: rgba(36, 87, 197, 0.1);
+	--bug: #d93d31;
+	--pass: #11885a;
+	--merged: #7c4ddb;
+	--shadow-1: 0 1px 2px rgba(10, 20, 40, 0.06), 0 8px 24px rgba(10, 20, 40, 0.07);
+	--shadow-2: 0 2px 6px rgba(10, 20, 40, 0.06), 0 30px 60px -12px rgba(16, 38, 82, 0.22);
+	--glass: rgba(255, 255, 255, 0.72);
+}
+
+:root[data-theme='dark'] {
+	color-scheme: dark;
+	--bg: #08101f;
+	--bg-2: #0c1730;
+	--raised: #101d37;
+	--sunk: #0b1528;
+	--ink: #e8eef7;
+	--ink-2: #b8c5db;
+	--muted: #8194b5;
+	--line: #1b2b4b;
+	--line-2: #2a3e66;
+	--gold: #f2b636;
+	--gold-ink: #f6c862;
+	--gold-glow: rgba(242, 182, 54, 0.3);
+	--ice: #8db8ff;
+	--ice-soft: rgba(141, 184, 255, 0.1);
+	--bug: #ff6b5e;
+	--pass: #3fd08f;
+	--merged: #a97bff;
+	--shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+	--shadow-2: 0 2px 6px rgba(0, 0, 0, 0.3), 0 40px 80px -16px rgba(0, 0, 0, 0.6);
+	--glass: rgba(16, 29, 55, 0.72);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	scroll-padding-top: calc(var(--nav-h) + 1rem);
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: var(--font-body);
+	font-size: var(--step-0);
+	line-height: 1.6;
+	font-optical-sizing: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	overflow-x: clip;
+	transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+img,
+svg,
+video,
+canvas {
+	display: block;
+	max-width: 100%;
+}
+
+a {
+	color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+	color: inherit;
+}
+
+::selection {
+	background: var(--gold);
+	color: #0a1428;
+}
+
+:focus-visible {
+	outline: 2px solid var(--ice);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	margin: 0;
+	font-family: var(--font-display);
+	font-weight: 760;
+	font-stretch: 112%;
+	line-height: 1;
+	letter-spacing: -0.02em;
+	text-wrap: balance;
+}
+
+p {
+	margin: 0;
+	text-wrap: pretty;
+}
+
+.skip {
+	position: absolute;
+	left: 1rem;
+	top: -4rem;
+	z-index: 1000;
+	padding: 0.6rem 1rem;
+	border-radius: var(--radius-s);
+	background: var(--ink);
+	color: var(--bg);
+	text-decoration: none;
+	font-weight: 600;
+}
+.skip:focus {
+	top: 1rem;
+}
+
+.visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.wrap {
+	width: min(100% - 2 * var(--gutter), var(--max));
+	margin-inline: auto;
+}
+
+/* Section scaffolding: a heading block, then the scene. */
+.section {
+	position: relative;
+	padding-block: clamp(5rem, 11vw, 10rem);
+}
+.section-head {
+	display: grid;
+	gap: 1.25rem;
+	margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+.section-head h2 {
+	max-width: 18ch;
+	font-size: var(--step-4);
+}
+.section-head p {
+	max-width: var(--measure);
+	font-size: var(--step-1);
+	line-height: 1.55;
+	color: var(--ink-2);
+}
+
+/* Buttons */
+.btn {
+	--btn-bg: var(--ink);
+	--btn-fg: var(--bg);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.55rem;
+	min-height: 48px;
+	padding: 0.7rem 1.35rem;
+	border: 1px solid transparent;
+	border-radius: 999px;
+	background: var(--btn-bg);
+	color: var(--btn-fg);
+	font-weight: 620;
+	font-size: var(--step-0);
+	line-height: 1.1;
+	text-decoration: none;
+	cursor: pointer;
+	transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), background-color 0.25s ease;
+}
+.btn:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 10px 30px -8px var(--gold-glow), 0 0 0 1px var(--gold);
+}
+.btn:active {
+	transform: translateY(0);
+}
+.btn--quiet {
+	--btn-bg: transparent;
+	--btn-fg: var(--ink);
+	border-color: var(--line-2);
+}
+.btn--quiet:hover {
+	box-shadow: none;
+	border-color: var(--ink);
+}
+.btn--small {
+	min-height: 38px;
+	padding: 0.45rem 1rem;
+	font-size: var(--step--1);
+}
+
+/* The gold diamond, from the gem on the helmet. Marks where the work is. */
+.gem {
+	display: inline-block;
+	width: 0.62em;
+	height: 0.62em;
+	background: var(--gold);
+	transform: rotate(45deg);
+	border-radius: 1px;
+	box-shadow: 0 0 0 3px var(--gold-glow);
+	flex: none;
+}
+
+/* Shared "browser" frame for real screens and hand-built demos. */
+.frame {
+	position: relative;
+	border-radius: var(--radius-m);
+	background: var(--raised);
+	border: 1px solid var(--line);
+	box-shadow: var(--shadow-2);
+	overflow: hidden;
+}
+.frame__bar {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	height: 38px;
+	padding: 0 0.9rem;
+	border-bottom: 1px solid var(--line);
+	background: var(--sunk);
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+.frame__dots {
+	display: flex;
+	gap: 6px;
+}
+.frame__dots i {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--line-2);
+}
+.frame__url {
+	flex: 1;
+	max-width: 30rem;
+	margin-inline: auto;
+	padding: 0.2rem 0.8rem;
+	border-radius: 999px;
+	background: var(--raised);
+	border: 1px solid var(--line);
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Theme-paired screenshots: both are in the page, CSS shows the matching one. */
+:root[data-theme='dark'] .only-light,
+:root:not([data-theme='dark']) .only-dark {
+	display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}

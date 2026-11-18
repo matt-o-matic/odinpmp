@@ -1,0 +1,315 @@
+{
+  "id": "requirements-summary.owner-replay.v2",
+  "version": 2,
+  "description": "Made-up discussions that replay the patterns from the 2026-10-16 interactions review: owner answers left as blockers, revised recommendations read as disagreement, a lone owner answer, a genuinely open question, a point another topic's decision settled, and engineering talk raised as a requirement. Version 2 adds the 2026-10-21 review patterns: required people and admins, statements that blockers are resolved, proposals a required person revised, required answers asked again, an agreed positive control, and a resolution statement from someone without standing. No customer text.",
+  "runsPerCase": 3,
+  "cases": [
+    {
+      "id": "owner-answer-settles",
+      "description": "The team asks the client owner two things; she answers both and the decider upvotes. Nothing should stay blocking.",
+      "topic": {
+        "prompt": "Which booking problems need a dispatcher involved, and how quickly should they respond?",
+        "rationale": "The brief says failed bookings are retried automatically but not when people step in.",
+        "settles": "Dispatcher involvement and response times",
+        "suggestedOwnerRole": "Operations lead",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "olivia", "kind": "stakeholder", "name": "Olivia Grant", "roleTitle": "Operations lead" },
+        { "key": "tom", "kind": "user", "name": "Tom Reyes" },
+        { "key": "dana", "kind": "user", "name": "Dana Cole" }
+      ],
+      "owner": "olivia",
+      "assigned": ["tom"],
+      "comments": [
+        { "key": "c1", "author": "tom", "body": "Olivia, which booking problems need a dispatcher involved, and how quickly should someone respond?" },
+        { "key": "c2", "author": "olivia", "replyTo": "c1", "body": "Only alert a dispatcher for problems that keep failing after the automatic retry, system outages, or a visit at risk of being missed. Routine requests get a reply within one business day, urgent ones within four business hours, and outages page someone immediately.", "votes": { "up": ["dana"] } }
+      ],
+      "relatedDecisions": [],
+      "expect": { "maxBlocking": 0, "proposedAnswer": true, "proposedAnswerStatus": "agreed", "forbiddenTerms": ["how quickly", "what response target", "which booking problems need"] }
+    },
+    {
+      "id": "revised-recommendation-is-history",
+      "description": "A team recommendation assumes manual confirmation and a travel fee; the tech lead and the client owner revise both. The opening recommendation should not be a live position.",
+      "topic": {
+        "prompt": "What should the checkout show before the customer confirms a booking?",
+        "rationale": "The brief lists online payment but not what the customer agrees to.",
+        "settles": "Checkout contents before confirmation",
+        "suggestedOwnerRole": "Product owner",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "olivia", "kind": "stakeholder", "name": "Olivia Grant", "roleTitle": "Product owner" },
+        { "key": "tom", "kind": "user", "name": "Tom Reyes" },
+        { "key": "lee", "kind": "user", "name": "Lee Park" }
+      ],
+      "owner": "olivia",
+      "assigned": ["tom", "lee"],
+      "comments": [
+        { "key": "c1", "author": "tom", "body": "Recommendation: today a technician confirms each booking by phone, so the checkout should not promise an instant booking. Itemize the visit price and a $15 travel fee. Olivia decides: the wording and whether the travel fee stays." },
+        { "key": "c2", "author": "lee", "replyTo": "c1", "body": "At release this will not be phone confirmation. Bookings confirm instantly; that is already approved." },
+        { "key": "c3", "author": "olivia", "replyTo": "c1", "body": "I agree with the itemized checkout, with one revision: once payment succeeds the booking confirms instantly, and we have decided to drop the travel fee entirely. Show the visit price, the terms, and the total." }
+      ],
+      "relatedDecisions": [],
+      "expect": { "maxBlocking": 0, "proposedAnswer": true, "noDivergent": true, "forbiddenTerms": ["phone", "travel fee"] }
+    },
+    {
+      "id": "lone-owner-answer",
+      "description": "Only the client owner has answered, and nobody challenged it. The summary should propose that answer as the owner's answer, ready to record, citing the comment.",
+      "topic": {
+        "prompt": "Where should customers enter a discount code?",
+        "rationale": "The brief mentions promotions but not where codes go.",
+        "settles": "Discount code entry point",
+        "suggestedOwnerRole": "Product owner",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "olivia", "kind": "stakeholder", "name": "Olivia Grant", "roleTitle": "Product owner" }
+      ],
+      "owner": "olivia",
+      "assigned": [],
+      "comments": [
+        { "key": "c1", "author": "olivia", "body": "Put the discount code field on the payment step, under the order total, with the discount shown as its own line once applied." }
+      ],
+      "relatedDecisions": [],
+      "expect": { "maxBlocking": 0, "proposedAnswer": true, "proposedAnswerStatus": "owner-answered" }
+    },
+    {
+      "id": "genuinely-open-question",
+      "description": "The client owner answers her part and asks the team a question nobody has answered. That question should stay blocking and cite her comment.",
+      "topic": {
+        "prompt": "What does sign-off need to show before the client accepts the release?",
+        "rationale": "The brief names acceptance testing but not what evidence it needs.",
+        "settles": "Acceptance sign-off contents",
+        "suggestedOwnerRole": "Product owner",
+        "track": "architecture"
+      },
+      "people": [
+        { "key": "olivia", "kind": "stakeholder", "name": "Olivia Grant", "roleTitle": "Product owner" },
+        { "key": "lee", "kind": "user", "name": "Lee Park" }
+      ],
+      "owner": "olivia",
+      "assigned": ["lee"],
+      "comments": [
+        { "key": "c1", "author": "lee", "body": "We propose an evidence package from our side: the end-to-end test results and the insurer's approval letter." },
+        { "key": "c2", "author": "olivia", "replyTo": "c1", "body": "Sign-off should cover both: your evidence package first, then our own testing and approval. Lee, do the new insurer rules have to be live before our acceptance testing starts, or only before launch? We need to know before we schedule testing." }
+      ],
+      "relatedDecisions": [],
+      "expect": { "minBlocking": 1, "blockingCites": ["c2"] }
+    },
+    {
+      "id": "settled-by-another-decision",
+      "description": "Part of the question is settled by a decision on another topic. The summary should not raise it again.",
+      "topic": {
+        "prompt": "Which steps of the booking flow does the customer do alone, and where does it pause for staff?",
+        "rationale": "The brief says self-service but lists staff checks.",
+        "settles": "Self-service steps and pauses",
+        "suggestedOwnerRole": "Operations lead",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "olivia", "kind": "stakeholder", "name": "Olivia Grant", "roleTitle": "Operations lead" },
+        { "key": "tom", "kind": "user", "name": "Tom Reyes" }
+      ],
+      "owner": "olivia",
+      "assigned": ["tom"],
+      "comments": [
+        { "key": "c1", "author": "tom", "body": "Two things: does the first release include printed invoices sent by mail, and where should the flow pause for staff?" },
+        { "key": "c2", "author": "olivia", "replyTo": "c1", "body": "The customer does everything alone except two pauses: staff approve visits over $500, and staff review any booking flagged as a duplicate address.", "votes": { "up": ["tom"] } }
+      ],
+      "relatedDecisions": [
+        { "outcome": "agreed", "statement": "Printed invoices sent by mail are in the first release, along with emailed receipts." }
+      ],
+      "expect": { "maxBlocking": 0, "proposedAnswer": true, "forbiddenTerms": ["printed", "invoice", "by mail"] }
+    },
+    {
+      "id": "engineering-is-not-a-requirement",
+      "description": "Team members discuss the state model and tables. The summary should not turn engineering choices into outstanding items or questions.",
+      "topic": {
+        "prompt": "What should customers see when they rebook a cancelled visit?",
+        "rationale": "The brief allows rebooking but not how it looks.",
+        "settles": "Rebooking experience",
+        "suggestedOwnerRole": "Product owner",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "olivia", "kind": "stakeholder", "name": "Olivia Grant", "roleTitle": "Product owner" },
+        { "key": "tom", "kind": "user", "name": "Tom Reyes" },
+        { "key": "lee", "kind": "user", "name": "Lee Park" }
+      ],
+      "owner": "olivia",
+      "assigned": ["tom", "lee"],
+      "comments": [
+        { "key": "c1", "author": "tom", "body": "Behind this we need a state model for visit status, and we should decide whether to reuse the existing booking tables or add new ones." },
+        { "key": "c2", "author": "lee", "replyTo": "c1", "body": "We should reuse the same database for sure; I'll sketch the states." },
+        { "key": "c3", "author": "olivia", "body": "Customers should see the cancelled visit with a Rebook button that opens the calendar with the same service and address filled in, and a note if the price changed.", "votes": { "up": ["tom"] } }
+      ],
+      "relatedDecisions": [],
+      "expect": { "maxBlocking": 0, "proposedAnswer": true, "forbiddenTerms": ["state model", "table", "database", "schema"] }
+    },
+    {
+      "id": "resolution-statement-closes-blockers",
+      "description": "The owner (a team admin) recommends; the required client answers and revises two points; the owner then says every blocker is resolved. Nothing should stay blocking, and the revised points are not a disagreement.",
+      "topic": {
+        "prompt": "What should customers see after we submit their order to the county?",
+        "rationale": "The brief says orders are submitted but not what customers see afterwards.",
+        "settles": "Post-submission status and confirmation",
+        "suggestedOwnerRole": "Product owner",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "priya", "kind": "user", "name": "Priya Shah" },
+        { "key": "helen", "kind": "stakeholder", "name": "Helen Ortiz", "roleTitle": "Product owner" },
+        { "key": "ben", "kind": "stakeholder", "name": "Ben Ward", "roleTitle": "Operations" }
+      ],
+      "owner": "priya",
+      "required": ["helen"],
+      "assigned": ["ben"],
+      "admins": ["priya"],
+      "comments": [
+        { "key": "c1", "author": "priya", "body": "Recommendation for what customers see after we submit their order: a timeline (queued, submitted, processing, accepted, rejected), an email on every status change, and a confirmation page with a downloadable completion certificate holding the final PDFs, the county receipt and the payment receipt. Helen decides: the turnaround we promise while submission is manual." },
+        { "key": "c2", "author": "helen", "body": "I agree with the timeline. Email customers only for meaningful events: payment confirmed, submitted, accepted, and rejected or needing action. Routine processing updates can stay on the status page. Call the download a filing record and include the final forms, the county receipt, the payment receipt and the authorization record, labelled as our record rather than a county certificate. Submission will be automated, so don't promise a turnaround yet." },
+        { "key": "c3", "author": "priya", "body": "All blockers are resolved and can be marked as resolved. None of them change the outcome of the earlier discussion." }
+      ],
+      "relatedDecisions": [],
+      "expect": { "maxBlocking": 0, "proposedAnswer": true, "noDivergent": true, "forbiddenTerms": ["every status change", "completion certificate", "label and contents"] }
+    },
+    {
+      "id": "resolution-claims-no-completion",
+      "description": "The required client says the team keeps technical evidence and the client tests before giving business approval; the owner then clears the blockers. The answer must not say testing or approval has happened.",
+      "topic": {
+        "prompt": "What does client sign-off need to show for acceptance of both product lines?",
+        "rationale": "The brief names acceptance but not what it rests on.",
+        "settles": "Acceptance and sign-off",
+        "suggestedOwnerRole": "Product owner",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "priya", "kind": "user", "name": "Priya Shah" },
+        { "key": "helen", "kind": "stakeholder", "name": "Helen Ortiz", "roleTitle": "Product owner" },
+        { "key": "ben", "kind": "stakeholder", "name": "Ben Ward", "roleTitle": "Operations" }
+      ],
+      "owner": "priya",
+      "required": ["helen"],
+      "assigned": ["ben"],
+      "admins": ["priya"],
+      "comments": [
+        { "key": "c1", "author": "priya", "body": "Recommendation: sign-off is one evidence pack per product line, built from the audit trail: upload, validation, preview, authorization, payment in test mode, the county test receipt and the final package. Run acceptance in the county's test system. It depends on two fixes that are not built yet." },
+        { "key": "c2", "author": "helen", "body": "I agree with a separate evidence pack per product line. We already passed the county's test certification, so acceptance should focus on the whole customer experience. Your team verifies the workflow and keeps the technical evidence. Ben and I will then test it as customers and review the results before we give final business approval. Record approval separately for each product line with the approver's name and date. Please confirm whether the two fixes are production requirements rather than certification requirements." },
+        { "key": "c3", "author": "priya", "body": "All blockers are resolved and do not change the outcome of the previous conversation. Please clear and mark as resolved." }
+      ],
+      "relatedDecisions": [],
+      "expect": { "maxBlocking": 0, "proposedAnswer": true, "noDivergent": true, "forbiddenTerms": ["who provides", "who gives final"], "forbiddenAnswerTerms": ["has completed", "have completed", "completed testing", "has approved", "have approved", "has been approved", "approval was given"] }
+    },
+    {
+      "id": "required-revision-supersedes-proposal",
+      "description": "The owner's recommendation includes a per-location fee and a manual upload; an admin says submission will be automatic and the required client drops the fee. Neither old proposal is a live disagreement; refund, correction pricing and tax stay open.",
+      "topic": {
+        "prompt": "What payment steps and messages should appear before the customer authorizes submission?",
+        "rationale": "The brief lists online payment but not the checkout steps.",
+        "settles": "Checkout steps and pricing shown",
+        "suggestedOwnerRole": "Product owner",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "priya", "kind": "user", "name": "Priya Shah" },
+        { "key": "helen", "kind": "stakeholder", "name": "Helen Ortiz", "roleTitle": "Product owner" },
+        { "key": "ben", "kind": "stakeholder", "name": "Ben Ward", "roleTitle": "Operations" },
+        { "key": "sam", "kind": "user", "name": "Sam Hale" }
+      ],
+      "owner": "priya",
+      "required": ["helen"],
+      "assigned": ["ben", "sam"],
+      "admins": ["priya", "sam"],
+      "comments": [
+        { "key": "c1", "author": "priya", "body": "Recommendation for checkout: show an estimate up front and take payment when the customer authorizes. Itemize the per-form price, a minimum fee, a $25 fee for each additional location, and the total. Submission is a manual staff upload today, so don't promise instant submission. Helen decides: refund policy, correction pricing and sales tax." },
+        { "key": "c2", "author": "sam", "body": "When this releases it will not be a staff upload. Submission will be automatic. That is already approved." },
+        { "key": "c3", "author": "helen", "body": "Customers upload and validate first; any earlier price is an estimate. After validation they see a final itemized price, confirm their authority, accept the terms and pay. Once payment succeeds the system submits automatically. If payment fails nothing is submitted. We still need to decide refund eligibility, correction pricing and sales tax before launch, but those should not hold up building checkout." },
+        { "key": "c4", "author": "helen", "body": "We have revisited pricing and decided to drop the additional-location fee. Customers can include several locations in one order at no extra charge, and the volume tier is based on the total forms in the order." }
+      ],
+      "relatedDecisions": [],
+      "expect": { "noDivergent": true, "forbiddenTerms": ["additional location", "additional-location", "per-location", "staff upload", "manual upload"], "outstandingTerms": [["refund"]] }
+    },
+    {
+      "id": "required-answers-are-not-asked-again",
+      "description": "The required client answers every point the owner put to her; the owner then asks one new question. Only the new question stays open.",
+      "topic": {
+        "prompt": "When and where should customers enter a discount code?",
+        "rationale": "The brief mentions promotions but not how codes work.",
+        "settles": "Discount code entry and rules",
+        "suggestedOwnerRole": "Product owner",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "priya", "kind": "user", "name": "Priya Shah" },
+        { "key": "helen", "kind": "stakeholder", "name": "Helen Ortiz", "roleTitle": "Product owner" },
+        { "key": "ben", "kind": "stakeholder", "name": "Ben Ward", "roleTitle": "Operations" }
+      ],
+      "owner": "priya",
+      "required": ["helen"],
+      "assigned": ["ben"],
+      "admins": ["priya"],
+      "comments": [
+        { "key": "c1", "author": "priya", "body": "Recommendation: put the discount code behind a 'Have a code?' link in the order summary, store it on the order once applied, and turn off the payment processor's own code field. Helen decides: percentage or fixed amount, which lines it applies to, and whether a code applied before it expires is still honored at payment." },
+        { "key": "c2", "author": "helen", "body": "Agree with the link in the order summary. Support percentage and fixed codes. Apply them to the filing fee only by default, configurable per promotion. A valid code applied before it expires stays honored for 30 minutes during checkout, then is rechecked. One code per order unless we configure otherwise. Our admins should manage codes, expiry dates, usage limits and eligible services without a developer." },
+        { "key": "c3", "author": "priya", "body": "Helen, if a customer removes a service that made them eligible for their code, should we remove the code silently or tell them first?" }
+      ],
+      "relatedDecisions": [],
+      "expect": { "forbiddenTerms": ["30 minutes", "how long", "more than one", "one code", "usage limits", "percentage"], "outstandingTerms": [["notif", "tell", "silent", "notice", "warn"]] }
+    },
+    {
+      "id": "agreed-shared-workflow-control",
+      "description": "Positive control: the owner recommends one shared workflow, the required client agrees and another stakeholder upvotes. Agreed, nothing blocking.",
+      "topic": {
+        "prompt": "Should the two product lines look separate, or share the same screens?",
+        "rationale": "The brief names two product lines but not whether they share a flow.",
+        "settles": "Shared or separate workflow",
+        "suggestedOwnerRole": "Product owner",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "priya", "kind": "user", "name": "Priya Shah" },
+        { "key": "helen", "kind": "stakeholder", "name": "Helen Ortiz", "roleTitle": "Product owner" },
+        { "key": "ben", "kind": "stakeholder", "name": "Ben Ward", "roleTitle": "Operations" }
+      ],
+      "owner": "priya",
+      "required": ["helen"],
+      "assigned": ["ben"],
+      "admins": ["priya"],
+      "comments": [
+        { "key": "c1", "author": "priya", "body": "Recommendation: one shared workflow for both product lines. Show the selected line throughout, and change only the fields and checks that differ between them." },
+        { "key": "c2", "author": "helen", "body": "Agreed. One workflow, the selected line always visible, and a plain explanation of the difference. Don't choose the line for the customer.", "votes": { "up": ["ben"] } }
+      ],
+      "relatedDecisions": [],
+      "expect": { "maxBlocking": 0, "proposedAnswer": true, "proposedAnswerStatus": "agreed", "noDivergent": true }
+    },
+    {
+      "id": "input-standing-cannot-close",
+      "description": "Two required people conflict and nobody with higher standing settles it. Someone with input standing says everything is resolved; the conflict stays blocking.",
+      "topic": {
+        "prompt": "What is the cancellation policy for a booked visit?",
+        "rationale": "The brief mentions cancellations but not the terms.",
+        "settles": "Cancellation terms",
+        "suggestedOwnerRole": "Operations lead",
+        "track": "experience"
+      },
+      "people": [
+        { "key": "olivia", "kind": "stakeholder", "name": "Olivia Grant", "roleTitle": "Operations lead" },
+        { "key": "helen", "kind": "stakeholder", "name": "Helen Ortiz", "roleTitle": "Finance" },
+        { "key": "ivy", "kind": "stakeholder", "name": "Ivy Chen", "roleTitle": "Customer service" },
+        { "key": "raj", "kind": "stakeholder", "name": "Raj Patel", "roleTitle": "Coordinator" }
+      ],
+      "owner": "olivia",
+      "required": ["helen", "ivy"],
+      "assigned": ["raj"],
+      "admins": [],
+      "comments": [
+        { "key": "c1", "author": "helen", "body": "Customers can cancel up to 24 hours before the visit for a full refund." },
+        { "key": "c2", "author": "ivy", "body": "No. A cancellation within 72 hours of the visit should forfeit the deposit." },
+        { "key": "c3", "author": "raj", "body": "All blockers are resolved. Please clear and mark this as resolved." }
+      ],
+      "relatedDecisions": [],
+      "expect": { "minBlocking": 1 }
+    }
+  ]
+}

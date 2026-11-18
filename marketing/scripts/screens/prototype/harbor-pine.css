@@ -1,0 +1,34 @@
+/* Fictional client brand for the prototype screens shown inside Odin's review screens.
+   Same layout as tools/review-package/examples/fieldwork-round-2, so review marks from the
+   shared fixtures land on the matching parts of the page. */
+* { box-sizing: border-box; }
+body { margin: 0; width: 1280px; height: 800px; overflow: hidden; background: #f6f3ec; color: #18262f; font: 15px/1.5 'Segoe UI', system-ui, -apple-system, sans-serif; }
+.hp-nav { display: flex; align-items: center; gap: 2rem; padding: 1.1rem 3rem; border-bottom: 1px solid #e3dccd; background: #fffdf8; }
+.hp-logo { display: flex; align-items: center; gap: .55rem; font: 700 1.4rem Georgia, serif; color: #1b3a4b; letter-spacing: -.01em; }
+.hp-logo span { color: #2f6b4f; }
+.hp-mark { width: 1.6rem; height: 1.6rem; border-radius: .4rem; background: linear-gradient(160deg, #1b3a4b 0 55%, #2f6b4f 55%); position: relative; }
+.hp-mark::after { content: ''; position: absolute; left: .42rem; top: .28rem; border-left: .38rem solid transparent; border-right: .38rem solid transparent; border-bottom: .7rem solid #f6f3ec; }
+.hp-links { display: flex; gap: 1.6rem; color: #3a4a52; }
+.hp-account { margin-left: auto; display: flex; align-items: center; gap: .6rem; color: #3a4a52; }
+.hp-account b { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; background: #e3ece6; color: #1b3a4b; font-size: .8rem; }
+.hp-main { padding: 2.2rem 3rem; }
+.hp-eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #b4582a; }
+.hp-h1 { margin: .3rem 0 .5rem; font: 700 2.6rem/1.1 Georgia, serif; color: #12232c; }
+.hp-btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.4rem; border-radius: .6rem; background: #1b3a4b; color: #fff; font: 600 15px 'Segoe UI', system-ui, sans-serif; border: 0; }
+.hp-btn--ghost { background: #fff; color: #1b3a4b; border: 1.5px solid #c6d3d9; }
+.hp-card { border: 1px solid #e3dccd; border-radius: .9rem; background: #fff; padding: 1.2rem 1.3rem; }
+.hp-card h3 { margin: 0 0 .5rem; font-size: 1.05rem; }
+.hp-muted { color: #66757c; }
+.hp-pill { display: inline-block; padding: .15rem .6rem; border-radius: 999px; background: #e3ece6; color: #2f6b4f; font-size: .8rem; font-weight: 600; }
+.hp-price { font: 700 2.2rem Georgia, serif; color: #12232c; }
+.hp-grid { display: grid; gap: 1.1rem; }
+.hp-icon { display: inline-grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: .6rem; background: #eef3f0; color: #2f6b4f; font-weight: 700; margin-bottom: .6rem; }
+.hp-art { border-radius: 1rem; position: relative; overflow: hidden; background: linear-gradient(180deg, #dbe7ec 0%, #eef1ea 58%, #c9d9de 58%, #b8ccd3 100%); }
+.hp-art .ridge { position: absolute; inset: 0; }
+.hp-art .ridge--far { background: #a9bec4; clip-path: polygon(0 58%, 18% 30%, 30% 44%, 46% 20%, 62% 42%, 76% 28%, 100% 50%, 100% 58%); }
+.hp-art .ridge--near { background: #2f6b4f; clip-path: polygon(0 58%, 6% 46%, 10% 52%, 15% 38%, 20% 50%, 26% 34%, 32% 58%, 64% 58%, 70% 40%, 75% 50%, 80% 30%, 86% 48%, 92% 36%, 100% 52%, 100% 58%); }
+.hp-art .sun { position: absolute; right: 16%; top: 14%; width: 3.4rem; height: 3.4rem; border-radius: 999px; background: #f2c38b; }
+.hp-art .wave { position: absolute; left: 8%; right: 8%; height: 2px; background: rgba(255, 255, 255, .7); border-radius: 2px; }
+.hp-slot { padding: .6rem; border: 1.5px solid #d9d2c2; border-radius: .55rem; text-align: center; background: #fff; font-weight: 600; color: #26353d; }
+.hp-slot.on { background: #1b3a4b; border-color: #1b3a4b; color: #fff; }
+.hp-slot.off { color: #b0aa9c; background: #f1ede4; text-decoration: line-through; }

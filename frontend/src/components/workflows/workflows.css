@@ -1,0 +1,74 @@
+/* Shared layout for the workflow screens: the workspace, the definition editor and the
+   template editor. Bootstrap variables keep light and dark mode in step with the app. */
+.wf-page { padding: 1rem 1.5rem 2rem; border: 1px solid var(--line); border-radius: 0.5rem; background: var(--surface); color: var(--ink); font-size: 0.875rem; line-height: 1.25; }
+.wf-page a:not(.btn) { color: var(--accent-dark); }
+html.dark .wf-page a:not(.btn) { color: var(--accent); }
+/* assets/legacy/header.css sizes h1 and h3 with !important and rules them off with a border. */
+.wf-page :is(h1, h2, h3, h4) { margin: 0; padding: 0; border-bottom: 0; line-height: 1.2; }
+.wf-page h1 { font-size: 1.375rem !important; }
+.wf-page h2 { font-size: 1.125rem; }
+.wf-page h3 { font-size: 1rem !important; }
+.wf-page p { margin: 0; }
+.wf-muted { color: var(--bs-secondary-color); }
+.wf-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.wf-header__title { display: grid; gap: 0.25rem; min-width: 0; }
+.wf-header__title h1 { overflow-wrap: anywhere; }
+.wf-back { display: inline-flex; align-items: center; gap: 0.25rem; min-height: 2.75rem; color: var(--bs-secondary-color); text-decoration: none; font-weight: 600; }
+.wf-back:hover { color: var(--bs-body-color); }
+.wf-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.wf-page .btn { min-height: 2.75rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; font-size: 0.875rem; }
+.wf-icon-button { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 1px solid transparent; border-radius: 0.375rem; background: transparent; color: var(--bs-secondary-color); }
+.wf-icon-button:hover:not(:disabled) { border-color: var(--bs-border-color); color: var(--bs-body-color); }
+.wf-icon-button:disabled { opacity: 0.45; }
+.wf-icon-button--danger { color: var(--bs-danger-text-emphasis, #b42318); }
+html.dark .wf-icon-button--danger { color: #ff9f99; }
+.wf-page :focus-visible, .wf-dialog-body :focus-visible { outline: 3px solid color-mix(in srgb, var(--bs-primary) 65%, transparent); outline-offset: 2px; }
+.wf-section { display: grid; gap: 0.75rem; padding: 0.75rem; border: 1px solid var(--bs-border-color); border-radius: 0.5rem; background: var(--bs-body-bg); }
+.wf-section__head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+.wf-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem; align-content: start; }
+.wf-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+.wf-field { display: grid; align-content: start; gap: 0.25rem; margin: 0; min-width: 0; }
+.wf-field > label, .wf-field > legend, .wf-label { margin: 0; padding: 0; float: none; width: auto; font-size: 0.75rem; font-weight: 700; color: var(--bs-body-color); }
+.wf-field .form-control, .wf-field .form-select { min-height: 2.75rem; font-size: 0.875rem; }
+.wf-hint { font-size: 0.75rem; color: var(--bs-secondary-color); }
+.wf-checks { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0; padding: 0; border: 0; }
+.wf-check { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; font-weight: 400; }
+.wf-check input { width: 1.125rem; height: 1.125rem; margin: 0; flex-shrink: 0; }
+.wf-row { display: grid; gap: 0.75rem; padding: 0.75rem; border: 1px solid var(--bs-border-color); border-radius: 0.5rem; }
+.wf-row--invalid { border-color: var(--bs-danger, #b42318); }
+.wf-row__head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.wf-row__title { font-weight: 700; overflow-wrap: anywhere; }
+.wf-row__tools { display: flex; gap: 0.125rem; flex-shrink: 0; }
+.wf-list { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.wf-error { margin: 0; color: var(--bs-danger-text-emphasis, #9f1c13); font-size: 0.75rem; font-weight: 600; }
+html.dark .wf-error { color: #ff9f99; }
+.wf-messages { display: grid; gap: 0.25rem; margin: 0; padding: 0.75rem; border-radius: 0.5rem; list-style: none; }
+.wf-messages li { display: flex; gap: 0.4rem; align-items: baseline; }
+.wf-messages--errors { border: 1px solid var(--bs-danger-border-subtle, #f1aeb5); background: var(--bs-danger-bg-subtle, #f8d7da); color: var(--bs-danger-text-emphasis, #58151c); }
+.wf-messages--warnings { border: 1px solid var(--bs-warning-border-subtle, #ffe69c); background: var(--bs-warning-bg-subtle, #fff3cd); color: var(--bs-warning-text-emphasis, #664d03); }
+.wf-messages--ok { border: 1px solid var(--bs-success-border-subtle, #a3cfbb); background: var(--bs-success-bg-subtle, #d1e7dd); color: var(--bs-success-text-emphasis, #0a3622); }
+html.dark .wf-messages--errors { border-color: #842029; background: #2c0b0e; color: #ea868f; }
+html.dark .wf-messages--warnings { border-color: #997404; background: #332701; color: #ffda6a; }
+html.dark .wf-messages--ok { border-color: #0f5132; background: #051b11; color: #75b798; }
+.wf-badge { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.125rem 0.5rem; border: 1px solid var(--bs-border-color); border-radius: 999px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; color: var(--bs-body-color); }
+.wf-badge--warning { border-color: var(--bs-warning-border-subtle, #ffe69c); background: var(--bs-warning-bg-subtle, #fff3cd); color: var(--bs-warning-text-emphasis, #664d03); }
+html.dark .wf-badge--warning { border-color: #997404; background: #332701; color: #ffda6a; }
+.wf-editor-layout { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 75rem) {
+  .wf-editor-layout { grid-template-columns: minmax(0, 3fr) minmax(18rem, 2fr); align-items: start; }
+  .wf-editor-layout__aside { position: sticky; top: 1rem; }
+}
+.wf-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid var(--bs-border-color); }
+.wf-dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; margin: 0; }
+.wf-dl dt { font-weight: 700; font-size: 0.75rem; }
+.wf-dl dd { margin: 0; overflow-wrap: anywhere; }
+.wf-table { width: 100%; border-collapse: collapse; }
+.wf-table th, .wf-table td { padding: 0.5rem; border-bottom: 1px solid var(--bs-border-color); text-align: left; vertical-align: top; }
+.wf-table th { font-size: 0.75rem; color: var(--bs-secondary-color); white-space: nowrap; }
+.wf-table-wrap { position: relative; max-width: 100%; overflow-x: auto; }
+@media (max-width: 48rem) {
+  .wf-page { padding: 0.75rem; }
+  .wf-header { display: grid; }
+  .wf-actions .btn { flex: 1 1 auto; }
+  .wf-dl { grid-template-columns: 1fr; }
+}

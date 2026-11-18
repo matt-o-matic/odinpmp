@@ -1,0 +1,620 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Shot from '../Shot.astro';
+
+const hasScreen = (name: string) => fs.existsSync(path.join(process.cwd(), 'public', 'screens', `${name}-light.webp`)) && fs.existsSync(path.join(process.cwd(), 'public', 'screens', `${name}-dark.webp`));
+
+const rows = [
+	{ key: 'home', name: 'Home', text: 'The three to five things each person should do first, with the reason for each. When a sprint falls behind, Home says so and offers ways back.', screen: 'home' },
+	{ key: 'workbench', name: 'Project workbench', text: 'Outline, item editor and project analysis side by side. Points and hours roll up, and every item keeps its revision history.', screen: 'workbench' },
+	{ key: 'governance', name: 'Schedule and governance', text: 'Risks, assumptions, issues, decisions and change requests. Critical path, float, forecast finish and variance against saved baselines.', viz: 'path' },
+	{ key: 'workflows', name: 'Workflows', text: 'Your own lifecycles for projects, items and tickets: required fields, SLA hours, role-limited transitions and approvals.', screen: 'workflows' },
+	{ key: 'tickets', name: 'Tickets and intake', text: 'Defects, support requests, questions and change requests. Clients without an account file tickets through a private intake link.', screen: 'tickets' },
+	{ key: 'ranking', name: 'Portfolio and ranking', text: 'Managers rank projects head to head. Scenario plans pick the highest-scoring work that fits the funding and explain each deferral.', viz: 'rank' },
+	{ key: 'resources', name: 'Resources', text: 'Skills, rates, weekly capacity and leave. Odin flags over-allocation and suggests moves you apply in one click.', viz: 'heat' },
+	{ key: 'finance', name: 'Finance', text: 'Budget, forecast, commitments, actuals and capitalized cost, with earned value: CPI, SPI and estimate at completion.', viz: 'evm' },
+	{ key: 'insights', name: 'Insights and reports', text: 'Eleven cards on every project, nine standard dashboards, and custom reports that export to CSV, Excel or PDF on a schedule.', screen: 'insights' },
+	{ key: 'connectors', name: 'Connectors', text: 'Jira, Azure DevOps, GitHub, GitLab, Slack, Teams, Google and Microsoft calendars, Drive, SharePoint, NetSuite and SAP S/4HANA.', viz: 'connect' },
+].filter((row) => !row.screen || hasScreen(row.screen));
+
+const people = ['Sam', 'Lee', 'Dana', 'Priya', 'Marcus'];
+const load = [
+	[70, 85, 90, 60, 40, 75],
+	[95, 110, 120, 90, 80, 70],
+	[50, 60, 55, 70, 65, 60],
+	[85, 105, 95, 100, 90, 80],
+	[40, 45, 60, 55, 50, 30],
+];
+const connectors = ['Jira', 'Azure DevOps', 'GitHub', 'GitLab', 'Slack', 'Teams', 'Calendars', 'Drive', 'SharePoint', 'NetSuite', 'SAP S/4HANA'];
+const projects = [
+	{ name: 'Customer Portal Relaunch', score: 1520 },
+	{ name: 'Store Inventory Sync', score: 1484 },
+	{ name: 'Loyalty Program v2', score: 1461 },
+	{ name: 'Warehouse Scanner App', score: 1432 },
+];
+---
+
+<section class="section platform" id="platform" aria-labelledby="platform-title">
+	<div class="wrap section-head">
+		<h2 id="platform-title">Everything around the loop.</h2>
+		<p>The loop runs on a full delivery platform, so portfolio, people and money live with the work instead of in another tool.</p>
+	</div>
+
+	<div class="wrap platform__grid">
+		<ol class="caps" data-caps>
+			{
+				rows.map((row, i) => (
+					<li>
+						<button type="button" class:list={['cap', i === 0 && 'is-active']} data-cap={row.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+							<span class="cap__name">{row.name}</span>
+							<span class="cap__text">{row.text}</span>
+						</button>
+					</li>
+				))
+			}
+		</ol>
+
+		<div class="preview" aria-hidden="true">
+			<div class="preview__frame frame">
+				{
+					rows.map((row, i) => (
+						<div class:list={['layer', i === 0 && 'is-active']} data-layer={row.key}>
+							{row.screen && <Shot name={row.screen} alt="" crop />}
+							{row.viz === 'path' && (
+								<svg class="viz viz--path" viewBox="0 0 600 375">
+									<g class="lanes">
+										<text x="24" y="40">Critical path through Sprint 17: forecast finish Nov 21, 2 days of float on the label work</text>
+									</g>
+									<path class="edge" d="M150 120 H210" />
+									<path class="edge crit" d="M150 120 C180 120 180 200 210 200" />
+									<path class="edge crit" d="M330 200 H380" />
+									<path class="edge" d="M330 120 C355 120 355 200 380 200" />
+									<path class="edge crit" d="M500 200 H530" />
+									<path class="edge" d="M150 120 C180 120 180 290 210 290" />
+									<path class="edge" d="M330 290 C355 290 355 200 380 200" />
+									<g class="node crit"><rect x="30" y="98" width="120" height="44" rx="8" /><text x="44" y="125">Order lookup API</text></g>
+									<g class="node"><rect x="210" y="98" width="120" height="44" rx="8" /><text x="224" y="125">Email lookup</text></g>
+									<g class="node crit"><rect x="210" y="178" width="120" height="44" rx="8" /><text x="224" y="205">Returns flow</text></g>
+									<g class="node"><rect x="210" y="268" width="120" height="44" rx="8" /><text x="224" y="295">Label service</text></g>
+									<g class="node crit"><rect x="380" y="178" width="120" height="44" rx="8" /><text x="394" y="205">Pilot release</text></g>
+									<g class="node milestone"><path d="M552 200 l16 -16 l16 16 l-16 16 z" /><text x="520" y="250">Pilot live</text></g>
+									<rect class="float" x="330" y="303" width="44" height="6" rx="3" />
+									<text class="float-label" x="336" y="330">2d float</text>
+								</svg>
+							)}
+							{row.viz === 'rank' && (
+								<div class="viz viz--rank" data-rank>
+									<p class="rank__q">Which matters more this quarter?</p>
+									<div class="rank__pair">
+										<button type="button" tabindex="-1" data-pick="0">Store Inventory Sync</button>
+										<span>or</span>
+										<button type="button" tabindex="-1" data-pick="1">Loyalty Program v2</button>
+									</div>
+									<ol class="rank__board" data-board>
+										{projects.map((p) => (
+											<li data-project={p.name}>
+												<span>{p.name}</span>
+												<b>{p.score}</b>
+											</li>
+										))}
+									</ol>
+								</div>
+							)}
+							{row.viz === 'heat' && (
+								<div class="viz viz--heat">
+									<table>
+										<thead>
+											<tr>
+												<th />
+												{['Oct 13', 'Oct 20', 'Oct 27', 'Nov 3', 'Nov 10', 'Nov 17'].map((w) => (
+													<th>{w}</th>
+												))}
+											</tr>
+										</thead>
+										<tbody>
+											{people.map((person, r) => (
+												<tr>
+													<th>{person}</th>
+													{load[r].map((v) => (
+														<td class:list={[v > 100 ? 'over' : v >= 85 ? 'full' : v >= 60 ? 'mid' : 'low']}>{v}%</td>
+													))}
+												</tr>
+											))}
+										</tbody>
+									</table>
+									<p class="heat__move">
+										<span class="gem" /> Suggested: move 12 hours of "Label service" from Lee to Dana in the weeks of Oct 20 and Oct 27.
+									</p>
+								</div>
+							)}
+							{row.viz === 'evm' && (
+								<div class="viz viz--evm">
+									<div class="evm__tiles">
+										<p><b>0.94</b> CPI</p>
+										<p><b>0.97</b> SPI</p>
+										<p><b>$412k</b> Estimate at completion</p>
+									</div>
+									<svg viewBox="0 0 560 250">
+										<path class="grid" d="M40 20 H540 M40 80 H540 M40 140 H540 M40 200 H540" />
+										<path class="pv" d="M40 200 C140 185 220 150 300 115 S460 50 540 30" />
+										<path class="ev" d="M40 200 C140 188 220 158 300 124" />
+										<path class="ac" d="M40 200 C140 184 220 150 300 112" />
+										<circle class="ev-dot" cx="300" cy="124" r="5" />
+										<text x="500" y="24">Planned</text>
+										<text class="ev-t" x="306" y="140">Earned</text>
+										<text class="ac-t" x="306" y="104">Actual</text>
+									</svg>
+								</div>
+							)}
+							{row.viz === 'connect' && (
+								<div class="viz viz--connect">
+									<svg viewBox="-300 -190 600 380">
+										{connectors.map((name, n) => {
+											const a = (n / connectors.length) * Math.PI * 2 - Math.PI / 2;
+											const x = Math.cos(a) * 230;
+											const y = Math.sin(a) * 140;
+											return (
+												<g class="conn" style={`--d:${n * 0.18}s`}>
+													<path d={`M0 0 L${x.toFixed(1)} ${y.toFixed(1)}`} />
+													<circle class="pulse" r="3" style={`offset-path: path('M0 0 L${x.toFixed(1)} ${y.toFixed(1)}')`} />
+													<text x={x.toFixed(1)} y={(y + (y < 0 ? -12 : 20)).toFixed(1)} text-anchor="middle">
+														{name}
+													</text>
+													<circle class="dot" cx={x.toFixed(1)} cy={y.toFixed(1)} r="4" />
+												</g>
+											);
+										})}
+										<circle class="hub" r="34" />
+										<image href="/brand/odin-mark-96.webp" x="-14" y="-20" width="28" height="40" />
+									</svg>
+								</div>
+							)}
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const caps = [...document.querySelectorAll<HTMLButtonElement>('[data-cap]')];
+	const layers = [...document.querySelectorAll<HTMLElement>('[data-layer]')];
+	function show(key: string) {
+		caps.forEach((cap) => {
+			const on = cap.dataset.cap === key;
+			cap.classList.toggle('is-active', on);
+			cap.setAttribute('aria-pressed', String(on));
+		});
+		layers.forEach((layer) => layer.classList.toggle('is-active', layer.dataset.layer === key));
+	}
+	caps.forEach((cap) => {
+		cap.addEventListener('click', () => show(cap.dataset.cap!));
+		cap.addEventListener('mouseenter', () => {
+			if (window.matchMedia('(hover: hover)').matches) show(cap.dataset.cap!);
+		});
+		cap.addEventListener('focus', () => show(cap.dataset.cap!));
+	});
+
+	// Pairwise ranking: each pick nudges the scores and re-sorts the board with a little motion.
+	const rank = document.querySelector<HTMLElement>('[data-rank]');
+	if (rank) {
+		const board = rank.querySelector<HTMLElement>('[data-board]')!;
+		const pickButtons = [...rank.querySelectorAll<HTMLButtonElement>('[data-pick]')];
+		const names = [...board.querySelectorAll<HTMLElement>('[data-project]')].map((li) => li.dataset.project!);
+		let pairIndex = 0;
+		const pairs = [
+			[1, 2],
+			[2, 3],
+			[0, 2],
+			[1, 3],
+		];
+		function setPair() {
+			const [a, b] = pairs[pairIndex % pairs.length];
+			pickButtons[0].textContent = names[a];
+			pickButtons[1].textContent = names[b];
+			pickButtons[0].dataset.name = names[a];
+			pickButtons[1].dataset.name = names[b];
+		}
+		setPair();
+		const rankLayer = rank.closest<HTMLElement>('[data-layer]')!;
+		pickButtons.forEach((button) =>
+			button.addEventListener('click', () => {
+				const winner = board.querySelector<HTMLElement>(`[data-project="${button.dataset.name}"]`)!;
+				const loserName = pickButtons.find((b) => b !== button)!.dataset.name;
+				const loser = board.querySelector<HTMLElement>(`[data-project="${loserName}"]`)!;
+				const before = new Map([...board.children].map((li) => [li, li.getBoundingClientRect().top]));
+				const ws = winner.querySelector('b')!;
+				const ls = loser.querySelector('b')!;
+				ws.textContent = String(Number(ws.textContent) + 16);
+				ls.textContent = String(Number(ls.textContent) - 16);
+				[...board.children]
+					.sort((x, y) => Number(y.querySelector('b')!.textContent) - Number(x.querySelector('b')!.textContent))
+					.forEach((li) => board.append(li));
+				for (const li of board.children as HTMLCollectionOf<HTMLElement>) {
+					const delta = before.get(li)! - li.getBoundingClientRect().top;
+					if (!delta) continue;
+					li.animate([{ transform: `translateY(${delta}px)` }, { transform: 'none' }], { duration: 500, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+				}
+				winner.animate([{ background: 'var(--gold-glow)' }, { background: 'transparent' }], { duration: 900 });
+				pairIndex += 1;
+				setPair();
+			}),
+		);
+		// The ranking layer is interactive, so let its buttons take focus once it is shown.
+		new MutationObserver(() => pickButtons.forEach((b) => (b.tabIndex = rankLayer.classList.contains('is-active') ? 0 : -1))).observe(rankLayer, { attributes: true, attributeFilter: ['class'] });
+	}
+</script>
+
+<style>
+	.platform__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		gap: clamp(2rem, 4vw, 4rem);
+		align-items: start;
+	}
+	.caps {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid var(--line);
+	}
+	.cap {
+		display: grid;
+		gap: 0.2rem;
+		width: 100%;
+		padding: 1rem 0.25rem 1rem 1.4rem;
+		border: 0;
+		border-bottom: 1px solid var(--line);
+		background: transparent;
+		text-align: left;
+		cursor: pointer;
+		position: relative;
+	}
+	.cap::before {
+		content: '';
+		position: absolute;
+		left: 0.15rem;
+		top: 1.45rem;
+		width: 8px;
+		height: 8px;
+		background: var(--line-2);
+		transform: rotate(45deg) scale(0.8);
+		transition: background-color 0.3s ease, transform 0.4s var(--ease-out), box-shadow 0.3s ease;
+	}
+	.cap__name {
+		font-family: var(--font-display);
+		font-stretch: 110%;
+		font-weight: 680;
+		font-size: var(--step-2);
+		line-height: 1.15;
+		color: var(--muted);
+		transition: color 0.3s ease;
+	}
+	.cap__text {
+		display: block;
+		max-width: 52ch;
+		color: var(--ink-2);
+		font-size: var(--step--1);
+		line-height: 1.55;
+		overflow: hidden;
+		max-height: 0;
+		opacity: 0;
+		transition: max-height 0.5s var(--ease-out), opacity 0.4s ease, margin 0.4s ease;
+	}
+	.cap:hover .cap__name,
+	.cap:global(.is-active) .cap__name {
+		color: var(--ink);
+	}
+	.cap:global(.is-active)::before {
+		background: var(--gold);
+		transform: rotate(45deg) scale(1.1);
+		box-shadow: 0 0 0 4px var(--gold-glow);
+	}
+	.cap:global(.is-active) .cap__text {
+		max-height: 8rem;
+		opacity: 1;
+		margin-top: 0.35rem;
+	}
+
+	.preview {
+		position: sticky;
+		top: calc(var(--nav-h) + 2rem);
+	}
+	.preview__frame {
+		position: relative;
+		aspect-ratio: 16 / 10;
+		background: var(--raised);
+	}
+	.layer {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		visibility: hidden;
+		transform: scale(1.02);
+		transition: opacity 0.5s ease, transform 0.7s var(--ease-out), visibility 0s linear 0.5s;
+	}
+	.layer:global(.is-active) {
+		opacity: 1;
+		visibility: visible;
+		transform: none;
+		transition: opacity 0.5s ease, transform 0.7s var(--ease-out), visibility 0s;
+	}
+	.viz {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		font-family: var(--font-app);
+	}
+
+	/* Critical path */
+	.viz--path text {
+		fill: var(--ink-2);
+		font-size: 12px;
+	}
+	.viz--path .lanes text {
+		fill: var(--muted);
+		font-size: 12px;
+	}
+	.edge {
+		fill: none;
+		stroke: var(--line-2);
+		stroke-width: 1.5;
+	}
+	.edge.crit {
+		stroke: var(--gold);
+		stroke-width: 2.5;
+		stroke-dasharray: 6 6;
+		animation: march 1.2s linear infinite;
+	}
+	@keyframes march {
+		to {
+			stroke-dashoffset: -12;
+		}
+	}
+	.node rect {
+		fill: var(--sunk);
+		stroke: var(--line-2);
+	}
+	.node.crit rect {
+		stroke: var(--gold);
+		stroke-width: 1.5;
+	}
+	.milestone path {
+		fill: var(--gold);
+	}
+	.float {
+		fill: var(--pass);
+	}
+	.viz--path .float-label {
+		fill: var(--pass);
+		font-size: 11px;
+	}
+
+	/* Ranking */
+	.viz--rank {
+		display: grid;
+		align-content: center;
+		gap: 1.2rem;
+		padding: 2rem;
+	}
+	.rank__q {
+		font-family: var(--font-display);
+		font-stretch: 108%;
+		font-weight: 650;
+		font-size: 1.25rem;
+		text-align: center;
+	}
+	.rank__pair {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		gap: 0.8rem;
+		align-items: center;
+		color: var(--muted);
+	}
+	.rank__pair button {
+		min-height: 64px;
+		padding: 0.8rem;
+		border: 1px solid var(--line-2);
+		border-radius: 12px;
+		background: var(--bg);
+		font-weight: 600;
+		cursor: pointer;
+		transition: border-color 0.2s ease, transform 0.2s ease;
+	}
+	.rank__pair button:hover {
+		border-color: var(--gold);
+		transform: translateY(-2px);
+	}
+	.rank__board {
+		display: grid;
+		gap: 0.3rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		counter-reset: r;
+		font-size: 0.85rem;
+	}
+	.rank__board li {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.45rem 0.75rem;
+		border-radius: 8px;
+		border: 1px solid var(--line);
+		counter-increment: r;
+	}
+	.rank__board li span::before {
+		content: counter(r);
+		display: inline-block;
+		width: 1.6em;
+		font-weight: 700;
+		color: var(--gold-ink);
+	}
+	.rank__board b {
+		font-variant-numeric: tabular-nums;
+		color: var(--muted);
+	}
+
+	/* Resource heatmap */
+	.viz--heat {
+		display: grid;
+		align-content: center;
+		gap: 1rem;
+		padding: 1.5rem 2rem;
+	}
+	.viz--heat table {
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 4px;
+		font-size: 0.75rem;
+	}
+	.viz--heat th {
+		font-weight: 600;
+		color: var(--muted);
+		text-align: left;
+	}
+	.viz--heat td {
+		height: 38px;
+		border-radius: 6px;
+		text-align: center;
+		font-variant-numeric: tabular-nums;
+		color: var(--ink);
+	}
+	.low {
+		background: color-mix(in srgb, var(--ice) 10%, transparent);
+	}
+	.mid {
+		background: color-mix(in srgb, var(--ice) 25%, transparent);
+	}
+	.full {
+		background: color-mix(in srgb, var(--ice) 45%, transparent);
+	}
+	.over {
+		background: color-mix(in srgb, var(--bug) 55%, transparent);
+		font-weight: 700;
+	}
+	.heat__move {
+		display: flex;
+		align-items: baseline;
+		gap: 0.6rem;
+		font-size: 0.85rem;
+		color: var(--ink-2);
+	}
+
+	/* Earned value */
+	.viz--evm {
+		display: grid;
+		align-content: center;
+		gap: 1rem;
+		padding: 1.5rem 2rem;
+	}
+	.evm__tiles {
+		display: flex;
+		gap: 2rem;
+		color: var(--muted);
+		font-size: 0.8rem;
+	}
+	.evm__tiles b {
+		display: block;
+		font-family: var(--font-display);
+		font-stretch: 112%;
+		font-size: 1.9rem;
+		color: var(--ink);
+	}
+	.viz--evm svg path {
+		fill: none;
+	}
+	.viz--evm .grid {
+		stroke: var(--line);
+	}
+	.pv {
+		stroke: var(--muted);
+		stroke-dasharray: 5 6;
+		stroke-width: 2;
+	}
+	.ev {
+		stroke: var(--gold);
+		stroke-width: 3;
+	}
+	.ac {
+		stroke: var(--bug);
+		stroke-width: 2;
+	}
+	.ev-dot {
+		fill: var(--gold);
+	}
+	.viz--evm text {
+		font-size: 11px;
+		fill: var(--muted);
+	}
+	.viz--evm .ev-t {
+		fill: var(--gold-ink);
+	}
+	.viz--evm .ac-t {
+		fill: var(--bug);
+	}
+	.layer:global(.is-active) .ev,
+	.layer:global(.is-active) .ac {
+		stroke-dasharray: 400;
+		animation: draw 1.6s var(--ease-out) both;
+	}
+	@keyframes draw {
+		from {
+			stroke-dashoffset: 400;
+		}
+		to {
+			stroke-dashoffset: 0;
+		}
+	}
+
+	/* Connectors */
+	.conn path {
+		stroke: var(--line-2);
+		stroke-width: 1;
+	}
+	.conn .dot {
+		fill: var(--ice);
+	}
+	.conn text {
+		fill: var(--ink-2);
+		font-size: 13px;
+	}
+	.pulse {
+		fill: var(--gold);
+		offset-distance: 0%;
+		animation: travel 2.4s var(--ease-in-out) infinite;
+		animation-delay: var(--d);
+	}
+	@keyframes travel {
+		from {
+			offset-distance: 0%;
+			opacity: 0;
+		}
+		15% {
+			opacity: 1;
+		}
+		to {
+			offset-distance: 100%;
+			opacity: 0;
+		}
+	}
+	.hub {
+		fill: var(--sunk);
+		stroke: var(--gold);
+		stroke-width: 1.5;
+	}
+
+	@media (max-width: 960px) {
+		.platform__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+		/* On narrow screens the preview rides above the list while you tap through it. */
+		.preview {
+			top: calc(var(--nav-h) + 0.5rem);
+			z-index: 2;
+			order: -1;
+		}
+	}
+</style>

@@ -1,0 +1,25 @@
+---
+interface Props {
+	crumbs: string[];
+	tabs?: string[];
+	current?: string;
+	me?: string;
+}
+const { crumbs, tabs, current, me = 'LP' } = Astro.props;
+---
+
+<div class="a-top">
+	<img src="/brand/odin-mark-96.webp" alt="" width="16" height="23" />
+	<b>Odin</b>
+	{crumbs.map((crumb) => <span class="a-crumb">/ {crumb}</span>)}
+	<span class="a-top__me a-av" style="--c:#7c4ddb">{me}</span>
+</div>
+{
+	tabs && (
+		<div class="a-tabs">
+			{tabs.map((tab) => (
+				<span class:list={['a-tab', tab === current && 'is-current']}>{tab}</span>
+			))}
+		</div>
+	)
+}

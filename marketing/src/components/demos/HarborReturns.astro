@@ -1,0 +1,191 @@
+---
+// The demo client's own website: Harbor & Pine's "Start a return" page.
+interface Props {
+	version: 'prototype' | 'live';
+}
+const { version } = Astro.props;
+const live = version === 'live';
+---
+
+<div class="hp">
+	<header class="hp__nav">
+		<span class="hp__logo">Harbor <i>&</i> Pine</span>
+		<nav>
+			<span>Shop</span><span>Stores</span><span class="is-current">Returns</span><span>Account</span>
+		</nav>
+	</header>
+	<div class="hp__body">
+		<p class="hp__crumb">Orders / HP-20931 / Start a return</p>
+		<h4 class="hp__title">Choose what you're returning</h4>
+		<div class="hp__items">
+			<label class="hp__item">
+				<i class="box is-checked"></i>
+				<span class="thumb thumb--jacket"></span>
+				<span><b>Ridgeline rain shell</b><br /><small>Size M, Spruce</small></span>
+				<b class="price">$148.00</b>
+			</label>
+			<label class="hp__item">
+				<i class="box"></i>
+				<span class="thumb thumb--socks"></span>
+				<span><b>Merino trail socks, 3 pack</b><br /><small>Size L</small></span>
+				<b class="price">$36.00</b>
+			</label>
+		</div>
+		<div class="hp__reason" data-reason>
+			<span class="hp__label">Reason for return{live ? <em> (optional)</em> : <em class="req"> *</em>}</span>
+			<span class="hp__select">{live ? 'Choose a reason' : 'Select a reason'}<i></i></span>
+		</div>
+		<div class="hp__foot">
+			<span class="hp__total">Refund to Visa ending 4417: <b>$148.00</b></span>
+			<span class="hp__cta" data-continue>{live ? 'Continue to label' : 'Continue'}</span>
+		</div>
+	</div>
+</div>
+
+<style>
+	.hp {
+		position: absolute;
+		inset: 0;
+		background: #fbfaf7;
+		color: #1d2a24;
+		font-family: var(--font-body);
+		font-size: 13px;
+	}
+	.hp__nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 46px;
+		padding: 0 22px;
+		background: #1f4d3a;
+		color: #f3efe6;
+	}
+	.hp__logo {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 17px;
+		letter-spacing: 0.02em;
+	}
+	.hp__logo i {
+		color: #d9b46a;
+	}
+	.hp__nav nav {
+		display: flex;
+		gap: 18px;
+		font-size: 12px;
+		opacity: 0.9;
+	}
+	.hp__nav .is-current {
+		border-bottom: 2px solid #d9b46a;
+		padding-bottom: 2px;
+	}
+	.hp__body {
+		padding: 18px 26px;
+	}
+	.hp__crumb {
+		font-size: 11px;
+		color: #6b776f;
+	}
+	.hp__title {
+		margin: 6px 0 14px;
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 22px;
+		font-weight: 400;
+		color: #1d2a24;
+	}
+	.hp__items {
+		display: grid;
+		gap: 8px;
+	}
+	.hp__item {
+		display: grid;
+		grid-template-columns: auto auto 1fr auto;
+		align-items: center;
+		gap: 12px;
+		padding: 9px 12px;
+		border: 1px solid #e3ded3;
+		border-radius: 10px;
+		background: #fff;
+	}
+	.hp__item small {
+		color: #6b776f;
+	}
+	.box {
+		width: 16px;
+		height: 16px;
+		border: 1.5px solid #9aa59d;
+		border-radius: 4px;
+	}
+	.box.is-checked {
+		background: #1f4d3a;
+		border-color: #1f4d3a;
+		box-shadow: inset 0 0 0 3px #fff;
+	}
+	.thumb {
+		width: 38px;
+		height: 38px;
+		border-radius: 8px;
+	}
+	.thumb--jacket {
+		background: linear-gradient(160deg, #3c6e5a, #1f4d3a);
+	}
+	.thumb--socks {
+		background: linear-gradient(160deg, #c9a46a, #8a6b3d);
+	}
+	.price {
+		font-weight: 600;
+	}
+	.hp__reason {
+		display: grid;
+		gap: 5px;
+		margin-top: 14px;
+		max-width: 300px;
+	}
+	.hp__label {
+		font-size: 12px;
+		font-weight: 600;
+	}
+	.hp__label em {
+		font-style: normal;
+		font-weight: 400;
+		color: #6b776f;
+	}
+	.hp__label .req {
+		color: #b23b2e;
+	}
+	.hp__select {
+		position: relative;
+		padding: 8px 12px;
+		border: 1px solid #c9c3b6;
+		border-radius: 8px;
+		background: #fff;
+		color: #6b776f;
+	}
+	.hp__select i {
+		position: absolute;
+		right: 12px;
+		top: 13px;
+		width: 7px;
+		height: 7px;
+		border-right: 1.5px solid #6b776f;
+		border-bottom: 1.5px solid #6b776f;
+		transform: rotate(45deg);
+	}
+	.hp__foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 18px;
+		padding-top: 14px;
+		border-top: 1px solid #e3ded3;
+	}
+	.hp__total {
+		color: #4a5750;
+	}
+	.hp__cta {
+		padding: 9px 18px;
+		border-radius: 999px;
+		background: #1f4d3a;
+		color: #fff;
+		font-weight: 600;
+	}
+</style>

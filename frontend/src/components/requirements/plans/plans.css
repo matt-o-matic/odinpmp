@@ -1,0 +1,85 @@
+/* Plan & work stage (design-v2 team-decide-plan): the decisions a plan builds on, the plan
+   document, its editor, versions, and proposed work, on Odin's tokens. */
+.rq-plan-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 1rem; align-items: start; }
+
+/* Decisions this plan builds on */
+.rq-plan-decisions { display: grid; margin: 0; padding: 0; list-style: none; }
+.rq-plan-decision { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.6rem; padding: 0.65rem 0; border-bottom: 1px solid var(--line); scroll-margin-top: 10rem; }
+.rq-plan-decision:last-child { border-bottom: 0; }
+.rq-plan-decision:focus { outline: 3px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 2px; }
+.rq-plan-decision__id { padding-top: 0.1rem; color: var(--muted); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; }
+.rq-plan-decision__statement { margin: 0.25rem 0 0; font-size: 0.875rem; font-weight: 700; overflow-wrap: anywhere; }
+.rq-plan-decision--superseded .rq-plan-decision__statement { color: var(--muted); font-weight: 400; text-decoration: line-through; }
+
+/* The plan */
+.rq-workspace .rq-plan-doc h4 { margin: 0.85rem 0 0.3rem; font-family: var(--font-display); font-size: 0.95rem !important; }
+.rq-plan-doc ul { margin: 0; padding-left: 1.1rem; }
+.rq-plan-doc li,
+.rq-plan-doc p { font-size: 0.875rem; overflow-wrap: anywhere; }
+.rq-plan-doc li + li { margin-top: 0.2rem; }
+.rq-plan-owner { display: inline-flex; gap: 0.4rem; align-items: center; font-size: 0.875rem; }
+.rq-plan-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.rq-plan-criteria-scroll { position: relative; min-width: 0; overflow-x: auto; }
+.rq-plan-criteria { font-size: 0.875rem; }
+.rq-plan-criteria td:first-child { font-family: var(--font-mono); font-weight: 700; white-space: nowrap; }
+.rq-plan-criteria td:last-child { white-space: nowrap; }
+.rq-cite-chip { display: inline-flex; align-items: center; gap: 0.2rem; }
+.rq-source--stale { background: var(--rq-divergent-bg); color: var(--rq-divergent); }
+html.dark .rq-source--stale { color: var(--rq-divergent); }
+
+/* Editor */
+.rq-plan-edit-list { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.rq-plan-edit-item { display: grid; grid-template-columns: minmax(0, 1fr) 9rem auto; gap: 0.5rem; align-items: start; padding: 0.55rem; border: 1px solid var(--line); border-radius: 0.45rem; background: var(--surface-soft); }
+.rq-plan-edit-item--criterion { grid-template-columns: 4.5rem minmax(0, 1fr) 9rem auto; }
+.rq-plan-edit-item__id { padding-top: 1.6rem; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; }
+.rq-plan-edit-item .rq-field { min-width: 0; gap: 0.15rem; }
+.rq-plan-edit-item > .ghost-button { margin-top: 1.25rem; }
+.rq-plan-edit-item .rq-field > label { color: var(--muted); font-weight: 600; }
+.rq-plan-edit-errors { margin: 0; padding-left: 1.1rem; }
+
+/* Versions */
+.rq-plan-versions { display: grid; margin: 0; padding: 0; list-style: none; }
+.rq-plan-version { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 0.5rem; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; }
+.rq-plan-version:last-child { border-bottom: 0; }
+.rq-plan-version__num { color: var(--muted); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; }
+.rq-plan-version--on { box-shadow: inset 3px 0 0 var(--accent); padding-left: 0.4rem; }
+.rq-plan-version a { display: inline-block; min-height: 1.75rem; padding: 0.2rem 0; }
+
+/* Proposed work */
+.rq-work-group { display: grid; gap: 0.5rem; }
+.rq-work-group + .rq-work-group { padding-top: 0.75rem; border-top: 1px solid var(--line); }
+.rq-work-list { display: grid; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.rq-work {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 0.45rem;
+  background: var(--surface-soft);
+  font-size: 0.875rem;
+}
+
+.rq-work--nested { margin-left: 1.5rem; }
+.rq-work__icon { color: var(--accent); }
+.rq-work__text { min-width: 0; overflow-wrap: anywhere; }
+
+@media (max-width: 1199.98px) {
+  .rq-plan-grid { grid-template-columns: minmax(0, 1fr); }
+  .rq-plan-grid > .rq-plan-grid__plan { order: -1; }
+}
+
+@media (max-width: 767.98px) {
+  .rq-plan-edit-item,
+  .rq-plan-edit-item--criterion { grid-template-columns: minmax(0, 1fr); }
+  .rq-plan-edit-item__id { padding-top: 0; }
+  .rq-plan-edit-item > .ghost-button { margin-top: 0; justify-self: start; }
+  .rq-work { grid-template-columns: auto minmax(0, 1fr); }
+  .rq-work > .rq-chip { grid-column: 2; justify-self: start; }
+  .rq-work--nested { margin-left: 0.75rem; }
+}
+
+.rq-plan-add { justify-self: start; }
+.rq-plan-edit-foot { justify-content: flex-end; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+.rq-plan-criteria-scroll:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 2px; }

@@ -1,0 +1,109 @@
+body {
+  overflow: hidden; /* We'll manage scrolling for main content and sidebar separately */
+}
+
+.sidebar {
+  flex: 0 0 14rem;
+  height: calc(100vh - 122px);
+  background-color: var(--surface-soft);
+  border-right: 1px solid var(--line);
+  min-width: 14rem;
+  overflow-y: auto;
+  width: 14rem;
+}
+
+.main-content {
+  height: calc(100vh - 122px);
+  min-width: 0;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.sidebar-link {
+  align-items: flex-start;
+  border-radius: 0.8rem;
+  display: flex;
+  gap: 0.65rem;
+  overflow-wrap: anywhere;
+  padding: 0.7rem 0.85rem;
+  white-space: normal;
+}
+
+.sidebar-link i {
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
+}
+
+.nav-link.active {
+  background-color: var(--surface-tint);
+  font-weight: 600;
+}
+
+.domain-input-group {
+  margin-bottom: 0.5rem;
+}
+
+.no-drag {
+  opacity: 0.6; /* Optional: Visually distinguish non-movable items */
+}
+
+ul.json-tree {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  position: relative; /* so we can position lines */
+  font-size: 0.9em;
+}
+
+/* Each item is indented. We place the vertical line on the left. */
+li.json-item {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 20px; /* Indent for branches/lines */
+  line-height: 1.6em;
+  font-family: monospace;
+}
+
+/* “Connector” line – vertical dash running down the left side */
+li.json-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-left: 1px dashed var(--line-strong);
+}
+
+/* For the very last child in a group, cut off the line at the bottom. */
+li.json-item:last-child::before {
+  height: 0.8em;
+  bottom: auto;
+}
+
+/* Key styling */
+.json-key {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Icon style for +/- */
+.toggle-icon {
+  display: inline-block;
+  width: 1em; /* keep a consistent width for the icon area */
+  text-align: center;
+  margin-right: 3px;
+  font-weight: bold;
+}
+
+/* By default, non-root items start collapsed */
+li.json-item[data-collapsed="true"] > .json-children {
+  display: none;
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    flex-basis: 12rem;
+    min-width: 12rem;
+    width: 12rem;
+  }
+}

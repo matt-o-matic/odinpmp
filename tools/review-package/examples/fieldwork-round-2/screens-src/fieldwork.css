@@ -1,0 +1,30 @@
+/* Fictional client brand used as review-package content in the mockups. */
+* { box-sizing: border-box; }
+body { margin: 0; width: 1280px; height: 800px; overflow: hidden; background: #faf7f0; color: #1d2a24; font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+.fw-nav { display: flex; align-items: center; gap: 2rem; padding: 1.1rem 3rem; border-bottom: 1px solid #e6dfcf; background: #fffdf8; }
+.fw-logo { font: 700 1.45rem Georgia, serif; color: #1f4d3a; letter-spacing: -.01em; }
+.fw-logo span { color: #c46a2b; }
+.fw-links { display: flex; gap: 1.6rem; color: #3d4a43; }
+.fw-account { margin-left: auto; display: flex; align-items: center; gap: .6rem; color: #3d4a43; }
+.fw-account b { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; background: #e7efe9; color: #1f4d3a; }
+.fw-main { padding: 2.2rem 3rem; }
+.fw-eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #c46a2b; }
+.fw-h1 { margin: .3rem 0 .5rem; font: 700 2.6rem/1.1 Georgia, serif; color: #14261e; }
+.fw-btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.4rem; border-radius: .6rem; background: #1f4d3a; color: #fff; font-weight: 600; border: 0; }
+.fw-btn--ghost { background: #fff; color: #1f4d3a; border: 1.5px solid #c9d8cf; }
+.fw-card { border: 1px solid #e6dfcf; border-radius: .9rem; background: #fff; padding: 1.2rem 1.3rem; }
+.fw-card h3 { margin: 0 0 .5rem; font-size: 1.05rem; }
+.fw-muted { color: #6b766f; }
+.fw-pill { display: inline-block; padding: .15rem .6rem; border-radius: 999px; background: #e7efe9; color: #1f4d3a; font-size: .8rem; font-weight: 600; }
+.fw-price { font: 700 2.2rem Georgia, serif; color: #14261e; }
+.fw-grid { display: grid; gap: 1.1rem; }
+.fw-art { border-radius: 1rem; background: linear-gradient(160deg, #e7efe9, #f3e7d6); position: relative; overflow: hidden; }
+.fw-art::before { content: ''; position: absolute; left: 18%; top: 28%; width: 58%; height: 46%; border-radius: .8rem; background: #c9d8cf; }
+.fw-art::after { content: ''; position: absolute; left: 30%; top: 14%; width: 26%; height: 30%; border: 10px solid #fffdf8; border-radius: .4rem; }
+.fw-steps { display: flex; gap: .8rem; align-items: center; margin-bottom: 1.2rem; color: #6b766f; font-weight: 600; }
+.fw-steps b { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 999px; border: 2px solid currentColor; margin-right: .35rem; font-size: .8rem; }
+.fw-steps .on { color: #1f4d3a; }
+.fw-steps .done { color: #2f7d57; }
+.fw-slot { padding: .6rem; border: 1.5px solid #dcd3c0; border-radius: .55rem; text-align: center; background: #fff; font-weight: 600; color: #2b3a33; }
+.fw-slot.on { background: #1f4d3a; border-color: #1f4d3a; color: #fff; }
+.fw-slot.off { color: #b7b0a2; background: #f4f0e6; text-decoration: line-through; }

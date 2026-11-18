@@ -1,0 +1,257 @@
+.project-tree>li[data-id] {
+	padding: 10px;
+	/* Increase padding to enlarge hit area */
+	margin-bottom: 5px;
+	border: 1px solid transparent;
+	/* or a subtle border to see the droppable area */
+}
+
+.project-tree>li[data-id].ui-droppable-hover {
+	border-color: #4A90E2;
+	/* Highlight the droppable when hovered by the draggable */
+	background: rgba(74, 144, 226, 0.1);
+}
+
+#mainContentDiv {
+	display: grid;
+	grid-template-columns: 1fr 2fr 0.5fr;
+	gap: 20px;
+	padding: 0px 0px 50px;
+}
+
+.feature-icon {
+	font-size: 50px;
+	color: #4A90E2;
+	margin-bottom: 20px;
+}
+
+.marked-for-delete {
+	opacity: 0.66;
+}
+
+.marked-for-delete .story-name,
+.marked-for-delete small,
+.marked-for-delete .epic-name {
+	text-decoration: line-through wavy #f00;
+}
+
+@keyframes bounceIn {
+	0% {
+		transform: translateY(100px) scale(0.8);
+		opacity: 0;
+	}
+
+	50% {
+		transform: translateY(-10px) scale(1.1);
+		opacity: 1;
+	}
+
+	70% {
+		transform: translateY(5px) scale(0.95);
+	}
+
+	100% {
+		transform: translateY(0px) scale(1);
+	}
+}
+
+@keyframes wiggle {
+	0% {
+		transform: rotate(0deg) scale(1.0);
+	}
+
+	35% {
+		transform: rotate(5deg) scale(1.035);
+	}
+
+	70% {
+		transform: rotate(-5deg) scale(1.07);
+	}
+
+	100% {
+		transform: rotate(0deg) scale(1.1);
+	}
+}
+
+#saveProjectDiv {
+	position: fixed;
+	text-align: center;
+	bottom: 25px;
+	left: calc(50% - 225px);
+	width: 450px;
+	height: 70px;
+	margin: 0 auto;
+	padding: 15px;
+	background: linear-gradient(45deg, rgba(50, 50, 50, 0.8), rgba(80, 80, 80, 0.8));
+	z-index: 1021;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	opacity: 0;
+	/* Hidden initially */
+	transform: translateY(100px) scale(0.8);
+	/* Slightly below and smaller */
+	transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+	/* Smooth transition */
+	animation: none;
+	/* Ensure no animation by default */
+}
+
+#saveProjectDiv.show {
+	display: block;
+	/* Ensure it's visible */
+	opacity: 1;
+	/* Fade in */
+	transform: translateY(0px) scale(1);
+	/* Reset position and scale */
+}
+
+#saveProjectDiv.show.bounceIn {
+	animation: bounceIn 0.6s ease-out;
+	/* Play bounce animation */
+	animation-fill-mode: forwards;
+	/* Ensure animation persists at the final frame */
+}
+
+#saveProjectDiv.show:hover {
+	animation: wiggle 0.3s ease-out;
+	/* Play wiggle animation on hover */
+	animation-fill-mode: forwards;
+	/* Ensure the final state of wiggle persists */
+	transform-origin: center;
+	/* Ensure smooth scaling */
+}
+
+#saveProjectDiv button {
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.project-btn {
+	width: 150px;
+	margin: 0px 15px;
+}
+
+#projectNameDiv {
+	position: fixed;
+	top: 5px;
+	left: 50%;
+	transform: translateX(-50%);
+	/* Remove the fixed width and height to allow content to size naturally */
+	padding: 10px 20px;
+	background: linear-gradient(45deg, rgba(220, 220, 220, 0.8), rgba(240, 240, 240, 0.8));
+	z-index: 1021;
+	box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05);
+	border-radius: 10px;
+	color: #000;
+	font-size: 1.1rem;
+	font-weight: bold;
+	text-align: center;
+
+	/* Use Flexbox to center content both vertically and horizontally */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	/* Optionally, add responsive constraints */
+	max-width: 90vw;
+	/* Make sure it fits on smaller screens */
+}
+
+.reassign-panel {
+	position: fixed;
+	top: 0;
+	right: -400px;
+	width: 400px;
+	height: 100%;
+	background: #fff;
+	border-left: 1px solid #ccc;
+	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+	transition: right 0.3s ease-in-out;
+	z-index: 2000;
+	display: flex;
+	flex-direction: column;
+}
+
+.reassign-panel.show {
+	right: 0;
+}
+
+.reassign-panel-header {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.reassign-panel-body {
+	padding: 10px;
+	overflow-y: auto;
+	flex: 1;
+}
+
+
+@keyframes highlightGlow {
+	0% {
+		box-shadow: 0 0 0px #AA0;
+		transform: scale(1);
+	}
+
+	50% {
+		box-shadow: 0 0 25px #AA0;
+		transform: scale(1.1);
+	}
+
+	100% {
+		box-shadow: 0 0 0px #AA0;
+		transform: scale(1);
+	}
+}
+
+.glow {
+	animation: highlightGlow 1s ease-in-out;
+}
+
+.progress-backlog {
+	background-color: #EEE;
+	/*	margin: 0px 1px 0px 0px;
+	border-right: 2px solid #FFF;
+	border-radius: 0px 6px 6px 0px;*/
+}
+
+.progress-notstarted {
+	background-color: #DDD;
+	/*	margin: 0px 1px 0px 0px;
+	border-right: 2px solid #FFF;
+	border-radius: 0px 6px 6px 0px;*/
+}
+
+.progress-inprogress {
+	background-color: rgb(81, 151, 221);
+	/*	margin: 0px 1px 0px 0px;
+	border-right: 2px solid #FFF;
+	border-radius: 0px 6px 6px 0px;*/
+}
+
+.progress-blocked {
+	background-color: #ff0000;
+	/*	margin: 0px 1px 0px 0px;
+	border-right: 2px solid #FFF;
+	border-radius: 0px 6px 6px 0px;*/
+}
+
+.progress-completed {
+	background-color: #1e971e;
+	/*	margin: 0px 1px 0px 0px;
+	border-right: 2px solid #FFF;
+	border-radius: 0px 6px 6px 0px;*/
+}
+
+div.progress div.progress-bar {
+	border-right: 2px solid #FFF;
+	border-radius: 0px 6px 6px 0px;
+}
+
+div.progress div.progress-bar:last-child {
+	border-right: 0px solid #FFF;
+	border-radius: 0px 6px 6px 0px;
+}

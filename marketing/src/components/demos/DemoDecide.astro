@@ -1,0 +1,199 @@
+---
+import Demo from './Demo.astro';
+import AppTop from './AppTop.astro';
+
+const screens = ['Find order', 'Choose items', 'Reason', 'Label', 'Done'];
+const reviewers = [
+	{ name: 'Ava Lindqvist', initials: 'AL', color: '#0f7b6c', required: true, verdicts: ['k', 'k', 'w', 'k', 'k'] },
+	{ name: 'Marcus Chen', initials: 'MC', color: '#b05d1a', required: true, verdicts: ['k', 'w', 'w', 'c', 'k'] },
+	{ name: 'Priya Natarajan', initials: 'PN', color: '#285ec6', required: false, verdicts: ['k', 'k', 'k', 'k', 'k'] },
+	{ name: 'Sam Ortiz', initials: 'SO', color: '#7c4ddb', required: false, verdicts: ['w', 'k', 'w', 'k', 'k'] },
+	{ name: 'Dana Reyes', initials: 'DR', color: '#b8325e', required: false, verdicts: ['k', 'k', 'w', 'w', 'k'] },
+];
+const verdictLabel = { k: 'Keep', w: 'Keep with changes', c: 'Change' } as const;
+const verdictClass = { k: 'a-chip--ok', w: 'a-chip--warn', c: 'a-chip--bad' } as const;
+---
+
+<Demo label="Round results show every reviewer's verdict on every screen, and a decision is recorded with its sources." url="odinpmp.com/app/projects/customer-portal/requirements/experience/decide">
+	<AppTop crumbs={['Harbor & Pine', 'Customer Portal Relaunch', 'Requirements']} tabs={['Verdicts', 'Directions', 'Answers', 'Decisions']} current="Verdicts" />
+	<div class="dc">
+		<section class="a-card grid-card">
+			<header class="head">
+				<h5>Round 2 results</h5>
+				<span class="a-chip a-chip--ok">5 of 5 reviewers</span>
+				<span class="a-chip">Closed Oct 9</span>
+			</header>
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						{screens.map((screen) => <th>{screen}</th>)}
+					</tr>
+				</thead>
+				<tbody>
+					{
+						reviewers.map((person, row) => (
+							<tr>
+								<th>
+									<span class="a-av" style={`--c:${person.color}`}>{person.initials}</span>
+									<span>
+										{person.name}
+										{person.required && <em>Required</em>}
+									</span>
+								</th>
+								{person.verdicts.map((v, col) => (
+									<td>
+										<span class:list={['a-chip', verdictClass[v]]} data-at={String(300 + (row + col) * 160)} data-fx="pop">
+											{verdictLabel[v]}
+										</span>
+									</td>
+								))}
+							</tr>
+						))
+					}
+				</tbody>
+			</table>
+			<div class="round-summary" data-at="2300">
+				<img src="/brand/odin-mark-96.webp" alt="" width="10" height="14" />
+				<p>
+					<b>Odin summary:</b> the flow works without an order number. Four of five reviewers want the reason
+					optional. Marcus wants the label screen to show store drop-off first.
+				</p>
+			</div>
+		</section>
+
+		<section class="decision a-card" data-at="3300">
+			<header class="head">
+				<span class="num">D-07</span>
+				<span class="status">
+					<span class="a-chip a-chip--warn" data-at="3300" data-off="5600" data-fx="swap">Proposed</span>
+					<span class="a-chip a-chip--ok" data-at="5600" data-fx="swap">Agreed</span>
+				</span>
+			</header>
+			<p class="title">The return reason is optional.</p>
+			<p class="a-small a-muted">Owner: Ava Lindqvist, who has decision rights for the Experience track</p>
+			<p class="a-label">Sources</p>
+			<ul>
+				<li data-at="3800">Round 2, Reason screen: 4 of 5 chose Keep with changes</li>
+				<li data-at="4100">Topic "Return reasons": 6 comments, 2 stakeholders</li>
+				<li data-at="4400"><span class="a-chip">Supersedes D-03</span> Reason is required</li>
+			</ul>
+			<span class="a-btn a-btn--primary record" data-at="5500" data-fx="press">Record decision</span>
+		</section>
+		<i class="cursor" data-path="0:55,30 4600:93,66 5400:click"></i>
+	</div>
+</Demo>
+
+<style>
+	.dc {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr 300px;
+		gap: 14px;
+		padding: 16px;
+		height: calc(625px - 44px - 35px);
+	}
+	.grid-card,
+	.decision {
+		padding: 14px;
+	}
+	.head {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 10px;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 12px;
+	}
+	th,
+	td {
+		padding: 7px 4px;
+		border-bottom: 1px solid var(--a-line);
+		text-align: center;
+	}
+	thead th {
+		font-size: 11px;
+		font-weight: 600;
+		color: var(--a-muted);
+	}
+	tbody th {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		text-align: left;
+		font-weight: 600;
+		white-space: nowrap;
+	}
+	tbody th em {
+		display: block;
+		font-style: normal;
+		font-size: 10px;
+		font-weight: 500;
+		color: var(--a-muted);
+	}
+	td .a-chip {
+		font-size: 10.5px;
+	}
+	.round-summary {
+		display: flex;
+		gap: 8px;
+		margin-top: 12px;
+		padding: 10px 12px;
+		border-radius: 9px;
+		border: 1px solid color-mix(in srgb, var(--a-ochre) 45%, var(--a-line));
+		background: color-mix(in srgb, var(--a-ochre) 9%, var(--a-surface));
+		font-size: 12.5px;
+	}
+	.round-summary img {
+		width: 10px;
+		height: 14px;
+		margin-top: 3px;
+	}
+	.decision {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		align-self: start;
+	}
+	.num {
+		font-family: var(--font-mono);
+		font-weight: 700;
+		font-size: 13px;
+		padding: 3px 8px;
+		border-radius: 6px;
+		background: #f2b636;
+		color: #07111f;
+	}
+	.status {
+		display: grid;
+		margin-left: auto;
+	}
+	.status > * {
+		grid-area: 1 / 1;
+		justify-self: end;
+	}
+	.title {
+		font-size: 16px;
+		font-weight: 650;
+	}
+	ul {
+		display: grid;
+		gap: 6px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-size: 12px;
+	}
+	li {
+		padding: 6px 8px;
+		border-radius: 7px;
+		background: var(--a-soft);
+	}
+	.record {
+		align-self: flex-end;
+		margin-top: 6px;
+	}
+</style>

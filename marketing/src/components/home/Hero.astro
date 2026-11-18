@@ -1,0 +1,350 @@
+---
+import { stations } from '../../data/loop';
+
+const headline = 'From the first question to the merged fix.';
+const words = headline.split(' ');
+let letterIndex = 0;
+---
+
+<section class="hero" data-hero>
+	<div class="hero__stage" aria-hidden="true">
+		<canvas class="hero__canvas" data-loop-canvas></canvas>
+		<svg class="hero__fallback" viewBox="-60 -24 120 48">
+			<ellipse cx="0" cy="0" rx="52" ry="15" fill="none" stroke="currentColor" stroke-width="0.25"></ellipse>
+			{
+				stations.map((_, i) => {
+					const a = (i / stations.length) * Math.PI * 2;
+					return <circle cx={Math.cos(a) * 52} cy={Math.sin(a) * 15} r="0.8" fill="currentColor" />;
+				})
+			}
+		</svg>
+		<div class="hero__labels">
+			{
+				stations.map((station, i) => (
+					<span class="loop-label" data-loop-label>
+						<b>{i + 1}</b> {station.label}
+					</span>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="wrap hero__copy">
+		<h1 class="hero__title" aria-label={headline}>
+			{
+				words.map((word) => (
+					<span class="word" aria-hidden="true">
+						{word.split('').map((char) => (
+							<span class="char" style={`--i:${letterIndex++}`}>
+								{char}
+							</span>
+						))}
+					</span>
+				))
+			}
+		</h1>
+		<p class="hero__lede">
+			Odin is one system for building software with clients. Stakeholders review real screens, plans cite what
+			they decided, sprints run on the same projects, and a bug reported on the live site comes back as a pull
+			request.
+		</p>
+		<div class="hero__actions">
+			<a class="btn" href="/signup">Request access</a>
+			<a class="btn btn--quiet" href="#loop">Follow the loop</a>
+		</div>
+	</div>
+
+	<nav class="wrap hero__track" aria-label="The loop, step by step">
+		<ol data-loop-track>
+			{
+				stations.map((station, i) => (
+					<li>
+						<a href={`#step-${station.key}`} data-station={i}>
+							<span class="hero__track-num">{i + 1}</span>
+							<span>{station.label}</span>
+						</a>
+					</li>
+				))
+			}
+		</ol>
+		<i class="hero__track-gem gem" data-track-gem aria-hidden="true"></i>
+	</nav>
+</section>
+
+<script>
+	import { stations } from '../../data/loop';
+
+	const hero = document.querySelector<HTMLElement>('[data-hero]')!;
+	const canvas = hero.querySelector<HTMLCanvasElement>('[data-loop-canvas]')!;
+	const labels = [...hero.querySelectorAll<HTMLElement>('[data-loop-label]')];
+	const links = [...hero.querySelectorAll<HTMLAnchorElement>('[data-station]')];
+	const gem = hero.querySelector<HTMLElement>('[data-track-gem]')!;
+	const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	function moveGem(index: number) {
+		const link = links[index];
+		if (!link) return;
+		links.forEach((item, i) => item.classList.toggle('is-active', i === index));
+		const track = link.closest('nav')!.getBoundingClientRect();
+		const box = link.getBoundingClientRect();
+		gem.style.transform = `translate3d(${box.left - track.left + 2}px, 0, 0) rotate(45deg)`;
+	}
+
+	function supportsWebGL() {
+		try {
+			const test = document.createElement('canvas');
+			return Boolean(test.getContext('webgl2'));
+		} catch {
+			return false;
+		}
+	}
+
+	requestAnimationFrame(() => hero.classList.add('is-ready'));
+
+	if (supportsWebGL()) {
+		import('../../scripts/loop-scene').then(({ mountLoop }) => {
+			const scene = mountLoop({ canvas, labels, stations, reducedMotion, onStation: moveGem });
+			links.forEach((link, index) => link.addEventListener('mouseenter', () => scene.goTo(index)));
+			hero.classList.add('has-webgl');
+		});
+	} else {
+		hero.classList.add('no-webgl');
+		moveGem(0);
+	}
+	window.addEventListener('resize', () => {
+		const active = links.findIndex((link) => link.classList.contains('is-active'));
+		moveGem(Math.max(0, active));
+	});
+</script>
+
+<style>
+	.hero {
+		position: relative;
+		min-height: max(680px, 100svh);
+		display: grid;
+		grid-template-rows: 1fr auto;
+		padding-top: var(--nav-h);
+		overflow: clip;
+		isolation: isolate;
+	}
+	.hero::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+		background:
+			radial-gradient(60% 55% at 72% 52%, var(--ice-soft), transparent 70%),
+			radial-gradient(30% 22% at 66% 74%, var(--gold-glow), transparent 75%);
+		opacity: 0.7;
+	}
+	.hero__stage {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		opacity: 0;
+		transition: opacity 1.6s ease 0.2s;
+	}
+	.hero:global(.is-ready) .hero__stage {
+		opacity: 1;
+	}
+	.hero__canvas {
+		width: 100%;
+		height: 100%;
+	}
+	.hero__fallback {
+		display: none;
+		position: absolute;
+		right: -6%;
+		top: 26%;
+		width: 70%;
+		color: var(--ice);
+		opacity: 0.6;
+	}
+	.hero:global(.no-webgl) .hero__fallback {
+		display: block;
+	}
+	.hero:global(.no-webgl) .hero__labels {
+		display: none;
+	}
+	.hero__labels {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+	.loop-label {
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.4rem;
+		font-size: 0.8rem;
+		font-weight: 560;
+		color: var(--ink-2);
+		white-space: nowrap;
+		opacity: 0;
+		transition: opacity 0.25s ease;
+		will-change: transform, opacity;
+	}
+	.loop-label b {
+		font-family: var(--font-display);
+		font-stretch: 125%;
+		font-weight: 800;
+		color: var(--muted);
+	}
+	.loop-label:global(.is-active) {
+		color: var(--ink);
+	}
+	.loop-label:global(.is-active) b {
+		color: var(--gold-ink);
+	}
+
+	.hero__copy {
+		align-self: center;
+		padding-bottom: clamp(2rem, 5vh, 4rem);
+		pointer-events: none;
+	}
+	.hero__copy > * {
+		pointer-events: auto;
+	}
+	.hero__title {
+		max-width: 11ch;
+		font-size: clamp(2.7rem, 1rem + 4.3vw, 5.4rem);
+		font-weight: 800;
+		font-stretch: 112%;
+		line-height: 0.92;
+		letter-spacing: -0.035em;
+	}
+	.word {
+		display: inline-block;
+		white-space: nowrap;
+		margin-right: 0.22em;
+	}
+	.char {
+		display: inline-block;
+		font-stretch: 75%;
+		opacity: 0;
+		transform: translateY(0.18em);
+		animation: char-in 1.2s var(--ease-out) forwards;
+		animation-delay: calc(0.25s + var(--i) * 22ms);
+	}
+	@keyframes char-in {
+		60% {
+			opacity: 1;
+		}
+		to {
+			font-stretch: 112%;
+			opacity: 1;
+			transform: none;
+		}
+	}
+	.hero__lede {
+		max-width: 46ch;
+		margin-top: 1.6rem;
+		font-size: var(--step-1);
+		line-height: 1.55;
+		color: var(--ink-2);
+		opacity: 0;
+		animation: fade-up 1s var(--ease-out) 1.1s forwards;
+	}
+	.hero__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 2rem;
+		opacity: 0;
+		animation: fade-up 1s var(--ease-out) 1.3s forwards;
+	}
+	@keyframes fade-up {
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	.hero__track {
+		position: relative;
+		padding-bottom: 1.6rem;
+	}
+	.hero__track ol {
+		display: grid;
+		grid-template-columns: repeat(7, minmax(0, 1fr));
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid var(--line-2);
+	}
+	.hero__track a {
+		display: flex;
+		align-items: baseline;
+		gap: 0.5rem;
+		padding: 1rem 0.5rem 0.25rem 1.1rem;
+		color: var(--muted);
+		text-decoration: none;
+		font-size: var(--step--1);
+		font-weight: 560;
+		transition: color 0.3s ease;
+	}
+	.hero__track a:hover,
+	.hero__track a:global(.is-active) {
+		color: var(--ink);
+	}
+	.hero__track-num {
+		font-family: var(--font-display);
+		font-stretch: 125%;
+		font-weight: 800;
+	}
+	.hero__track a:global(.is-active) .hero__track-num {
+		color: var(--gold-ink);
+	}
+	.hero__track-gem {
+		position: absolute;
+		top: -0.32em;
+		left: 0;
+		font-size: 0.9rem;
+		transform: rotate(45deg);
+		transition: transform 0.9s var(--ease-out);
+	}
+
+	@media (max-width: 760px) {
+		/* On phones the ring gets its own band above the words. */
+		.hero {
+			display: flex;
+			flex-direction: column;
+			min-height: auto;
+			padding-bottom: 2rem;
+		}
+		.hero__stage {
+			position: relative;
+			inset: auto;
+			height: clamp(270px, 42svh, 380px);
+			z-index: 0;
+		}
+		.hero__copy {
+			padding-bottom: 0;
+		}
+		.hero__title {
+			font-size: clamp(2.5rem, 11vw, 4rem);
+		}
+		.hero__track {
+			display: none;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.char {
+			font-stretch: 112%;
+			opacity: 1;
+			transform: none;
+			animation: none;
+		}
+		.hero__lede,
+		.hero__actions {
+			opacity: 1;
+			animation: none;
+		}
+	}
+</style>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fieldwork booking prototype</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="fw-nav"><div class="fw-logo">Field<span>work</span></div><div class="fw-links"><span>Bookings</span><span>Messages</span><span>Help</span></div><div class="fw-account">Ana Ruiz <b>AR</b></div></nav>
+<main class="fw-main">
+  <div class="fw-steps" data-odin-id="steps">
+    <span data-step="choose-service"><b>1</b>Service</span><span class="sep">—</span>
+    <span data-step="pick-time"><b>2</b>Time</span><span class="sep">—</span>
+    <span data-step="confirm"><b>3</b>Confirm</span>
+  </div>
+
+  <section data-state="choose-service">
+    <h1 class="fw-h1">What can we help with?</h1>
+    <div class="fw-grid three">
+      <button class="fw-card fw-choice" data-odin-id="service-home-refresh" data-service="Home refresh"><h3>Home refresh</h3><p class="fw-muted">Cleaning, tidying and more</p><p class="fw-price-s">$70–95 before tax</p></button>
+      <button class="fw-card fw-choice" data-odin-id="service-small-repairs" data-service="Small repairs"><h3>Small repairs</h3><p class="fw-muted">Fixes and maintenance</p><p class="fw-price-s">$60–140 before tax</p></button>
+      <button class="fw-card fw-choice" data-odin-id="service-assembly" data-service="Assembly &amp; setup"><h3>Assembly &amp; setup</h3><p class="fw-muted">Furniture and appliances</p><p class="fw-price-s">$50–120 before tax</p></button>
+    </div>
+  </section>
+
+  <section data-state="pick-time" hidden>
+    <div class="fw-grid two">
+      <div class="fw-card">
+        <h3>Pick a time · <span data-bind="service">Home refresh</span></h3>
+        <div class="fw-grid five" data-odin-id="day-row">
+          <button class="fw-slot">Mon 13</button><button class="fw-slot">Tue 14</button><button class="fw-slot on">Wed 15</button><button class="fw-slot off" disabled>Thu 16</button><button class="fw-slot">Fri 17</button>
+        </div>
+        <p class="fw-label">Wednesday 15 · available</p>
+        <div class="fw-grid four" data-odin-id="time-grid">
+          <button class="fw-slot">8:00 am</button><button class="fw-slot off" disabled>9:00 am</button><button class="fw-slot on">10:00 am</button><button class="fw-slot">11:00 am</button>
+          <button class="fw-slot">1:00 pm</button><button class="fw-slot">2:00 pm</button><button class="fw-slot off" disabled>3:00 pm</button><button class="fw-slot">4:00 pm</button>
+        </div>
+        <div class="fw-actions"><a class="fw-btn ghost" href="#choose-service">← Back</a><a class="fw-btn" href="#confirm" data-odin-id="continue">Continue to confirm →</a></div>
+      </div>
+      <aside class="fw-card" data-odin-id="visit-summary">
+        <h3>Your visit</h3>
+        <p class="fw-muted"><span data-bind="service">Home refresh</span> · 1 hour</p>
+        <p class="fw-muted">Wed 15 Oct · 10:00 am</p>
+        <p class="fw-label">Estimated price</p>
+        <p class="fw-price">$70–95</p>
+        <p class="fw-muted small">Before tax. Exact price on the next step.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section data-state="confirm" hidden>
+    <div class="fw-card narrow" data-odin-id="confirm-card">
+      <h1 class="fw-h1">Confirm your visit</h1>
+      <p><strong data-bind="service">Home refresh</strong> · Wed 15 Oct, 10:00 am · At your home</p>
+      <dl class="fw-total"><dt>Visit</dt><dd>$82.00</dd><dt>Tax</dt><dd>$6.56</dd><dt>Total</dt><dd><strong>$88.56</strong></dd></dl>
+      <p class="fw-muted small">Free to reschedule or cancel up to 24 hours before.</p>
+      <div class="fw-actions"><a class="fw-btn ghost" href="#pick-time">← Change time</a><button class="fw-btn" data-odin-id="book">Book visit</button></div>
+    </div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

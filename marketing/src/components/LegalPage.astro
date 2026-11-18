@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	updated?: string;
+}
+const { title, description, updated = 'September 22, 2026' } = Astro.props;
+---
+
+<Base title={`${title} | OdinPMP`} description={description}>
+	<Nav />
+	<main id="main" class="legal">
+		<header class="legal__head">
+			<h1>{title}</h1>
+			<p>Last updated: {updated}</p>
+		</header>
+		<article class="legal__body">
+			<slot />
+		</article>
+	</main>
+	<Footer />
+</Base>
+
+<style is:global>
+	.legal {
+		width: min(100% - 2 * var(--gutter), 760px);
+		margin: 0 auto;
+		padding: calc(var(--nav-h) + clamp(3rem, 6vw, 5rem)) 0 clamp(4rem, 8vw, 6rem);
+	}
+	.legal__head {
+		padding-bottom: 2rem;
+		border-bottom: 1px solid var(--line);
+	}
+	.legal__head h1 {
+		font-size: var(--step-4);
+		font-weight: 800;
+	}
+	.legal__head p {
+		margin-top: 0.9rem;
+		color: var(--muted);
+	}
+	.legal__body {
+		font-size: var(--step-0);
+		line-height: 1.7;
+		color: var(--ink-2);
+	}
+	.legal__body h2 {
+		margin: 2.6rem 0 0.8rem;
+		font-size: var(--step-2);
+		color: var(--ink);
+	}
+	.legal__body p,
+	.legal__body ul {
+		margin: 1rem 0 0;
+	}
+	.legal__body li + li {
+		margin-top: 0.6rem;
+	}
+	.legal__body strong {
+		color: var(--ink);
+	}
+	.legal__body a {
+		color: var(--ice);
+		text-underline-offset: 3px;
+	}
+</style>

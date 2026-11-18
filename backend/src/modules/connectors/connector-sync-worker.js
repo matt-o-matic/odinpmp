@@ -1,0 +1,17 @@
+import { createHash, randomUUID } from 'node:crypto';
+
+import { DEFAULT_CONNECTOR_ADAPTER_REGISTRY } from './connector-adapter-registry.js';
+
+const hash = (value) => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+export async function processConnectorSyncBatch({ leaseMs = 60_000, limit = 10, maxAttempts = 6, now = new Date(), projectRepository, repository, transport, workerId = `connector-sync-${randomUUID()}` } = {}) {
+  const claimed = await repository.claimSyncRuns({ leaseMs, limit, now, workerId }); const results = [];
+  for (const { connection, run } of claimed) try {
+    let counts; let cursorAfter = run.cursorBefore;
+    if (run.direction === 'inbound') { const page = await transport.poll({ connection, cursor: run.cursorBefore }); let accepted = 0; let duplicates = 0; for (const payload of page.records) { const normalized = DEFAULT_CONNECTOR_ADAPTER_REGISTRY.normalizeInbound(connection.provider, { eventType: `${connection.provider}.polled`, payload }); const result = await repository.recordInboundEvent({ connection, eventId: normalized.object.externalId, eventType: normalized.eventType, payload: { ...normalized.object, sourcePayloadHash: hash(payload) }, payloadHash: hash(payload) }); if (result.duplicate) duplicates += 1; else accepted += 1; } counts = { accepted, duplicates, received: page.records.length }; cursorAfter = page.cursor; }
+    else { let pushed = 0; for (const projectId of connection.projectIds) { const project = await projectRepository.getProjectDetail({ projectId, tenantId: connection.tenantId }); if (!project) continue; await transport.pushProject({ connection, idempotencyKey: `${run.idempotencyKey}:${projectId}`, project }); pushed += 1; } counts = { pushed }; }
+    const completed = await repository.completeSyncRun({ counts, cursorAfter, leaseToken: run.leaseToken, now, runId: run.id, workerId }); results.push({ counts, runId: run.id, status: completed ? 'completed' : 'lease_lost' });
+  } catch (error) { const availableAt = new Date(now.getTime() + Math.min(300_000, 2_000 * (2 ** Math.max(0, run.attempts - 1)))); const failed = await repository.failSyncRun({ availableAt, error: error?.message ?? error, leaseToken: run.leaseToken, maxAttempts, now, runId: run.id, workerId }); results.push({ error: error?.message ?? String(error), runId: run.id, status: failed ? run.attempts >= maxAttempts ? 'dead' : 'retry' : 'lease_lost' }); }
+  return results;
+}
+
+export function startConnectorSyncWorker({ intervalMs = 1_000, onError = () => {}, projectRepository, repository, transport, workerId = `connector-sync-${process.pid}` } = {}) { let inFlight = false; let stopped = false; const waiters = new Set(); const poll = async () => { if (stopped || inFlight) return []; inFlight = true; try { return await processConnectorSyncBatch({ projectRepository, repository, transport, workerId }); } catch (error) { onError(error); return []; } finally { inFlight = false; for (const resolve of waiters) resolve(true); waiters.clear(); } }; const timer = setInterval(poll, Math.max(100, Number(intervalMs) || 1_000)); timer.unref?.(); void poll(); return { isHealthy: () => !stopped, isIdle: () => !inFlight, poll, stop() { stopped = true; clearInterval(timer); }, waitForIdle({ timeoutMs = 30_000 } = {}) { if (!inFlight) return Promise.resolve(true); return new Promise((resolve) => { const done = (value) => { clearTimeout(timerId); waiters.delete(done); resolve(value); }; const timerId = setTimeout(() => done(false), timeoutMs); waiters.add(done); }); } }; }

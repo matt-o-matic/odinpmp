@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import test from 'node:test';
+import mysql from 'mysql2/promise';
+
+import { createMysqlIdentityRepository } from '../src/modules/identity/identity.repository.js';
+import { applyMysqlMigrations } from './helpers/mysql-migrations.js';
+
+const databaseUrl = String(process.env.ODIN_TEST_DATABASE_URL ?? '').trim();
+
+test('MySQL identity repository persists policies, domains, roles, groups, reviews, credentials, and impersonation grants', { skip: !databaseUrl, timeout: 15_000 }, async () => {
+  const pool = mysql.createPool(databaseUrl); const tenantId = randomUUID(); const repository = createMysqlIdentityRepository({ pool });
+  try {
+    await applyMysqlMigrations(pool, ['0018_enterprise_identity', '0021_break_glass_access', '0022_access_review_campaigns', '0023_saml_transactions']);
+    const policy = await repository.upsertPolicy({ input: { defaultRoleKey: 'user', expectedVersion: 0, jitEnabled: true, loginEnforcement: 'optional', provider: { issuer: 'https://id.example.com' }, ssoMode: 'oidc' }, tenantId, updatedBy: 'admin-1' }); assert.equal(policy.version, 1);
+    const breakGlassPolicy = await repository.upsertBreakGlassPolicy({ input: { enabled: true, expectedVersion: 0, maxSessionMinutes: 15, userIds: ['admin-1'] }, tenantId, updatedBy: 'admin-2' }); assert.equal(breakGlassPolicy.version, 1); assert.equal((await repository.getBreakGlassPolicy({ tenantId })).enabled, true);
+    await assert.rejects(repository.upsertPolicy({ input: { ...policy, expectedVersion: 0 }, tenantId, updatedBy: 'admin-1' }), (error) => error.details.code === 'identity_version_conflict');
+    const domain = await repository.createDomain({ input: { domain: 'example.com', verificationMethod: 'manual' }, tenantId, tokenHash: 'a'.repeat(64) }); const verified = await repository.updateDomain({ domainId: domain.id, input: { expectedVersion: 1, status: 'verified', verifiedAt: '2026-07-11T12:00:00.000Z' }, tenantId }); assert.equal(verified.version, 2);
+    const role = await repository.createRole({ input: { capabilities: ['projects.read'], description: '', key: 'analyst', name: 'Analyst' }, tenantId });
+    const group = await repository.createGroup({ input: { description: '', externalId: 'external-1', name: 'Analysts', roleKeys: [role.key] }, tenantId }); await repository.addGroupMember({ groupId: group.id, tenantId, userId: 'user-1' });
+    assert.deepEqual(await repository.resolveUserCapabilities({ tenantId, userId: 'user-1' }), ['projects.read']);
+    const review = await repository.createAccessReview({ input: { dueAt: '2030-01-01T00:00:00.000Z', name: 'Review', reviewerUserId: 'admin-2', scope: 'tenant' }, items: [{ access: { groupId: group.id }, subjectId: 'user-1', subjectType: 'user' }], tenantId, userId: 'admin-1' }); assert.equal(review.status, 'open');
+    const campaign = await repository.createAccessReviewCampaign({ input: { durationDays: 10, enabled: true, intervalDays: 30, name: 'Monthly review', nextRunAt: '2026-07-11T12:00:00.000Z', reviewerUserId: 'admin-2', scope: 'groups' }, tenantId, userId: 'admin-1' }); assert.equal(campaign.runCount, 0);
+    assert.equal((await repository.listDueAccessReviewCampaigns({ now: new Date('2026-07-11T12:00:00.000Z') })).length, 1);
+    const campaignRuns = await Promise.all([1, 2].map(() => repository.materializeAccessReviewCampaign({ campaignId: campaign.id, items: [{ access: { groupId: group.id }, subjectId: 'user-1', subjectType: 'user' }], nextRunAt: '2026-08-10T12:00:00.000Z', reviewInput: { dueAt: '2026-07-21T12:00:00.000Z', name: 'Monthly review · 2026-07-11', reviewerUserId: 'admin-2', scope: 'groups' }, scheduledFor: campaign.nextRunAt, tenantId })));
+    assert.equal(campaignRuns.filter((item) => item.created).length, 1);
+    await repository.createSamlTransaction({ expiresAt: '2099-01-01T00:10:00.000Z', redirectPath: '/projects', stateHash: 'c'.repeat(64), tenantId }); await repository.attachSamlRequest({ cacheValue: 'request-created-at', requestId: '_saml-request-1', stateHash: 'c'.repeat(64) }); assert.equal(await repository.getSamlRequest({ requestId: '_saml-request-1' }), 'request-created-at'); assert.equal((await repository.consumeSamlState({ stateHash: 'c'.repeat(64) })).redirectPath, '/projects'); assert.equal(await repository.consumeSamlState({ stateHash: 'c'.repeat(64) }), null); assert.equal(await repository.consumeSamlRequest({ requestId: '_saml-request-1' }), 'request-created-at'); assert.equal(await repository.consumeSamlRequest({ requestId: '_saml-request-1' }), null);
+    const account = await repository.createServiceAccount({ input: { description: '', expiresAt: null, name: 'Automation', projectIds: ['project-1'], scopes: ['reporting.read'] }, tenantId, userId: 'admin-1' }); const credential = await repository.createCredential({ accountId: account.id, expiresAt: null, prefix: 'odin_sa_prefix', secretHash: 'b'.repeat(64), tenantId, userId: 'admin-1' }); const authenticated = await repository.authenticateCredential({ secretHash: 'b'.repeat(64) }); assert.deepEqual(authenticated.account.projectIds, ['project-1']); await repository.markCredentialUsed({ credentialId: credential.id, tenantId }); await repository.revokeCredentials({ accountId: account.id, tenantId }); assert.equal(await repository.authenticateCredential({ secretHash: 'b'.repeat(64) }), null);
+    const grant = await repository.createImpersonationGrant({ input: { expiresAt: '2030-01-01T00:00:00.000Z', reason: 'Authorized support incident.', targetUserId: 'user-1' }, requesterUserId: 'admin-1', tenantId }); const approved = await repository.updateImpersonationGrant({ grantId: grant.id, input: { approvedAt: '2026-07-11T12:00:00.000Z', approvedBy: 'admin-2', decisionNote: 'Approved.', endedAt: null, expectedVersion: 1, status: 'approved' }, tenantId }); assert.equal(approved.approvedBy, 'admin-2');
+    assert.equal((await repository.getImpersonationGrant({ grantId: grant.id, tenantId })).status, 'approved');
+    const snapshot = await repository.listSnapshot({ tenantId }); assert.equal(snapshot.breakGlassPolicy.maxSessionMinutes, 15); assert.equal(snapshot.domains[0].status, 'verified'); assert.equal(snapshot.groupMemberships.length, 1); assert.equal(snapshot.accessReviewItems.length, 2); assert.equal(snapshot.accessReviewCampaigns[0].runCount, 1); assert.equal(snapshot.accessReviewCampaignRuns.length, 1); assert.equal(snapshot.credentials[0].id, credential.id); assert.ok(snapshot.credentials[0].revokedAt); assert.equal(snapshot.impersonationGrants[0].status, 'approved');
+    await assert.rejects(repository.deleteGroup({ expectedVersion: 99, groupId: group.id, tenantId }), (error) => error.details.code === 'identity_version_conflict'); const unchanged = await repository.listSnapshot({ tenantId }); assert.equal(unchanged.groupMemberships.length, 1);
+  } finally { await pool.end(); }
+});

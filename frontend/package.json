@@ -1,0 +1,45 @@
+{
+  "name": "odinpmp-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test",
+    "test:e2e": "playwright test",
+    "test:e2e:list": "playwright test --list"
+  },
+  "dependencies": {
+    "@tiptap/extension-image": "^3.23.2",
+    "@tiptap/extension-link": "^3.23.2",
+    "@tiptap/extension-mention": "^3.23.2",
+    "@tiptap/extension-placeholder": "^3.23.2",
+    "@tiptap/extension-table": "^3.23.2",
+    "@tiptap/extension-table-cell": "^3.23.2",
+    "@tiptap/extension-table-header": "^3.23.2",
+    "@tiptap/extension-table-row": "^3.23.2",
+    "@tiptap/extension-underline": "^3.23.2",
+    "@tiptap/starter-kit": "^3.23.2",
+    "@tiptap/vue-3": "^3.23.2",
+    "@viz-js/viz": "^3.31.0",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "chart.js": "^4.6.1",
+    "emojibase-data": "17.0.0",
+    "markdown-it": "^14.3.0",
+    "mermaid": "^11.17.2",
+    "sortablejs": "^1.15.7",
+    "turndown": "^7.2.4",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "vite": "^6.3.5"
+  }
+}

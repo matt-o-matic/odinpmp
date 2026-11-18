@@ -1,0 +1,278 @@
+---
+import Demo from './Demo.astro';
+import AppTop from './AppTop.astro';
+
+const lines = [
+	'A returns flow in the customer portal.',
+	'Customers find the order and pick the items to return.',
+	'They print a label, or choose a store to drop it off.',
+	'Refunds go back to the original payment method.',
+];
+const questions = [
+	{ q: 'Can customers find an order by email, or only by order number?', line: 2, at: 700 },
+	{ q: 'Do store drop-offs need a printed label?', line: 3, at: 1500 },
+	{ q: 'Should store credit be offered before a refund?', line: 4, at: 2300 },
+];
+const stages = [
+	['Brief', '1'],
+	['Discuss', '12'],
+	['Review', '0'],
+	['Decide', '0'],
+	['Plan & work', '0'],
+];
+---
+
+<Demo label="Odin drafts requirements questions, each tied to the brief line it came from, and summarizes the discussion." url="odinpmp.com/app/projects/customer-portal/requirements">
+	<AppTop crumbs={['Harbor & Pine', 'Customer Portal Relaunch']} tabs={['Plan', 'Sprints', 'Board', 'Requirements', 'Tickets', 'Insights']} current="Requirements" />
+	<div class="stages">
+		<span class="a-label">Experience track</span>
+		{
+			stages.map(([name, count]) => (
+				<span class:list={['stage', name === 'Discuss' && 'is-current']}>
+					{name} <i>{count}</i>
+				</span>
+			))
+		}
+	</div>
+	<div class="body">
+		<section class="a-card brief">
+			<h5>Brief</h5>
+			<p class="a-label">Proposed solution</p>
+			<ol>
+				{
+					lines.map((line, i) => (
+						<li data-line={i + 1}>
+							<i>{i + 1}</i>
+							<span>{line}</span>
+							{questions
+								.filter((q) => q.line === i + 1)
+								.map((q) => (
+									<b class="hl" data-at={String(q.at + 500)} data-fx="hl" />
+								))}
+						</li>
+					))
+				}
+			</ol>
+		</section>
+
+		<section class="topics">
+			{
+				questions.map((item, i) => (
+					<article class:list={['a-card topic', i === 0 && 'topic--open']} data-at={String(item.at)}>
+						<p class="topic__q">{item.q}</p>
+						<div class="topic__meta">
+							<span class="a-chip a-chip--accent">Brief, proposed solution {item.line}</span>
+							<span class="a-small a-muted">Drafted by Odin</span>
+						</div>
+						{i === 0 && (
+							<div class="thread">
+								<div class="reply" data-at="3300">
+									<span class="a-av" style="--c:#0f7b6c">AL</span>
+									<div>
+										<p class="who">
+											Ava Lindqvist <span class="a-chip">By email</span>
+										</p>
+										<p>Email. Half the people who call us don't have the order number handy.</p>
+									</div>
+									<span class="votes a-small" data-at="3900">
+										▲ <b data-at="3900" data-count="4" data-fx="none">0</b>
+									</span>
+								</div>
+								<div class="reply" data-at="4600">
+									<span class="a-av" style="--c:#b05d1a">MC</span>
+									<div>
+										<p class="who">Marcus Chen</p>
+										<p>In stores we look orders up by phone number today.</p>
+									</div>
+									<span class="votes a-small" data-at="5100">
+										▲ <b data-at="5100" data-count="2" data-fx="none">0</b>
+									</span>
+								</div>
+								<div class="summary" data-at="6300">
+									<p class="summary__head">
+										<img src="/brand/odin-mark-96.webp" alt="" width="10" height="14" /> Odin summary
+										<span class="a-small a-muted">updated 20 seconds after the last post</span>
+									</p>
+									<p>
+										<b>Agree:</b> customers need a way in without the order number.<sup>1</sup>
+									</p>
+									<p>
+										<b>Differ:</b> email or phone as the lookup.<sup>1, 2</sup>
+									</p>
+									<p class="proposal" data-at="7300">
+										<b>Proposed answer:</b> <span data-at="7300" data-type data-speed="18">Look orders up by email or phone. The order number is optional.</span>
+									</p>
+								</div>
+							</div>
+						)}
+					</article>
+				))
+			}
+		</section>
+	</div>
+</Demo>
+
+<style>
+	.stages {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 10px 16px;
+		border-bottom: 1px solid var(--a-line);
+		background: var(--a-surface);
+	}
+	.stages .a-label {
+		margin-right: 8px;
+	}
+	.stage {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 4px 10px;
+		border: 1px solid var(--a-line);
+		border-radius: 999px;
+		font-size: 12px;
+		color: var(--a-muted);
+	}
+	.stage i {
+		font-style: normal;
+		font-weight: 700;
+		font-size: 11px;
+	}
+	.stage.is-current {
+		border-color: var(--a-accent);
+		background: var(--a-accent-soft);
+		color: var(--a-accent);
+		font-weight: 600;
+	}
+	.body {
+		display: grid;
+		grid-template-columns: 330px 1fr;
+		gap: 16px;
+		padding: 16px;
+		height: calc(625px - 44px - 34px - 47px);
+	}
+	.brief {
+		align-self: start;
+		padding: 14px;
+	}
+	.brief h5 {
+		margin-bottom: 8px;
+	}
+	ol {
+		display: grid;
+		gap: 4px;
+		margin: 6px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	li {
+		position: relative;
+		isolation: isolate;
+		display: flex;
+		gap: 9px;
+		padding: 6px 8px;
+		border-radius: 7px;
+		font-size: 12.5px;
+	}
+	li > i {
+		font-style: normal;
+		font-weight: 700;
+		color: var(--a-muted);
+		font-size: 11px;
+		padding-top: 1px;
+	}
+	.hl {
+		position: absolute;
+		inset: 0;
+		border-radius: 7px;
+		background: var(--a-accent-soft);
+		box-shadow: inset 3px 0 0 var(--a-accent);
+		opacity: 0;
+		transition: opacity 0.5s ease;
+		z-index: -1;
+	}
+	.hl.is-on {
+		opacity: 1;
+	}
+	li span {
+		position: relative;
+	}
+	.topics {
+		display: grid;
+		align-content: start;
+		gap: 10px;
+		overflow: hidden;
+	}
+	.topic {
+		padding: 11px 13px;
+	}
+	.topic__q {
+		font-weight: 600;
+		font-size: 13.5px;
+	}
+	.topic__meta {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 6px;
+	}
+	.thread {
+		display: grid;
+		gap: 8px;
+		margin-top: 10px;
+		padding-top: 10px;
+		border-top: 1px solid var(--a-line);
+	}
+	.reply {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		gap: 9px;
+		font-size: 12.5px;
+	}
+	.who {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-weight: 600;
+		font-size: 12px;
+	}
+	.votes {
+		align-self: start;
+		padding: 2px 8px;
+		border: 1px solid var(--a-line);
+		border-radius: 999px;
+		color: var(--a-muted);
+	}
+	.summary {
+		display: grid;
+		gap: 3px;
+		padding: 10px 12px;
+		border-radius: 9px;
+		border: 1px solid color-mix(in srgb, var(--a-ochre) 45%, var(--a-line));
+		background: color-mix(in srgb, var(--a-ochre) 9%, var(--a-surface));
+		font-size: 12.5px;
+	}
+	.summary__head {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-weight: 650;
+		margin-bottom: 3px;
+	}
+	.summary__head img {
+		width: 10px;
+	}
+	.summary__head .a-small {
+		margin-left: auto;
+		font-weight: 400;
+	}
+	sup {
+		color: var(--a-accent);
+		font-weight: 700;
+		margin-left: 2px;
+	}
+	.proposal span {
+		min-height: 1em;
+	}
+</style>

@@ -1,0 +1,281 @@
+---
+import Demo from './Demo.astro';
+import HarborReturns from './HarborReturns.astro';
+
+const steps = ['Overview', 'Directions', 'Screens', 'Questions', 'Submit'];
+const verdicts = ['Keep', 'Keep with changes', 'Change', 'Undecided'];
+---
+
+<Demo label="A stakeholder steps through a guided review, marks up a prototype screen and gives it a verdict." url="odinpmp.com/app/requirements/…/rounds/2">
+	<header class="rv-top">
+		<img src="/brand/odin-mark-96.webp" alt="" width="14" height="20" />
+		<b>Review round 2: Returns flow</b>
+		<ol class="steps">
+			{
+				steps.map((step, i) => (
+					<li class:list={[i < 2 && 'is-done', i === 2 && 'is-current']}>
+						<i>{i < 2 ? '✓' : i + 1}</i>
+						{step}
+					</li>
+				))
+			}
+		</ol>
+		<span class="autosave a-small" data-at="8500">Saved</span>
+	</header>
+	<div class="rv">
+		<section class="canvas">
+			<div class="tools">
+				<span class="tool is-picked">Pin</span>
+				<span class="tool" data-at="3900" data-fx="pick">Box</span>
+				<span class="tool">Arrow</span>
+				<span class="tool">Pen</span>
+				<span class="tool">Highlight</span>
+				<span class="tool">Text</span>
+				<span class="a-small a-muted counter">Screen 3 of 5</span>
+			</div>
+			<div class="screen">
+				<HarborReturns version="prototype" />
+				<svg class="marks" viewBox="0 0 640 400" preserveAspectRatio="none">
+					<rect x="522" y="314" width="102" height="46" rx="12" fill="none" stroke="#f2b636" stroke-width="2.5" data-at="4400" data-fx="draw" style="--len:320"></rect>
+				</svg>
+				<span class="pin" style="left:43%;top:68%" data-at="1700" data-fx="pop">1</span>
+				<span class="pin" style="left:93%;top:76%" data-at="5200" data-fx="pop">2</span>
+				<span class="pin pin--other" style="left:9%;top:52%" data-at="6600" data-fx="pop">1</span>
+			</div>
+		</section>
+
+		<aside class="side">
+			<p class="a-label">Screen 3: choose items and reason</p>
+			<div class="verdicts">
+				{
+					verdicts.map((v) => (
+						<span class:list={['verdict', v === 'Keep with changes' && 'pickable']} {...(v === 'Keep with changes' ? { 'data-at': '8200', 'data-fx': 'pick' } : {})}>
+							{v}
+						</span>
+					))
+				}
+			</div>
+			<div class="threads">
+				<div class="note" data-at="1900">
+					<span class="pin pin--inline">1</span>
+					<p data-at="2000" data-type data-speed="24">Make the reason optional. Most people skip it at the counter.</p>
+				</div>
+				<div class="note" data-at="5300">
+					<span class="pin pin--inline">2</span>
+					<p data-at="5400" data-type data-speed="24">Say what happens next, like "Continue to label".</p>
+				</div>
+			</div>
+			<div class="layers">
+				<p class="a-label">Reviewers' marks</p>
+				<span class="layer is-on-static"><i class="a-av" style="--c:#0f7b6c">AL</i> Yours <b>2</b></span>
+				<span class="layer" data-at="6500" data-fx="pick"><i class="a-av" style="--c:#b05d1a">MC</i> Marcus Chen <b>1</b></span>
+				<span class="layer"><i class="a-av" style="--c:#285ec6">PN</i> Priya Natarajan <b>3</b></span>
+			</div>
+		</aside>
+		<i class="cursor" data-path="0:30,40 900:41,72 1700:click 3500:16,13 3900:click 4300:76,82 4900:91,90 5200:click 6100:79,80 6500:click 7600:82,24 8150:click"></i>
+	</div>
+</Demo>
+
+<style>
+	.rv-top {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		height: 50px;
+		padding: 0 16px;
+		background: var(--a-surface);
+		border-bottom: 1px solid var(--a-line);
+	}
+	.rv-top b {
+		font-weight: 650;
+	}
+	.steps {
+		display: flex;
+		gap: 4px;
+		margin: 0 0 0 16px;
+		padding: 0;
+		list-style: none;
+		font-size: 12px;
+		color: var(--a-muted);
+	}
+	.steps li {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 4px 10px 4px 5px;
+		border-radius: 999px;
+	}
+	.steps i {
+		display: grid;
+		place-items: center;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: var(--a-tint);
+		font-style: normal;
+		font-size: 10px;
+		font-weight: 700;
+	}
+	.steps .is-done i {
+		background: var(--a-ok);
+		color: #fff;
+	}
+	.steps .is-current {
+		background: var(--a-accent-soft);
+		color: var(--a-accent);
+		font-weight: 600;
+	}
+	.steps .is-current i {
+		background: var(--a-accent);
+		color: #fff;
+	}
+	.autosave {
+		margin-left: auto;
+		color: var(--a-ok);
+		font-weight: 600;
+	}
+	.rv {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr 268px;
+		height: calc(625px - 50px);
+	}
+	.canvas {
+		padding: 12px 14px;
+	}
+	.tools {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		margin-bottom: 10px;
+	}
+	.tool {
+		padding: 4px 10px;
+		border: 1px solid var(--a-line);
+		border-radius: 7px;
+		background: var(--a-surface);
+		font-size: 12px;
+		transition: background-color 0.25s ease, color 0.25s ease;
+	}
+	.tool.is-picked,
+	.tool.is-on {
+		background: var(--a-accent);
+		border-color: var(--a-accent);
+		color: #fff;
+	}
+	.tools:has(.is-on) .tool.is-picked {
+		background: var(--a-surface);
+		color: var(--a-ink);
+		border-color: var(--a-line);
+	}
+	.counter {
+		margin-left: auto;
+	}
+	.screen {
+		position: relative;
+		height: 448px;
+		border-radius: 10px;
+		overflow: hidden;
+		border: 1px solid var(--a-line);
+		box-shadow: var(--a-shadow);
+	}
+	.marks {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.pin {
+		position: absolute;
+		display: grid;
+		place-items: center;
+		width: 24px;
+		height: 24px;
+		margin: -12px 0 0 -12px;
+		border-radius: 50% 50% 50% 0;
+		transform-origin: 0 100%;
+		background: #f2b636;
+		color: #07111f;
+		font-size: 11px;
+		font-weight: 800;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+	.pin--other {
+		background: #e2803a;
+	}
+	.pin--inline {
+		position: static;
+		margin: 0;
+		flex: none;
+		width: 20px;
+		height: 20px;
+		font-size: 10px;
+	}
+	.side {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding: 14px;
+		border-left: 1px solid var(--a-line);
+		background: var(--a-surface);
+	}
+	.verdicts {
+		display: grid;
+		gap: 6px;
+	}
+	.verdict {
+		padding: 7px 10px;
+		border: 1px solid var(--a-line);
+		border-radius: 8px;
+		font-size: 12.5px;
+		transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+	}
+	.verdict.is-on {
+		border-color: var(--a-warn);
+		background: var(--a-warn-soft);
+		color: var(--a-warn);
+		font-weight: 650;
+	}
+	.threads {
+		display: grid;
+		gap: 8px;
+	}
+	.note {
+		display: flex;
+		gap: 8px;
+		padding: 8px;
+		border-radius: 8px;
+		background: var(--a-soft);
+		font-size: 12.5px;
+	}
+	.note p {
+		min-height: 2.8em;
+	}
+	.layers {
+		display: grid;
+		gap: 6px;
+		margin-top: auto;
+	}
+	.layer {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		padding: 5px 8px;
+		border: 1px solid var(--a-line);
+		border-radius: 8px;
+		font-size: 12px;
+		color: var(--a-muted);
+		transition: color 0.3s ease, border-color 0.3s ease;
+	}
+	.layer i {
+		font-style: normal;
+	}
+	.layer b {
+		margin-left: auto;
+	}
+	.layer.is-on,
+	.layer.is-on-static {
+		color: var(--a-ink);
+		border-color: var(--a-line-2);
+	}
+</style>

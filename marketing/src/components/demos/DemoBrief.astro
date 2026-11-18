@@ -1,0 +1,211 @@
+---
+import Demo from './Demo.astro';
+import AppTop from './AppTop.astro';
+
+const fields = [
+	['Objective', 'Let customers start and track returns online, without calling support.'],
+	['Current state', 'Returns are phoned in. Support logs about 1,900 return calls a month.'],
+	['Proposed solution', 'A returns flow in the customer portal: find the order, pick the items, print a label or choose a store.'],
+	['Benefits', 'Fewer calls, faster refunds, and return reasons captured for merchandising.'],
+	['Success metrics', 'Return calls down 40% in the pilot stores by June.'],
+];
+---
+
+<Demo label="The AI Workspace, docked beside the project, writes the brief from a short description. The reply lists the change with Undo." url="odinpmp.com/app/projects/customer-portal">
+	<AppTop crumbs={['Harbor & Pine', 'Customer Portal Relaunch']} />
+	<div class="ws">
+		<section class="page">
+			<article class="a-card brief">
+				<header class="brief__head">
+					<p class="a-label">Project brief</p>
+					<h5>Customer Portal Relaunch</h5>
+				</header>
+				<dl>
+					{
+						fields.map(([label, value], i) => (
+							<div class="field" data-at={String(3600 + i * 520)}>
+								<dt class="a-label">{label}</dt>
+								<dd>{value}</dd>
+							</div>
+						))
+					}
+					<div class="field" data-at="6300">
+						<dt class="a-label">Stakeholders</dt>
+						<dd class="people">
+							<span><i class="a-av" style="--c:#0f7b6c">AL</i> Ava Lindqvist, Customer care</span>
+							<span><i class="a-av" style="--c:#b05d1a">MC</i> Marcus Chen, Stores</span>
+							<span><i class="a-av" style="--c:#285ec6">PN</i> Priya Natarajan, Finance</span>
+						</dd>
+					</div>
+				</dl>
+				<p class="more a-small a-muted" data-at="6700">
+					Also filled in: implementation effort, requirements, dependencies and assumptions. Constraints is still empty.
+				</p>
+			</article>
+		</section>
+
+		<section class="dock">
+			<p class="a-label">AI Workspace</p>
+			<div class="msg msg--me">
+				<p data-at="250" data-type data-speed="16">
+					Harbor & Pine wants customers to start returns online instead of calling support. Pilot in the Pacific
+					Northwest stores by March. Write the brief.
+				</p>
+			</div>
+			<div class="working a-small">
+				<span data-at="2400" data-off="3300"><i class="spin"></i> Reading the project overview</span>
+				<span data-at="3300" data-off="7700"><i class="spin"></i> Updating project brief</span>
+			</div>
+			<div class="reply" data-at="7800">
+				<p class="a-small a-muted">Used 2 tools</p>
+				<p>I wrote the brief from your description. Constraints is still empty: is March a hard date?</p>
+				<div class="changes">
+					<div class="changes__head">
+						<span class="changes__toggle" data-at="9000" data-off="9350" data-fx="press">Made 1 change in Odin</span>
+						<span class="changes__undo">Undo</span>
+					</div>
+					<p class="changes__item a-small" data-at="9200">
+						Updated the project brief: objective, current state, proposed solution, benefits, implementation effort,
+						stakeholders, requirements, dependencies, success metrics, assumptions
+					</p>
+				</div>
+			</div>
+			<div class="composer a-input a-muted">Ask a question or say what to change</div>
+		</section>
+		<i class="cursor" data-path="0:80,96 8300:68,47 8950:click"></i>
+	</div>
+</Demo>
+
+<style>
+	.ws {
+		display: grid;
+		grid-template-columns: 58% 42%;
+		height: calc(625px - 44px);
+	}
+	.page {
+		position: relative;
+		padding: 16px 18px;
+		overflow: hidden;
+	}
+	.brief {
+		padding: 12px 14px;
+	}
+	.brief__head {
+		display: grid;
+		gap: 2px;
+		margin-bottom: 10px;
+	}
+	dl {
+		display: grid;
+		gap: 7px;
+		margin: 0;
+	}
+	.field {
+		display: grid;
+		grid-template-columns: 112px 1fr;
+		gap: 10px;
+		padding-bottom: 7px;
+		border-bottom: 1px solid var(--a-line);
+	}
+	dd {
+		margin: 0;
+		font-size: 12.5px;
+	}
+	.people {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 12px;
+	}
+	.people span {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+	}
+	.people .a-av {
+		width: 18px;
+		height: 18px;
+		font-size: 8px;
+		font-style: normal;
+	}
+	.more {
+		margin-top: 8px;
+	}
+	.dock {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding: 14px 16px;
+		border-left: 1px solid var(--a-line);
+		background: var(--a-surface);
+	}
+	.msg--me {
+		display: flex;
+		justify-content: flex-end;
+	}
+	.msg--me p {
+		max-width: 88%;
+		min-height: 2.9em;
+		padding: 9px 12px;
+		border-radius: 10px 10px 3px 10px;
+		background: var(--a-accent-soft);
+		font-size: 13px;
+	}
+	.working {
+		display: grid;
+		color: var(--a-muted);
+	}
+	.working > span {
+		grid-area: 1 / 1;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.spin {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		border: 2px solid var(--a-line-2);
+		border-top-color: var(--a-accent);
+		animation: spin 0.8s linear infinite;
+	}
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	.reply {
+		display: grid;
+		gap: 8px;
+		font-size: 13px;
+	}
+	.changes {
+		display: grid;
+		gap: 6px;
+		padding: 8px 10px;
+		border: 1px solid var(--a-line);
+		border-radius: 10px;
+	}
+	.changes__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+	}
+	.changes__toggle {
+		padding: 2px 6px;
+		margin-left: -6px;
+		border-radius: 6px;
+		color: var(--a-ink-2);
+		transition: transform 0.15s ease;
+	}
+	.changes__undo {
+		color: var(--a-accent);
+		font-weight: 600;
+	}
+	.changes__item {
+		color: var(--a-ink-2);
+	}
+	.composer {
+		margin-top: auto;
+	}
+</style>

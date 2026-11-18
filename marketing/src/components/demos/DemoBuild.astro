@@ -1,0 +1,255 @@
+---
+import Demo from './Demo.astro';
+import AppTop from './AppTop.astro';
+
+const criteria = [
+	['Customers can find an order by email or phone.', 'D-05'],
+	['The return reason is optional.', 'D-07'],
+	["Store drop-offs don't need a printed label.", 'D-09'],
+];
+---
+
+<Demo label="An approved plan, whose acceptance criteria cite decisions, becomes stories on the sprint board." url="odinpmp.com/app/projects/customer-portal/kanban">
+	<AppTop crumbs={['Harbor & Pine', 'Customer Portal Relaunch']} tabs={['Plan', 'Sprints', 'Board', 'Requirements', 'Tickets', 'Insights']} current="Board" />
+	<div class="bd">
+		<section class="a-card plan">
+			<header class="plan__head">
+				<h5>Plan: Experience track</h5>
+				<span class="a-chip a-chip--ok">Approved</span>
+			</header>
+			<p class="a-label">Acceptance criteria</p>
+			<ul>
+				{
+					criteria.map(([text, id]) => (
+						<li>
+							<span>{text}</span>
+							<span class="cite">{id}</span>
+						</li>
+					))
+				}
+			</ul>
+			<p class="a-small a-muted">Odin proposes stories for any criterion the plan doesn't cover yet. They wait in the AI Workspace for review.</p>
+			<span class="a-btn a-btn--primary propose" data-at="1300" data-fx="press">Propose work</span>
+			<div class="proposed" data-at="1700">
+				<span class="a-chip a-chip--accent">3 stories proposed</span>
+				<span class="a-chip a-chip--ok" data-at="2900">Applied</span>
+			</div>
+		</section>
+
+		<section class="board">
+			<header class="sprint">
+				<b>Sprint 15</b>
+				<span class="a-small a-muted">Oct 13 to Oct 24</span>
+				<span class="bar"><i data-at="3200" data-fx="grow"></i></span>
+				<span class="a-small"><b data-at="3200" data-count="21" data-fx="none">0</b> of 34 points done</span>
+			</header>
+			<div class="cols">
+				<div class="col">
+					<h5>To do <i>4</i></h5>
+					<div class="card new" data-at="2100" data-fx="drop"><span>Look up orders by email or phone</span><footer><b>5</b><span class="a-av" style="--c:#0f7b6c">SO</span></footer></div>
+					<div class="card new" data-at="2350" data-fx="drop"><span>Store drop-off without a label</span><footer><b>8</b><span class="a-av" style="--c:#b8325e">DR</span></footer></div>
+					<div class="card ghost-slot"></div>
+					<div class="card"><span>Refund status emails</span><footer><b>3</b><span class="a-av" style="--c:#285ec6">PN</span></footer></div>
+				</div>
+				<div class="col">
+					<h5>In progress <i>2</i></h5>
+					<div class="card"><span>Order history page</span><footer><b>5</b><span class="a-av" style="--c:#7c4ddb">LP</span></footer></div>
+					<div class="card"><span>Label printing service</span><footer><b>8</b><span class="a-av" style="--c:#b05d1a">MC</span></footer></div>
+				</div>
+				<div class="col">
+					<h5>In review <i>1</i></h5>
+					<div class="card"><span>Returns policy page</span><footer><b>2</b><span class="a-av" style="--c:#0f7b6c">SO</span></footer></div>
+				</div>
+				<div class="col">
+					<h5>Done <i>5</i></h5>
+					<div class="card done"><span>Sign in with order email</span><footer><b>5</b></footer></div>
+					<div class="card done"><span>Portal shell and navigation</span><footer><b>8</b></footer></div>
+					<div class="card done"><span>Order lookup API</span><footer><b>8</b></footer></div>
+				</div>
+			</div>
+			<div class="mover-a" data-at="4300" data-fx="state">
+				<div class="mover-b" data-at="6000" data-fx="state">
+					<div class="card moving" data-at="2600" data-fx="drop">
+						<span>Make the return reason optional</span>
+						<footer><span class="cite">D-07</span><b>3</b><span class="a-av" style="--c:#7c4ddb">LP</span></footer>
+					</div>
+				</div>
+			</div>
+		</section>
+		<i class="cursor" data-path="0:20,60 600:9,62 1250:click 3700:41,61 4300:58,58 6000:76,45"></i>
+	</div>
+</Demo>
+
+<style>
+	.bd {
+		position: relative;
+		display: grid;
+		grid-template-columns: 300px 1fr;
+		gap: 14px;
+		padding: 14px;
+		height: calc(625px - 44px - 35px);
+	}
+	.plan {
+		display: flex;
+		flex-direction: column;
+		gap: 9px;
+		padding: 14px;
+		align-self: start;
+	}
+	.plan__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	ul {
+		display: grid;
+		gap: 6px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	li {
+		display: flex;
+		justify-content: space-between;
+		gap: 8px;
+		padding: 7px 9px;
+		border-radius: 8px;
+		background: var(--a-soft);
+		font-size: 12.5px;
+	}
+	.cite {
+		align-self: start;
+		padding: 1px 6px;
+		border-radius: 5px;
+		background: #f2b636;
+		color: #07111f;
+		font-family: var(--font-mono);
+		font-size: 10px;
+		font-weight: 700;
+		white-space: nowrap;
+	}
+	.propose {
+		align-self: flex-start;
+	}
+	.proposed {
+		display: flex;
+		gap: 6px;
+	}
+	.board {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.sprint {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 8px 12px;
+		border-radius: 10px;
+		background: var(--a-surface);
+		border: 1px solid var(--a-line);
+	}
+	.bar {
+		flex: 1;
+		height: 6px;
+		border-radius: 3px;
+		background: var(--a-tint);
+		overflow: hidden;
+	}
+	.bar i {
+		display: block;
+		width: 0;
+		height: 100%;
+		background: var(--a-accent);
+		transition: width 1.2s var(--ease-out);
+	}
+	.bar i.is-on {
+		width: 62%;
+	}
+	.cols {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 10px;
+		flex: 1;
+	}
+	.col {
+		display: flex;
+		flex-direction: column;
+		gap: 7px;
+		padding: 9px;
+		border-radius: 10px;
+		background: color-mix(in srgb, var(--a-tint) 55%, transparent);
+	}
+	.col h5 {
+		display: flex;
+		justify-content: space-between;
+		font-size: 12px;
+		margin-bottom: 2px;
+	}
+	.col h5 i {
+		font-style: normal;
+		color: var(--a-muted);
+	}
+	.card {
+		display: grid;
+		gap: 6px;
+		padding: 8px 9px;
+		border-radius: 8px;
+		background: var(--a-surface);
+		border: 1px solid var(--a-line);
+		font-size: 12px;
+		font-weight: 550;
+		box-shadow: 0 2px 6px rgba(7, 17, 31, 0.05);
+	}
+	.card footer {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+	.card footer b {
+		margin-left: auto;
+		padding: 0 6px;
+		border-radius: 5px;
+		background: var(--a-tint);
+		font-size: 10.5px;
+	}
+	.card footer .a-av {
+		width: 18px;
+		height: 18px;
+		font-size: 8px;
+	}
+	.card.done span:first-child {
+		color: var(--a-muted);
+		text-decoration: line-through;
+		text-decoration-color: var(--a-line-2);
+	}
+	.ghost-slot {
+		height: 80px;
+		visibility: hidden;
+	}
+	.new {
+		box-shadow: 0 0 0 1.5px var(--a-accent-soft), 0 2px 6px rgba(7, 17, 31, 0.05);
+	}
+	/* The story that travels across the board. Column width is (686 - 30) / 4 + 10. */
+	.mover-a {
+		position: absolute;
+		left: 9px;
+		top: 247px;
+		width: calc((100% - 30px) / 4 - 18px);
+		transition: transform 1s var(--ease-in-out);
+	}
+	.mover-a.is-on {
+		transform: translate(174px, -17px);
+	}
+	.mover-b {
+		transition: transform 1s var(--ease-in-out);
+	}
+	.mover-b.is-on {
+		transform: translate(174px, -83px);
+	}
+	.moving {
+		border-color: #f2b636;
+		box-shadow: 0 0 0 2px rgba(242, 182, 54, 0.3), 0 10px 24px rgba(7, 17, 31, 0.15);
+	}
+</style>

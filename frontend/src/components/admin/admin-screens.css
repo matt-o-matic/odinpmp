@@ -1,0 +1,87 @@
+/* Shared layout for the focused tenant admin screens (compliance, ticket lists).
+   Follows the IntegrationAdminView / TicketsView visual language with readable class names. */
+
+.adm-page { padding: 1rem 1.5rem 2rem; border-radius: 0.5rem; background: var(--bs-body-bg); font-size: 0.875rem; line-height: 1.25; }
+.adm-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+.adm-header h1 { margin: 0; font-size: 1.375rem; line-height: 1.2; }
+.adm-header p { margin: 0.25rem 0 0; color: var(--bs-secondary-color); }
+.adm-header-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.adm-tabs { display: flex; gap: 0.25rem; margin-bottom: 1rem; overflow-x: auto; border-bottom: 1px solid var(--bs-border-color); }
+.adm-tabs a { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.75rem; padding: 0.5rem 0.75rem; border-bottom: 0.15rem solid transparent; color: var(--bs-secondary-color); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.adm-tabs a:hover { color: var(--bs-body-color); }
+.adm-tabs a.active { border-color: var(--bs-primary); color: var(--bs-body-color); }
+
+.adm-section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.75rem; }
+.adm-section-head h2 { margin: 0; font-size: 1.125rem; line-height: 1.2; }
+.adm-section-head p { flex-basis: 100%; margin: 0; color: var(--bs-secondary-color); }
+
+.adm-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 0.5rem; margin-bottom: 0.75rem; }
+.adm-toolbar label { display: grid; gap: 0.25rem; min-width: 10rem; font-size: 0.75rem; font-weight: 600; }
+.adm-toolbar label.adm-grow { flex: 1; min-width: 14rem; }
+.adm-page .form-control,
+.adm-page .form-select { min-height: 2.75rem; font-size: 0.875rem; }
+.adm-page .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem; min-height: 2.75rem; }
+
+.adm-table-wrap { overflow-x: auto; border: 1px solid var(--bs-border-color); border-radius: 0.5rem; }
+.adm-table { width: 100%; margin: 0; border-collapse: collapse; font-size: 0.875rem; }
+.adm-table th,
+.adm-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--bs-border-color); text-align: left; vertical-align: middle; }
+.adm-table th { color: var(--bs-secondary-color); font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.adm-table tbody tr:last-child td { border-bottom: 0; }
+.adm-table td small { display: block; margin-top: 0.125rem; color: var(--bs-secondary-color); font-size: 0.75rem; }
+.adm-table .adm-detail-row td { background: var(--bs-tertiary-bg); }
+.adm-clamp { display: -webkit-box; max-width: 32rem; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow-wrap: anywhere; }
+
+.adm-pill { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.125rem 0.5rem; border: 1px solid var(--bs-border-color); border-radius: 999px; font-size: 0.75rem; white-space: nowrap; }
+.adm-pill--active { border-color: var(--bs-success-border-subtle); background: var(--bs-success-bg-subtle); color: var(--bs-success-text-emphasis); }
+.adm-pill--warning { border-color: var(--bs-warning-border-subtle); background: var(--bs-warning-bg-subtle); color: var(--bs-warning-text-emphasis); }
+.adm-pill--muted { color: var(--bs-secondary-color); }
+
+.adm-actions { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.adm-icon-button { width: 2.75rem; padding: 0; }
+.adm-empty { margin: 0; padding: 1rem; color: var(--bs-secondary-color); text-align: center; }
+.adm-pagination { display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; margin-top: 0.75rem; }
+.adm-mono { font-family: var(--bs-font-monospace); font-size: 0.75rem; overflow-wrap: anywhere; }
+/* Bootstrap colours <code> pink, which is under 4.5:1 on the shared code background. */
+.adm-page code { color: var(--bs-body-color); }
+
+.adm-dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: 0.75rem; margin: 0; }
+.adm-dl > div { padding: 0.75rem; border: 1px solid var(--bs-border-color); border-radius: 0.5rem; }
+.adm-dl dt { color: var(--bs-secondary-color); font-size: 0.75rem; font-weight: 600; }
+.adm-dl dd { margin: 0.25rem 0 0; }
+.adm-detail { display: grid; gap: 0.5rem; padding: 0.25rem 0; }
+.adm-detail h3 { margin: 0; font-size: 0.875rem; font-weight: 600; }
+.adm-detail p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.adm-detail ul { margin: 0; padding-inline-start: 1.1rem; }
+
+.adm-page :focus-visible { outline: 3px solid color-mix(in srgb, var(--bs-primary) 65%, transparent); outline-offset: 2px; }
+
+/* Dialog content (RequirementsDialog with class="adm-dialog"). */
+.adm-dialog { width: min(38rem, calc(100vw - 2rem)); }
+.adm-dialog .rq-dialog__form { max-height: calc(100dvh - 2rem); overflow-y: auto; }
+.adm-dialog .form-control,
+.adm-dialog .form-select { min-height: 2.75rem; font-size: 0.875rem; }
+.adm-dialog .primary-button,
+.adm-dialog .ghost-button { min-height: 2.75rem; }
+.adm-dialog .rq-field__hint { font-size: 0.75rem; }
+.adm-dialog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.adm-field-error { margin: 0; color: var(--bs-danger-text-emphasis); font-size: 0.75rem; font-weight: 600; }
+.adm-check { display: flex; align-items: flex-start; gap: 0.5rem; min-height: 2.75rem; padding: 0.5rem 0; font-size: 0.875rem; }
+.adm-check input { width: 1.125rem; height: 1.125rem; margin-top: 0.1rem; flex-shrink: 0; }
+.adm-consequences { margin: 0; padding-inline-start: 1.1rem; font-size: 0.875rem; }
+.adm-danger-button { border-color: #8f1b13; background: #b42318; box-shadow: none; }
+
+@media (max-width: 42rem) {
+  .adm-page { padding: 0.75rem; }
+  .adm-header { display: grid; }
+  .adm-header-actions .btn { flex: 1; }
+  .adm-toolbar { display: grid; grid-template-columns: 1fr 1fr; }
+  .adm-toolbar label,
+  .adm-toolbar label.adm-grow { min-width: 0; }
+  .adm-toolbar label.adm-grow { grid-column: 1 / -1; }
+  .adm-table th,
+  .adm-table td { padding: 0.5rem; }
+  .adm-dialog-grid { grid-template-columns: 1fr; }
+  .adm-pagination { justify-content: space-between; }
+}

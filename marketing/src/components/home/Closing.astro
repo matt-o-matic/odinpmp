@@ -1,0 +1,118 @@
+---
+import { stations } from '../../data/loop';
+---
+
+<section class="closing-cta" aria-labelledby="closing-title">
+	<svg class="closing-cta__ring" viewBox="-320 -110 640 220" aria-hidden="true">
+		<ellipse rx="300" ry="86" class="ring"></ellipse>
+		{
+			stations.map((station, i) => {
+				const a = (i / stations.length) * Math.PI * 2 + Math.PI / 2;
+				const x = Math.cos(a) * 300;
+				const y = Math.sin(a) * 86;
+				return (
+					<g class="stop">
+						<circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="3.5" />
+						<text x={x.toFixed(1)} y={(y + (y >= 0 ? 22 : -12)).toFixed(1)} text-anchor="middle">
+							{station.label}
+						</text>
+					</g>
+				);
+			})
+		}
+		<g class="traveler">
+			<rect x="-7" y="-7" width="14" height="14" rx="1.5" transform="rotate(45)"></rect>
+		</g>
+	</svg>
+	<div class="wrap closing-cta__copy">
+		<h2 id="closing-title">Bring us your next project.</h2>
+		<p>Tell us what you build and who you build it with. Someone on the team reads every request.</p>
+		<div class="closing-cta__actions">
+			<a class="btn" href="/signup">Request access</a>
+			<a class="btn btn--quiet" href="/app/login">Sign in</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.closing-cta {
+		position: relative;
+		padding-block: clamp(6rem, 14vw, 12rem);
+		overflow: clip;
+		text-align: center;
+		isolation: isolate;
+	}
+	.closing-cta::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+		background: radial-gradient(50% 50% at 50% 55%, var(--ice-soft), transparent 70%);
+	}
+	.closing-cta__ring {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		z-index: -1;
+		width: min(1200px, 120vw);
+		transform: translate(-50%, -46%);
+		overflow: visible;
+	}
+	.ring {
+		fill: none;
+		stroke: var(--line-2);
+		stroke-width: 1;
+	}
+	.stop circle {
+		fill: var(--ice);
+	}
+	.stop text {
+		fill: var(--muted);
+		font-family: var(--font-body);
+		font-size: 11px;
+	}
+	.traveler {
+		offset-path: path('M 0 86 A 300 86 0 1 1 0.1 86 Z');
+		offset-rotate: 0deg;
+		animation: orbit 16s linear infinite;
+	}
+	.traveler rect {
+		fill: var(--gold);
+		filter: drop-shadow(0 0 8px var(--gold-glow));
+	}
+	@keyframes orbit {
+		to {
+			offset-distance: 100%;
+		}
+	}
+	.closing-cta__copy {
+		display: grid;
+		justify-items: center;
+		gap: 1.5rem;
+	}
+	.closing-cta h2 {
+		max-width: 14ch;
+		font-size: var(--step-5);
+		font-weight: 800;
+		letter-spacing: -0.035em;
+		line-height: 0.95;
+	}
+	.closing-cta p {
+		max-width: 52ch;
+		color: var(--ink-2);
+		font-size: var(--step-1);
+	}
+	.closing-cta__actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-top: 0.5rem;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.traveler {
+			animation: none;
+			offset-distance: 0%;
+		}
+	}
+</style>

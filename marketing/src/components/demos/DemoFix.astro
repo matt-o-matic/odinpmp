@@ -1,0 +1,267 @@
+---
+import Demo from './Demo.astro';
+
+const steps = [
+	{ at: 700, text: 'Triaged: fatal error on /returns/items, investigate now' },
+	{ at: 1400, text: 'No existing issue or pull request covers it' },
+	{ at: 2100, text: 'Worktree fix/br-142 on an enrolled developer machine' },
+	{ at: 5900, text: 'Verified: focused test and a WebKit browser test' },
+	{ at: 6500, text: 'Pull request #318 opened with the test evidence' },
+	{ at: 7700, text: 'Copilot raised 1 medium finding, repaired' },
+	{ at: 8500, text: 'Review-clear' },
+	{ at: 9500, text: 'Merged by Lee Park. Incident and BR-142 closed', merged: true },
+];
+---
+
+<Demo label="FaultLine investigates the bug in an isolated worktree, verifies the fix, opens a pull request and, once a person merges it, emails the reporter." url="faultline.odinpmp.com/incidents/INC-2291">
+	<div class="fl">
+		<header class="fl-top">
+			<span class="logo"><i></i>FaultLine</span>
+			<span class="crumb">Incidents / INC-2291</span>
+			<span class="state">
+				<span class="a-chip a-chip--warn" data-at="0" data-off="9500" data-fx="swap">Investigating</span>
+				<span class="a-chip a-chip--merged" data-at="9500" data-fx="swap">Closed: fixed</span>
+			</span>
+		</header>
+		<div class="fl-title">
+			<h4>Continue to label does nothing</h4>
+			<p class="chips">
+				<span class="a-chip a-chip--accent">From Bug Reporter BR-142</span>
+				<span class="a-chip a-chip--bad">Fatal</span>
+				<span class="a-chip">Safari on macOS</span>
+				<span class="a-chip">harbor-portal</span>
+			</p>
+		</div>
+		<div class="fl-body">
+			<ol class="timeline">
+				{
+					steps.map((step) => (
+						<li class:list={[step.merged && 'merged']} data-at={String(step.at)} data-fx="tick">
+							<i />
+							<span>{step.text}</span>
+						</li>
+					))
+				}
+			</ol>
+			<div class="right">
+				<div class="a-term term">
+					<p data-at="2200"><span class="dim">$</span> git worktree add ../fix-br-142 -b fix/br-142</p>
+					<p data-at="2700"><span class="dim">agent</span> Reading src/returns/items.js and the console log from BR-142</p>
+					<p data-at="3300"><span class="dim">agent</span> Safari restores the page from its cache before the order loads</p>
+					<p data-at="3900">
+						<span class="del">-  const id = order.orderId;</span>
+						<span class="add">+  const current = order ?? (await loadOrder(params.orderId));</span>
+						<span class="add">+  const id = current.orderId;</span>
+					</p>
+					<p data-at="4700"><span class="dim">$</span> npm test -- returns/items <span class="ok" data-at="5200" data-fx="swap">14 passed</span></p>
+					<p data-at="5300"><span class="dim">$</span> npx playwright test returns --project=webkit <span class="ok" data-at="5800" data-fx="swap">3 passed</span></p>
+				</div>
+				<div class="pr a-card" data-at="6500">
+					<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 3.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm0 2.122a2.25 2.25 0 1 0-1.5 0v5.256a2.25 2.25 0 1 0 1.5 0Zm7.5 5.256V6.5A2.5 2.5 0 0 0 10 4h-.94l1.22-1.22-1.06-1.06L6.19 4.75l3.03 3.03 1.06-1.06L9.06 5.5H10a1 1 0 0 1 1 1v4.128a2.25 2.25 0 1 0 1.5 0Z"></path></svg>
+					<div>
+						<p><b>#318</b> Load the order before Continue to label runs</p>
+						<p class="a-small a-muted">fix/br-142 into main, 2 files, 1 test added</p>
+					</div>
+					<span class="pr-state">
+						<span class="a-chip a-chip--ok" data-at="6500" data-off="8500" data-fx="swap">Open</span>
+						<span class="a-chip a-chip--ok" data-at="8500" data-off="9500" data-fx="swap">Review-clear</span>
+						<span class="a-chip a-chip--merged" data-at="9500" data-fx="swap">Merged</span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<article class="mail" data-at="10300" data-fx="rise">
+			<p class="mail__head"><b>To</b> ava.lindqvist@example.com</p>
+			<p class="mail__head"><b>Subject</b> Your report BR-142 is fixed</p>
+			<p>
+				The Continue to label button works again in Safari. It failed when Safari reopened the page from its cache
+				before your order had loaded. The page now loads the order first. The change is in pull request #318.
+			</p>
+		</article>
+	</div>
+</Demo>
+
+<style>
+	.fl {
+		position: absolute;
+		inset: 0;
+		background: #0b111c;
+		color: #dfe7f3;
+		--a-surface: #121b2b;
+		--a-line: #222f45;
+		--a-line-2: #33435f;
+		--a-muted: #8090a8;
+		--a-ink: #dfe7f3;
+		--a-tint: #1b2638;
+		--a-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+	}
+	.fl-top {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		height: 44px;
+		padding: 0 16px;
+		border-bottom: 1px solid var(--a-line);
+	}
+	.logo {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-weight: 700;
+		letter-spacing: 0.01em;
+	}
+	.logo i {
+		width: 16px;
+		height: 16px;
+		background: linear-gradient(135deg, #ff6b5e 0 48%, transparent 48% 52%, #f2b636 52%);
+		border-radius: 4px;
+	}
+	.crumb {
+		color: var(--a-muted);
+		font-size: 12px;
+	}
+	.state,
+	.pr-state {
+		display: grid;
+		margin-left: auto;
+	}
+	.state > *,
+	.pr-state > * {
+		grid-area: 1 / 1;
+		justify-self: end;
+	}
+	.fl-title {
+		padding: 14px 16px 10px;
+	}
+	.fl-title h4 {
+		font-size: 17px;
+	}
+	.chips {
+		display: flex;
+		gap: 6px;
+		margin-top: 6px;
+	}
+	.fl-body {
+		display: grid;
+		grid-template-columns: 330px 1fr;
+		gap: 14px;
+		padding: 4px 16px 16px;
+	}
+	.timeline {
+		display: grid;
+		gap: 2px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-size: 12.5px;
+	}
+	.timeline li {
+		position: relative;
+		display: flex;
+		gap: 10px;
+		padding: 7px 0 7px 2px;
+		color: var(--a-muted);
+		transition: color 0.4s ease;
+	}
+	.timeline li::before {
+		content: '';
+		position: absolute;
+		left: 9px;
+		top: 26px;
+		bottom: -7px;
+		width: 1.5px;
+		background: var(--a-line);
+	}
+	.timeline li:last-child::before {
+		display: none;
+	}
+	.timeline i {
+		position: relative;
+		flex: none;
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		border: 1.5px solid var(--a-line-2);
+		transition: background-color 0.3s ease, border-color 0.3s ease;
+	}
+	.timeline li.is-on {
+		color: var(--a-ink);
+	}
+	.timeline li.is-on i {
+		background: #3fd08f;
+		border-color: #3fd08f;
+	}
+	.timeline li.is-on i::after {
+		content: '';
+		position: absolute;
+		left: 4.5px;
+		top: 1.5px;
+		width: 4px;
+		height: 8px;
+		border: solid #0b111c;
+		border-width: 0 2px 2px 0;
+		transform: rotate(45deg);
+	}
+	.timeline li.merged.is-on i {
+		background: #a97bff;
+		border-color: #a97bff;
+	}
+	.right {
+		display: grid;
+		align-content: start;
+		gap: 12px;
+	}
+	.term {
+		min-height: 236px;
+		border: 1px solid var(--a-line);
+	}
+	.term p {
+		margin: 0;
+	}
+	.term .ok {
+		margin-left: 6px;
+	}
+	.pr {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 14px;
+		color: var(--a-ink);
+	}
+	.pr svg {
+		color: #3fd08f;
+	}
+	.mail {
+		position: absolute;
+		right: 16px;
+		bottom: 16px;
+		z-index: 5;
+		display: grid;
+		gap: 6px;
+		width: 520px;
+		padding: 14px 16px;
+		border-radius: 12px;
+		background: #ffffff;
+		color: #1a2433;
+		font-size: 12.5px;
+		box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+		opacity: 0;
+		transform: translateY(40px);
+		transition: opacity 0.4s ease, transform 0.8s var(--ease-out);
+	}
+	.mail.is-on {
+		opacity: 1;
+		transform: none;
+	}
+	.mail__head {
+		font-size: 11.5px;
+		color: #5b6678;
+		border-bottom: 1px solid #e6eaf0;
+		padding-bottom: 4px;
+	}
+	.mail__head b {
+		display: inline-block;
+		width: 52px;
+		color: #1a2433;
+	}
+</style>

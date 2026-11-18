@@ -1,0 +1,39 @@
+---
+// A real Odin screenshot in both themes. CSS shows the one that matches the site's theme.
+interface Props {
+	name: string;
+	alt: string;
+	crop?: boolean;
+	eager?: boolean;
+	position?: string;
+}
+const { name, alt, crop = false, eager = false, position = 'left top' } = Astro.props;
+const common = {
+	width: 1600,
+	height: 1000,
+	loading: eager ? ('eager' as const) : ('lazy' as const),
+	decoding: 'async' as const,
+	style: `object-position:${position}`,
+};
+---
+
+<span class:list={['shot', crop && 'shot--crop']}>
+	<img class="only-light" src={`/screens/${name}-light.webp`} alt={alt} {...common} />
+	<img class="only-dark" src={`/screens/${name}-dark.webp`} alt={alt} {...common} />
+</span>
+
+<style>
+	.shot {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.shot img {
+		width: 100%;
+		height: auto;
+	}
+	.shot--crop img {
+		height: 100%;
+		object-fit: cover;
+	}
+</style>

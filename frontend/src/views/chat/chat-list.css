@@ -1,0 +1,17 @@
+/* Mentions and Threads: one list of posts, each opening its thread. */
+.chat-list { display: grid; align-content: start; min-width: 0; }
+.chat-list__body { display: grid; gap: 0.75rem; padding: 0 1rem 1rem; font-size: 0.875rem; }
+.chat-list__note { margin: 0; color: var(--muted); }
+.chat-list__items { display: grid; gap: 0.35rem; margin: 0; padding: 0; list-style: none; }
+.chat-list__item { display: grid; gap: 0.2rem; min-height: 2.75rem; padding: 0.6rem 0.75rem; border: 1px solid var(--line); border-radius: 0.5rem; background: var(--surface); color: var(--ink); text-decoration: none; }
+.chat-list__item:hover { border-color: var(--accent); }
+.chat-list__item:focus-visible { outline: 0.18rem solid var(--accent); outline-offset: 0.1rem; }
+.chat-list__item--new { box-shadow: inset 0.2rem 0 0 var(--accent); }
+.chat-list__meta { display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; color: var(--muted); font-size: 0.8rem; }
+.chat-list__meta strong { color: var(--ink); }
+.chat-list__excerpt { overflow-wrap: anywhere; }
+.chat-list__reply { color: var(--ink-soft); overflow-wrap: anywhere; }
+.chat-list__tag { justify-self: start; padding: 0 0.45rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 0.72rem; font-weight: 600; }
+.chat-list__badge { justify-self: start; padding: 0 0.45rem; border-radius: 999px; background: var(--accent); color: #fff; font-size: 0.72rem; font-weight: 700; }
+.chat-list__more { justify-self: center; min-height: 2.75rem; }
+html.dark .chat-list__badge { color: #0b1220; }

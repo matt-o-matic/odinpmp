@@ -1,0 +1,36 @@
+{
+  "schema": "odin.review-package/v1",
+  "track": "experience",
+  "title": "Scheduling integration options",
+  "summary": "Three ways to keep appointment availability in step with the scheduling vendor. Decision D-08 settled that the vendor owns availability; this round decides how Fieldwork reads and caches it.",
+  "generator": { "tool": "claude-code" },
+  "feedbackDimensions": ["feasibility", "risk", "cost", "operability", { "id": "vendor-lock-in", "label": "Vendor lock-in", "help": "How hard it would be to change vendors later." }],
+  "sections": [
+    {
+      "id": "directions",
+      "type": "directions",
+      "title": "Options",
+      "items": [
+        { "id": "read-through", "title": "Read-through cache", "summary": "Fieldwork calls the vendor on each calendar view and caches results for 5 minutes.", "tradeoffs": "Simple. Slots can be booked by someone else inside the cache window." },
+        { "id": "webhook-sync", "title": "Webhook sync", "summary": "The vendor pushes availability changes; Fieldwork keeps a local copy.", "tradeoffs": "Fast reads. Needs webhook security and replay handling." },
+        { "id": "hold-then-confirm", "title": "Hold, then confirm", "summary": "Read-through cache plus a short vendor-side hold when a client picks a slot.", "tradeoffs": "Prevents double booking. Depends on the vendor supporting holds." }
+      ]
+    },
+    {
+      "id": "flows",
+      "type": "flows",
+      "items": [
+        { "id": "read-through-sequence", "title": "Read-through cache", "mermaid": "sequenceDiagram\n  participant Client\n  participant Fieldwork\n  participant Vendor\n  Client->>Fieldwork: Open calendar\n  Fieldwork->>Vendor: Get availability if cache is older than 5 minutes\n  Vendor-->>Fieldwork: Slots\n  Fieldwork-->>Client: Calendar" },
+        { "id": "hold-sequence", "title": "Hold, then confirm", "mermaid": "sequenceDiagram\n  participant Client\n  participant Fieldwork\n  participant Vendor\n  Client->>Fieldwork: Pick a slot\n  Fieldwork->>Vendor: Hold slot for 10 minutes\n  Vendor-->>Fieldwork: Hold id\n  Client->>Fieldwork: Confirm and pay\n  Fieldwork->>Vendor: Convert hold to booking", "description": "Requires the vendor's hold API, which their docs list as beta." }
+      ]
+    },
+    {
+      "id": "questions",
+      "type": "questions",
+      "items": [
+        { "id": "double-booking-tolerance", "prompt": "How often can a client see a slot that is already gone?", "kind": "single", "options": [ { "id": "never", "label": "Never" }, { "id": "rarely", "label": "Rarely, with a clear message" }, { "id": "acceptable", "label": "Acceptable if it is fixed at confirm" } ] },
+        { "id": "vendor-hold-api", "prompt": "Can we depend on the vendor's beta hold API for launch?", "kind": "text" }
+      ]
+    }
+  ]
+}

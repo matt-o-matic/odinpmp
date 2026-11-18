@@ -1,0 +1,560 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const apiBase = import.meta.env.PUBLIC_API_BASE_URL ?? 'http://localhost:3001';
+---
+
+<Layout
+	title="OdinPMP // Waitlist // Strike First"
+	description="Apply for early access to the rebuilt, AI-first OdinPMP. We seat the first cohort by hand."
+>
+	<Nav current="signup" />
+
+	<main id="main" class="page">
+		<section class="hero">
+			<div class="hero__index mono">§ 00 // ENLISTMENT</div>
+			<h1 class="hero__title display">
+				STRIKE<br />
+				<span class="hero__title-accent">FIRST.</span>
+			</h1>
+			<p class="hero__sub">
+				<span class="serif-it">The first cohort is seated by hand.</span> Tell us what you build, who
+				you build it with, and what your current PM tool refuses to do. We will read every entry.
+			</p>
+		</section>
+
+		<section class="panel">
+			<div class="panel__left">
+				<div class="left__stamp mono">
+					<span>DRAFT</span>
+					<strong>v0/forge</strong>
+					<span>MMXXVI</span>
+				</div>
+
+				<ul class="left__list">
+					<li>
+						<span class="left__num display">01</span>
+						<div>
+							<h3 class="left__h display">We read every entry.</h3>
+							<p class="left__p">
+								No autoresponder roulette. A founder lays eyes on every signup before the cohort
+								closes.
+							</p>
+						</div>
+					</li>
+					<li>
+						<span class="left__num display">02</span>
+						<div>
+							<h3 class="left__h display">Your data, your tenant.</h3>
+							<p class="left__p">
+								Multi-tenant on day one. Your AI keys. Your prompts. Your isolation boundary.
+							</p>
+						</div>
+					</li>
+					<li>
+						<span class="left__num display">03</span>
+						<div>
+							<h3 class="left__h display">No spam, no resale.</h3>
+							<p class="left__p">
+								We use your answers to shape v1. That's it. No newsletter sign-up trickery.
+							</p>
+						</div>
+					</li>
+				</ul>
+
+				<div class="left__art" aria-hidden="true">
+					<img src="/images/signup-anvil.jpg" alt="" loading="lazy" />
+					<div class="left__art-tag mono">FIG_02 // ANVIL</div>
+				</div>
+			</div>
+
+			<form class="form" id="waitlist-form" novalidate>
+				<div class="form__head">
+					<div class="form__id mono">FORM_A / WAITLIST</div>
+					<div class="form__dots" aria-hidden="true">
+						<span></span><span></span><span></span>
+					</div>
+				</div>
+
+				<div class="field">
+					<label for="name" class="mono">01 / NAME</label>
+					<input id="name" name="name" autocomplete="name" required placeholder="Your name" />
+				</div>
+
+				<div class="field">
+					<label for="email" class="mono">02 / WORK EMAIL</label>
+					<input
+						id="email"
+						name="email"
+						type="email"
+						autocomplete="email"
+						required
+						placeholder="you@company.com"
+					/>
+				</div>
+
+				<div class="field">
+					<label for="company" class="mono">03 / COMPANY</label>
+					<input id="company" name="company" autocomplete="organization" placeholder="The org" />
+				</div>
+
+				<div class="split">
+					<div class="field">
+						<label for="companySize" class="mono">04 / SIZE</label>
+						<select id="companySize" name="companySize">
+							<option value="">Select one</option>
+							<option value="1-10">1–10</option>
+							<option value="11-50">11–50</option>
+							<option value="51-200">51–200</option>
+							<option value="201-1000">201–1000</option>
+							<option value="1000+">1000+</option>
+						</select>
+					</div>
+
+					<div class="field">
+						<label for="industry" class="mono">05 / DOMAIN</label>
+						<input id="industry" name="industry" placeholder="What you build" />
+					</div>
+				</div>
+
+				<div class="field">
+					<label for="comments" class="mono">06 / WHAT'S BROKEN?</label>
+					<textarea
+						id="comments"
+						name="comments"
+						rows="5"
+						placeholder="What does your current PM tool refuse to do? Be specific. Be mean."
+					></textarea>
+				</div>
+
+				<label class="checkbox">
+					<input id="betaInterest" name="betaInterest" type="checkbox" />
+					<span class="checkbox__box" aria-hidden="true">✕</span>
+					<span class="checkbox__label">Put me in the first beta. I will tolerate rough edges.</span>
+				</label>
+
+				<p class="status mono" id="form-status" aria-live="polite"></p>
+
+				<div class="actions">
+					<button class="submit" type="submit">
+						<span>ENLIST</span>
+						<span aria-hidden="true">→</span>
+					</button>
+					<a class="secondary mono" href="/">← BACK TO INDEX</a>
+				</div>
+				<p class="form__privacy">
+					We use your details to review your waitlist request. See our
+					<a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms of Service</a>.
+				</p>
+
+				<noscript>
+					<p class="noscript mono">// JAVASCRIPT REQUIRED FOR ENLISTMENT //</p>
+				</noscript>
+			</form>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<script define:vars={{ apiBase }}>
+	const form = document.querySelector('#waitlist-form');
+	const status = document.querySelector('#form-status');
+
+	if (form instanceof HTMLFormElement && status instanceof HTMLElement) {
+		form.addEventListener('submit', async (event) => {
+			event.preventDefault();
+
+			const submitButton = form.querySelector('button[type="submit"]');
+			const formData = new FormData(form);
+			const payload = {
+				name: String(formData.get('name') ?? '').trim(),
+				email: String(formData.get('email') ?? '').trim(),
+				company: String(formData.get('company') ?? '').trim(),
+				companySize: String(formData.get('companySize') ?? '').trim(),
+				industry: String(formData.get('industry') ?? '').trim(),
+				comments: String(formData.get('comments') ?? '').trim(),
+				betaInterest: formData.get('betaInterest') === 'on',
+			};
+
+			status.textContent = 'TRANSMITTING…';
+			status.dataset.state = 'pending';
+
+			if (submitButton instanceof HTMLButtonElement) {
+				submitButton.disabled = true;
+			}
+
+			try {
+				const response = await fetch(`${apiBase}/api/public/waitlist`, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(payload),
+				});
+
+				if (!response.ok) {
+					const body = await response.json().catch(() => ({}));
+					throw new Error(body.error || 'Unable to submit the waitlist request.');
+				}
+
+				window.location.href = '/thank-you';
+			} catch (error) {
+				status.dataset.state = 'error';
+				status.textContent =
+					'// ' + (error instanceof Error ? error.message.toUpperCase() : 'TRANSMISSION FAILED');
+			} finally {
+				if (submitButton instanceof HTMLButtonElement) {
+					submitButton.disabled = false;
+				}
+			}
+		});
+	}
+</script>
+
+<style>
+	.page {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 3rem 1.5rem 0;
+	}
+
+	.hero {
+		display: grid;
+		gap: 1.2rem;
+		max-width: 70rem;
+		margin-bottom: 3rem;
+	}
+	.hero__index {
+		display: inline-block;
+		align-self: start;
+		padding: 0.4rem 0.7rem;
+		background: var(--ink);
+		color: var(--paper);
+		font-size: 0.75rem;
+		letter-spacing: 0.14em;
+		font-weight: 700;
+	}
+	.hero__title {
+		margin: 0;
+		font-size: clamp(3.5rem, 11vw, 9rem);
+	}
+	.hero__title-accent {
+		color: var(--accent);
+	}
+	.hero__sub {
+		margin: 0;
+		max-width: 40rem;
+		font-size: 1.1rem;
+		line-height: 1.6;
+		color: var(--muted);
+	}
+
+	.panel {
+		display: grid;
+		grid-template-columns: 0.9fr 1.1fr;
+		gap: 0;
+		border: 3px solid var(--ink);
+		background: var(--paper);
+	}
+	.panel__left {
+		padding: 2rem;
+		background: var(--ink);
+		color: var(--paper);
+		border-right: 3px solid var(--ink);
+	}
+	.left__stamp {
+		display: inline-flex;
+		gap: 0.5rem;
+		align-items: center;
+		padding: 0.45rem 0.65rem;
+		margin-bottom: 1.5rem;
+		background: var(--ochre);
+		color: var(--ink);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		border: 2px solid var(--ink);
+	}
+	.left__stamp strong {
+		font-family: 'Archivo Black', sans-serif;
+		letter-spacing: 0;
+	}
+	.left__list {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 2rem;
+		display: grid;
+		gap: 1.6rem;
+	}
+	.left__list li {
+		display: grid;
+		grid-template-columns: 3.2rem 1fr;
+		gap: 0.8rem;
+		align-items: start;
+	}
+	.left__num {
+		color: var(--accent);
+		font-size: 2.4rem;
+		line-height: 1;
+	}
+	.left__h {
+		margin: 0 0 0.35rem;
+		font-size: 1.2rem;
+		line-height: 1.1;
+	}
+	.left__p {
+		margin: 0;
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: var(--paper);
+		opacity: 0.78;
+	}
+	.left__art {
+		position: relative;
+		border: 3px solid var(--paper);
+		aspect-ratio: 5 / 4;
+		overflow: hidden;
+		background: var(--ink);
+	}
+	.left__art img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: contrast(1.1) grayscale(0.5);
+	}
+	.left__art-tag {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		padding: 0.4rem 0.6rem;
+		background: var(--accent);
+		color: var(--paper);
+		font-size: 0.65rem;
+		letter-spacing: 0.16em;
+		font-weight: 700;
+	}
+
+	.form {
+		padding: 2rem;
+		display: grid;
+		gap: 1.1rem;
+	}
+	.form__head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-bottom: 0.8rem;
+		margin-bottom: 0.4rem;
+		border-bottom: 3px solid var(--ink);
+	}
+	.form__id {
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+	}
+	.form__dots {
+		display: flex;
+		gap: 0.35rem;
+	}
+	.form__dots span {
+		width: 10px;
+		height: 10px;
+		background: var(--ink);
+		display: inline-block;
+	}
+	.form__dots span:nth-child(1) {
+		background: var(--accent);
+	}
+	.form__dots span:nth-child(2) {
+		background: var(--ochre);
+	}
+
+	.field {
+		display: grid;
+		gap: 0.4rem;
+	}
+	.field label {
+		font-size: 0.72rem;
+		letter-spacing: 0.14em;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.split {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+	input,
+	select,
+	textarea {
+		width: 100%;
+		padding: 0.85rem 0.9rem;
+		background: var(--bone);
+		border: 3px solid var(--ink);
+		border-radius: 0;
+		font-size: 1rem;
+		color: var(--ink);
+		transition: box-shadow 0.1s ease, transform 0.1s ease;
+	}
+	input::placeholder,
+	textarea::placeholder {
+		color: var(--muted);
+		opacity: 0.6;
+	}
+	input:focus,
+	select:focus,
+	textarea:focus {
+		outline: none;
+		transform: translate(-2px, -2px);
+		box-shadow: 4px 4px 0 var(--accent);
+	}
+	textarea {
+		resize: vertical;
+		min-height: 8rem;
+		font-family: inherit;
+	}
+	select {
+		appearance: none;
+		background-image:
+			linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+			linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+		background-position: calc(100% - 18px) calc(50% + 2px), calc(100% - 12px) calc(50% + 2px);
+		background-size: 6px 6px, 6px 6px;
+		background-repeat: no-repeat;
+		padding-right: 2.5rem;
+	}
+
+	.checkbox {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0.7rem;
+		align-items: center;
+		padding: 0.85rem 1rem;
+		border: 3px solid var(--ink);
+		background: var(--paper-warm);
+		cursor: pointer;
+	}
+	.checkbox input {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+	.checkbox__box {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		width: 1.4rem;
+		height: 1.4rem;
+		background: var(--bone);
+		border: 3px solid var(--ink);
+		color: transparent;
+		font-weight: 700;
+		font-size: 0.85rem;
+		line-height: 1;
+	}
+	.checkbox input:checked + .checkbox__box {
+		background: var(--accent);
+		color: var(--paper);
+	}
+	.checkbox__label {
+		font-size: 0.95rem;
+		font-weight: 600;
+	}
+
+	.status {
+		min-height: 1.25rem;
+		margin: 0;
+		font-size: 0.8rem;
+		letter-spacing: 0.1em;
+		font-weight: 700;
+	}
+	.status[data-state='pending'] {
+		color: var(--ochre);
+	}
+	.status[data-state='error'] {
+		color: var(--accent-deep);
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.9rem;
+		align-items: center;
+		justify-content: space-between;
+		padding-top: 0.4rem;
+	}
+	.submit {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 1.1rem 1.5rem;
+		background: var(--ink);
+		color: var(--paper);
+		border: 3px solid var(--ink);
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.95rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		cursor: pointer;
+		transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s;
+	}
+	.submit:hover:not(:disabled) {
+		background: var(--accent);
+		border-color: var(--accent);
+		transform: translate(-3px, -3px);
+		box-shadow: 6px 6px 0 var(--ink);
+	}
+	.submit:disabled {
+		opacity: 0.5;
+		cursor: wait;
+	}
+	.secondary {
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		color: var(--ink);
+		padding: 0.6rem 0.2rem;
+		border-bottom: 3px solid transparent;
+	}
+	.secondary:hover {
+		border-bottom-color: var(--accent);
+		color: var(--accent);
+	}
+	.form__privacy {
+		margin: 0;
+		color: var(--muted);
+		font-size: 0.875rem;
+		line-height: 1.5;
+	}
+	.form__privacy a {
+		color: var(--accent-deep);
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+	.form__privacy a:focus-visible {
+		outline: 2px solid var(--accent-deep);
+		outline-offset: 3px;
+	}
+	.noscript {
+		margin: 0;
+		color: var(--accent-deep);
+		font-size: 0.85rem;
+		font-weight: 700;
+	}
+
+	@media (max-width: 980px) {
+		.panel {
+			grid-template-columns: 1fr;
+		}
+		.panel__left {
+			border-right: none;
+			border-bottom: 3px solid var(--ink);
+		}
+	}
+	@media (max-width: 560px) {
+		.split {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

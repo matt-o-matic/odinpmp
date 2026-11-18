@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+
+import { createConnectorCredentialVault, createConnectorOAuthService } from '../src/modules/connectors/connector-oauth.js';
+import { createInMemoryConnectorRepository } from '../src/modules/connectors/connector.repository.js';
+
+test('connector OAuth uses PKCE/state, exchanges once, and stores provider tokens encrypted at rest', async () => {
+  process.env.ODIN_TENANT_TENANT1_GITHUB_CLIENT_SECRET = 'client-secret';
+  const repository = createInMemoryConnectorRepository(); const tenantId = 'tenant-1'; const connection = await repository.createConnection({ inboundSecretHash: 'unused', input: { authType: 'oauth2', conflictPolicy: 'manual', name: 'GitHub OAuth', projectIds: ['project-1'], provider: 'github', scopes: ['repo', 'read:org'], secretReference: 'env:ODIN_TENANT_TENANT1_GITHUB_CLIENT_SECRET', settings: { authorizationUrl: 'https://github.com/login/oauth/authorize', clientId: 'client-1', owner: 'acme', repository: 'odin', tokenUrl: 'https://github.com/login/oauth/access_token' }, status: 'active', syncDirection: 'bidirectional' }, tenantId, userId: 'admin' }); const vault = createConnectorCredentialVault({ encryptionKey: 'vault-encryption-key-that-is-at-least-32-bytes', repository }); let tokenInput;
+  const service = createConnectorOAuthService({ backendPublicUrl: 'https://odin.example', credentialVault: vault, repository, tokenRequest: async (input) => { tokenInput = input; return { body: { access_token: 'provider-access-token', expires_in: 3600, refresh_token: 'provider-refresh-token', scope: 'repo read:org', token_type: 'Bearer' }, status: 200 }; } });
+  const started = await service.begin({ connectionId: connection.id, tenantId, userId: 'admin' }); const authorization = new URL(started.authorizationUrl); assert.equal(authorization.searchParams.get('code_challenge_method'), 'S256'); assert.ok(authorization.searchParams.get('state')); assert.equal(authorization.searchParams.get('redirect_uri'), 'https://odin.example/api/connectors/oauth/callback');
+  const completed = await service.callback({ code: 'authorization-code', state: authorization.searchParams.get('state'), userId: 'admin' }); assert.equal(completed.connectionId, connection.id); assert.equal(tokenInput.body.code_verifier.length >= 43, true); assert.equal(tokenInput.body.client_secret, 'client-secret');
+  const stored = [...repository.state.credentials.values()][0]; assert.doesNotMatch(stored.encryptedCredential, /provider-access-token|provider-refresh-token/); const resolved = JSON.parse(await vault.resolve(connection.secretReference, { connectionId: connection.id, tenantId })); assert.equal(resolved.accessToken, 'provider-access-token'); assert.equal(resolved.refreshToken, 'provider-refresh-token');
+  await assert.rejects(service.callback({ code: 'replay', state: authorization.searchParams.get('state'), userId: 'admin' }), /invalid or expired/i); delete process.env.ODIN_TENANT_TENANT1_GITHUB_CLIENT_SECRET;
+});
+
+test('credential vault refreshes expired OAuth access tokens and rotates encrypted storage', async () => {
+  const repository = createInMemoryConnectorRepository(); let refreshInput; const vault = createConnectorCredentialVault({ encryptionKey: 'vault-encryption-key-that-is-at-least-32-bytes', repository, tokenRequest: async (input) => { refreshInput = input; return { body: { access_token: 'refreshed-token', expires_in: 3600 }, status: 200 }; } });
+  await vault.store({ connectionId: 'connection-1', credential: { accessToken: 'expired-token', clientId: 'client-1', clientSecret: 'secret-1', expiresAt: '2000-01-01T00:00:00.000Z', refreshToken: 'refresh-1', tokenType: 'Bearer', tokenUrl: 'https://github.com/login/oauth/access_token' }, tenantId: 'tenant-1' }); const before = [...repository.state.credentials.values()][0].encryptedCredential;
+  const resolved = JSON.parse(await vault.resolve('', { connectionId: 'connection-1', tenantId: 'tenant-1' })); assert.equal(resolved.accessToken, 'refreshed-token'); assert.equal(refreshInput.body.grant_type, 'refresh_token'); assert.equal(refreshInput.body.refresh_token, 'refresh-1'); assert.notEqual([...repository.state.credentials.values()][0].encryptedCredential, before);
+});

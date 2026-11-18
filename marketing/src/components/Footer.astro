@@ -1,0 +1,119 @@
+---
+const year = 2026;
+---
+
+<footer class="footer">
+	<div class="wrap footer__inner">
+		<div class="footer__brand">
+			<a class="footer__mark" href="/" aria-label="Odin home">
+				<img src="/brand/odin-mark-192.webp" alt="" width="44" height="64" />
+				<span>Odin</span>
+			</a>
+			<p>Planning, requirements, delivery and bug fixing for software built with clients. Made by Matt Bradford.</p>
+		</div>
+		<nav class="footer__cols" aria-label="Footer">
+			<div>
+				<h2>Product</h2>
+				<a href="/#loop">The loop</a>
+				<a href="/#screens">Screens</a>
+				<a href="/#ai">AI Workspace</a>
+				<a href="/#report">Bug Reporter</a>
+				<a href="/#platform">Platform</a>
+				<a href="/#trust">Trust</a>
+			</div>
+			<div>
+				<h2>Get in</h2>
+				<a href="/signup">Request access</a>
+				<a href="/app/login">Sign in</a>
+				<a href="mailto:hello@odinpmp.com">hello@odinpmp.com</a>
+			</div>
+			<div>
+				<h2>Legal</h2>
+				<a href="/privacy/">Privacy policy</a>
+				<a href="/terms/">Terms of service</a>
+			</div>
+		</nav>
+	</div>
+	<div class="wrap footer__base">
+		<span>© {year} Matt Bradford</span>
+		<span>OdinPMP</span>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		border-top: 1px solid var(--line);
+		padding-top: clamp(3rem, 6vw, 5rem);
+		background: var(--bg-2);
+	}
+	.footer__inner {
+		display: grid;
+		grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr);
+		gap: 3rem;
+	}
+	.footer__mark {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.8rem;
+		text-decoration: none;
+	}
+	.footer__mark img {
+		width: 34px;
+		height: auto;
+	}
+	.footer__mark span {
+		font-family: var(--font-display);
+		font-stretch: 125%;
+		font-weight: 800;
+		font-size: 1.8rem;
+	}
+	.footer__brand p {
+		max-width: 34ch;
+		margin-top: 1rem;
+		color: var(--muted);
+		font-size: var(--step--1);
+	}
+	.footer__cols {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 2rem;
+	}
+	.footer__cols div {
+		display: grid;
+		align-content: start;
+		gap: 0.55rem;
+	}
+	.footer__cols h2 {
+		margin-bottom: 0.4rem;
+		font-size: var(--step--1);
+		font-stretch: 100%;
+		font-weight: 650;
+		letter-spacing: 0;
+		color: var(--muted);
+	}
+	.footer__cols a {
+		color: var(--ink-2);
+		text-decoration: none;
+		font-size: var(--step--1);
+	}
+	.footer__cols a:hover {
+		color: var(--ink);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+	.footer__base {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 3.5rem;
+		padding: 1.25rem 0 2rem;
+		border-top: 1px solid var(--line);
+		color: var(--muted);
+		font-size: var(--step--2);
+	}
+	@media (max-width: 760px) {
+		.footer__inner,
+		.footer__cols {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

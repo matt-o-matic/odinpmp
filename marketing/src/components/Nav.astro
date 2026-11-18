@@ -1,0 +1,243 @@
+---
+interface Props {
+	home?: boolean;
+}
+const { home = false } = Astro.props;
+const prefix = home ? '' : '/';
+const links = [
+	{ href: `${prefix}#loop`, label: 'The loop' },
+	{ href: `${prefix}#screens`, label: 'Screens' },
+	{ href: `${prefix}#ai`, label: 'AI' },
+	{ href: `${prefix}#report`, label: 'Bug Reporter' },
+	{ href: `${prefix}#platform`, label: 'Platform' },
+	{ href: `${prefix}#trust`, label: 'Trust' },
+];
+---
+
+<header class="nav" data-nav>
+	<div class="nav__inner">
+		<a class="brand" href="/" aria-label="Odin home">
+			<img src="/brand/odin-mark-96.webp" alt="" width="33" height="48" />
+			<span>Odin</span>
+		</a>
+		<nav class="nav__links" aria-label="Sections">
+			{links.map((link) => <a href={link.href}>{link.label}</a>)}
+		</nav>
+		<div class="nav__actions">
+			<button class="theme" type="button" data-theme-toggle aria-label="Switch to light mode">
+				<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+					<circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+					<path class="theme__half" d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"></path>
+				</svg>
+			</button>
+			<a class="nav__signin" href="/app/login">Sign in</a>
+			<a class="btn btn--small" href="/signup">Request access</a>
+			<button class="nav__menu" type="button" aria-expanded="false" aria-controls="nav-sheet" data-menu>
+				<span class="visually-hidden">Menu</span>
+				<i></i><i></i>
+			</button>
+		</div>
+	</div>
+	<div class="nav__sheet" id="nav-sheet" hidden>
+		{links.map((link) => <a href={link.href}>{link.label}</a>)}
+		<a href="/app/login">Sign in</a>
+	</div>
+</header>
+
+<script>
+	const nav = document.querySelector<HTMLElement>('[data-nav]');
+	const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+	const menu = document.querySelector<HTMLButtonElement>('[data-menu]');
+	const sheet = document.getElementById('nav-sheet');
+	const root = document.documentElement;
+
+	function label() {
+		const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+		toggle?.setAttribute('aria-label', `Switch to ${next} mode`);
+	}
+	label();
+
+	toggle?.addEventListener('click', () => {
+		const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+		root.dataset.theme = next;
+		try {
+			localStorage.setItem('odin-theme', next);
+		} catch {}
+		label();
+		window.dispatchEvent(new CustomEvent('odin:theme', { detail: next }));
+	});
+
+	// Follow the system setting until the visitor picks one.
+	matchMedia('(prefers-color-scheme: light)').addEventListener('change', (event) => {
+		try {
+			if (localStorage.getItem('odin-theme')) return;
+		} catch {}
+		root.dataset.theme = event.matches ? 'light' : 'dark';
+		label();
+		window.dispatchEvent(new CustomEvent('odin:theme', { detail: root.dataset.theme }));
+	});
+
+	const onScroll = () => nav?.classList.toggle('is-scrolled', window.scrollY > 24);
+	onScroll();
+	window.addEventListener('scroll', onScroll, { passive: true });
+
+	menu?.addEventListener('click', () => {
+		const open = menu.getAttribute('aria-expanded') !== 'true';
+		menu.setAttribute('aria-expanded', String(open));
+		if (sheet) sheet.hidden = !open;
+	});
+	sheet?.addEventListener('click', (event) => {
+		if ((event.target as HTMLElement).closest('a')) {
+			menu?.setAttribute('aria-expanded', 'false');
+			sheet.hidden = true;
+		}
+	});
+</script>
+
+<style>
+	.nav {
+		position: fixed;
+		inset: 0 0 auto;
+		z-index: 100;
+		border-bottom: 1px solid transparent;
+		transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+	}
+	.nav:global(.is-scrolled) {
+		background: var(--glass);
+		border-color: var(--line);
+		backdrop-filter: blur(18px) saturate(1.4);
+		-webkit-backdrop-filter: blur(18px) saturate(1.4);
+	}
+	.nav__inner {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		width: min(100% - 2 * var(--gutter), var(--max));
+		height: var(--nav-h);
+		margin-inline: auto;
+	}
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		text-decoration: none;
+	}
+	.brand img {
+		width: 26px;
+		height: auto;
+		filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+	}
+	.brand span {
+		font-family: var(--font-display);
+		font-stretch: 125%;
+		font-weight: 800;
+		font-size: 1.3rem;
+		letter-spacing: -0.01em;
+	}
+	.nav__links {
+		display: flex;
+		gap: 1.6rem;
+		margin-right: auto;
+		font-size: var(--step--1);
+	}
+	.nav__links a,
+	.nav__signin {
+		position: relative;
+		color: var(--ink-2);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+	.nav__links a:hover,
+	.nav__signin:hover {
+		color: var(--ink);
+	}
+	.nav__actions {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-left: auto;
+		font-size: var(--step--1);
+	}
+	.theme {
+		display: grid;
+		place-items: center;
+		width: 38px;
+		height: 38px;
+		border: 1px solid var(--line-2);
+		border-radius: 50%;
+		background: transparent;
+		cursor: pointer;
+	}
+	.theme svg {
+		transition: transform 0.6s var(--ease-out);
+	}
+	:global(:root[data-theme='light']) .theme svg {
+		transform: rotate(180deg);
+	}
+	.nav__menu {
+		display: none;
+		position: relative;
+		width: 38px;
+		height: 38px;
+		border: 1px solid var(--line-2);
+		border-radius: 50%;
+		background: transparent;
+		cursor: pointer;
+	}
+	.nav__menu i {
+		position: absolute;
+		left: 11px;
+		right: 11px;
+		height: 1.6px;
+		background: currentColor;
+		transition: transform 0.3s var(--ease-out);
+	}
+	.nav__menu i:first-of-type {
+		top: 15px;
+	}
+	.nav__menu i:last-of-type {
+		top: 21px;
+	}
+	.nav__menu[aria-expanded='true'] i:first-of-type {
+		transform: translateY(3px) rotate(45deg);
+	}
+	.nav__menu[aria-expanded='true'] i:last-of-type {
+		transform: translateY(-3px) rotate(-45deg);
+	}
+	.nav__sheet {
+		display: grid;
+		gap: 0.25rem;
+		padding: 0.75rem var(--gutter) 1.5rem;
+		background: var(--glass);
+		backdrop-filter: blur(18px);
+		-webkit-backdrop-filter: blur(18px);
+		border-bottom: 1px solid var(--line);
+	}
+	.nav__sheet[hidden] {
+		display: none;
+	}
+	.nav__sheet a {
+		padding: 0.7rem 0;
+		font-family: var(--font-display);
+		font-stretch: 110%;
+		font-weight: 650;
+		font-size: var(--step-2);
+		text-decoration: none;
+		border-bottom: 1px solid var(--line);
+	}
+
+	@media (max-width: 1080px) {
+		.nav__links,
+		.nav__signin {
+			display: none;
+		}
+		.nav__menu {
+			display: block;
+		}
+	}
+	@media (max-width: 460px) {
+		.nav__actions .btn {
+			display: none;
+		}
+	}
+</style>

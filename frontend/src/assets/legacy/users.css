@@ -1,0 +1,93 @@
+body {
+  background: #f8f9fa;
+}
+
+.profile-image-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1rem;
+}
+
+.profile-image-container img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #dee2e6;
+}
+
+.upload-icon-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 1px solid #dee2e6;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.form-section {
+  margin-top: 20px;
+}
+
+.form-section h5 {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.nav-pills .nav-link {
+  border-radius: 0;
+}
+
+.save-alert {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1080;
+}
+
+.active-session {
+  background-color: #e9f7ef; /* Light green background */
+  border-left: 4px solid #28a745; /* Green border for emphasis */
+}
+
+.active-session .badge {
+  font-size: 0.7rem;
+  font-weight: normal;
+  position: absolute;
+  top: -3px;
+}
+
+.dark-mode {
+  background-color: #212529 !important;
+  color: #fff !important;
+}
+
+.dark-mode .card,
+.dark-mode .list-group-item,
+.dark-mode .form-control,
+.dark-mode .form-select,
+.dark-mode .dropdown-menu,
+.dark-mode .form-check-input,
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+  background-color: #343a40 !important;
+  color: #fff !important;
+  border-color: #454d55 !important;
+}
+
+.dark-mode .form-label {
+  color: #fff;
+}
+
+.dark-mode .nav-link {
+  color: #fff !important;
+}
+
+.modal-dialog-custom-position {
+  margin-top: 10%;
+}
+

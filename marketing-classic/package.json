@@ -1,0 +1,18 @@
+{
+  "name": "odinpmp-marketing-classic",
+  "type": "module",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": "^20.3.0 || >=22.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 2282",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.18.1"
+  }
+}

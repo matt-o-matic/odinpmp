@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+
+const { title, description, number } = Astro.props;
+const updated = 'September 22, 2026';
+---
+
+<Layout title={`${title} | OdinPMP`} description={description}>
+	<Nav />
+	<main id="main" class="legal-page">
+		<header class="legal-page__header">
+			<p class="legal-page__index mono">LEGAL / {number}</p>
+			<h1 class="display">{title}</h1>
+			<p class="legal-page__updated">Last updated: {updated}</p>
+		</header>
+		<article class="legal-page__body">
+			<slot />
+		</article>
+	</main>
+	<Footer />
+</Layout>
+
+<style is:global>
+	.legal-page {
+		width: min(100%, 920px);
+		margin: 0 auto;
+		padding: 3rem 1.5rem 1rem;
+	}
+	.legal-page__header {
+		padding: 2.5rem;
+		background: var(--ink);
+		color: var(--paper);
+		border-top: 4px solid var(--accent);
+	}
+	.legal-page__index {
+		margin: 0 0 1rem;
+		font-size: 0.75rem;
+		letter-spacing: 0.14em;
+		color: var(--ochre);
+	}
+	.legal-page__header h1 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 3.5rem);
+		line-height: 1.08;
+	}
+	.legal-page__updated {
+		margin: 1.25rem 0 0;
+		color: rgba(237, 243, 251, 0.78);
+		font-size: 0.875rem;
+	}
+	.legal-page__body {
+		padding: 2.5rem;
+		background: #fff;
+		border: 1px solid #cbd5e3;
+		border-top: 0;
+		font-size: 1rem;
+		line-height: 1.65;
+	}
+	.legal-page__body h2 {
+		margin: 2rem 0 0.6rem;
+		font-size: 1.3rem;
+		line-height: 1.25;
+		color: var(--ink);
+	}
+	.legal-page__body h2:first-child {
+		margin-top: 0;
+	}
+	.legal-page__body p {
+		margin: 0.6rem 0 1rem;
+	}
+	.legal-page__body ul {
+		margin: 0.5rem 0 1.25rem;
+		padding-left: 1.5rem;
+	}
+	.legal-page__body li {
+		padding-left: 0.15rem;
+		margin: 0.35rem 0;
+	}
+	.legal-page__body a {
+		color: #174fa9;
+		text-decoration: underline;
+		text-underline-offset: 0.18em;
+	}
+	.legal-page__body a:hover {
+		color: #0a3375;
+	}
+	.legal-page__body a:focus-visible {
+		outline: 3px solid var(--accent-deep);
+		outline-offset: 3px;
+	}
+	@media (max-width: 640px) {
+		.legal-page {
+			padding: 1.5rem 1rem 0;
+		}
+		.legal-page__header,
+		.legal-page__body {
+			padding: 1.5rem;
+		}
+	}
+</style>

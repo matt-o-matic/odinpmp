@@ -1,0 +1,161 @@
+---
+// Odin's MCP server, shown as a Codex session using the real tool names.
+---
+
+<section class="section agents" aria-labelledby="agents-title">
+	<div class="wrap agents__grid">
+		<div class="agents__copy">
+			<h2 id="agents-title">Your agents can work in Odin too.</h2>
+			<p>
+				Odin's MCP server gives ChatGPT, Codex, Claude and other MCP clients 121 tools, 48 that read and 73 that write. They
+				cover projects and the full brief, epics, stories and tasks, the board, sprints, tickets, files, time and
+				staffing, risks and milestones, workflows, comments, requirements feedback and review package uploads.
+			</p>
+			<ul class="agents__facts">
+				<li><b>Your login.</b> Clients sign in through Odin, with MFA and SSO. ChatGPT, Codex and Claude need no client ID; an admin registers any other client once.</li>
+				<li><b>Your scope.</b> You approve read or read-and-write access, and can limit it to the projects you choose.</li>
+				<li><b>Safe writes.</b> Every write supports a dry run. An edit to a project, a single item or the brief carries the version it read, and Odin refuses it if someone changed the record since.</li>
+			</ul>
+		</div>
+
+		<figure class="terminal" data-demo aria-label="A Codex session reads a sprint from Odin and moves a story after a dry run.">
+			<div class="terminal__bar" aria-hidden="true">
+				<span class="frame__dots"><i></i><i></i><i></i></span>
+				<span>codex: harbor-portal</span>
+			</div>
+			<div class="terminal__body" aria-hidden="true">
+				<p class="line sys" data-at="200">Connected to Odin MCP: read and write, 1 project</p>
+				<p class="line you" data-at="700"><b>you</b> <span data-at="700" data-type data-speed="26">What's left in Sprint 15, and is anything blocked?</span></p>
+				<p class="line tool" data-at="2300"><b>tool</b> odin_list_sprints <i>{"{"} projectId: "customer-portal" {"}"}</i></p>
+				<p class="line tool" data-at="2800"><b>tool</b> odin_get_board <i>{"{"} filters: {"{"} sprintId: "sprint-15" {"}"} {"}"}</i></p>
+				<p class="line ai" data-at="3600"><b>codex</b> 21 of 34 points are done and 6 stories are open. "Label printing service" waits on the carrier API sandbox, which is down until Oct 20.</p>
+				<p class="line you" data-at="5200"><b>you</b> <span data-at="5200" data-type data-speed="26">Move "Make the return reason optional" to In review. Dry run first.</span></p>
+				<p class="line tool" data-at="7300"><b>tool</b> odin_update_item <i>{"{"} input: {"{"} status: "In review", expectedVersion: 7 {"}"}, dryRun: true {"}"}</i></p>
+				<p class="line ok" data-at="7900">dry run: the request is valid, nothing was sent</p>
+				<p class="line tool" data-at="8700"><b>tool</b> odin_update_item <i>{"{"} input: {"{"} status: "In review", expectedVersion: 7 {"}"} {"}"}</i></p>
+				<p class="line ok" data-at="9300">updated story-412, version 7 to 8, the board shows it in In review</p>
+				<p class="line prompt" data-at="9800"><b>you</b> <span class="blink"></span></p>
+			</div>
+		</figure>
+	</div>
+</section>
+
+<script>
+	import { autoplayDemos } from '../../scripts/timeline';
+	autoplayDemos('.agents [data-demo]');
+</script>
+
+<style>
+	.agents {
+		padding-top: 0;
+	}
+	.agents__grid {
+		display: grid;
+		grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+		gap: clamp(2rem, 5vw, 5rem);
+		align-items: center;
+	}
+	.agents__copy h2 {
+		font-size: var(--step-4);
+	}
+	.agents__copy > p {
+		margin-top: 1.25rem;
+		font-size: var(--step-1);
+		line-height: 1.55;
+		color: var(--ink-2);
+	}
+	.agents__facts {
+		display: grid;
+		gap: 0.9rem;
+		margin: 2rem 0 0;
+		padding: 0;
+		list-style: none;
+		color: var(--ink-2);
+	}
+	.agents__facts b {
+		color: var(--ink);
+	}
+	.terminal {
+		margin: 0;
+		border-radius: var(--radius-m);
+		background: #050b16;
+		border: 1px solid #1b2b4b;
+		box-shadow: var(--shadow-2), 0 0 0 1px rgba(242, 182, 54, 0.04);
+		overflow: hidden;
+		color: #c4d2e8;
+	}
+	.terminal__bar {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		height: 38px;
+		padding: 0 0.9rem;
+		border-bottom: 1px solid #1b2b4b;
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		color: #6c7f9c;
+	}
+	.terminal__bar :global(.frame__dots i) {
+		background: #2a3e66;
+	}
+	.terminal__body {
+		display: grid;
+		align-content: start;
+		gap: 0.55rem;
+		min-height: 420px;
+		padding: 1.2rem 1.3rem 1.5rem;
+		font-family: var(--font-mono);
+		font-size: clamp(0.68rem, 0.62rem + 0.25vw, 0.8rem);
+		line-height: 1.65;
+	}
+	.line b {
+		display: inline-block;
+		width: 4.6em;
+		font-weight: 600;
+		color: #6c7f9c;
+	}
+	.line i {
+		font-style: normal;
+		color: #8aa0c2;
+	}
+	.sys {
+		color: #6c7f9c;
+	}
+	.you b {
+		color: #f2b636;
+	}
+	.you span {
+		color: #edf3fb;
+	}
+	.tool {
+		color: #8db8ff;
+	}
+	.ai b {
+		color: #a97bff;
+	}
+	.ok {
+		padding-left: 4.6em;
+		color: #3fd08f;
+	}
+	.prompt b {
+		color: #f2b636;
+	}
+	.blink {
+		display: inline-block;
+		width: 0.55em;
+		height: 1.1em;
+		vertical-align: text-bottom;
+		background: #f2b636;
+		animation: blink 1s steps(1) infinite;
+	}
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+	@media (max-width: 960px) {
+		.agents__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>

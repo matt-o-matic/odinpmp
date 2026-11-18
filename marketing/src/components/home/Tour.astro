@@ -1,0 +1,284 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Shot from '../Shot.astro';
+
+const exists = (name: string) => ['light', 'dark'].every((t) => fs.existsSync(path.join(process.cwd(), 'public', 'screens', `${name}-${t}.webp`)));
+
+const screens = [
+	{ name: 'home', tab: 'Home', url: 'odinpmp.com/app', caption: 'Home ranks what to do first and says why. Here a sprint is behind, and Home offers ways back on track.' },
+	{ name: 'workbench', tab: 'Workbench', url: 'odinpmp.com/app/projects/…', caption: 'The project workbench: the outline of epics, stories and tasks, the item editor, and project analysis.' },
+	{ name: 'kanban', tab: 'Board', url: 'odinpmp.com/app/projects/…/kanban', caption: 'The kanban board, with columns mapped to statuses, swimlanes and saved views.' },
+	{ name: 'insights', tab: 'Insights', url: 'odinpmp.com/app/projects/…/insights', caption: 'Insights opens with what needs attention, then burnup, burndown, velocity, flow, tickets and milestones.' },
+	{ name: 'requirements-items', tab: 'My open items', url: 'odinpmp.com/app/projects/…/requirements', caption: 'Everything waiting on you in requirements, by stage: questions, rounds to review, decisions and drafts.' },
+	{ name: 'requirements-topic', tab: 'Discussion', url: 'odinpmp.com/app/projects/…/requirements/topics/…', caption: 'A requirements topic with its discussion, votes and the Odin summary that cites the comments.' },
+	{ name: 'requirements-review', tab: 'Guided review', url: 'odinpmp.com/app/requirements/…/rounds/…', caption: 'The guided review: each screen with its verdict, marks and threads.' },
+	{ name: 'requirements-results', tab: 'Round results', url: 'odinpmp.com/app/projects/…/requirements/…/rounds/…', caption: 'Round results: every reviewer’s verdict on every screen, with Odin’s summaries.' },
+	{ name: 'portal', tab: 'Stakeholder portal', url: 'odinpmp.com/app/requirements/…', caption: 'What a stakeholder sees from their private link: their questions, open rounds and recent decisions.' },
+	{ name: 'ai-workspace', tab: 'AI Workspace', url: 'odinpmp.com/app/projects/…', caption: 'The AI Workspace after it moved work out of a late sprint. The reply lists its changes with Undo, and a comment that emails Sam waits for Confirm.' },
+	{ name: 'workflows', tab: 'Workflows', url: 'odinpmp.com/app/workflows/…', caption: 'The workflow editor: states, transitions, approvals and a live state-machine preview.' },
+	{ name: 'tickets', tab: 'Tickets', url: 'odinpmp.com/app/tickets', caption: 'Tickets across the workspace, with severity, status and the reopen count.' },
+	{ name: 'projects', tab: 'Projects', url: 'odinpmp.com/app/projects', caption: 'One row per project: rank, status, what waits on you in requirements, and the open review round.' },
+	{ name: 'ai-memory', tab: 'AI memory', url: 'odinpmp.com/app/ai-memory', caption: 'What the AI remembers, with entries you can correct or forget.' },
+	{ name: 'compliance', tab: 'Compliance', url: 'odinpmp.com/app/admin/compliance', caption: 'One Compliance screen for retention, exports, legal holds, attestations and privacy requests.' },
+].filter((screen) => exists(screen.name));
+---
+
+{
+	screens.length > 0 && (
+		<section class="section tour" id="screens" aria-labelledby="screens-title">
+			<div class="wrap section-head">
+				<h2 id="screens-title">The real screens.</h2>
+				<p>No mock-ups in this part. These are Odin's own screens with sample data, in whichever theme you're using now.</p>
+			</div>
+
+			<div class="wrap tour__tabs" role="tablist" aria-label="Odin screens">
+				{screens.map((screen, i) => (
+					<button type="button" role="tab" id={`tour-tab-${screen.name}`} aria-controls="tour-stage" aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tour-tab={i}>
+						{screen.tab}
+						<i aria-hidden="true" />
+					</button>
+				))}
+			</div>
+
+			<div class="wrap tour__stage" id="tour-stage" role="tabpanel" data-tour-stage>
+				<div class="tour__tilt" data-tour-tilt>
+					{screens.map((screen, i) => (
+						<figure class:list={['tour__card frame', i === 0 && 'is-active']} data-tour-card={i} aria-hidden={i === 0 ? 'false' : 'true'}>
+							<div class="frame__bar" aria-hidden="true">
+								<span class="frame__dots">
+									<i />
+									<i />
+									<i />
+								</span>
+								<span class="frame__url">{screen.url}</span>
+							</div>
+							<Shot name={screen.name} alt={screen.caption} eager={i === 0} />
+						</figure>
+					))}
+				</div>
+				<p class="tour__caption" aria-live="polite" data-tour-caption>
+					{screens[0].caption}
+				</p>
+			</div>
+			<script is:inline type="application/json" data-tour-captions set:html={JSON.stringify(screens.map((s) => s.caption))} />
+		</section>
+	)
+}
+
+<script>
+	const stage = document.querySelector<HTMLElement>('[data-tour-stage]');
+	if (stage) {
+		const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-tour-tab]')];
+		const cards = [...stage.querySelectorAll<HTMLElement>('[data-tour-card]')];
+		const tilt = stage.querySelector<HTMLElement>('[data-tour-tilt]')!;
+		const caption = stage.querySelector<HTMLElement>('[data-tour-caption]')!;
+		const captions: string[] = JSON.parse(document.querySelector('[data-tour-captions]')?.textContent ?? '[]');
+		const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const DWELL = 6500;
+		let index = 0;
+		let timer = 0;
+		let paused = false;
+		let inView = false;
+
+		function show(next: number, focus = false) {
+			index = (next + cards.length) % cards.length;
+			cards.forEach((card, i) => {
+				const offset = (i - index + cards.length) % cards.length;
+				card.classList.toggle('is-active', offset === 0);
+				card.classList.toggle('is-next', offset === 1);
+				card.classList.toggle('is-after', offset === 2);
+				card.classList.toggle('is-prev', offset === cards.length - 1);
+				card.setAttribute('aria-hidden', String(offset !== 0));
+				// Load the neighbours early so the flip never shows an empty frame.
+				if (offset <= 2) card.querySelectorAll('img').forEach((img) => (img.loading = 'eager'));
+			});
+			tabs.forEach((tab, i) => {
+				const on = i === index;
+				tab.setAttribute('aria-selected', String(on));
+				tab.tabIndex = on ? 0 : -1;
+				tab.classList.remove('is-timing');
+			});
+			caption.textContent = captions[index] ?? '';
+			if (focus) tabs[index].focus({ preventScroll: true });
+			// Scroll only the tab strip; scrollIntoView would also move the page.
+			const strip = tabs[index].parentElement!;
+			const target = tabs[index].offsetLeft - (strip.clientWidth - tabs[index].offsetWidth) / 2;
+			strip.scrollTo({ left: Math.max(0, target), behavior: reduced ? 'auto' : 'smooth' });
+			schedule();
+		}
+
+		function schedule() {
+			window.clearTimeout(timer);
+			if (reduced || paused || !inView) return;
+			const tab = tabs[index];
+			void tab.offsetWidth;
+			tab.classList.add('is-timing');
+			timer = window.setTimeout(() => show(index + 1), DWELL);
+		}
+
+		tabs.forEach((tab, i) => tab.addEventListener('click', () => show(i)));
+		document.querySelector('[role="tablist"][aria-label="Odin screens"]')?.addEventListener('keydown', (event) => {
+			const key = (event as KeyboardEvent).key;
+			if (key === 'ArrowRight') show(index + 1, true);
+			if (key === 'ArrowLeft') show(index - 1, true);
+			if (key === 'Home') show(0, true);
+			if (key === 'End') show(cards.length - 1, true);
+		});
+
+		const pause = (on: boolean) => {
+			paused = on;
+			if (on) {
+				window.clearTimeout(timer);
+				tabs[index].classList.remove('is-timing');
+			} else schedule();
+		};
+		stage.addEventListener('pointerenter', () => pause(true));
+		stage.addEventListener('pointerleave', () => pause(false));
+		stage.addEventListener('focusin', () => pause(true));
+		stage.addEventListener('focusout', () => pause(false));
+
+		new IntersectionObserver(([entry]) => {
+			inView = entry.isIntersecting;
+			if (inView) schedule();
+			else window.clearTimeout(timer);
+		}, { threshold: 0.35 }).observe(stage);
+
+		// Tilt toward the pointer.
+		if (!reduced) {
+			stage.addEventListener('pointermove', (event) => {
+				const r = stage.getBoundingClientRect();
+				const x = (event.clientX - r.left) / r.width - 0.5;
+				const y = (event.clientY - r.top) / r.height - 0.5;
+				tilt.style.setProperty('--ry', `${(-14 + x * 16).toFixed(2)}deg`);
+				tilt.style.setProperty('--rx', `${(7 - y * 10).toFixed(2)}deg`);
+			});
+			stage.addEventListener('pointerleave', () => {
+				tilt.style.removeProperty('--ry');
+				tilt.style.removeProperty('--rx');
+			});
+		}
+		show(0);
+	}
+</script>
+
+<style>
+	.tour {
+		overflow: clip;
+	}
+	.tour__tabs {
+		display: flex;
+		gap: 0.25rem;
+		overflow-x: auto;
+		scrollbar-width: none;
+		border-bottom: 1px solid var(--line);
+	}
+	.tour__tabs::-webkit-scrollbar {
+		display: none;
+	}
+	.tour__tabs button {
+		position: relative;
+		flex: none;
+		padding: 0.7rem 0.9rem;
+		border: 0;
+		background: transparent;
+		color: var(--muted);
+		font-size: var(--step--1);
+		font-weight: 560;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+	.tour__tabs button[aria-selected='true'] {
+		color: var(--ink);
+	}
+	.tour__tabs i {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -1px;
+		height: 2px;
+		background: var(--gold);
+		transform: scaleX(0);
+		transform-origin: left;
+	}
+	.tour__tabs button[aria-selected='true'] i {
+		transform: scaleX(1);
+	}
+	.tour__tabs button:global(.is-timing) i {
+		animation: dwell 6.5s linear forwards;
+	}
+	@keyframes dwell {
+		from {
+			transform: scaleX(0);
+		}
+		to {
+			transform: scaleX(1);
+		}
+	}
+
+	.tour__stage {
+		position: relative;
+		padding-top: clamp(2.5rem, 6vw, 5rem);
+		perspective: 2200px;
+		perspective-origin: 50% 30%;
+	}
+	.tour__tilt {
+		--rx: 7deg;
+		--ry: -14deg;
+		position: relative;
+		display: grid;
+		width: min(100%, 1180px);
+		margin-inline: auto;
+		transform-style: preserve-3d;
+		transform: rotateX(var(--rx)) rotateY(var(--ry));
+		transition: transform 1.2s var(--ease-out);
+	}
+	.tour__card {
+		grid-area: 1 / 1;
+		margin: 0;
+		opacity: 0;
+		transform: translate3d(14%, 0, -380px) rotateY(-24deg);
+		transition: transform 1s var(--ease-out), opacity 0.6s ease, filter 0.6s ease;
+		pointer-events: none;
+		backface-visibility: hidden;
+	}
+	.tour__card :global(.shot) {
+		height: auto;
+	}
+	.tour__card:global(.is-active) {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		pointer-events: auto;
+	}
+	.tour__card:global(.is-next) {
+		opacity: 0.55;
+		transform: translate3d(7%, -5%, -220px);
+		filter: saturate(0.7) brightness(0.8);
+	}
+	.tour__card:global(.is-after) {
+		opacity: 0.25;
+		transform: translate3d(13%, -10%, -440px);
+		filter: saturate(0.5) brightness(0.7);
+	}
+	.tour__card:global(.is-prev) {
+		opacity: 0;
+		transform: translate3d(-30%, 4%, 160px) rotateY(18deg);
+	}
+	.tour__caption {
+		max-width: 60ch;
+		margin: clamp(2rem, 4vw, 3rem) auto 0;
+		text-align: center;
+		color: var(--ink-2);
+		font-size: var(--step-1);
+	}
+	@media (max-width: 760px) {
+		.tour__tilt {
+			--rx: 0deg;
+			--ry: 0deg;
+		}
+		.tour__card:global(.is-next),
+		.tour__card:global(.is-after) {
+			opacity: 0;
+		}
+	}
+</style>

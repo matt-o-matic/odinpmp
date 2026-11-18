@@ -1,0 +1,31 @@
+groups:
+  - name: odinpmp-service
+    rules:
+      - alert: OdinInstanceNotReady
+        expr: odin_readiness == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: OdinPMP instance or dependency is not ready
+      - alert: OdinP95LatencySloBreach
+        expr: odin_slo_breach{objective="p95_latency"} == 1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: OdinPMP p95 latency exceeds its declared objective
+      - alert: OdinErrorRateSloBreach
+        expr: odin_slo_breach{objective="error_rate"} == 1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: OdinPMP HTTP error rate exceeds its declared objective
+      - alert: OdinWorkerDependencyUnavailable
+        expr: odin_dependency_ready == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: OdinPMP durable worker or database dependency is unavailable

@@ -1,0 +1,78 @@
+{
+  "changed": {
+    "description": "Static checks and deterministic tests affected by the current diff",
+    "fullDeterministic": false,
+    "includeBrowser": false,
+    "includeToolPackages": false
+  },
+  "pr": {
+    "description": "All deterministic backend, frontend, and tool tests",
+    "fullDeterministic": true,
+    "includeBrowser": true,
+    "includeBuild": true,
+    "includeEval": true,
+    "includeToolPackages": true
+  },
+  "integration": {
+    "description": "All deterministic API tests against an explicitly isolated local MySQL schema",
+    "fullDeterministic": true,
+    "includeBrowser": false,
+    "includeBuild": true,
+    "includeToolPackages": true,
+    "requiresDatabase": true
+  },
+  "coverage": {
+    "description": "Native Node backend coverage with enforced line, branch, and function ratchets",
+    "fullDeterministic": false,
+    "includeCoverage": true,
+    "includeToolPackages": false
+  },
+  "nightly": {
+    "description": "PR gates plus any installed browser and evaluation suites",
+    "fullDeterministic": true,
+    "includeBrowser": true,
+    "includeBuild": true,
+    "includeEval": true,
+    "includeResilience": true,
+    "includeToolPackages": true,
+    "includeVisual": true
+  },
+  "weekly": {
+    "description": "Nightly gates plus extended security and resilience suites when installed",
+    "fullDeterministic": true,
+    "includeBrowser": true,
+    "includeBuild": true,
+    "includeEval": true,
+    "includePerformance": true,
+    "includeResilience": true,
+    "includeSecurity": true,
+    "includeToolPackages": true,
+    "includeCoverage": true,
+    "includeVisual": true
+  },
+  "release": {
+    "description": "All locally installed release gates; live-model tests require explicit opt-in",
+    "fullDeterministic": true,
+    "includeBrowser": true,
+    "includeBuild": true,
+    "includeEval": true,
+    "includePerformance": true,
+    "includeResilience": true,
+    "includeSecurity": true,
+    "includeToolPackages": true,
+    "includeBackupRestore": true,
+    "includePitr": true,
+    "includeCoverage": true,
+    "includePostDeploy": true,
+    "includeVisual": true,
+    "requiresDatabase": true
+  },
+  "postdeploy": {
+    "description": "Build and boot the assembled application against an isolated local MySQL schema, then probe health and assets",
+    "fullDeterministic": false,
+    "includeBuild": true,
+    "includePostDeploy": true,
+    "includeToolPackages": false,
+    "requiresDatabase": true
+  }
+}

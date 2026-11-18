@@ -1,0 +1,68 @@
+---
+// A hand-built Odin screen, drawn at 1000×625 and scaled to fit, so every demo
+// keeps its layout from phone to desktop. Children use the .app styles.
+interface Props {
+	label: string;
+	url?: string;
+	class?: string;
+}
+const { label, url, class: extra } = Astro.props;
+---
+
+<figure class:list={['demo', extra]} data-demo aria-label={label}>
+	{
+		url && (
+			<div class="frame__bar demo__bar" aria-hidden="true">
+				<span class="frame__dots">
+					<i />
+					<i />
+					<i />
+				</span>
+				<span class="frame__url">{url}</span>
+			</div>
+		)
+	}
+	<div class="demo__viewport" aria-hidden="true">
+		<div class="app demo__app">
+			<slot />
+		</div>
+	</div>
+	<figcaption class="visually-hidden">{label}</figcaption>
+</figure>
+
+<script>
+	const demos = document.querySelectorAll<HTMLElement>('.demo__viewport');
+	const observer = new ResizeObserver((entries) => {
+		for (const entry of entries) {
+			const el = entry.target as HTMLElement;
+			el.style.setProperty('--s', String(entry.contentRect.width / 1000));
+		}
+	});
+	demos.forEach((demo) => observer.observe(demo));
+</script>
+
+<style>
+	.demo {
+		margin: 0;
+		border-radius: var(--radius-m);
+		border: 1px solid var(--line);
+		background: var(--raised);
+		box-shadow: var(--shadow-2);
+		overflow: hidden;
+	}
+	.demo__viewport {
+		--s: 1;
+		position: relative;
+		aspect-ratio: 16 / 10;
+		overflow: hidden;
+	}
+	.demo__app {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 1000px;
+		height: 625px;
+		transform: scale(var(--s));
+		transform-origin: 0 0;
+	}
+</style>
